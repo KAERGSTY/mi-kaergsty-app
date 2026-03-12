@@ -6,37 +6,45 @@
     <title>AnimeKaergsty</title>
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
     <style>
-        body { font-family: sans-serif; background: #1a1a1a; color: white; margin: 0; padding: 15px; }
-        h2 { color: #0088cc; }
-    
-        .grid { 
-    display: grid; 
-    /* Esto crea columnas de 150px que se van llenando de izquierda a derecha */
-    grid-template-columns: repeat(auto-fill, 150px); 
-    gap: 15px; 
-    padding: 10px;
-    justify-content: start; /* Esto fuerza que todo empiece a la izquierda */
-}
-    .card { 
-    background: #333; 
-    border-radius: 10px; 
-    overflow: hidden; 
-    text-align: center; 
-    padding-bottom: 10px;
-    width: 150px; 
-    height: 300px; 
-    margin: 0; /* Cambiado de '0 auto' a '0' para que no se centre */
-}
+        body { 
+            font-family: sans-serif; 
+            background: #1a1a1a; 
+            color: white; 
+            margin: 0; 
+            padding-top: 80px; /* Esto baja todo para evitar el botón Cerrar */
+        }
 
-.card img { 
-    width: 100%; 
-    height: 200px; /* Alto fijo para la imagen dentro de la tarjeta */
-    
-    /* ESTO ES LO MÁS IMPORTANTE: Corta la imagen en lugar de estirarla */
-    object-fit: cover; 
-    
-    border-radius: 10px 10px 0 0; 
-}
+        h2 { 
+            color: #0088cc; 
+            padding-left: 20px; 
+            margin-bottom: 20px; 
+        }
+
+        .grid { 
+            display: grid; 
+            /* Crea columnas de 160px que empiezan desde la izquierda */
+            grid-template-columns: repeat(auto-fill, 160px); 
+            gap: 20px; 
+            padding: 0 20px; 
+            justify-content: start; 
+        }
+
+        .card { 
+            background: #333; 
+            border-radius: 12px; 
+            overflow: hidden; 
+            text-align: center; 
+            padding-bottom: 12px; 
+            width: 160px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.3);
+        }
+
+        .card img { 
+            width: 100%; 
+            height: 230px; 
+            object-fit: cover; 
+            display: block;
+        }
 
         .btn-play { 
             background: #0088cc; 
@@ -45,12 +53,13 @@
             padding: 8px 15px; 
             border-radius: 5px; 
             cursor: pointer; 
-            margin-top: 5px; 
+            margin-top: 10px; 
+            font-weight: bold;
         }
     </style>
 </head>
 <body>
-    <h2>Mi Catálogo</h2>
+    <h2>Anime Kaergsty</h2>
     <div class="grid">
         <div class="card">
             <img src="poster01.jpg" alt="Anime 1">
@@ -61,6 +70,7 @@
     </script>
 </body>
 </html>
+
 
 
 
