@@ -16,8 +16,8 @@
 
         h2 { 
             color: #0088cc; 
-            margin-top: -50px;  /* Aumenta este número para bajar el título */
-            padding-left: 180px; /* Aumenta este número para moverlo a la derecha */
+            margin-top: -35px;  /* Aumenta este número para bajar el título */
+            padding-left: 100px; /* Aumenta este número para moverlo a la derecha */
             margin-bottom: 20px; 
         }
 
@@ -64,13 +64,27 @@
     <div class="grid">
         <div class="card">
             <img src="poster01.jpg" alt="Anime 1">
-            <p>Episodio 01</p>
+            <p>Kaguya-sama wa Kokurasetai</p>
             <button class="btn-play" onclick="sendVideo('ep01')">Reproducir</button>
         </div>
+
+        <div class="card">
+            <img src="poster02.jpg" alt="Anime 2">
+            <p>Kaguya-sama wa Kokurasetai2</p>
+            <button class="btn-play" onclick="sendVideo('ep02')">Reproducir</button>
         </div>
-    </script>
+        
+        </div>
+    <script>
+        const tg = window.Telegram.WebApp;
+        tg.expand();
+        function sendVideo(id) {
+            tg.sendData(id);
+            tg.close();
+        }
 </body>
 </html>
+
 
 
 
