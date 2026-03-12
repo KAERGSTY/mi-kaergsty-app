@@ -12,19 +12,26 @@
         .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; padding: 10px; }
     
     .card { 
-        background: #333; 
-        border-radius: 10px; 
-        overflow: hidden; 
-        text-align: center; 
-        padding-bottom: 10px; 
-    }
-        
-        .card img { 
-            width: 100%; 
-            height: 250px; 
-            object-fit: cover; 
-            border-radius: 10px 10px 0 0; 
-        }
+    background: #333; 
+    border-radius: 10px; 
+    overflow: hidden; 
+    text-align: center; 
+    padding-bottom: 10px;
+    
+    width: 150px; /* Ancho fijo para que parezca poster */
+    height: 300px; /* Alto fijo */
+    margin: 0 auto; /* Centra la tarjeta si hay espacio */
+}
+
+.card img { 
+    width: 100%; 
+    height: 200px; /* Alto fijo para la imagen dentro de la tarjeta */
+    
+    /* ESTO ES LO MÁS IMPORTANTE: Corta la imagen en lugar de estirarla */
+    object-fit: cover; 
+    
+    border-radius: 10px 10px 0 0; 
+}
 
         .btn-play { 
             background: #0088cc; 
@@ -46,12 +53,10 @@
             <button class="btn-play" onclick="sendVideo('ep01')">Reproducir</button>
         </div>
         </div>
-            // Esto envía un mensaje al bot con el ID del video
-            tg.sendData(id); 
-            tg.close(); // Cierra la app después de elegir
         }
     </script>
 </body>
 </html>
+
 
 
