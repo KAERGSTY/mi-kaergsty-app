@@ -7,47 +7,54 @@
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
     <style>
         body { 
-            font-family: sans-serif; 
-            background: #1a1a1a; 
-            color: white; 
-            margin: 0; 
-            padding-top: 80px; /* Esto baja todo para evitar el botón Cerrar */
-        }
+        font-family: sans-serif; 
+        background: #1a1a1a; 
+        color: white; 
+        margin: 0; 
+        padding-top: 50px; 
+    }
 
-        h2 { 
-            color: #0088cc; 
-            margin-top: -35px;  /* Aumenta este número para bajar el título */
-            padding-left: 100px; /* Aumenta este número para moverlo a la derecha */
-            margin-bottom: 20px; 
-        }
+    h2 { 
+        color: #0088cc; 
+        text-align: center;
+        margin-bottom: 30px; 
+    }
 
-        .grid { 
-            display: grid; 
-            /* Crea columnas de 160px que empiezan desde la izquierda */
-            grid-template-columns: repeat(auto-fill, 160px); 
-            gap: 20px; 
-            padding: 0 20px; 
-            justify-content: start; 
-        }
+    .grid { 
+        display: grid; 
+        grid-template-columns: repeat(auto-fill, 160px); 
+        gap: 20px; 
+        padding: 20px; 
+        justify-content: center; /* Centra el catálogo */
+    }
 
-        .card {
-    cursor: pointer; /* Muestra el cursor de mano al pasar por encima */
-    transition: transform 0.2s, box-shadow 0.2s; /* Efecto suave para las animaciones */
-}
+    /* ESTO ARREGLA EL TAMAÑO DE LA IMAGEN */
+    .card {
+        background: #2a2a2a; /* Un gris oscuro para que resalte */
+        border-radius: 12px;
+        overflow: hidden; /* Corta las esquinas de la imagen para que sigan el radio */
+        cursor: pointer;
+        transition: transform 0.2s;
+        text-align: center;
+    }
 
-/* Efecto visual al pasar el mouse (hover) o tocar la tarjeta */
-.card:hover {
-    transform: translateY(-5px); /* Levanta ligeramente la tarjeta */
-    box-shadow: 0 10px 20px rgba(0,0,0,0.3); /* Aumenta la sombra para dar profundidad */
-}
+    .card img {
+        width: 100%;    /* Se ajusta al ancho de la tarjeta (160px) */
+        height: 230px;  /* Altura fija para que todas sean iguales */
+        object-fit: cover; /* Recorta la imagen para que no se estire */
+        display: block;
+    }
 
-/* Mejora el estilo del texto (el <p>) */
-.card p {
-    font-size: 16px; /* Ajusta el tamaño de fuente si es necesario */
-    font-weight: bold; /* Hace el texto en negrita */
-    margin: 10px 10px; /* Añade un poco de margen */
-    color: #333; /* Color de texto más oscuro (o el que prefieras) */
-}
+    .card:hover {
+        transform: scale(1.05); /* Se agranda un poquito al tocarla */
+    }
+
+    .card p {
+        font-size: 14px;
+        font-weight: bold;
+        margin: 10px 5px;
+        color: white; /* Cambiado a blanco para que se lea bien */
+    }
     </style>
 </head>
 <body>
@@ -73,6 +80,7 @@
         }
 </body>
 </html>
+
 
 
 
