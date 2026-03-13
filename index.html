@@ -137,7 +137,50 @@
             transition: background 0.2s;
             flex-shrink: 0; 
         }
+.card-back {
+    background-color: #121212 !important; /* Color oscuro sólido */
+    border: none !important;
+    box-shadow: none !important;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    border-radius: 12px;
+}
 
+/* 2. Quitamos cualquier recuadro del contenedor de botones */
+.btn-container {
+    background: transparent !important;
+    border: none !important;
+    width: 100%;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+/* 3. Estilo de los botones azules (como en tu diseño original) */
+.btn-opcion {
+    background-color: #0088cc;
+    color: white;
+    border: none;
+    padding: 10px;
+    border-radius: 8px;
+    font-weight: bold;
+    width: 90%;
+    cursor: pointer;
+}
+
+/* 4. El texto del título en el back */
+.titulo-back {
+    color: #ffffff;
+    font-size: 14px;
+    margin-bottom: 10px;
+    font-weight: bold;
+    text-align: center;
+}
+
+/* --- HASTA AQUÍ --- */
         .btn-opcion:active { background: #005f8d; }
     </style>
 </head>
@@ -337,6 +380,7 @@ function filtrarAnimes() {
     </script>
 </body>
 </html>
+
 
 
 
