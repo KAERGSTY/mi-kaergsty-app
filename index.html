@@ -6,40 +6,53 @@
     <title>AnimeKaergsty</title>
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
     <style>
-        /* 1. DISEÑO GENERAL */
-        body { font-family: sans-serif; background: #1a1a1a; color: white; margin: 0; padding-top: 50px; }
-        h2 { color: #0088cc; text-align: center; margin-bottom: 30px; }
+        .card-container {
+    perspective: 1000px; /* Importante para el efecto 3D */
+    width: 160px; /* Ancho de tu tarjeta */
+}
 
-        /* 2. DISEÑO DEL CATÁLOGO */
-        .grid { display: grid; grid-template-columns: repeat(auto-fill, 160px); gap: 20px; padding: 20px; justify-content: center; }
-        .card { background: #2a2a2a; border-radius: 12px; overflow: hidden; cursor: pointer; transition: transform 0.2s; text-align: center; }
-        .card img { width: 100%; height: 230px; object-fit: cover; display: block; }
-        .card p { font-size: 14px; font-weight: bold; margin: 10px 5px; color: white; }
-        .card:hover { transform: scale(1.05); box-shadow: 0 10px 20px rgba(0, 136, 204, 0.4); }
+/* El elemento que realmente gira */
+.card-inner {
+    position: relative;
+    width: 100%;
+    height: 100%; /* Ajusta la altura si es necesario */
+    transition: transform 0.6s;
+    transform-style: preserve-3d; /* Mantiene las caras en 3D */
+    cursor: pointer;
+}
 
-        /* 3. DISEÑO DE LA VENTANITA (MODAL) */
-        #modal-container {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0, 0, 0, 0.9); display: flex; justify-content: center; align-items: center;
-            z-index: 1000; visibility: hidden; opacity: 0; transition: 0.3s;
-        }
-        #modal-container.visible { visibility: visible; opacity: 1; }
+/* Clase que activaremos para girar la tarjeta */
+.card-container.flipped .card-inner {
+    transform: rotateY(180deg);
+}
 
-        .modal-content {
-            background: #2a2a2a; padding: 20px; border-radius: 15px;
-            width: 160px; /* Tamaño exacto de tu imagen */
-            text-align: center; border: 2px solid #0088cc;
-        }
+/* Estilo común para ambas caras */
+.card-front, .card-back {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    -webkit-backface-visibility: hidden; /* Oculta la cara trasera al girar */
+    backface-visibility: hidden;
+    border-radius: 12px;
+    background: #2a2a2a; /* Fondo oscuro */
+    overflow: hidden;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+}
 
-        #modal-buttons { display: flex; flex-direction: column; gap: 10px; margin: 15px 0; }
+/* Cara Delantera: Normal, mira hacia adelante */
+.card-front {
+    transform: rotateY(0deg);
+}
 
-        /* Estilo de los botones azules */
-        .btn-opcion {
-            background: #0088cc; color: white; border: none; padding: 10px;
-            border-radius: 8px; font-weight: bold; cursor: pointer; font-size: 12px;
-        }
-
-        .btn-cerrar { background: none; color: #ff4444; border: none; cursor: pointer; font-size: 12px; margin-top: 10px; }
+/* Cara Trasera: Girada 180 grados inicialmente */
+.card-back {
+    transform: rotateY(180deg);
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+}
     </style>
 </head>
 <body>
@@ -56,9 +69,18 @@
     </div>
 
     <div class="grid">
-        <div class="card" onclick="iniciarSeleccion('Kaguya-sama', datosKaguya)">
-            <img src="img/poster01.jpg" alt="Kaguya">
-            <p>Kaguya-sama</p>
+    <div class="card-container" id="anime1">
+        <div class="card-inner" onclick="flipCard('anime1')"> <div class="card-front">
+                <img src="https://i.postimg.cc/xxxxxx/poster01.jpg" alt="Kaguya-sama">
+                <p>Kaguya-sama wa Kokurasetai</p>
+            </div>
+            
+            <div class="card-back">
+                <h3>Temporadas</h3>
+                <div class="options-container">
+                    </div>
+                <p class="btn-voler">← Volver</p>
+            </div>
         </div>
     </div>
 
@@ -138,3 +160,4 @@
     </script>
 </body>
 </html>
+
