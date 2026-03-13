@@ -18,121 +18,164 @@
             min-height: 100vh;
         }
 
-        /* --- BARRA DE CONTROLES (MAXIMIZAR/CERRAR) --- */
-        .controles-app {
-            display: flex;
-            justify-content: flex-end;
-            gap: 10px;
-            padding: 10px 30px;
-            background: #111;
-            border-bottom: 1px solid #222;
-        }
-        .btn-control {
-            background: #222; color: #fff; border: 1px solid #444;
-            padding: 8px 15px; border-radius: 8px; cursor: pointer;
-            font-size: 12px; font-weight: bold; transition: 0.3s;
-        }
-        .btn-control:hover { background: #0088cc; border-color: #0088cc; }
+        /* --- BARRA DE CONTROLES (YA OCULTA) --- */
+        .controles-app { display: none; }
 
         /* --- VISTA CATÁLOGO --- */
         #vista-catalogo { 
-            padding: 30px; 
+            padding: 20px; 
             width: 100%;
             max-width: 1200px; 
-            margin: 0 auto; /* CENTRA EL CONTENIDO */
+            margin: 0 auto;
             box-sizing: border-box;
         }
         
         .header-catalogo {
             display: flex; justify-content: space-between; align-items: center;
-            margin-bottom: 30px; padding-bottom: 15px; border-bottom: 1px solid #222;
+            margin-bottom: 20px; padding-bottom: 15px; border-bottom: 1px solid #222;
             flex-wrap: wrap; gap: 15px;
         }
 
-        .titulo-principal { font-size: 30px; font-weight: 800; color: #0088cc; margin: 0; letter-spacing: 1px; }
+        .titulo-principal { font-size: 28px; font-weight: 800; color: #0088cc; margin: 0; letter-spacing: 1px; }
 
         #buscador {
             background: #1a1a1a; border: 1px solid #333; color: white;
-            padding: 12px 20px; border-radius: 30px; width: 250px; outline: none;
+            padding: 10px 18px; border-radius: 30px; width: 230px; outline: none;
             transition: 0.3s;
         }
 
-        .grid-animes { display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 20px; }
+        .grid-animes { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 15px; }
 
         .tarjeta-anime {
-            position: relative; border-radius: 12px; overflow: hidden; cursor: pointer;
-            aspect-ratio: 2/3; transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            position: relative; border-radius: 10px; overflow: hidden; cursor: pointer;
+            aspect-ratio: 2/3; transition: 0.3s ease-out;
             background: #151515;
         }
-        .tarjeta-anime:hover { transform: translateY(-10px); box-shadow: 0 10px 25px rgba(0, 136, 204, 0.3); }
+        .tarjeta-anime:hover { transform: translateY(-5px); box-shadow: 0 8px 20px rgba(0, 136, 204, 0.2); }
         .tarjeta-anime img { width: 100%; height: 100%; object-fit: cover; }
         .titulo-tarjeta {
-            position: absolute; bottom: 0; width: 100%; padding: 25px 5px 10px;
+            position: absolute; bottom: 0; width: 100%; padding: 20px 5px 8px;
             background: linear-gradient(transparent, rgba(0,0,0,0.95));
-            font-size: 13px; font-weight: bold; text-align: center; box-sizing: border-box;
+            font-size: 12px; font-weight: bold; text-align: center; box-sizing: border-box;
         }
 
-        /* --- VISTA DETALLES --- */
+        /* --- VISTA DETALLES (OPTIMIZADA) --- */
         #vista-detalles { 
             display: none; min-height: 100vh; position: relative; 
             width: 100%; max-width: 1200px; margin: 0 auto; box-sizing: border-box;
+            padding-bottom: 40px; /* Espacio al final */
         }
 
         .bg-banner {
-            position: absolute; top: 0; left: 0; width: 100vw; height: 700px;
-            z-index: -2; opacity: 0.5; filter: blur(50px); object-fit: cover;
-            margin-left: calc(-50vw + 50%); /* Truco para que el fondo ocupe toda la pantalla aunque el contenedor esté centrado */
+            position: absolute; top: 0; left: 0; width: 100vw; 
+            height: 500px; /* REDUCIDO DE 700PX A 500PX */
+            z-index: -2; opacity: 0.4; filter: blur(40px); object-fit: cover;
+            margin-left: calc(-50vw + 50%);
         }
-
-        .header-detalles { padding: 20px 30px; display: none; /* Oculto porque usamos el botón de Telegram */ }
         
+        /* Layout más compacto */
         .layout-detalles {
-            display: flex; gap: 40px; max-width: 1100px; margin: 20px auto;
-            padding: 0 20px; align-items: flex-start; box-sizing: border-box;
+            display: flex; gap: 30px; /* Reducido gap */
+            max-width: 1100px; margin: 0 auto; /* Eliminado margen superior grande */
+            padding: 20px; align-items: flex-start; box-sizing: border-box;
         }
 
         .img-lateral {
-            flex: 0 0 300px; border-radius: 15px; overflow: hidden;
-            box-shadow: 0 15px 35px rgba(0,0,0,0.8); border: 1px solid rgba(255,255,255,0.1);
+            flex: 0 0 260px; /* Reducido ancho fijo */
+            border-radius: 12px; overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.7); border: 1px solid rgba(255,255,255,0.08);
+            margin-top: 20px; /* Un poco de margen superior */
         }
         .img-lateral img { width: 100%; display: block; }
 
-        .info-derecha { flex: 1; }
-        .titulo-anime { font-size: 40px; margin: 0 0 15px 0; font-weight: 800; }
+        .info-derecha { flex: 1; display: flex; flex-direction: column; gap: 10px; }
+        .titulo-anime { font-size: 36px; margin: 0; font-weight: 800; line-height: 1.1; }
 
-        .generos { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 25px; }
-        .tag { background: #0088cc; padding: 5px 15px; border-radius: 20px; font-size: 12px; font-weight: bold; }
+        /* --- ESTILOS DE ESTADO Y PUNTOS ANIMADOS --- */
+        .estado-container {
+            display: flex; align-items: center; gap: 8px;
+            font-size: 14px; font-weight: 600; color: #aaa;
+            margin-top: 5px;
+        }
+        
+        .punto {
+            width: 10px; height: 10px; border-radius: 50%;
+            display: inline-block;
+            box-shadow: 0 0 5px rgba(255,255,255,0.2);
+            /* Animación de pulso */
+            animation: pulsoPunto 1.5s infinite ease-in-out;
+        }
+        
+        /* Definición de la animación de pulso */
+        @keyframes pulsoPunto {
+            0% { transform: scale(0.9); opacity: 0.7; box-shadow: 0 0 0 0 rgba(255,255,255,0.1); }
+            50% { transform: scale(1.1); opacity: 1; box-shadow: 0 0 0 4px rgba(255,255,255,0); }
+            100% { transform: scale(0.9); opacity: 0.7; box-shadow: 0 0 0 0 rgba(255,255,255,0); }
+        }
+        
+        /* Colores específicos con variación de sombra para la animación */
+        .punto-rojo { background-color: #ff4444; }
+        .punto-rojo { animation-name: pulsoRojo; }
+        @keyframes pulsoRojo {
+            0% { opacity: 0.6; box-shadow: 0 0 0 0 rgba(255, 68, 68, 0.4); }
+            50% { opacity: 1; box-shadow: 0 0 0 5px rgba(255, 68, 68, 0); }
+            100% { opacity: 0.6; box-shadow: 0 0 0 0 rgba(255, 68, 68, 0); }
+        }
+
+        .punto-verde { background-color: #00cc66; }
+        .punto-verde { animation-name: pulsoVerde; }
+        @keyframes pulsoVerde {
+            0% { opacity: 0.6; box-shadow: 0 0 0 0 rgba(0, 204, 102, 0.4); }
+            50% { opacity: 1; box-shadow: 0 0 0 5px rgba(0, 204, 102, 0); }
+            100% { opacity: 0.6; box-shadow: 0 0 0 0 rgba(0, 204, 102, 0); }
+        }
+
+        /* Texto de estado específico */
+        .txt-finalizado { color: #ff6666; }
+        .txt-emision { color: #00ff88; }
+
+        .generos { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 15px; }
+        .tag { background: #0088cc; padding: 4px 12px; border-radius: 20px; font-size: 11px; font-weight: bold; }
 
         .caja-sinopsis {
-            background: rgba(255, 255, 255, 0.05); backdrop-filter: blur(15px);
-            padding: 30px; border-radius: 20px; border-left: 5px solid #0088cc;
-            line-height: 1.8; color: #eee; margin-bottom: 40px; box-sizing: border-box;
+            background: rgba(255, 255, 255, 0.04); backdrop-filter: blur(10px);
+            padding: 20px; border-radius: 15px; border-left: 4px solid #0088cc;
+            line-height: 1.6; color: #ddd; font-size: 15px;
+            margin-bottom: 25px; /* Reducido margen inferior */
+            box-sizing: border-box;
         }
+        .caja-sinopsis p { margin: 0; }
 
         .centro-botones { display: flex; justify-content: center; width: 100%; }
         .caja-botones {
-            background: rgba(20, 20, 20, 0.8); padding: 30px; border-radius: 25px;
-            width: 100%; max-width: 380px; display: flex; flex-direction: column; gap: 15px;
+            background: rgba(20, 20, 20, 0.9); padding: 25px; border-radius: 20px;
+            width: 100%; max-width: 360px; display: flex; flex-direction: column; gap: 12px;
             border: 1px solid #333; box-sizing: border-box;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.5);
         }
-        .txt-guia { color: #888; font-size: 13px; text-transform: uppercase; text-align: center; }
+        .txt-guia { color: #888; font-size: 12px; text-transform: uppercase; text-align: center; }
 
         .btn-accion {
-            background: #0088cc; color: white; border: none; padding: 15px;
-            border-radius: 12px; font-weight: bold; font-size: 16px; cursor: pointer; transition: 0.2s;
+            background: #0088cc; color: white; border: none; padding: 14px;
+            border-radius: 10px; font-weight: bold; font-size: 15px; cursor: pointer; transition: 0.2s;
         }
-        .btn-accion:active { transform: scale(0.95); }
+        .btn-accion:active { transform: scale(0.97); }
 
-        .btn-v { background: none; border: none; color: #ff4444; font-weight: bold; cursor: pointer; margin-top: 5px;}
+        .btn-v { background: none; border: none; color: #ff4444; font-weight: bold; cursor: pointer; margin-top: 5px; font-size: 13px;}
 
         @media (max-width: 850px) {
-            .layout-detalles { flex-direction: column; align-items: center; }
-            .img-lateral { width: 260px; flex: none; }
-            .titulo-anime { text-align: center; font-size: 32px; }
+            .layout-detalles { flex-direction: column; align-items: center; gap: 20px; padding: 15px; }
+            .img-lateral { width: 220px; flex: none; margin-top: 10px; }
+            .info-derecha { align-items: center; text-align: center; }
+            .titulo-anime { font-size: 28px; }
+            .generos { justify-content: center; }
+            .caja-sinopsis { text-align: left; }
         }
     </style>
 </head>
 <body>
+
+    <div class="controles-app"></div>
 
     <div id="vista-catalogo">
         <div class="header-catalogo">
@@ -150,6 +193,9 @@
             </div>
             <div class="info-derecha">
                 <h1 id="det-titulo" class="titulo-anime"></h1>
+                
+                <div id="det-estado" class="estado-container"></div>
+                
                 <div id="det-generos" class="generos"></div>
                 <div class="caja-sinopsis"><p id="det-sinopsis"></p></div>
                 <div class="centro-botones">
@@ -163,34 +209,42 @@
         // --- INICIALIZACIÓN DE TELEGRAM WEB APP ---
         const tg = window.Telegram.WebApp;
         tg.ready();
-        tg.expand(); // Maximiza la app automáticamente al abrir
+        tg.expand();
 
-        // Configurar el evento del botón retroceder de Telegram UNA SOLA VEZ
         tg.BackButton.onClick(() => {
             volverAlCatalogo();
         });
 
-        function maximizarApp() { tg.expand(); }
-        function cerrarApp() { tg.close(); }
-
         const urlBaseGitHub = "https://raw.githubusercontent.com/Kaergsty/mi-kaergsty-app/main/img/";
 
+        // --- BASE DE DATOS ACTUALIZADA CON ESTADO ---
         const base = {
             "Jigokuraku": {
                 sinopsis: "Gabimaru el Vacío busca el elixir de la inmortalidad en una isla misteriosa.",
                 generos: ["Acción", "Aventura", "Fantasía"],
+                estado: "Finalizado", // <--- NUEVO
                 enlaces: { "Temporada 1": { "Latino": "https://t.me/c/123/1", "Japonés": "https://t.me/c/123/2" } }
             },
             "Solo Leveling": {
                 sinopsis: "El cazador más débil Sung Jin-woo recibe un extraño sistema para subir de nivel.",
                 portada: "https://m.media-amazon.com/images/M/MV5BM2M4YzdkMTEtMjUyYy00ZWY0LWI5ODQtNGRkZWQ1MzU5MWM2XkEyXkFqcGc@._V1_FMjpg_UX1000_.jpg",
                 generos: ["Acción", "Aventura", "Fantasía"],
+                estado: "Finalizado", // <--- NUEVO
                 enlaces: { "Temporada 1": { "Latino": "https://t.me/c/123/3" } }
             },
             "Demi chan wa kataritai": {
                 sinopsis: "Un profesor de Biología busca comprender a las 'demi', seres que comienzan a ser aceptados en la sociedad.",
                 generos: ["Comedia", "Escolares", "Fantasía", "Seinen"],
+                estado: "Finalizado", // <--- NUEVO
                 enlaces: { "Temporada 1": { "Japonés": "https://t.me/AnimeKaergsty1/4940", "Latino": "https://t.me/AnimeKaergsty1/4943" } }
+            },
+            // Ejemplo de anime en emisión para probar el punto verde
+            "One Piece": {
+                sinopsis: "Luffy y su tripulación buscan el legendario tesoro One Piece.",
+                generos: ["Acción", "Aventura", "Comedia", "Shonen"],
+                estado: "En Emisión", // <--- NUEVO
+                portada: "https://m.media-amazon.com/images/M/MV5BMTNjNGU4NTUtYzc5Ni00MDk5LTk4ODAtZDIzMGY1N2RkMjk4XkEyXkFqcGc@._V1_FMjpg_UX1000_.jpg",
+                enlaces: { "Wano Arc": { "Japonés": "#", "Latino": "#" } }
             }
         };
 
@@ -206,12 +260,11 @@
                 let imgUrl = anime.portada ? anime.portada : urlBaseGitHub + encodeURIComponent(nombre) + ".webp";
                 
                 div.innerHTML = `
-                    <img src="${imgUrl}" onerror="this.src='https://via.placeholder.com/160x240/222/555?text=Error+Img'">
+                    <img src="${imgUrl}" onerror="this.src='https://via.placeholder.com/150x225/222/555?text=Error+Img'">
                     <div class="titulo-tarjeta">${nombre}</div>
                 `;
                 grid.appendChild(div);
             }
-            // Asegurarse de que el botón de volver esté oculto en el catálogo
             tg.BackButton.hide();
         }
 
@@ -224,6 +277,23 @@
             document.getElementById('det-titulo').innerText = nombre;
             document.getElementById('det-sinopsis').innerText = anime.sinopsis;
 
+            // --- LÓGICA PARA GENERAR EL ESTADO ANIMADO ---
+            const estCont = document.getElementById('det-estado');
+            let puntoClase = "punto-rojo";
+            let textoClase = "txt-finalizado";
+            
+            if (anime.estado === "En Emisión") {
+                puntoClase = "punto-verde";
+                textoClase = "txt-emision";
+            }
+            
+            estCont.innerHTML = `
+                <span>Estado:</span>
+                <span class="punto ${puntoClase}"></span>
+                <span class="${textoClase}">${anime.estado}</span>
+            `;
+
+            // Géneros
             const gens = document.getElementById('det-generos');
             gens.innerHTML = "";
             anime.generos.forEach(g => {
@@ -235,16 +305,12 @@
             window.scrollTo(0,0);
             
             mostrarT(nombre);
-
-            // Muestra el botón nativo de Telegram para retroceder
             tg.BackButton.show();
         }
 
         function volverAlCatalogo() {
             document.getElementById('vista-detalles').style.display = 'none';
             document.getElementById('vista-catalogo').style.display = 'block';
-            
-            // Oculta el botón nativo de Telegram al volver al inicio
             tg.BackButton.hide();
         }
 
@@ -295,4 +361,3 @@
     </script>
 </body>
 </html>
-
