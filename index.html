@@ -204,10 +204,63 @@ const listaAnimes = [
 
 // Aquí pondrás tus links de Telegram cuando los tengas
 const enlacesAnime = {
-    "Jigokuraku": { "T1": "https://t.me/..." },
+    "Jigokuraku": {
+        "Temporada 1": {
+            "Español": "https://t.me/AnimeKaergsty1/4808",
+            "Japonés": "https://t.me/AnimeKaergsty1/4805"
+        }
     // El sistema buscará aquí por el nombre del anime
 };
+function mostrarTemporadas(id, nombre) {
+    const back = document.getElementById('back-' + id);
+    const info = enlacesAnime[nombre];
 
+    if (!info) {
+        // Si no tienes links, muestra el botón de próximamente como en tu diseño
+        back.innerHTML = `
+            <div class="btn-container">
+                <p class="titulo-back">${nombre}</p>
+                <button class="btn-proximamente">Próximamente</button>
+                <button class="btn-cerrar" onclick="cerrarCard('${id}')">CERRAR</button>
+            </div>`;
+    } else {
+        // Genera un botón por cada temporada que escribiste arriba
+        let botones = "";
+        for (let temp in info) {
+            botones += `<button class="btn-opcion" onclick="mostrarIdiomas('${id}', '${nombre}', '${temp}')">${temp}</button>`;
+        }
+        
+        back.innerHTML = `
+            <div class="btn-container">
+                <p class="titulo-back">Temporadas</p>
+                ${botones}
+                <button class="btn-cerrar" onclick="cerrarCard('${id}')">[ CERRAR ]</button>
+            </div>`;
+    }
+    document.getElementById(id).classList.add('flipped');
+}
+
+function mostrarIdiomas(id, nombre, temporada) {
+    const back = document.getElementById('back-' + id);
+    const idiomas = enlacesAnime[nombre][temporada];
+
+    let botones = "";
+    for (let lang in idiomas) {
+        // Abre el link directamente en Telegram
+        botones += `<button class="btn-opcion" onclick="window.Telegram.WebApp.openTelegramLink('${idiomas[lang]}')">${lang}</button>`;
+    }
+
+    back.innerHTML = `
+        <div class="btn-container">
+            <p class="titulo-back">${temporada}</p>
+            ${botones}
+            <button class="btn-volver" onclick="mostrarTemporadas('${id}', '${nombre}')">← Volver</button>
+        </div>`;
+}
+
+function cerrarCard(id) {
+    document.getElementById(id).classList.remove('flipped');
+}        
 // --- FUNCIÓN QUE CREA LAS TARJETAS SOLA ---
 function generarCatalogo() {
     const contenedor = document.getElementById('catalogo');
@@ -274,6 +327,7 @@ function filtrarAnimes() {
     </script>
 </body>
 </html>
+
 
 
 
