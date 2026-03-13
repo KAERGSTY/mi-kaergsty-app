@@ -3,219 +3,113 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AKaergsty Premium</title>
+    <title>AKaergsty</title>
     <style>
+        /* --- BASE --- */
         body {
             margin: 0; padding: 0;
-            background-color: #080808;
+            background-color: #0a0a0a;
             color: #ffffff;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
         }
 
-        /* --- VISTA CATÁLOGO --- */
-        #vista-catalogo { padding: 20px; max-width: 1200px; margin: 0 auto; }
+        /* --- CATÁLOGO --- */
+        #vista-catalogo { padding: 30px; max-width: 1200px; margin: 0 auto; }
+        
         .header-catalogo {
             display: flex; justify-content: space-between; align-items: center;
-            margin-bottom: 30px; border-bottom: 1px solid #222; padding-bottom: 15px;
-        }
-        .titulo-principal { font-size: 32px; color: #0088cc; margin: 0; font-weight: 800; }
-        
-        #buscador {
-            background: #151515; border: 1px solid #333; color: white;
-            padding: 10px 20px; border-radius: 25px; width: 250px; outline: none;
+            margin-bottom: 30px; padding-bottom: 15px; border-bottom: 1px solid #222;
         }
 
-        .grid-animes {
-            display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 20px;
+        .titulo-principal { font-size: 30px; font-weight: 800; color: #0088cc; margin: 0; letter-spacing: 1px; }
+
+        #buscador {
+            background: #1a1a1a; border: 1px solid #333; color: white;
+            padding: 12px 20px; border-radius: 30px; width: 250px; outline: none;
+            transition: 0.3s;
         }
+        #buscador:focus { border-color: #0088cc; box-shadow: 0 0 10px rgba(0, 136, 204, 0.2); }
+
+        .grid-animes { display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 20px; }
 
         .tarjeta-anime {
             position: relative; border-radius: 12px; overflow: hidden; cursor: pointer;
-            transition: all 0.3s ease; background: #111; aspect-ratio: 2/3;
+            aspect-ratio: 2/3; transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            background: #151515;
         }
-        .tarjeta-anime:hover { transform: scale(1.05); box-shadow: 0 0 20px rgba(0, 136, 204, 0.4); }
+        .tarjeta-anime:hover { transform: translateY(-10px); box-shadow: 0 10px 25px rgba(0, 136, 204, 0.3); }
         .tarjeta-anime img { width: 100%; height: 100%; object-fit: cover; }
         .titulo-tarjeta {
-            position: absolute; bottom: 0; width: 100%; background: linear-gradient(transparent, rgba(0,0,0,0.9));
-            padding: 20px 5px 10px; font-size: 13px; text-align: center; font-weight: bold;
+            position: absolute; bottom: 0; width: 100%; padding: 25px 5px 10px;
+            background: linear-gradient(transparent, rgba(0,0,0,0.95));
+            font-size: 13px; font-weight: bold; text-align: center;
         }
 
-        /* --- VISTA DETALLES (EL CAMBIO ÉPICO) --- */
-        #vista-detalles { display: none; position: relative; min-height: 100vh; background: #080808; }
+        /* --- VISTA DETALLES (EL DISEÑO QUE TE GUSTÓ) --- */
+        #vista-detalles { display: none; min-height: 100vh; position: relative; overflow-x: hidden; }
 
-        /* Banner de Fondo */
-        .banner-superior {
-            position: absolute; top: 0; left: 0; width: 100%; height: 500px;
-            z-index: 1; overflow: hidden;
-        }
-        .banner-superior img { width: 100%; height: 100%; object-fit: cover; opacity: 0.5; }
-        .degradado-fondo {
+        /* Banner de fondo sutil */
+        .bg-banner {
             position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-            background: linear-gradient(to bottom, transparent 0%, #080808 90%);
+            z-index: -1; opacity: 0.2; filter: blur(15px); object-fit: cover;
         }
 
-        /* Contenido Principal */
-        .contenido-detalles {
-            position: relative; z-index: 2; padding: 40px 20px;
-            max-width: 1100px; margin: 0 auto; display: flex; gap: 40px; flex-wrap: wrap;
+        .header-detalles { padding: 20px 30px; }
+        .btn-atras {
+            background: #222; border: none; color: white; padding: 10px 20px;
+            border-radius: 20px; cursor: pointer; font-weight: bold; transition: 0.3s;
+        }
+        .btn-atras:hover { background: #0088cc; }
+
+        .layout-detalles {
+            display: flex; gap: 40px; max-width: 1000px; margin: 20px auto;
+            padding: 0 20px; align-items: flex-start;
         }
 
-        .col-izquierda { flex: 0 0 280px; }
-        .portada-detalle {
-            width: 100%; border-radius: 15px; box-shadow: 0 10px 30px rgba(0,0,0,0.7);
-            border: 2px solid rgba(255,255,255,0.1);
+        .img-lateral {
+            flex: 0 0 300px; border-radius: 15px; overflow: hidden;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.8); border: 1px solid #333;
         }
+        .img-lateral img { width: 100%; display: block; }
 
-        .col-derecha { flex: 1; min-width: 300px; }
-        .btn-atras-float {
-            background: rgba(0,0,0,0.6); border: 1px solid #444; color: white;
-            padding: 8px 15px; border-radius: 20px; cursor: pointer; margin-bottom: 20px;
-        }
+        .info-derecha { flex: 1; }
+        .titulo-anime { font-size: 38px; margin: 0 0 15px 0; font-weight: 800; }
 
-        .titulo-detalle { font-size: 42px; margin: 10px 0; text-shadow: 2px 2px 10px rgba(0,0,0,0.8); }
-        
-        .generos { display: flex; gap: 10px; margin-bottom: 20px; }
-        .tag-genero { background: #0088cc; padding: 5px 15px; border-radius: 20px; font-size: 12px; font-weight: bold; }
+        .generos { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 20px; }
+        .tag { background: #0088cc; padding: 4px 14px; border-radius: 15px; font-size: 12px; font-weight: bold; }
 
+        /* Caja de Sinopsis con Degradado */
         .caja-sinopsis {
-            background: rgba(20, 20, 20, 0.7); backdrop-filter: blur(10px);
-            padding: 25px; border-radius: 15px; border-left: 5px solid #0088cc;
-            line-height: 1.7; color: #ddd; margin-bottom: 30px;
+            background: linear-gradient(145deg, #181818, #0f0f0f);
+            padding: 25px; border-radius: 15px; border-left: 4px solid #0088cc;
+            line-height: 1.7; color: #ccc; margin-bottom: 30px;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.3);
         }
 
         /* Botones Centrados */
-        .area-interactiva-contenedor { display: flex; justify-content: center; }
-        .botones-box {
-            background: #151515; padding: 30px; border-radius: 20px; 
-            width: 100%; max-width: 400px; text-align: center;
+        .centro-botones { display: flex; justify-content: center; width: 100%; }
+        .caja-botones {
+            background: #161616; padding: 25px; border-radius: 20px;
+            width: 100%; max-width: 360px; display: flex; flex-direction: column; gap: 12px;
+            box-shadow: 0 8px 15px rgba(0,0,0,0.5);
         }
-        .btn-link {
-            background: #0088cc; color: white; border: none; width: 100%;
-            padding: 15px; border-radius: 10px; font-weight: bold; cursor: pointer;
-            margin-bottom: 10px; font-size: 16px; transition: 0.3s;
-        }
-        .btn-link:hover { background: #006699; transform: scale(1.02); }
-        .btn-volver { background: none; border: none; color: #ff4444; cursor: pointer; font-weight: bold; }
+        .txt-guia { color: #666; font-size: 13px; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 5px; text-align: center;}
 
+        .btn-accion {
+            background: #0088cc; color: white; border: none; padding: 14px;
+            border-radius: 10px; font-weight: bold; font-size: 16px; cursor: pointer;
+            transition: 0.3s;
+        }
+        .btn-accion:hover { background: #006699; transform: scale(1.02); }
+
+        .btn-v { background: none; border: none; color: #ff4444; font-weight: bold; cursor: pointer; margin-top: 5px;}
+
+        /* Celular */
+        @media (max-width: 768px) {
+            .layout-detalles { flex-direction: column; align-items: center; }
+            .img-lateral { width: 220px; flex: none; }
+            .titulo-anime { text-align: center; font-size: 28px; }
+            .generos { justify-content: center; }
+        }
     </style>
 </head>
-<body>
-
-    <div id="vista-catalogo">
-        <div class="header-catalogo">
-            <h1 class="titulo-principal">AKaergsty</h1>
-            <input type="text" id="buscador" placeholder="Buscar..." oninput="filtrar()">
-        </div>
-        <div class="grid-animes" id="grid"></div>
-    </div>
-
-    <div id="vista-detalles">
-        <div class="banner-superior">
-            <img id="img-banner" src="" alt="">
-            <div class="degradado-fondo"></div>
-        </div>
-
-        <div class="contenido-detalles">
-            <div class="col-izquierda">
-                <button class="btn-atras-float" onclick="cerrar()">← VOLVER</button>
-                <img id="img-portada" class="portada-detalle" src="" alt="">
-            </div>
-
-            <div class="col-derecha">
-                <h1 id="det-titulo" class="titulo-detalle"></h1>
-                <div id="det-generos" class="generos"></div>
-                <div class="caja-sinopsis">
-                    <p id="det-sinopsis"></p>
-                </div>
-
-                <div class="area-interactiva-contenedor">
-                    <div id="area-botones" class="botones-box"></div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <script>
-        const base = {
-            "Jigokuraku": {
-                sinopsis: "Gabimaru el Vacío es sentenciado a muerte...",
-                generos: ["Acción", "Aventura"],
-                banner: "img/Jigokuraku-banner.jpg", // Aquí pones tu imagen horizontal
-                enlaces: { "Temporada 1": { "Latino": "url", "Japonés": "url" } }
-            }
-        };
-
-        function cargar() {
-            const grid = document.getElementById('grid');
-            for (const key in base) {
-                const div = document.createElement('div');
-                div.className = 'tarjeta-anime';
-                div.onclick = () => abrir(key);
-                div.innerHTML = `<img src="img/${key}.webp"><div class="titulo-tarjeta">${key}</div>`;
-                grid.appendChild(div);
-            }
-        }
-
-        function abrir(key) {
-            const anime = base[key];
-            document.getElementById('img-banner').src = anime.banner || `img/${key}.webp`;
-            document.getElementById('img-portada').src = `img/${key}.webp`;
-            document.getElementById('det-titulo').innerText = key;
-            document.getElementById('det-sinopsis').innerText = anime.sinopsis;
-            
-            const gens = document.getElementById('det-generos');
-            gens.innerHTML = "";
-            anime.generos.forEach(g => gens.innerHTML += `<span class="tag-genero">${g}</span>`);
-
-            document.getElementById('vista-catalogo').style.display = 'none';
-            document.getElementById('vista-detalles').style.display = 'block';
-            window.scrollTo(0,0);
-            mostrarTemps(key);
-        }
-
-        function mostrarTemps(key) {
-            const box = document.getElementById('area-botones');
-            box.innerHTML = `<p style="color:#888">TEMPORADAS</p>`;
-            Object.keys(base[key].enlaces).forEach(t => {
-                const b = document.createElement('button');
-                b.className = 'btn-link';
-                b.innerText = t;
-                b.onclick = () => mostrarIds(key, t);
-                box.appendChild(b);
-            });
-        }
-
-        function mostrarIds(key, t) {
-            const box = document.getElementById('area-botones');
-            box.innerHTML = `<p style="color:#888">${t}</p>`;
-            const ids = base[key].enlaces[t];
-            Object.keys(ids).forEach(i => {
-                const b = document.createElement('button');
-                b.className = 'btn-link';
-                b.innerText = i;
-                b.onclick = () => window.open(ids[i], '_blank');
-                box.appendChild(b);
-            });
-            const back = document.createElement('button');
-            back.className = 'btn-volver';
-            back.innerText = "← VOLVER";
-            back.onclick = () => mostrarTemps(key);
-            box.appendChild(back);
-        }
-
-        function cerrar() {
-            document.getElementById('vista-detalles').style.display = 'none';
-            document.getElementById('vista-catalogo').style.display = 'block';
-        }
-
-        function filtrar() {
-            const val = document.getElementById('buscador').value.toLowerCase();
-            document.querySelectorAll('.tarjeta-anime').forEach(t => {
-                t.style.display = t.innerText.toLowerCase().includes(val) ? 'block' : 'none';
-            });
-        }
-
-        cargar();
-    </script>
-</body>
-</html>
