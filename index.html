@@ -185,18 +185,49 @@
         ];
 
         const enlacesAnime = {
-            "Jigokuraku": {
-                "Temporada 1": {
-                    "Latino": "https://t.me/AnimeKaergsty1/4808",
-                    "Japonés": "https://t.me/AnimeKaergsty1/4805"
-                }
-                "Temporada 2": {
-                    "Latino": "https://t.me/AnimeKaergsty1/4443",
-                    "Japonés": "https://t.me/AnimeKaergsty1/4153"
-            }
-        };
+    "Jigokuraku": {
+        "Temporada 1": {
+            "Latino": "https://t.me/AnimeKaergsty1/4808",
+            "Japonés": "https://t.me/AnimeKaergsty1/4805"
+        },
+        "Temporada 2": {
+            "Latino": "https://t.me/AnimeKaergsty1/4443",
+            "Japonés": "https://t.me/AnimeKaergsty1/4153"
+        }
+    }
+};
 
-        function generarCatalogo() {
+// 3. LA FUNCIÓN QUE TE MANDÉ (Pégala aquí)
+function seleccionarTemporadas(nombreAnime) {
+    const infoAnime = enlacesAnime[nombreAnime];
+    const contenedorBack = document.getElementById(`back-${nombreAnime}`);
+    
+    // Esto limpia lo que había antes (el "Próximamente" o botones viejos)
+    contenedorBack.innerHTML = `<p class="titulo-temp">${nombreAnime}</p>`;
+
+    if (infoAnime) {
+        // Este comando crea un botón por cada temporada que encuentre en el objeto
+        Object.keys(infoAnime).forEach(temp => {
+            const btn = document.createElement('button');
+            btn.innerText = temp;
+            btn.className = "btn-temporada"; // Asegúrate de tener esta clase en tu CSS
+            btn.onclick = () => mostrarIdiomas(nombreAnime, temp);
+            contenedorBack.appendChild(btn);
+        });
+    } else {
+        contenedorBack.innerHTML += "<p>Próximamente</p>";
+    }
+    
+    // Botón para volver/cerrar
+    const btnCerrar = document.createElement('button');
+    btnCerrar.innerText = "CERRAR";
+    btnCerrar.className = "btn-rojo";
+    btnCerrar.onclick = () => cerrarTarjeta(nombreAnime);
+    contenedorBack.appendChild(btnCerrar);
+}
+
+// 4. Tu función generarCatalogo() que ya tenías
+function generarCatalogo() {
             const contenedor = document.getElementById('catalogo');
             contenedor.innerHTML = "";
             listaAnimes.forEach((nombre, index) => {
@@ -280,12 +311,3 @@
     </script>
 </body>
 </html>
-
-
-
-
-
-
-
-
-
