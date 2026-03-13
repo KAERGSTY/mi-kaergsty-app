@@ -2,7 +2,7 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>AKaergsty Premium</title>
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
     <style>
@@ -13,14 +13,40 @@
             color: #ffffff;
             font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
             overflow-x: hidden;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
         }
 
+        /* --- BARRA DE CONTROLES (MAXIMIZAR/CERRAR) --- */
+        .controles-app {
+            display: flex;
+            justify-content: flex-end;
+            gap: 10px;
+            padding: 10px 30px;
+            background: #111;
+            border-bottom: 1px solid #222;
+        }
+        .btn-control {
+            background: #222; color: #fff; border: 1px solid #444;
+            padding: 8px 15px; border-radius: 8px; cursor: pointer;
+            font-size: 12px; font-weight: bold; transition: 0.3s;
+        }
+        .btn-control:hover { background: #0088cc; border-color: #0088cc; }
+
         /* --- VISTA CATÁLOGO --- */
-        #vista-catalogo { padding: 30px; max-width: 1200px; margin: 0 auto; }
+        #vista-catalogo { 
+            padding: 30px; 
+            width: 100%;
+            max-width: 1200px; 
+            margin: 0 auto; /* CENTRA EL CONTENIDO */
+            box-sizing: border-box;
+        }
         
         .header-catalogo {
             display: flex; justify-content: space-between; align-items: center;
             margin-bottom: 30px; padding-bottom: 15px; border-bottom: 1px solid #222;
+            flex-wrap: wrap; gap: 15px;
         }
 
         .titulo-principal { font-size: 30px; font-weight: 800; color: #0088cc; margin: 0; letter-spacing: 1px; }
@@ -43,26 +69,26 @@
         .titulo-tarjeta {
             position: absolute; bottom: 0; width: 100%; padding: 25px 5px 10px;
             background: linear-gradient(transparent, rgba(0,0,0,0.95));
-            font-size: 13px; font-weight: bold; text-align: center;
+            font-size: 13px; font-weight: bold; text-align: center; box-sizing: border-box;
         }
 
         /* --- VISTA DETALLES --- */
-        #vista-detalles { display: none; min-height: 100vh; position: relative; }
+        #vista-detalles { 
+            display: none; min-height: 100vh; position: relative; 
+            width: 100%; max-width: 1200px; margin: 0 auto; box-sizing: border-box;
+        }
 
         .bg-banner {
-            position: absolute; top: 0; left: 0; width: 100%; height: 700px;
+            position: absolute; top: 0; left: 0; width: 100vw; height: 700px;
             z-index: -2; opacity: 0.5; filter: blur(50px); object-fit: cover;
+            margin-left: calc(-50vw + 50%); /* Truco para que el fondo ocupe toda la pantalla aunque el contenedor esté centrado */
         }
 
-        .header-detalles { padding: 20px 30px; }
-        .btn-atras {
-            background: rgba(255,255,255,0.1); border: none; color: white; padding: 10px 20px;
-            border-radius: 20px; cursor: pointer; font-weight: bold; backdrop-filter: blur(5px);
-        }
-
+        .header-detalles { padding: 20px 30px; display: none; /* Oculto porque usamos el botón de Telegram */ }
+        
         .layout-detalles {
             display: flex; gap: 40px; max-width: 1100px; margin: 20px auto;
-            padding: 0 20px; align-items: flex-start;
+            padding: 0 20px; align-items: flex-start; box-sizing: border-box;
         }
 
         .img-lateral {
@@ -80,21 +106,22 @@
         .caja-sinopsis {
             background: rgba(255, 255, 255, 0.05); backdrop-filter: blur(15px);
             padding: 30px; border-radius: 20px; border-left: 5px solid #0088cc;
-            line-height: 1.8; color: #eee; margin-bottom: 40px;
+            line-height: 1.8; color: #eee; margin-bottom: 40px; box-sizing: border-box;
         }
 
         .centro-botones { display: flex; justify-content: center; width: 100%; }
         .caja-botones {
             background: rgba(20, 20, 20, 0.8); padding: 30px; border-radius: 25px;
             width: 100%; max-width: 380px; display: flex; flex-direction: column; gap: 15px;
-            border: 1px solid #333;
+            border: 1px solid #333; box-sizing: border-box;
         }
         .txt-guia { color: #888; font-size: 13px; text-transform: uppercase; text-align: center; }
 
         .btn-accion {
             background: #0088cc; color: white; border: none; padding: 15px;
-            border-radius: 12px; font-weight: bold; font-size: 16px; cursor: pointer;
+            border-radius: 12px; font-weight: bold; font-size: 16px; cursor: pointer; transition: 0.2s;
         }
+        .btn-accion:active { transform: scale(0.95); }
 
         .btn-v { background: none; border: none; color: #ff4444; font-weight: bold; cursor: pointer; margin-top: 5px;}
 
@@ -107,6 +134,11 @@
 </head>
 <body>
 
+    <div class="controles-app">
+        <button class="btn-control" onclick="maximizarApp()">Maximizar</button>
+        <button class="btn-control" onclick="cerrarApp()" style="background: #ff4444; border-color: #cc0000;">Cerrar App</button>
+    </div>
+
     <div id="vista-catalogo">
         <div class="header-catalogo">
             <h1 class="titulo-principal">AKaergsty</h1>
@@ -117,9 +149,6 @@
 
     <div id="vista-detalles">
         <img id="bg-bluroso" class="bg-banner" src="" alt="">
-        <div class="header-detalles">
-            <button class="btn-atras" onclick="cerrar()">← VOLVER AL CATÁLOGO</button>
-        </div>
         <div class="layout-detalles">
             <div class="img-lateral">
                 <img id="det-img" src="" alt="">
@@ -136,61 +165,138 @@
     </div>
 
     <script>
-        const tg = window.Telegram.WebApp; // Acceso directo a la API de Telegram
-tg.expand(); // Hace que la app se abra en pantalla completa
+        // --- INICIALIZACIÓN DE TELEGRAM WEB APP ---
+        const tg = window.Telegram.WebApp;
+        tg.ready();
+        tg.expand(); // Maximiza la app automáticamente al abrir
 
-const urlBaseGitHub = "https://raw.githubusercontent.com/Kaergsty/mi-kaergsty-app/main/img/";
+        // Configurar el evento del botón retroceder de Telegram UNA SOLA VEZ
+        tg.BackButton.onClick(() => {
+            volverAlCatalogo();
+        });
 
-// ... (Tu objeto 'base' se mantiene igual) ...
+        function maximizarApp() { tg.expand(); }
+        function cerrarApp() { tg.close(); }
 
-function cargar() {
-    // Tu función cargar actual...
-    // Solo asegúrate de ocultar el botón al inicio por si acaso
-    tg.BackButton.hide();
-}
+        const urlBaseGitHub = "https://raw.githubusercontent.com/Kaergsty/mi-kaergsty-app/main/img/";
 
-function abrir(nombre) {
-    const anime = base[nombre];
-    let imgUrl = anime.portada ? anime.portada : urlBaseGitHub + encodeURIComponent(nombre) + ".webp";
-    
-    document.getElementById('det-img').src = imgUrl;
-    document.getElementById('bg-bluroso').src = imgUrl;
-    document.getElementById('det-titulo').innerText = nombre;
-    document.getElementById('det-sinopsis').innerText = anime.sinopsis;
+        const base = {
+            "Jigokuraku": {
+                sinopsis: "Gabimaru el Vacío busca el elixir de la inmortalidad en una isla misteriosa.",
+                generos: ["Acción", "Aventura", "Fantasía"],
+                enlaces: { "Temporada 1": { "Latino": "https://t.me/c/123/1", "Japonés": "https://t.me/c/123/2" } }
+            },
+            "Solo Leveling": {
+                sinopsis: "El cazador más débil Sung Jin-woo recibe un extraño sistema para subir de nivel.",
+                portada: "https://m.media-amazon.com/images/M/MV5BM2M4YzdkMTEtMjUyYy00ZWY0LWI5ODQtNGRkZWQ1MzU5MWM2XkEyXkFqcGc@._V1_FMjpg_UX1000_.jpg",
+                generos: ["Acción", "Aventura", "Fantasía"],
+                enlaces: { "Temporada 1": { "Latino": "https://t.me/c/123/3" } }
+            },
+            "Demi chan wa kataritai": {
+                sinopsis: "Un profesor de Biología busca comprender a las 'demi', seres que comienzan a ser aceptados en la sociedad.",
+                generos: ["Comedia", "Escolares", "Fantasía", "Seinen"],
+                enlaces: { "Temporada 1": { "Japonés": "https://t.me/AnimeKaergsty1/4940", "Latino": "https://t.me/AnimeKaergsty1/4943" } }
+            }
+        };
 
-    const gens = document.getElementById('det-generos');
-    gens.innerHTML = "";
-    anime.generos.forEach(g => {
-        gens.innerHTML += `<span class="tag">${g}</span>`;
-    });
+        function cargar() {
+            const grid = document.getElementById('grid');
+            grid.innerHTML = "";
+            for (const nombre in base) {
+                const anime = base[nombre];
+                const div = document.createElement('div');
+                div.className = 'tarjeta-anime';
+                div.onclick = () => abrir(nombre);
+                
+                let imgUrl = anime.portada ? anime.portada : urlBaseGitHub + encodeURIComponent(nombre) + ".webp";
+                
+                div.innerHTML = `
+                    <img src="${imgUrl}" onerror="this.src='https://via.placeholder.com/160x240/222/555?text=Error+Img'">
+                    <div class="titulo-tarjeta">${nombre}</div>
+                `;
+                grid.appendChild(div);
+            }
+            // Asegurarse de que el botón de volver esté oculto en el catálogo
+            tg.BackButton.hide();
+        }
 
-    document.getElementById('vista-catalogo').style.display = 'none';
-    document.getElementById('vista-detalles').style.display = 'block';
-    window.scrollTo(0,0);
-    
-    mostrarT(nombre);
+        function abrir(nombre) {
+            const anime = base[nombre];
+            let imgUrl = anime.portada ? anime.portada : urlBaseGitHub + encodeURIComponent(nombre) + ".webp";
+            
+            document.getElementById('det-img').src = imgUrl;
+            document.getElementById('bg-bluroso').src = imgUrl;
+            document.getElementById('det-titulo').innerText = nombre;
+            document.getElementById('det-sinopsis').innerText = anime.sinopsis;
 
-    // --- CONFIGURACIÓN DEL BOTÓN RETROCEDER NATIVO ---
-    tg.BackButton.show(); // Muestra el botón de Telegram
-    tg.BackButton.onClick(() => {
-        cerrar(); // Llama a tu función de cerrar cuando pulsen la flecha de Telegram
-    });
-}
+            const gens = document.getElementById('det-generos');
+            gens.innerHTML = "";
+            anime.generos.forEach(g => {
+                gens.innerHTML += `<span class="tag">${g}</span>`;
+            });
 
-function cerrar() {
-    document.getElementById('vista-detalles').style.display = 'none';
-    document.getElementById('vista-catalogo').style.display = 'block';
-    
-    // --- OCULTAR BOTÓN NATIVO ---
-    tg.BackButton.hide(); 
-}
+            document.getElementById('vista-catalogo').style.display = 'none';
+            document.getElementById('vista-detalles').style.display = 'block';
+            window.scrollTo(0,0);
+            
+            mostrarT(nombre);
 
-// ... (Tus funciones mostrarT, mostrarI y filtrar se mantienen igual) ...
+            // Muestra el botón nativo de Telegram para retroceder
+            tg.BackButton.show();
+        }
 
-cargar();
+        function volverAlCatalogo() {
+            document.getElementById('vista-detalles').style.display = 'none';
+            document.getElementById('vista-catalogo').style.display = 'block';
+            
+            // Oculta el botón nativo de Telegram al volver al inicio
+            tg.BackButton.hide();
+        }
+
+        function mostrarT(nombre) {
+            const area = document.getElementById('area-botones');
+            area.innerHTML = `<span class="txt-guia">Temporadas</span>`;
+            Object.keys(base[nombre].enlaces).forEach(t => {
+                const btn = document.createElement('button');
+                btn.className = 'btn-accion';
+                btn.innerText = t;
+                btn.onclick = () => mostrarI(nombre, t);
+                area.appendChild(btn);
+            });
+        }
+
+        function mostrarI(nombre, t) {
+            const area = document.getElementById('area-botones');
+            const links = base[nombre].enlaces[t];
+            area.innerHTML = `<span class="txt-guia">Idiomas - ${t}</span>`;
+            Object.keys(links).forEach(idioma => {
+                const btn = document.createElement('button');
+                btn.className = 'btn-accion';
+                btn.innerText = idioma;
+                btn.onclick = () => {
+                    if (window.Telegram && window.Telegram.WebApp) {
+                        window.Telegram.WebApp.openLink(links[idioma]);
+                    } else {
+                        window.open(links[idioma], '_blank');
+                    }
+                };
+                area.appendChild(btn);
+            });
+            const back = document.createElement('button');
+            back.className = 'btn-v';
+            back.innerText = "← VOLVER A TEMPORADAS";
+            back.onclick = () => mostrarT(nombre);
+            area.appendChild(back);
+        }
+
+        function filtrar() {
+            const v = document.getElementById('buscador').value.toLowerCase();
+            document.querySelectorAll('.tarjeta-anime').forEach(t => {
+                t.style.display = t.innerText.toLowerCase().includes(v) ? 'block' : 'none';
+            });
+        }
+
+        cargar();
     </script>
 </body>
 </html>
-
-
-
