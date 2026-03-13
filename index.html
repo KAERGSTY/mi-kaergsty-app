@@ -6,7 +6,6 @@
     <title>AnimeKaergsty</title>
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
     <style>
-        /* 1. CONFIGURACIÓN BASE */
         body { 
             font-family: sans-serif; 
             background: #1a1a1a; 
@@ -17,7 +16,6 @@
 
         h2 { color: #0088cc; text-align: center; margin-bottom: 20px; }
 
-        /* 2. LA REJILLA (GRID) */
         .grid { 
             display: grid; 
             grid-template-columns: repeat(auto-fill, 160px); 
@@ -26,11 +24,10 @@
             justify-content: center; 
         }
 
-        /* 3. EFECTO DE GIRO (FLIP CARD) */
         .card {
             width: 160px;
-            height: 310px; /* Ajustado para que quepa la imagen + texto */
-            perspective: 1000px; /* Necesario para el efecto 3D */
+            height: 310px; 
+            perspective: 1000px; 
             cursor: pointer;
         }
 
@@ -42,7 +39,6 @@
             transform-style: preserve-3d;
         }
 
-        /* Esta clase hace que la tarjeta gire */
         .card.flipped .card-inner {
             transform: rotateY(180deg);
         }
@@ -61,7 +57,6 @@
             align-items: center;
         }
 
-        /* CARA DELANTERA */
         .card-front img {
             width: 100%;
             height: 230px;
@@ -74,22 +69,19 @@
             text-align: center;
         }
 
-        /* CARA TRASERA (OPCIONES) */
         .card-back {
             transform: rotateY(180deg);
-            background: #2a2a2a;
+            background: #202020;
             border: 2px solid #0088cc;
             padding: 10px;
             box-sizing: border-box;
-            justify-content: center;
+            justify-content: center; /* Centra los botones verticalmente */
         }
-
-        .card-back h4 { color: #0088cc; margin: 0 0 15px 0; font-size: 14px; }
 
         .btn-container {
             display: flex;
             flex-direction: column;
-            gap: 8px;
+            gap: 12px;
             width: 100%;
         }
 
@@ -97,20 +89,26 @@
             background: #0088cc;
             color: white;
             border: none;
-            padding: 10px;
+            padding: 12px;
             border-radius: 8px;
-            font-size: 12px;
+            font-size: 13px;
             font-weight: bold;
             cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        .btn-opcion:active {
+            background: #005f8d;
         }
 
         .btn-volver {
             background: transparent;
-            color: #ff4444;
+            color: #aaaaaa;
             border: none;
-            margin-top: 15px;
+            margin-top: 20px;
             font-size: 11px;
             cursor: pointer;
+            text-decoration: underline;
         }
     </style>
 </head>
@@ -125,8 +123,17 @@
                     <img src="img/poster01.jpg" alt="Kaguya">
                     <p>Kaguya-sama wa Kokurasetai</p>
                 </div>
-                <div class="card-back" id="back-anime1">
-                    </div>
+                <div class="card-back" id="back-anime1"></div>
+            </div>
+        </div>
+
+        <div class="card" id="anime2">
+            <div class="card-inner">
+                <div class="card-front" onclick="seleccionarTemporadas('anime2')">
+                    <img src="img/poster02.jpg" alt="Kaguya 2">
+                    <p>Kaguya-sama wa Kokurasetai 2</p>
+                </div>
+                <div class="card-back" id="back-anime2"></div>
             </div>
         </div>
     </div>
@@ -136,53 +143,60 @@
         tg.expand();
         tg.ready();
 
-        // AQUÍ PONES TUS LINKS
         const datosAnime = {
             "anime1": {
-                "titulo": "Kaguya-sama",
                 "temporadas": {
-                    "Temporada 1": {
-                        "Español": "https://t.me/AnimeKaergsty1/5067",
-                        "Japonés": "https://t.me/AnimeKaergsty1/5068"
-                    },
-                    "Temporada 2": {
-                        "Español": "https://t.me/AnimeKaergsty1/5069",
-                        "Japonés": "https://t.me/AnimeKaergsty1/5070"
-                    }
+                    "Temporada 1": { "Español": "https://t.me/link1", "Japonés": "https://t.me/link2" },
+                    "Temporada 2": { "Español": "https://t.me/link3", "Japonés": "https://t.me/link4" }
+                }
+            },
+            "anime2": {
+                "temporadas": {
+                    "Temporada 1": { "Español": "https://t.me/link5", "Japonés": "https://t.me/link6" }
                 }
             }
         };
 
-        // PASO 1: Girar y mostrar temporadas
+        let idAbierto = null; // Guarda cuál está girado actualmente
+
         function seleccionarTemporadas(id) {
+            // 1. Si hay otro abierto, lo cerramos antes de abrir este
+            if (idAbierto && idAbierto !== id) {
+                cerrarCard(idAbierto);
+            }
+
+            // 2. Si tocamos el que ya está abierto, lo cerramos
+            if (idAbierto === id) {
+                cerrarCard(id);
+                idAbierto = null;
+                return;
+            }
+
             const anime = datosAnime[id];
             const back = document.getElementById('back-' + id);
             
-            let html = `<h4>Temporadas</h4><div class="btn-container">`;
-            
+            // Eliminamos el título "Temporadas" y el botón cerrar
+            let html = `<div class="btn-container">`;
             for (let temp in anime.temporadas) {
-                html += `<button class="btn-opcion" onclick="seleccionarIdiomas('${id}', '${temp}')">${temp}</button>`;
+                html += `<button class="btn-opcion" onclick="event.stopPropagation(); seleccionarIdiomas('${id}', '${temp}')">${temp}</button>`;
             }
-            
-            html += `</div><button class="btn-volver" onclick="cerrarCard('${id}')">[ CERRAR ]</button>`;
+            html += `</div>`;
             
             back.innerHTML = html;
             document.getElementById(id).classList.add('flipped');
+            idAbierto = id;
         }
 
-        // PASO 2: Mostrar idiomas de esa temporada
         function seleccionarIdiomas(id, temporada) {
             const anime = datosAnime[id];
             const idiomas = anime.temporadas[temporada];
             const back = document.getElementById('back-' + id);
             
-            let html = `<h4>${temporada}</h4><div class="btn-container">`;
-            
+            let html = `<div class="btn-container">`;
             for (let lang in idiomas) {
-                html += `<button class="btn-opcion" onclick="abrirLink('${idiomas[lang]}')">${lang}</button>`;
+                html += `<button class="btn-opcion" onclick="event.stopPropagation(); abrirLink('${idiomas[lang]}')">${lang}</button>`;
             }
-            
-            html += `</div><button class="btn-volver" onclick="seleccionarTemporadas('${id}')">← Volver</button>`;
+            html += `</div><button class="btn-volver" onclick="event.stopPropagation(); seleccionarTemporadas('${id}')">← Volver</button>`;
             
             back.innerHTML = html;
         }
