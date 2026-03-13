@@ -16,6 +16,33 @@
 
         h2 { color: #0088cc; text-align: center; margin-bottom: 20px; }
 
+        /* --- NUEVO: DISEÑO DEL BUSCADOR --- */
+        .search-container {
+            text-align: center;
+            margin-bottom: 20px;
+            padding: 0 20px;
+        }
+
+        #buscador {
+            width: 100%;
+            max-width: 350px; /* Tamaño máximo de la barra */
+            padding: 12px 20px;
+            border-radius: 25px; /* Bordes redondeados elegantes */
+            border: 2px solid #2a2a2a;
+            background: #1c1c1c;
+            color: white;
+            font-size: 15px;
+            outline: none;
+            transition: border-color 0.3s, box-shadow 0.3s;
+        }
+
+        /* Cuando tocas la barra de búsqueda, se ilumina en azul */
+        #buscador:focus {
+            border-color: #0088cc;
+            box-shadow: 0 0 10px rgba(0, 136, 204, 0.3);
+        }
+        /* ---------------------------------- */
+
         .grid { 
             display: grid; 
             grid-template-columns: repeat(auto-fill, 160px); 
@@ -76,32 +103,20 @@
             border: 2px solid #0088cc;
             padding: 15px 10px;
             box-sizing: border-box;
-            /* Cambios para el Scroll */
             justify-content: flex-start; 
             overflow-y: auto; 
         }
 
-        /* Diseño de la barra de desplazamiento (Scrollbar) */
-        .card-back::-webkit-scrollbar {
-            width: 6px;
-        }
-        .card-back::-webkit-scrollbar-track {
-            background: #1c1c1c;
-            border-radius: 10px;
-        }
-        .card-back::-webkit-scrollbar-thumb {
-            background: #0088cc;
-            border-radius: 10px;
-        }
+        .card-back::-webkit-scrollbar { width: 6px; }
+        .card-back::-webkit-scrollbar-track { background: #1c1c1c; border-radius: 10px; }
+        .card-back::-webkit-scrollbar-thumb { background: #0088cc; border-radius: 10px; }
 
         @keyframes fadeIn {
             from { opacity: 0; transform: translateY(5px); }
             to { opacity: 1; transform: translateY(0); }
         }
 
-        .fade-in {
-            animation: fadeIn 0.4s ease forwards;
-        }
+        .fade-in { animation: fadeIn 0.4s ease forwards; }
 
         .btn-container {
             display: flex;
@@ -120,7 +135,7 @@
             font-weight: bold;
             cursor: pointer;
             transition: background 0.2s;
-            flex-shrink: 0; /* Evita que los botones se aplasten */
+            flex-shrink: 0; 
         }
 
         .btn-opcion:active { background: #005f8d; }
@@ -130,13 +145,16 @@
 
     <h2>Anime Kaergsty</h2>
 
-    <div class="grid">
+    <div class="search-container">
+        <input type="text" id="buscador" placeholder="Buscar anime..." oninput="filtrarAnimes()">
+    </div>
+
+    <div class="grid" id="catalogo">
         <div class="card" id="anime1">
             <div class="card-inner">
                 <div class="card-front" onclick="seleccionarTemporadas('anime1')">
                     <img src="img/poster01.jpg" alt="Kaguya">
-                    <p>Kaguya-sama</p>
-                </div>
+                    <p class="titulo-anime">Kaguya-sama</p> </div>
                 <div class="card-back" id="back-anime1"></div>
             </div>
         </div>
@@ -144,10 +162,20 @@
         <div class="card" id="anime2">
             <div class="card-inner">
                 <div class="card-front" onclick="seleccionarTemporadas('anime2')">
-                    <img src="img/poster02.jpg" alt="Anime 2">
-                    <p>One Piece</p>
+                    <img src="img/poster02.jpg" alt="One Piece">
+                    <p class="titulo-anime">One Piece</p>
                 </div>
                 <div class="card-back" id="back-anime2"></div>
+            </div>
+        </div>
+        
+        <div class="card" id="anime3">
+            <div class="card-inner">
+                <div class="card-front" onclick="seleccionarTemporadas('anime3')">
+                    <img src="img/poster02.jpg" alt="Naruto">
+                    <p class="titulo-anime">Naruto Shippuden</p>
+                </div>
+                <div class="card-back" id="back-anime3"></div>
             </div>
         </div>
     </div>
@@ -162,32 +190,49 @@
                 "temporadas": {
                     "Temporada 1": { "Español": "https://t.me/link1", "Japonés": "https://t.me/link2" },
                     "Temporada 2": { "Español": "https://t.me/link3", "Japonés": "https://t.me/link4" },
-                    "Temporada 3": { "Español": "https://t.me/link", "Japonés": "https://t.me/link" },
-                    "Temporada 4": { "Español": "https://t.me/link", "Japonés": "https://t.me/link" },
-                    "Temporada 5": { "Español": "https://t.me/link", "Japonés": "https://t.me/link" },
-                    "Temporada 6": { "Español": "https://t.me/link", "Japonés": "https://t.me/link" },
-                    "Temporada 7": { "Español": "https://t.me/link", "Japonés": "https://t.me/link" },
-                    "Temporada 8": { "Español": "https://t.me/link", "Japonés": "https://t.me/link" },
-                    "Temporada 9": { "Español": "https://t.me/link", "Japonés": "https://t.me/link" },
-                    "Temporada 10": { "Español": "https://t.me/link", "Japonés": "https://t.me/link" }
+                    "Temporada 3": { "Español": "https://t.me/link", "Japonés": "https://t.me/link" }
                 }
             },
             "anime2": {
                 "temporadas": {
                     "Temporada 1": { "Español": "https://t.me/link5", "Japonés": "https://t.me/link6" }
                 }
+            },
+            "anime3": {
+                "temporadas": {
+                    "Temporada 1": { "Español": "https://t.me/link7", "Japonés": "https://t.me/link8" }
+                }
             }
         };
 
-        let idAbierto = null;
-        let temporizador = null; // Guardará nuestro contador de 8 segundos
+        // --- NUEVO: FUNCIÓN DEL BUSCADOR EN TIEMPO REAL ---
+        function filtrarAnimes() {
+            // Obtenemos lo que escribiste y lo pasamos a minúsculas
+            const textoBuscado = document.getElementById('buscador').value.toLowerCase();
+            // Agarramos todas las tarjetas
+            const tarjetas = document.querySelectorAll('.card');
 
-        // Función para iniciar o reiniciar los 8 segundos
+            // Revisamos tarjeta por tarjeta
+            tarjetas.forEach(tarjeta => {
+                // Sacamos el título de cada tarjeta
+                const titulo = tarjeta.querySelector('.titulo-anime').innerText.toLowerCase();
+                
+                // Si el título incluye lo que escribiste, lo mostramos, si no, lo ocultamos
+                if (titulo.includes(textoBuscado)) {
+                    tarjeta.style.display = "block"; // Mostrar
+                } else {
+                    tarjeta.style.display = "none";  // Ocultar
+                }
+            });
+        }
+        // ---------------------------------------------------
+
+        let idAbierto = null;
+        let temporizador = null;
+
         function iniciarTemporizador(id) {
             if (temporizador) clearTimeout(temporizador);
-            temporizador = setTimeout(() => {
-                cerrarCard(id);
-            }, 8000); // 8000 milisegundos = 8 segundos
+            temporizador = setTimeout(() => { cerrarCard(id); }, 8000); 
         }
 
         function seleccionarTemporadas(id) {
@@ -207,7 +252,7 @@
             document.getElementById(id).classList.add('flipped');
             idAbierto = id;
 
-            iniciarTemporizador(id); // Arranca el tiempo al girar
+            iniciarTemporizador(id); 
         }
 
         function seleccionarIdiomas(id, temporada) {
@@ -223,12 +268,10 @@
             
             back.innerHTML = html;
 
-            iniciarTemporizador(id); // Reinicia el tiempo si eligen temporada
+            iniciarTemporizador(id); 
         }
 
-        function abrirLink(url) { 
-            tg.openTelegramLink(url); 
-        }
+        function abrirLink(url) { tg.openTelegramLink(url); }
 
         function cerrarCard(id) { 
             document.getElementById(id).classList.remove('flipped'); 
