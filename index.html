@@ -136,128 +136,61 @@
     </div>
 
     <script>
-        const urlBaseGitHub = "https://raw.githubusercontent.com/Kaergsty/mi-kaergsty-app/main/img/";
-
-        const base = {
-            "Jigokuraku": {
-                sinopsis: "Gabimaru el Vacío busca el elixir de la inmortalidad en una isla misteriosa.",
-                generos: ["Acción", "Aventura", "Fantasía"],
-                enlaces: { "Temporada 1": { "Latino": "https://t.me/c/123/1", "Japonés": "https://t.me/c/123/2" } }
-            },
-            "Solo Leveling": {
-                sinopsis: "El cazador más débil Sung Jin-woo recibe un extraño sistema para subir de nivel.",
-                portada: "https://m.media-amazon.com/images/M/MV5BM2M4YzdkMTEtMjUyYy00ZWY0LWI5ODQtNGRkZWQ1MzU5MWM2XkEyXkFqcGc@._V1_FMjpg_UX1000_.jpg",
-                generos: ["Acción", "Aventura", "Fantasía"],
-                enlaces: { "Temporada 1": { "Latino": "https://t.me/c/123/3" } }
-            },
-            "Demi chan wa kataritai": {
-                sinopsis: "Un profesor de Biología busca comprender a las 'demi', seres que comienzan a ser aceptados en la sociedad.",
-                generos: ["Comedia", "Escolares", "Fantasía", "Seinen"],
-                enlaces: { "Temporada 1": { "Japonés": "https://t.me/AnimeKaergsty1/4940", "Latino": "https://t.me/AnimeKaergsty1/4943" } }
-            }
-        };
-
         const tg = window.Telegram.WebApp; // Acceso directo a la API de Telegram
-        tg.expand(); // Hace que la app se abra en pantalla completa
+tg.expand(); // Hace que la app se abra en pantalla completa
 
-        const urlBaseGitHub = "https://raw.githubusercontent.com/Kaergsty/mi-kaergsty-app/main/img/";
-        
-        function cargar() {
-            const grid = document.getElementById('grid');
-            grid.innerHTML = "";
-            for (const nombre in base) {
-                const anime = base[nombre];
-                const div = document.createElement('div');
-                div.className = 'tarjeta-anime';
-                div.onclick = () => abrir(nombre);
-                
-                let imgUrl = anime.portada ? anime.portada : urlBaseGitHub + encodeURIComponent(nombre) + ".webp";
-                
-                div.innerHTML = `
-                    <img src="${imgUrl}" onerror="this.src='https://via.placeholder.com/160x240/222/555?text=Error+Img'">
-                    <div class="titulo-tarjeta">${nombre}</div>
-                `;
-                grid.appendChild(div);
-            }
-        }
+const urlBaseGitHub = "https://raw.githubusercontent.com/Kaergsty/mi-kaergsty-app/main/img/";
 
-        function abrir(nombre) {
-            const anime = base[nombre];
-            let imgUrl = anime.portada ? anime.portada : urlBaseGitHub + encodeURIComponent(nombre) + ".webp";
-            
-            // Llenar los campos fijos
-            document.getElementById('det-img').src = imgUrl;
-            document.getElementById('bg-bluroso').src = imgUrl;
-            document.getElementById('det-titulo').innerText = nombre;
-            document.getElementById('det-sinopsis').innerText = anime.sinopsis;
+// ... (Tu objeto 'base' se mantiene igual) ...
 
-            // Generar etiquetas de géneros
-            const gens = document.getElementById('det-generos');
-            gens.innerHTML = "";
-            anime.generos.forEach(g => {
-                gens.innerHTML += `<span class="tag">${g}</span>`;
-            });
+function cargar() {
+    // Tu función cargar actual...
+    // Solo asegúrate de ocultar el botón al inicio por si acaso
+    tg.BackButton.hide();
+}
 
-            // Cambiar de vista
-            document.getElementById('vista-catalogo').style.display = 'none';
-            document.getElementById('vista-detalles').style.display = 'block';
-            window.scrollTo(0,0);
-            
-            // Cargar botones de temporada
-            mostrarT(nombre);
-        }
+function abrir(nombre) {
+    const anime = base[nombre];
+    let imgUrl = anime.portada ? anime.portada : urlBaseGitHub + encodeURIComponent(nombre) + ".webp";
+    
+    document.getElementById('det-img').src = imgUrl;
+    document.getElementById('bg-bluroso').src = imgUrl;
+    document.getElementById('det-titulo').innerText = nombre;
+    document.getElementById('det-sinopsis').innerText = anime.sinopsis;
 
-        function mostrarT(nombre) {
-            const area = document.getElementById('area-botones');
-            area.innerHTML = `<span class="txt-guia">Temporadas</span>`;
-            Object.keys(base[nombre].enlaces).forEach(t => {
-                const btn = document.createElement('button');
-                btn.className = 'btn-accion';
-                btn.innerText = t;
-                btn.onclick = () => mostrarI(nombre, t);
-                area.appendChild(btn);
-            });
-        }
+    const gens = document.getElementById('det-generos');
+    gens.innerHTML = "";
+    anime.generos.forEach(g => {
+        gens.innerHTML += `<span class="tag">${g}</span>`;
+    });
 
-        function mostrarI(nombre, t) {
-            const area = document.getElementById('area-botones');
-            const links = base[nombre].enlaces[t];
-            area.innerHTML = `<span class="txt-guia">Idiomas - ${t}</span>`;
-            Object.keys(links).forEach(idioma => {
-                const btn = document.createElement('button');
-                btn.className = 'btn-accion';
-                btn.innerText = idioma;
-                btn.onclick = () => {
-                    if (window.Telegram && window.Telegram.WebApp) {
-                        window.Telegram.WebApp.openLink(links[idioma]);
-                    } else {
-                        window.open(links[idioma], '_blank');
-                    }
-                };
-                area.appendChild(btn);
-            });
-            const back = document.createElement('button');
-            back.className = 'btn-v';
-            back.innerText = "← VOLVER";
-            back.onclick = () => mostrarT(nombre);
-            area.appendChild(back);
-        }
+    document.getElementById('vista-catalogo').style.display = 'none';
+    document.getElementById('vista-detalles').style.display = 'block';
+    window.scrollTo(0,0);
+    
+    mostrarT(nombre);
 
-        function cerrar() {
-            document.getElementById('vista-detalles').style.display = 'none';
-            document.getElementById('vista-catalogo').style.display = 'block';
-        }
+    // --- CONFIGURACIÓN DEL BOTÓN RETROCEDER NATIVO ---
+    tg.BackButton.show(); // Muestra el botón de Telegram
+    tg.BackButton.onClick(() => {
+        cerrar(); // Llama a tu función de cerrar cuando pulsen la flecha de Telegram
+    });
+}
 
-        function filtrar() {
-            const v = document.getElementById('buscador').value.toLowerCase();
-            document.querySelectorAll('.tarjeta-anime').forEach(t => {
-                t.style.display = t.innerText.toLowerCase().includes(v) ? 'block' : 'none';
-            });
-        }
+function cerrar() {
+    document.getElementById('vista-detalles').style.display = 'none';
+    document.getElementById('vista-catalogo').style.display = 'block';
+    
+    // --- OCULTAR BOTÓN NATIVO ---
+    tg.BackButton.hide(); 
+}
 
-        cargar();
+// ... (Tus funciones mostrarT, mostrarI y filtrar se mantienen igual) ...
+
+cargar();
     </script>
 </body>
 </html>
+
 
 
