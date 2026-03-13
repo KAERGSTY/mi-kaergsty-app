@@ -42,7 +42,25 @@
             flex-wrap: wrap; gap: 15px;
         }
 
-        .titulo-principal { font-size: 28px; font-weight: 800; color: #0088cc; margin: 0; letter-spacing: 1px; }
+        /* --- TÍTULO CON BRILLO SUTIL Y ANIMACIÓN --- */
+        .titulo-principal { 
+            font-size: 28px; 
+            font-weight: 800; 
+            color: #00aaff; 
+            margin: 0; 
+            letter-spacing: 1px; 
+            animation: brilloSutil 3s ease-in-out infinite; 
+        }
+
+        @keyframes brilloSutil {
+            0%, 100% {
+                text-shadow: 0 0 5px rgba(0, 136, 204, 0.4);
+            }
+            50% {
+                text-shadow: 0 0 15px rgba(0, 170, 255, 0.9), 0 0 25px rgba(0, 170, 255, 0.5);
+                color: #33bbff; 
+            }
+        }
 
         #buscador {
             background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 255, 255, 0.1); color: white;
@@ -209,6 +227,12 @@
         .barra-acciones {
             display: flex; gap: 10px; padding: 0 20px 15px; 
             flex-wrap: wrap;
+        }
+        
+        /* CORRECCIÓN: Quita el espacio extra si la barra de acciones está vacía */
+        .barra-acciones:empty {
+            padding: 0;
+            display: none;
         }
 
         /* --- NUEVO DISEÑO DE BOTONES DE TEMPORADAS (MENOS TOSCO) --- */
