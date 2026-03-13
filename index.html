@@ -5,8 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>AnimeKaergsty</title>
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
-    <style>
-        body { 
+   <style>
+    body { 
         font-family: sans-serif; 
         background: #1a1a1a; 
         color: white; 
@@ -28,44 +28,62 @@
         justify-content: center; /* Centra el catálogo */
     }
 
-    /* ESTO ARREGLA EL TAMAÑO DE LA IMAGEN */
     .card {
-        background: #2a2a2a; /* Un gris oscuro para que resalte */
+        background: #2a2a2a; /* Fondo gris oscuro para la tarjeta */
         border-radius: 12px;
-        overflow: hidden; /* Corta las esquinas de la imagen para que sigan el radio */
+        overflow: hidden;
         cursor: pointer;
-        transition: transform 0.2s;
+        transition: transform 0.2s, box-shadow 0.2s; /* Efectos suaves */
         text-align: center;
+        position: relative; /* Para la animación de pulso */
     }
 
     .card img {
-        width: 100%;    /* Se ajusta al ancho de la tarjeta (160px) */
-        height: 230px;  /* Altura fija para que todas sean iguales */
-        object-fit: cover; /* Recorta la imagen para que no se estire */
+        width: 100%;
+        height: 230px;
+        object-fit: cover;
         display: block;
     }
 
     .card:hover {
-        transform: scale(1.05); /* Se agranda un poquito al tocarla */
+        transform: translateY(-5px); /* Se levanta un poco */
+        box-shadow: 0 10px 20px rgba(0, 136, 204, 0.4); /* Brillo azul sutil */
+        animation: pulso 1.5s infinite; /* Animación de pulso infinita */
     }
 
     .card p {
         font-size: 14px;
         font-weight: bold;
         margin: 10px 5px;
-        color: white; /* Cambiado a blanco para que se lea bien */
+        color: white; /* Texto blanco para buena legibilidad */
     }
-    </style>
+
+    /* Definición de la animación de pulso */
+    @keyframes pulso {
+        0% {
+            transform: translateY(-5px) scale(1.05);
+            box-shadow: 0 10px 20px rgba(0, 136, 204, 0.4);
+        }
+        50% {
+            transform: translateY(-5px) scale(1);
+            box-shadow: 0 5px 10px rgba(0, 136, 204, 0.2);
+        }
+        100% {
+            transform: translateY(-5px) scale(1.05);
+            box-shadow: 0 10px 20px rgba(0, 136, 204, 0.4);
+        }
+    }
+</style>
 </head>
 <body>
     <h2>Anime Kaergsty</h2>
     <div class="grid">
-        <div class="card" onclick="sendVideo('ep01')">
+        <div class="card" onclick="openAnime('https://t.me/AnimeKaergsty1/5067')">
             <img src="poster01.jpg" alt="Anime 1">
             <p>Kaguya-sama wa Kokurasetai</p>
         </div>
 
-        <div class="card" onclick="sendVideo('ep02')">
+        <div class="card" onclick="openAnime('https://t.me/AnimeKaergsty1/5071')">
             <img src="poster02.jpg" alt="Anime 2">
             <p>Kaguya-sama wa Kokurasetai2</p>
         </div>
@@ -73,13 +91,18 @@
         </div>
     <script>
         const tg = window.Telegram.WebApp;
-        tg.expand();
-        function sendVideo(id) {
-            tg.sendData(id);
-            tg.close();
-        }
+    tg.expand();
+
+    function openAnime(url) {
+        // Esta función abre el link directamente en Telegram
+        tg.openTelegramLink(url);
+        
+        // Opcional: cierra la Mini App después de abrir el link
+        // tg.close(); 
+    }
 </body>
 </html>
+
 
 
 
