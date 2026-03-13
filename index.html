@@ -452,6 +452,24 @@
             tg.BackButton.show();
         }
 
+        // --- ACTUALIZAR LA BARRA DE ACCIONES SIN EL BOTÓN STATUS ---
+        function actualizarBarraAcciones() {
+            const area = document.getElementById('barra-acciones');    
+        }
+
+        // --- FUNCIONES DE INTERACCIÓN SIMPLE (TOGGLE COLOR) ---
+        function toggleLike(btn) {
+            btn.classList.toggle('active-like'); // Activa color verde
+            const dislikeBtn = btn.nextElementSibling;
+            if (dislikeBtn) dislikeBtn.classList.remove('active-dislike'); // Quita rojo del dislike
+        }
+
+        function toggleDislike(btn) {
+            btn.classList.toggle('active-dislike'); // Activa color rojo
+            const likeBtn = btn.previousElementSibling;
+            if (likeBtn) likeBtn.classList.remove('active-like'); // Quita verde del like
+        }
+
         // --- RESTO DE FUNCIONES ---
         function abrirSoporte(url) { if (tg && tg.openLink) { tg.openLink(url); } else { window.open(url, '_blank'); } }
 
@@ -500,4 +518,3 @@
     </script>
 </body>
 </html>
-
