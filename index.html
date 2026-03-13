@@ -2,248 +2,536 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Jigokuraku Mini App</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>AKaergsty Premium</title>
+    <script src="https://telegram.org/js/telegram-web-app.js"></script>
     <style>
+        /* --- ESTILOS BASE --- */
         body {
-            background: linear-gradient(135deg, #121212 0%, #2a2a2a 100%);
-            color: #fff;
-            font-family: Arial, sans-serif;
-            margin: 0;
+            margin: 0; padding: 0;
+            background-color: #0a0a0a;
+            color: #ffffff;
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            overflow-x: hidden;
             display: flex;
-            justify-content: center;
-            align-items: center;
+            flex-direction: column;
             min-height: 100vh;
         }
 
-        .container {
-            display: flex;
-            background-color: rgba(255, 255, 255, 0.05);
-            backdrop-filter: blur(10px);
-            border-radius: 15px;
-            padding: 20px;
-            max-width: 900px;
+        /* --- VISTA CATÁLOGO --- */
+        #vista-catalogo { 
+            padding: 20px; 
             width: 100%;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+            max-width: 1200px; 
+            margin: 0 auto;
+            box-sizing: border-box;
+        }
+        
+        .header-catalogo {
+            display: flex; justify-content: space-between; align-items: center;
+            margin-bottom: 20px; padding-bottom: 15px; border-bottom: 1px solid #222;
+            flex-wrap: wrap; gap: 15px;
         }
 
-        .poster {
-            width: 250px;
-            border-radius: 10px;
-            margin-right: 20px;
+        .titulo-principal { font-size: 28px; font-weight: 800; color: #0088cc; margin: 0; letter-spacing: 1px; }
+
+        #buscador {
+            background: #1a1a1a; border: 1px solid #333; color: white;
+            padding: 10px 18px; border-radius: 30px; width: 230px; outline: none;
+            transition: 0.3s;
         }
 
-        .content {
-            flex-grow: 1;
+        .grid-animes { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 15px; }
+
+        .tarjeta-anime {
+            position: relative; border-radius: 10px; overflow: hidden; cursor: pointer;
+            aspect-ratio: 2/3; transition: 0.3s ease-out;
+            background: #151515;
+        }
+        .tarjeta-anime:hover { transform: translateY(-5px); box-shadow: 0 8px 20px rgba(0, 136, 204, 0.2); }
+        .tarjeta-anime img { width: 100%; height: 100%; object-fit: cover; }
+        .titulo-tarjeta {
+            position: absolute; bottom: 0; width: 100%; padding: 20px 5px 8px;
+            background: linear-gradient(transparent, rgba(0,0,0,0.95));
+            font-size: 12px; font-weight: bold; text-align: center; box-sizing: border-box;
         }
 
-        .header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 10px;
+        /* --- VISTA DETALLES (OPTIMIZADA) --- */
+        #vista-detalles { 
+            display: none; min-height: 100vh; position: relative; 
+            width: 100%; max-width: 1200px; margin: 0 auto; box-sizing: border-box;
+            padding-bottom: 40px; 
         }
 
-        .title {
-            font-size: 2.5em;
-            font-weight: bold;
-            margin: 0;
+        .bg-banner {
+            position: absolute; top: 0; left: 0; width: 100vw; 
+            height: 500px; 
+            z-index: -2; opacity: 0.4; filter: blur(40px); object-fit: cover;
+            margin-left: calc(-50vw + 50%);
+        }
+        
+        .layout-detalles {
+            display: flex; gap: 30px; 
+            max-width: 1100px; margin: 0 auto;
+            padding: 20px; align-items: flex-start; box-sizing: border-box;
         }
 
-        .buttons {
-            display: flex;
-            gap: 10px;
+        .img-lateral {
+            flex: 0 0 260px; 
+            border-radius: 12px; overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.7); border: 1px solid rgba(255,255,255,0.08);
+            margin-top: 20px;
+        }
+        .img-lateral img { width: 100%; display: block; }
+
+        .info-derecha { flex: 1; display: flex; flex-direction: column; gap: 8px; position: relative;}
+        
+        /* Contenedor principal de título y soporte para alinearlos */
+        .header-info { display: flex; justify-content: space-between; align-items: flex-start; gap: 20px; margin-bottom: 5px; flex-wrap: wrap; }
+        .titulo-anime { font-size: 36px; margin: 0; font-weight: 800; line-height: 1.1; flex: 1;}
+
+        /* --- ESTILOS DE ESTADO Y PUNTOS ANIMADOS --- */
+        .estado-container {
+            display: flex; align-items: center; gap: 8px;
+            font-size: 13px; font-weight: 600; color: #888;
+            margin-top: -5px; 
+        }
+        
+        .punto {
+            width: 9px; height: 9px; border-radius: 50%;
+            display: inline-block;
+            box-shadow: 0 0 5px rgba(255,255,255,0.2);
+            animation: pulsoPunto 1.5s infinite ease-in-out;
+        }
+        
+        .punto-rojo { background-color: #ff4444; }
+        .punto-rojo { animation-name: pulsoRojo; }
+        @keyframes pulsoRojo {
+            0% { opacity: 0.6; box-shadow: 0 0 0 0 rgba(255, 68, 68, 0.4); }
+            50% { opacity: 1; box-shadow: 0 0 0 5px rgba(255, 68, 68, 0); }
+            100% { opacity: 0.6; box-shadow: 0 0 0 0 rgba(255, 68, 68, 0); }
         }
 
-        .button-premium {
-            background-color: transparent;
-            border: 1px solid rgba(0, 150, 255, 0.5);
-            color: rgba(0, 150, 255, 1);
-            padding: 5px 15px;
-            border-radius: 15px;
-            text-decoration: none;
-            font-size: 0.9em;
-            display: flex;
-            align-items: center;
-            gap: 5px;
+        .punto-verde { background-color: #00cc66; }
+        .punto-verde { animation-name: pulsoVerde; }
+        @keyframes pulsoVerde {
+            0% { opacity: 0.6; box-shadow: 0 0 0 0 rgba(0, 204, 102, 0.4); }
+            50% { opacity: 1; box-shadow: 0 0 0 5px rgba(0, 204, 102, 0); }
+            100% { opacity: 0.6; box-shadow: 0 0 0 0 rgba(0, 204, 102, 0); }
         }
 
-        .button-premium::before {
-            content: "\2605"; /* Star icon */
+        .txt-finalizado { color: #ff6666; }
+        .txt-emision { color: #00ff88; }
+
+        /* --- ESTILOS DE SOPORTE "CAMUFLADOS" --- */
+        .soporte-container {
+            display: flex; gap: 10px; align-items: center;
+            margin-top: 5px; 
+        }
+        
+        .btn-soporte {
+            background: rgba(255, 255, 255, 0.02); 
+            border: 1px solid rgba(255, 255, 255, 0.05); 
+            color: #777; 
+            padding: 8px 16px; border-radius: 20px;
+            font-size: 12px; font-weight: bold; text-transform: uppercase;
+            cursor: pointer; transition: 0.3s;
+            backdrop-filter: blur(5px); 
+            display: flex; align-items: center; gap: 6px;
+        }
+        
+        .btn-soporte:hover {
+            background: rgba(255, 255, 255, 0.05);
+            border-color: rgba(255, 255, 255, 0.1);
+            color: #fff;
+            box-shadow: 0 0 10px rgba(255,255,255,0.05);
         }
 
-        .tags {
-            margin-bottom: 20px;
-            display: flex;
-            gap: 10px;
+        .btn-subs {
+            color: #0088cc;
+            border-color: rgba(0, 136, 204, 0.2);
+            animation: pulsoBordeSubs 2s infinite;
+        }
+        .btn-subs:hover {
+            color: #fff;
+            background: rgba(0, 136, 204, 0.1);
+            border-color: rgba(0, 136, 204, 0.4);
+        }
+
+        @keyframes pulsoBordeSubs {
+            0% { box-shadow: 0 0 0 0 rgba(0, 136, 204, 0.1); border-color: rgba(0, 136, 204, 0.2); }
+            50% { box-shadow: 0 0 0 4px rgba(0, 136, 204, 0); border-color: rgba(0, 136, 204, 0.4); }
+            100% { box-shadow: 0 0 0 0 rgba(0, 136, 204, 0); border-color: rgba(0, 136, 204, 0.2); }
+        }
+
+        /* --- NUEVOS ESTILOS PARA NOMBRES OPCIONALES (SIMPLIFICADO) --- */
+        .nombres-opcionales {
+            display: flex; flex-direction: column; gap: 2px;
+            margin-top: 2px; margin-bottom: 10px;
+            font-size: 13px; color: #888;
+        }
+        .nombres-linea {
+            display: flex; gap: 8px; flex-wrap: wrap; align-items: center;
+        }
+        .tag-idioma {
+            font-style: italic; background: rgba(255,255,255,0.02);
+            padding: 2px 8px; border-radius: 4px; border: 1px solid rgba(255,255,255,0.02);
+        }
+
+        .generos { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 12px; }
+        .tag { background: #0088cc; padding: 4px 12px; border-radius: 20px; font-size: 11px; font-weight: bold; }
+
+        /* --- CAJA DE SINOPSIS Y ACCIONES INTEGRADAS --- */
+        .contenedor-sinopsis-acciones {
+            background: rgba(255, 255, 255, 0.04); backdrop-filter: blur(10px);
+            border-radius: 12px; border-left: 4px solid #0088cc;
+            margin-bottom: 20px; box-sizing: border-box;
+            overflow: hidden; 
+        }
+
+        .caja-sinopsis {
+            padding: 18px 18px 10px; 
+            line-height: 1.6; color: #ccc; font-size: 14px;
+        }
+        .caja-sinopsis p { margin: 0; }
+
+        /* --- BARRA SEPARADORA SUTIL --- */
+        .barra-separadora {
+            height: 1px; width: 100%;
+            background: linear-gradient(90deg, rgba(255,255,255,0.01) 0%, rgba(255,255,255,0.08) 50%, rgba(255,255,255,0.01) 100%);
+            margin-top: 10px;
+        }
+
+        /* --- NUEVA BARRA DE ACCIONES (INTERACTIVA) SIN STATUS --- */
+        .barra-acciones {
+            display: flex; gap: 10px; padding: 10px 18px 15px; 
+            /* Quitamos el border-top y usamos la barra-separadora encima */
             flex-wrap: wrap;
         }
 
-        .tag-info {
-            background-color: rgba(255, 255, 255, 0.1);
-            color: #ccc;
-            padding: 5px 10px;
-            border-radius: 5px;
-            font-size: 0.9em;
+        /* Estilo general de los botones de acción */
+        .btn-accion-integra {
+            background: rgba(255,255,255,0.02);
+            border: 1px solid rgba(255,255,255,0.05);
+            color: #aaa;
+            padding: 7px 15px; border-radius: 10px;
+            font-size: 12px; font-weight: bold;
+            cursor: pointer; transition: 0.2s ease;
+            display: flex; align-items: center; gap: 6px;
         }
-
-        .status-tag {
-            background-color: #555;
-            color: #f66;
-            padding: 5px 10px;
-            border-radius: 5px;
-            font-size: 0.9em;
-            display: inline-flex;
-            align-items: center;
-            gap: 5px;
-        }
-
-        .status-dot {
-            height: 8px;
-            width: 8px;
-            background-color: #f66;
-            border-radius: 50%;
-        }
-
-        .action-tag {
-            background-color: rgba(0, 150, 255, 0.8);
+        
+        .btn-accion-integra:hover {
+            background: rgba(255,255,255,0.06);
             color: #fff;
-            padding: 5px 15px;
-            border-radius: 15px;
-            text-decoration: none;
-            font-size: 0.9em;
+            border-color: rgba(255,255,255,0.1);
         }
 
-        /* First image optimization */
-        .description-box {
-            background-color: rgba(0, 0, 0, 0.3);
-            border-radius: 10px;
-            padding: 15px;
-            margin-bottom: 20px;
-            border-left: 5px solid #0096ff;
-            max-width: 600px;
+        /* --- ESTILOS DE "LIKE" (VERDE AL PRESIONAR) --- */
+        .btn-accion-integra.active-like {
+            background: rgba(0, 204, 102, 0.1);
+            border-color: rgba(0, 204, 102, 0.3);
+            color: #00cc66;
+            box-shadow: 0 0 10px rgba(0, 204, 102, 0.1);
         }
 
-        .description {
-            margin: 0 0 10px 0;
-            color: #ccc;
+        /* --- ESTILOS DE "DISLIKE" (ROJO AL PRESIONAR) --- */
+        .btn-accion-integra.active-dislike {
+            background: rgba(255, 68, 68, 0.1);
+            border-color: rgba(255, 68, 68, 0.3);
+            color: #ff4444;
+            box-shadow: 0 0 10px rgba(255, 68, 68, 0.1);
         }
 
-        .rating-container {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
+        /* Íconos SVG simples para Like/Dislike */
+        .icono { width: 14px; height: 14px; display: inline-block; fill: currentColor; }
 
-        .progress-bar {
-            height: 4px;
-            flex-grow: 1;
-            background-color: rgba(255, 255, 255, 0.1);
-            border-radius: 2px;
-            overflow: hidden;
+        .centro-botones { display: flex; justify-content: center; width: 100%; }
+        .caja-botones {
+            background: rgba(15, 15, 15, 0.95); padding: 22px; border-radius: 18px;
+            width: 100%; max-width: 360px; display: flex; flex-direction: column; gap: 10px;
+            border: 1px solid #333; box-sizing: border-box;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.6);
         }
+        .txt-guia { color: #888; font-size: 11px; text-transform: uppercase; text-align: center; margin-bottom: 5px;}
 
-        .progress {
-            height: 100%;
-            width: 75%;
-            background-color: #2ecc71;
-            border-radius: 2px;
+        .btn-accion {
+            background: #0088cc; color: white; border: none; padding: 12px;
+            border-radius: 8px; font-weight: bold; font-size: 14px; cursor: pointer; transition: 0.2s;
         }
+        .btn-accion:active { transform: scale(0.97); }
 
-        .rating-icons {
-            display: flex;
-            gap: 15px;
-        }
+        .btn-v { background: none; border: none; color: #ff4444; font-weight: bold; cursor: pointer; margin-top: 5px; font-size: 12px;}
 
-        .like-icon, .dislike-icon {
-            font-size: 1.2em;
-            color: #ccc;
-            cursor: pointer;
-        }
-
-        .like-icon::before {
-            content: "\1F44D"; /* Thumbs up */
-        }
-
-        .dislike-icon::before {
-            content: "\1F44E"; /* Thumbs down */
-        }
-
-        /* Second image optimization */
-        .season-box {
-            background-color: rgba(0, 0, 0, 0.4);
-            border-radius: 10px;
-            padding: 15px;
-            text-align: center;
-            margin-top: 20px;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
-        }
-
-        .season-label {
-            font-size: 0.8em;
-            color: #777;
-            text-transform: uppercase;
-            margin-bottom: 10px;
-            display: block;
-        }
-
-        .button-season {
-            background-color: rgba(0, 150, 255, 0.5);
-            backdrop-filter: blur(5px);
-            color: #fff;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            padding: 12px 25px;
-            border-radius: 10px;
-            text-decoration: none;
-            font-weight: bold;
-            display: inline-block;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-            transition: background-color 0.3s ease;
-        }
-
-        .button-season:hover {
-            background-color: rgba(0, 150, 255, 0.7);
+        @media (max-width: 850px) {
+            .layout-detalles { flex-direction: column; align-items: center; gap: 15px; padding: 15px; }
+            .img-lateral { width: 200px; flex: none; margin-top: 10px; }
+            .info-derecha { align-items: center; text-align: center; width: 100%;}
+            .header-info { flex-direction: column; align-items: center; gap: 5px; width: 100%; }
+            .titulo-anime { font-size: 26px; text-align: center; width: 100%;}
+            .estado-container { justify-content: center; margin-top: 2px;}
+            .soporte-container { justify-content: center; margin-top: 10px; width: 100%;}
+            .btn-soporte { padding: 6px 12px; font-size: 10px; }
+            .nombres-linea { justify-content: center; }
+            .generos { justify-content: center; }
+            .barra-acciones { justify-content: center; padding-left: 10px; padding-right: 10px;}
+            .btn-accion-integra { padding: 6px 12px; font-size: 11px; }
+            .caja-sinopsis { text-align: left; font-size: 13px; padding: 15px;}
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <img src="https://via.placeholder.com/250x350" alt="Jigokuraku Poster" class="poster">
-        <div class="content">
-            <div class="header">
-                <h1 class="title">Jigokuraku</h1>
-                <div class="buttons">
-                    <a href="#" class="button-premium">SUSCRIPCIÓN</a>
-                    <a href="#" class="tag-info">&hearts; DONAR</a>
+
+    <div class="controles-app" style="display: none;"></div>
+
+    <div id="vista-catalogo">
+        <div class="header-catalogo">
+            <h1 class="titulo-principal">AKaergsty</h1>
+            <input type="text" id="buscador" placeholder="Buscar anime..." oninput="filtrar()">
+        </div>
+        <div class="grid-animes" id="grid"></div>
+    </div>
+
+    <div id="vista-detalles">
+        <img id="bg-bluroso" class="bg-banner" src="" alt="">
+        <div class="layout-detalles">
+            <div class="img-lateral">
+                <img id="det-img" src="" alt="">
+            </div>
+            <div class="info-derecha">
+                <div class="header-info">
+                    <h1 id="det-titulo" class="titulo-anime"></h1>
+                    <div id="det-soporte" class="soporte-container"></div>
                 </div>
-            </div>
-            <div class="tags">
-                <span class="tag-info">Japonés: 地獄楽</span>
-                <span class="tag-info">Inglés: Hell's Paradise: Jigokuraku</span>
-            </div>
-            <div class="tags">
-                <div class="status-tag">Estado: <div class="status-dot"></div> Finalizado</div>
-                <a href="#" class="action-tag">Acción</a>
-                <a href="#" class="action-tag">Aventura</a>
-                <a href="#" class="action-tag">Fantasía</a>
-            </div>
-            <div class="description-box">
-                <p class="description">Gabimaru el Vacío busca el elixir de la inmortalidad en una isla misteriosa.</p>
-                <div class="rating-container">
-                    <div class="progress-bar">
-                        <div class="progress"></div>
-                    </div>
-                    <div class="rating-icons">
-                        <span class="like-icon"></span>
-                        <span class="dislike-icon"></span>
-                    </div>
+                
+                <div id="det-nombres-opcionales" class="nombres-opcionales"></div>
+
+                <div id="det-estado" class="estado-container"></div>
+                <div id="det-generos" class="generos"></div>
+
+                <div class="contenedor-sinopsis-acciones">
+                    <div class="caja-sinopsis"><p id="det-sinopsis"></p></div>
+                    
+                    <div class="barra-separadora"></div>
+
+                    <div id="barra-acciones" class="barra-acciones"></div>
                 </div>
-            </div>
-            <div class="season-box">
-                <span class="season-label">TEMPORADAS</span>
-                <a href="#" class="button-season">Temporada 1</a>
+
+                <div class="centro-botones">
+                    <div class="caja-botones" id="area-botones"></div>
+                </div>
             </div>
         </div>
     </div>
+
+    <script>
+        const tg = window.Telegram.WebApp;
+        tg.ready();
+        tg.expand();
+
+        tg.BackButton.onClick(() => {
+            volverAlCatalogo();
+        });
+
+        const urlBaseGitHub = "https://raw.githubusercontent.com/Kaergsty/mi-kaergsty-app/main/img/";
+
+        // --- BASE DE DATOS ---
+        const base = {
+            "Jigokuraku": {
+                nombresAlternativos: { 
+                    "Japonés": "地獄楽", 
+                    "Inglés": "Hell's Paradise: Jigokuraku" 
+                },
+                sinopsis: "Gabimaru el Vacío busca el elixir de la inmortalidad en una isla misteriosa.",
+                generos: ["Acción", "Aventura", "Fantasía"],
+                estado: "Finalizado",
+                enlaces: { "Temporada 1": { "Latino": "https://t.me/c/123/1", "Japonés": "https://t.me/c/123/2" } }
+            },
+            "Solo Leveling": {
+                nombresAlternativos: { 
+                    "Japonés": "俺だけレベルアップな件", 
+                    "Coreano": "나 혼자만 레벨업" 
+                },
+                sinopsis: "El cazador más débil Sung Jin-woo recibe un extraño sistema para subir de nivel.",
+                portada: "https://m.media-amazon.com/images/M/MV5BM2M4YzdkMTEtMjUyYy00ZWY0LWI5ODQtNGRkZWQ1MzU5MWM2XkEyXkFqcGc@._V1_FMjpg_UX1000_.jpg",
+                generos: ["Acción", "Aventura", "Fantasía"],
+                estado: "Finalizado",
+                enlaces: { "Temporada 1": { "Latino": "https://t.me/c/123/3" } }
+            },
+            "Demi chan wa kataritai": {
+                nombresAlternativos: { 
+                    "Japonés": "亜人ちゃんは語りたい", 
+                    "Inglés": "Interviews with Monster Girls" 
+                },
+                sinopsis: "Un profesor de Biología busca comprender a las 'demi', seres que comienzan a ser aceptados en la sociedad.",
+                generos: ["Comedia", "Escolares", "Fantasía", "Seinen"],
+                estado: "Finalizado",
+                enlaces: { "Temporada 1": { "Japonés": "https://t.me/AnimeKaergsty1/4940", "Latino": "https://t.me/AnimeKaergsty1/4943" } }
+            },
+            "One Piece": {
+                sinopsis: "Luffy y su tripulación buscan el legendario tesoro One Piece.",
+                generos: ["Acción", "Aventura", "Comedia", "Shonen"],
+                estado: "En Emisión",
+                portada: "https://m.media-amazon.com/images/M/MV5BMTNjNGU4NTUtYzc5Ni00MDk5LTk4ODAtZDIzMGY1N2RkMjk4XkEyXkFqcGc@._V1_FMjpg_UX1000_.jpg",
+                enlaces: { "Wano Arc": { "Japonés": "#", "Latino": "#" } }
+            }
+        };
+
+        // --- INICIALIZACIÓN ---
+        function cargar() {
+            const grid = document.getElementById('grid');
+            grid.innerHTML = "";
+            for (const nombre in base) {
+                const anime = base[nombre];
+                const div = document.createElement('div');
+                div.className = 'tarjeta-anime';
+                div.onclick = () => abrir(nombre);
+                
+                let imgUrl = anime.portada ? anime.portada : urlBaseGitHub + encodeURIComponent(nombre) + ".webp";
+                
+                div.innerHTML = `
+                    <img src="${imgUrl}" onerror="this.src='https://via.placeholder.com/150x225/222/555?text=Error+Img'">
+                    <div class="titulo-tarjeta">${nombre}</div>
+                `;
+                grid.appendChild(div);
+            }
+            tg.BackButton.hide();
+        }
+
+        function abrir(nombre) {
+            const anime = base[nombre];
+            let imgUrl = anime.portada ? anime.portada : urlBaseGitHub + encodeURIComponent(nombre) + ".webp";
+            
+            document.getElementById('det-img').src = imgUrl;
+            document.getElementById('bg-bluroso').src = imgUrl;
+            document.getElementById('det-titulo').innerText = nombre;
+            document.getElementById('det-sinopsis').innerText = anime.sinopsis;
+
+            // --- NUEVA LÓGICA PARA NOMBRES OPCIONALES (SIMPLIFICADO) ---
+            const nomCont = document.getElementById('det-nombres-opcionales');
+            nomCont.innerHTML = "";
+            if (anime.nombresAlternativos) {
+                const linea = document.createElement('div');
+                linea.className = 'nombres-linea';
+                for (const lang in anime.nombresAlternativos) {
+                    const tag = document.createElement('span');
+                    tag.className = 'tag-idioma';
+                    tag.innerText = anime.nombresAlternativos[lang]; // Quitamos el nombre del idioma
+                    linea.appendChild(tag);
+                }
+                nomCont.appendChild(linea);
+            }
+
+            // --- LÓGICA PARA BOTONES DE SOPORTE ---
+            const sopCont = document.getElementById('det-soporte');
+            const urlSuscripcion = "https://t.me/YourBotSupport"; 
+            const urlDonacion = "https://www.patreon.com/YourPage";
+            sopCont.innerHTML = `
+                <button class="btn-soporte btn-subs" onclick="abrirSoporte('${urlSuscripcion}')">★ Suscripción</button>
+                <button class="btn-soporte" onclick="abrirSoporte('${urlDonacion}')">♥ Donar</button>
+            `;
+
+            // Estado Animado
+            const estCont = document.getElementById('det-estado');
+            let puntoClase = "punto-rojo", textoClase = "txt-finalizado";
+            if (anime.estado === "En Emisión") { puntoClase = "punto-verde"; textoClase = "txt-emision"; }
+            estCont.innerHTML = `<span>Estado:</span><span class="punto ${puntoClase}"></span><span class="${textoClase}">${anime.estado}</span>`;
+
+            // Géneros
+            const gens = document.getElementById('det-generos');
+            gens.innerHTML = "";
+            anime.generos.forEach(g => { gens.innerHTML += `<span class="tag">${g}</span>`; });
+
+            // --- NUEVA LÓGICA DE ACCIONES INTERACTIVAS SIN STATUS ---
+            actualizarBarraAcciones();
+
+            document.getElementById('vista-catalogo').style.display = 'none';
+            document.getElementById('vista-detalles').style.display = 'block';
+            window.scrollTo(0,0);
+            
+            mostrarT(nombre);
+            tg.BackButton.show();
+        }
+
+        // --- ACTUALIZAR LA BARRA DE ACCIONES SIN EL BOTÓN STATUS ---
+        function actualizarBarraAcciones() {
+            const area = document.getElementById('barra-acciones');
+
+            // Íconos SVG simples para Like/Dislike
+            const svgs = {
+                like: `<svg class="icono" viewBox="0 0 24 24"><path d="M1 21h4V9H1v12zm22-11c0-1.1-.9-2-2-2h-6.31l.95-4.57.03-.32c0-.41-.17-.79-.44-1.06L14.17 1 7.59 7.59C7.22 7.95 7 8.45 7 9v10c0 1.1.9 2 2 2h9c.83 0 1.54-.5 1.84-1.22l3.02-7.05c.09-.23.14-.47.14-.73v-2z"></path></svg>`,
+                dislike: `<svg class="icono" viewBox="0 0 24 24"><path d="M15 3H6c-.83 0-1.54.5-1.84 1.22l-3.02 7.05c-.09.23-.14.47-.14.73v2c0 1.1.9 2 2 2h6.31l-.95 4.57-.03.32c0 .41.17.79.44 1.06L9.83 23l6.59-6.59c.36-.36.58-.86.58-1.41V5c0-1.1-.9-2-2-2zm4 0v12h4V3h-4z"></path></svg>`
+            };
+
+            // HTML de los botones
+            area.innerHTML = `
+                <button class="btn-accion-integra" onclick="toggleLike(this)">
+                    ${svgs.like} <span id="txt-like">Me gusta</span>
+                </button>
+
+                <button class="btn-accion-integra" onclick="toggleDislike(this)">
+                    ${svgs.dislike} <span id="txt-dislike">No me gusta</span>
+                </button>
+                `;
+        }
+
+        // --- FUNCIONES DE INTERACCIÓN SIMPLE (TOGGLE COLOR) ---
+        function toggleLike(btn) {
+            btn.classList.toggle('active-like'); // Activa color verde
+            const dislikeBtn = btn.nextElementSibling;
+            if (dislikeBtn) dislikeBtn.classList.remove('active-dislike'); // Quita rojo del dislike
+        }
+
+        function toggleDislike(btn) {
+            btn.classList.toggle('active-dislike'); // Activa color rojo
+            const likeBtn = btn.previousElementSibling;
+            if (likeBtn) likeBtn.classList.remove('active-like'); // Quita verde del like
+        }
+
+        // --- RESTO DE FUNCIONES ---
+        function abrirSoporte(url) { if (tg && tg.openLink) { tg.openLink(url); } else { window.open(url, '_blank'); } }
+
+        function volverAlCatalogo() {
+            document.getElementById('vista-detalles').style.display = 'none';
+            document.getElementById('vista-catalogo').style.display = 'block';
+            tg.BackButton.hide();
+        }
+
+        function mostrarT(nombre) {
+            const area = document.getElementById('area-botones');
+            area.innerHTML = `<span class="txt-guia">Temporadas</span>`;
+            Object.keys(base[nombre].enlaces).forEach(t => {
+                const btn = document.createElement('button');
+                btn.className = 'btn-accion';
+                btn.innerText = t;
+                btn.onclick = () => mostrarI(nombre, t);
+                area.appendChild(btn);
+            });
+        }
+
+        function mostrarI(nombre, t) {
+            const area = document.getElementById('area-botones');
+            const links = base[nombre].enlaces[t];
+            area.innerHTML = `<span class="txt-guia">Idiomas - ${t}</span>`;
+            Object.keys(links).forEach(idioma => {
+                const btn = document.createElement('button');
+                btn.className = 'btn-accion';
+                btn.innerText = idioma;
+                btn.onclick = () => { if (window.Telegram && window.Telegram.WebApp) { window.Telegram.WebApp.openLink(links[idioma]); } else { window.open(links[idioma], '_blank'); } };
+                area.appendChild(btn);
+            });
+            const back = document.createElement('button');
+            back.className = 'btn-v';
+            back.innerText = "← VOLVER A TEMPORADAS";
+            back.onclick = () => mostrarT(nombre);
+            area.appendChild(back);
+        }
+
+        function filtrar() {
+            const v = document.getElementById('buscador').value.toLowerCase();
+            document.querySelectorAll('.tarjeta-anime').forEach(t => { t.style.display = t.innerText.toLowerCase().includes(v) ? 'block' : 'none'; });
+        }
+
+        cargar();
+    </script>
 </body>
 </html>
