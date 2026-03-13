@@ -124,7 +124,7 @@
     <div id="vista-detalles">
         <img id="bg-bluroso" class="bg-banner" src="" alt="">
         <div class="header-detalles">
-            <button class="btn-atras" onclick="cerrar()">← VOLVER</button>
+            <button class="btn-atras" onclick="cerrar()">← VOLVER AL CATÁLOGO</button>
         </div>
         <div class="layout-detalles">
             <div class="img-lateral">
@@ -142,24 +142,26 @@
     </div>
 
     <script>
-        // CONFIGURACIÓN GITHUB: Cambia esto por tus datos reales
+        // CONFIGURACIÓN GITHUB: Esta es la "casa" de tus fotos
         const urlBaseGitHub = "https://raw.githubusercontent.com/Kaergsty/KAERGSTY-BOT/main/";
 
         const base = {
             "Jigokuraku": {
-                sinopsis: "Gabimaru el Vacío busca el elixir de la inmortalidad.",
-                generos: ["Acción", "Fantasía"],
+                sinopsis: "Gabimaru el Vacío, un ninja de Iwagakure conocido por ser frío y eficiente, se encuentra en el corredor de la muerte. Su única esperanza es encontrar el Elixir de la Vida en una isla misteriosa.",
+                generos: ["Acción", "Aventura", "Fantasía"],
                 enlaces: {
-                    "Temporada 1": { "Latino": "https://t.me/tu_link" }
+                    "Temporada 1": { "Latino": "https://t.me/c/123/1", "Japonés": "https://t.me/c/123/2" }
                 }
-        },
-         // SOLO AGREGA EL NOMBRE AQUÍ ABAJO Y LISTO:
-             "Solo Leveling": {
-                 sinopsis: "El cazador más débil...",
-                 generos: ["Acción"],
-                 enlaces: { "T1": { "Latino": "https://t.me/tu_link" } }
-      }
-};
+            },
+            "Solo Leveling": {
+                sinopsis: "En un mundo donde cazadores con habilidades mágicas deben luchar contra monstruos feroces para proteger a la humanidad, Sung Jin-woo, el cazador más débil, recibe un extraño sistema.",
+                generos: ["Acción", "Aventura", "Fantasía"],
+                enlaces: {
+                    "Temporada 1": { "Latino": "https://t.me/c/123/3" }
+                }
+            }
+            // Para agregar más, copia un bloque de arriba y pégalo aquí
+        };
 
         function cargar() {
             const grid = document.getElementById('grid');
@@ -168,9 +170,14 @@
                 const div = document.createElement('div');
                 div.className = 'tarjeta-anime';
                 div.onclick = () => abrir(nombre);
-                // URL Automática de GitHub
+                
+                // URL AUTOMÁTICA: GitHub Raw + Nombre + .webp
                 const imgUrl = urlBaseGitHub + encodeURIComponent(nombre) + ".webp";
-                div.innerHTML = `<img src="${imgUrl}"><div class="titulo-tarjeta">${nombre}</div>`;
+                
+                div.innerHTML = `
+                    <img src="${imgUrl}" onerror="this.src='https://via.placeholder.com/160x240/111/555?text=Error+Img'">
+                    <div class="titulo-tarjeta">${nombre}</div>
+                `;
                 grid.appendChild(div);
             }
         }
@@ -182,6 +189,12 @@
 
             document.getElementById('det-img').src = imgUrl;
             document.getElementById('bg-bluroso').src = bannerUrl;
+            
+            // Si el banner no existe, usa la imagen normal de fondo
+            document.getElementById('bg-bluroso').onerror = function() {
+                this.src = imgUrl;
+            };
+
             document.getElementById('det-titulo').innerText = nombre;
             document.getElementById('det-sinopsis').innerText = anime.sinopsis;
 
@@ -191,12 +204,13 @@
 
             document.getElementById('vista-catalogo').style.display = 'none';
             document.getElementById('vista-detalles').style.display = 'block';
+            window.scrollTo(0,0);
             mostrarT(nombre);
         }
 
         function mostrarT(nombre) {
             const area = document.getElementById('area-botones');
-            area.innerHTML = `<span class="txt-guia">Temporadas</span>`;
+            area.innerHTML = `<span class="txt-guia">Seleccionar Temporada</span>`;
             Object.keys(base[nombre].enlaces).forEach(t => {
                 const btn = document.createElement('button');
                 btn.className = 'btn-accion';
@@ -209,13 +223,13 @@
         function mostrarI(nombre, t) {
             const area = document.getElementById('area-botones');
             const ids = base[nombre].enlaces[t];
-            area.innerHTML = `<span class="txt-guia">${t}</span>`;
+            area.innerHTML = `<span class="txt-guia">Idioma - ${t}</span>`;
             Object.keys(ids).forEach(i => {
                 const btn = document.createElement('button');
                 btn.className = 'btn-accion';
                 btn.innerText = i;
                 btn.onclick = () => {
-                    // Lógica para que NO se cierre la Mini App
+                    // SEGURO PARA TELEGRAM: No cierra la app
                     if (window.Telegram && window.Telegram.WebApp) {
                         window.Telegram.WebApp.openLink(ids[i]);
                     } else {
@@ -243,9 +257,8 @@
             });
         }
 
+        // Iniciar el catálogo al cargar la página
         cargar();
     </script>
 </body>
 </html>
-
-
