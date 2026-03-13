@@ -164,15 +164,18 @@
             100% { box-shadow: 0 0 0 0 rgba(0, 136, 204, 0); border-color: rgba(0, 136, 204, 0.2); }
         }
 
-        /* --- NUEVOS ESTILOS PARA NOMBRES OPCIONALES --- */
+        /* --- NUEVOS ESTILOS PARA NOMBRES OPCIONALES (SIMPLIFICADO) --- */
         .nombres-opcionales {
-            display: flex; flex-direction: column; gap: 4px;
-            margin-top: 5px; margin-bottom: 12px;
+            display: flex; flex-direction: column; gap: 2px;
+            margin-top: 2px; margin-bottom: 10px;
+            font-size: 13px; color: #888;
+        }
+        .nombres-linea {
+            display: flex; gap: 8px; flex-wrap: wrap; align-items: center;
         }
         .tag-idioma {
-            font-size: 12px; color: #aaa; background: rgba(255,255,255,0.04);
-            padding: 4px 10px; border-radius: 6px; display: inline-block;
-            font-style: italic; border: 1px solid rgba(255,255,255,0.03);
+            font-style: italic; background: rgba(255,255,255,0.02);
+            padding: 2px 8px; border-radius: 4px; border: 1px solid rgba(255,255,255,0.02);
         }
 
         .generos { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 12px; }
@@ -183,19 +186,26 @@
             background: rgba(255, 255, 255, 0.04); backdrop-filter: blur(10px);
             border-radius: 12px; border-left: 4px solid #0088cc;
             margin-bottom: 20px; box-sizing: border-box;
-            overflow: hidden; /* Importante para los bordes */
+            overflow: hidden; 
         }
 
         .caja-sinopsis {
-            padding: 18px 18px 10px; /* Reducido padding inferior */
+            padding: 18px 18px 10px; 
             line-height: 1.6; color: #ccc; font-size: 14px;
         }
         .caja-sinopsis p { margin: 0; }
 
-        /* --- NUEVA BARRA DE ACCIONES (INTERACTIVA) --- */
+        /* --- BARRA SEPARADORA SUTIL --- */
+        .barra-separadora {
+            height: 1px; width: 100%;
+            background: linear-gradient(90deg, rgba(255,255,255,0.01) 0%, rgba(255,255,255,0.08) 50%, rgba(255,255,255,0.01) 100%);
+            margin-top: 10px;
+        }
+
+        /* --- NUEVA BARRA DE ACCIONES (INTERACTIVA) SIN STATUS --- */
         .barra-acciones {
             display: flex; gap: 10px; padding: 10px 18px 15px; 
-            border-top: 1px solid rgba(255,255,255,0.03);
+            /* Quitamos el border-top y usamos la barra-separadora encima */
             flex-wrap: wrap;
         }
 
@@ -232,20 +242,7 @@
             box-shadow: 0 0 10px rgba(255, 68, 68, 0.1);
         }
 
-        /* --- ESTILOS DE ESTADO DE VISUALIZACIÓN --- */
-        .btn-accion-integra.status-visto {
-            background: rgba(0, 136, 204, 0.1);
-            border-color: rgba(0, 136, 204, 0.3);
-            color: #0088cc;
-        }
-
-        .btn-accion-integra.status-espera {
-            background: rgba(255, 204, 0, 0.05);
-            border-color: rgba(255, 204, 0, 0.2);
-            color: #ffcc00;
-        }
-
-        /* Íconos SVG simples para Like/Dislike/Visto */
+        /* Íconos SVG simples para Like/Dislike */
         .icono { width: 14px; height: 14px; display: inline-block; fill: currentColor; }
 
         .centro-botones { display: flex; justify-content: center; width: 100%; }
@@ -274,6 +271,7 @@
             .estado-container { justify-content: center; margin-top: 2px;}
             .soporte-container { justify-content: center; margin-top: 10px; width: 100%;}
             .btn-soporte { padding: 6px 12px; font-size: 10px; }
+            .nombres-linea { justify-content: center; }
             .generos { justify-content: center; }
             .barra-acciones { justify-content: center; padding-left: 10px; padding-right: 10px;}
             .btn-accion-integra { padding: 6px 12px; font-size: 11px; }
@@ -313,6 +311,8 @@
                 <div class="contenedor-sinopsis-acciones">
                     <div class="caja-sinopsis"><p id="det-sinopsis"></p></div>
                     
+                    <div class="barra-separadora"></div>
+
                     <div id="barra-acciones" class="barra-acciones"></div>
                 </div>
 
@@ -334,10 +334,9 @@
 
         const urlBaseGitHub = "https://raw.githubusercontent.com/Kaergsty/mi-kaergsty-app/main/img/";
 
-        // --- BASE DE DATOS ACTUALIZADA CON NOMBRES OPCIONALES ---
+        // --- BASE DE DATOS ---
         const base = {
             "Jigokuraku": {
-                // NUEVO: AGREGADOS NOMBRES ALTERNATIVOS
                 nombresAlternativos: { 
                     "Japonés": "地獄楽", 
                     "Inglés": "Hell's Paradise: Jigokuraku" 
@@ -348,7 +347,6 @@
                 enlaces: { "Temporada 1": { "Latino": "https://t.me/c/123/1", "Japonés": "https://t.me/c/123/2" } }
             },
             "Solo Leveling": {
-                // NUEVO: AGREGADOS NOMBRES ALTERNATIVOS
                 nombresAlternativos: { 
                     "Japonés": "俺だけレベルアップな件", 
                     "Coreano": "나 혼자만 레벨업" 
@@ -377,14 +375,6 @@
                 enlaces: { "Wano Arc": { "Japonés": "#", "Latino": "#" } }
             }
         };
-
-        // --- LÓGICA DE ALMACENAMIENTO LOCAL (MEMORIA) ---
-        const MEMORIA_KEY = "AKaergsty_UserDB";
-        let userDB = JSON.parse(localStorage.getItem(MEMORIA_KEY)) || {};
-
-        function guardarDB() {
-            localStorage.setItem(MEMORIA_KEY, JSON.stringify(userDB));
-        }
 
         // --- INICIALIZACIÓN ---
         function cargar() {
@@ -416,19 +406,22 @@
             document.getElementById('det-titulo').innerText = nombre;
             document.getElementById('det-sinopsis').innerText = anime.sinopsis;
 
-            // --- LÓGICA PARA NOMBRES OPCIONALES ---
+            // --- NUEVA LÓGICA PARA NOMBRES OPCIONALES (SIMPLIFICADO) ---
             const nomCont = document.getElementById('det-nombres-opcionales');
             nomCont.innerHTML = "";
             if (anime.nombresAlternativos) {
+                const linea = document.createElement('div');
+                linea.className = 'nombres-linea';
                 for (const lang in anime.nombresAlternativos) {
                     const tag = document.createElement('span');
                     tag.className = 'tag-idioma';
-                    tag.innerHTML = `${lang}: ${anime.nombresAlternativos[lang]}`;
-                    nomCont.appendChild(tag);
+                    tag.innerText = anime.nombresAlternativos[lang]; // Quitamos el nombre del idioma
+                    linea.appendChild(tag);
                 }
+                nomCont.appendChild(linea);
             }
 
-            // --- LÓGICA PARA BOTONES DE SOPORTE (YA ESTABA) ---
+            // --- LÓGICA PARA BOTONES DE SOPORTE ---
             const sopCont = document.getElementById('det-soporte');
             const urlSuscripcion = "https://t.me/YourBotSupport"; 
             const urlDonacion = "https://www.patreon.com/YourPage";
@@ -437,22 +430,19 @@
                 <button class="btn-soporte" onclick="abrirSoporte('${urlDonacion}')">♥ Donar</button>
             `;
 
-            // Estado Animado (YA ESTABA)
+            // Estado Animado
             const estCont = document.getElementById('det-estado');
             let puntoClase = "punto-rojo", textoClase = "txt-finalizado";
             if (anime.estado === "En Emisión") { puntoClase = "punto-verde"; textoClase = "txt-emision"; }
             estCont.innerHTML = `<span>Estado:</span><span class="punto ${puntoClase}"></span><span class="${textoClase}">${anime.estado}</span>`;
 
-            // Géneros (YA ESTABA)
+            // Géneros
             const gens = document.getElementById('det-generos');
             gens.innerHTML = "";
             anime.generos.forEach(g => { gens.innerHTML += `<span class="tag">${g}</span>`; });
 
-            // --- NUEVA LÓGICA DE ACCIONES INTERACTIVAS (CON MEMORIA) ---
-            if (!userDB[nombre]) {
-                userDB[nombre] = { like: 0, dislikes: 0, status: "Ninguno" }; // Status: Ninguno, Visto, Espera
-            }
-            actualizarBarraAcciones(nombre);
+            // --- NUEVA LÓGICA DE ACCIONES INTERACTIVAS SIN STATUS ---
+            actualizarBarraAcciones();
 
             document.getElementById('vista-catalogo').style.display = 'none';
             document.getElementById('vista-detalles').style.display = 'block';
@@ -462,97 +452,42 @@
             tg.BackButton.show();
         }
 
-        // --- ACTUALIZAR LA BARRA DE ACCIONES CON LOS DATOS DE MEMORIA ---
-        function actualizarBarraAcciones(nombre) {
+        // --- ACTUALIZAR LA BARRA DE ACCIONES SIN EL BOTÓN STATUS ---
+        function actualizarBarraAcciones() {
             const area = document.getElementById('barra-acciones');
-            const datos = userDB[nombre];
 
-            // Íconos SVG simples para Like/Dislike/Visto
+            // Íconos SVG simples para Like/Dislike
             const svgs = {
                 like: `<svg class="icono" viewBox="0 0 24 24"><path d="M1 21h4V9H1v12zm22-11c0-1.1-.9-2-2-2h-6.31l.95-4.57.03-.32c0-.41-.17-.79-.44-1.06L14.17 1 7.59 7.59C7.22 7.95 7 8.45 7 9v10c0 1.1.9 2 2 2h9c.83 0 1.54-.5 1.84-1.22l3.02-7.05c.09-.23.14-.47.14-.73v-2z"></path></svg>`,
-                dislike: `<svg class="icono" viewBox="0 0 24 24"><path d="M15 3H6c-.83 0-1.54.5-1.84 1.22l-3.02 7.05c-.09.23-.14.47-.14.73v2c0 1.1.9 2 2 2h6.31l-.95 4.57-.03.32c0 .41.17.79.44 1.06L9.83 23l6.59-6.59c.36-.36.58-.86.58-1.41V5c0-1.1-.9-2-2-2zm4 0v12h4V3h-4z"></path></svg>`,
-                visto: `<svg class="icono" viewBox="0 0 24 24"><path d="M9 16.2L4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4L9 16.2z"></path></svg>`
-            };
-
-            const clasesStatus = {
-                "Ninguno": "",
-                "Visto": "status-visto",
-                "Espera": "status-espera"
-            };
-
-            const textosStatus = {
-                "Ninguno": "Status",
-                "Visto": "Visto",
-                "Espera": "En Espera"
+                dislike: `<svg class="icono" viewBox="0 0 24 24"><path d="M15 3H6c-.83 0-1.54.5-1.84 1.22l-3.02 7.05c-.09.23-.14.47-.14.73v2c0 1.1.9 2 2 2h6.31l-.95 4.57-.03.32c0 .41.17.79.44 1.06L9.83 23l6.59-6.59c.36-.36.58-.86.58-1.41V5c0-1.1-.9-2-2-2zm4 0v12h4V3h-4z"></path></svg>`
             };
 
             // HTML de los botones
             area.innerHTML = `
-                <button class="btn-accion-integra ${datos.like ? 'active-like' : ''}" onclick="toggleLike('${nombre}')">
-                    ${svgs.like} <span id="txt-like">${datos.like ? 'Like' : 'Me gusta'}</span>
+                <button class="btn-accion-integra" onclick="toggleLike(this)">
+                    ${svgs.like} <span id="txt-like">Me gusta</span>
                 </button>
 
-                <button class="btn-accion-integra ${datos.dislike ? 'active-dislike' : ''}" onclick="toggleDislike('${nombre}')">
-                    ${svgs.dislike} <span id="txt-dislike">${datos.dislike ? 'Dislike' : 'No me gusta'}</span>
+                <button class="btn-accion-integra" onclick="toggleDislike(this)">
+                    ${svgs.dislike} <span id="txt-dislike">No me gusta</span>
                 </button>
-
-                <button id="btn-status" class="btn-accion-integra ${clasesStatus[datos.status]}" onclick="toggleMenuStatus('${nombre}')">
-                    ${datos.status === 'Visto' ? svgs.visto : '⊙'} 
-                    <span id="txt-status">${textosStatus[datos.status]}</span>
-                </button>
-            `;
+                `;
         }
 
-        // --- FUNCIONES DE INTERACCIÓN (TOGGLE) ---
-        function toggleLike(nombre) {
-            userDB[nombre].like = userDB[nombre].like ? 0 : 1; // Si tiene like, lo quita. Si no, lo pone.
-            if (userDB[nombre].like) userDB[nombre].dislike = 0; // Quita dislike si pone like
-            guardarDB();
-            actualizarBarraAcciones(nombre);
+        // --- FUNCIONES DE INTERACCIÓN SIMPLE (TOGGLE COLOR) ---
+        function toggleLike(btn) {
+            btn.classList.toggle('active-like'); // Activa color verde
+            const dislikeBtn = btn.nextElementSibling;
+            if (dislikeBtn) dislikeBtn.classList.remove('active-dislike'); // Quita rojo del dislike
         }
 
-        function toggleDislike(nombre) {
-            userDB[nombre].dislike = userDB[nombre].dislike ? 0 : 1; 
-            if (userDB[nombre].dislike) userDB[nombre].like = 0; // Quita like si pone dislike
-            guardarDB();
-            actualizarBarraAcciones(nombre);
+        function toggleDislike(btn) {
+            btn.classList.toggle('active-dislike'); // Activa color rojo
+            const likeBtn = btn.previousElementSibling;
+            if (likeBtn) likeBtn.classList.remove('active-like'); // Quita verde del like
         }
 
-        // --- LÓGICA DE ESTADO (VISTO, ESPERA) USANDO EL MENÚ DE TELEGRAM ---
-        function toggleMenuStatus(nombre) {
-            const statusActual = userDB[nombre].status;
-            
-            // Definimos las opciones del menú de Telegram
-            let opciones = [
-                { id: "visto", title: "Marcar como Visto", value: "Visto" },
-                { id: "espera", title: "Añadir a En Espera", value: "Espera" }
-            ];
-
-            // Si ya tiene un estado, cambiamos las opciones para que pueda quitarlo
-            if (statusActual === "Visto") {
-                opciones = [{ id: "quitar_visto", title: "Quitar de Visto", value: "Ninguno" }, { id: "espera", title: "Cambiar a En Espera", value: "Espera" }];
-            } else if (statusActual === "Espera") {
-                opciones = [{ id: "quitar_espera", title: "Quitar de En Espera", value: "Ninguno" }, { id: "visto", title: "Cambiar a Visto", value: "Visto" }];
-            }
-
-            // Muestra el menú de acciones nativo de Telegram
-            tg.showActionSheet({
-                title: "Seleccionar Estado de Visualización",
-                buttons: opciones
-            }, (btnId) => {
-                // Función CALLBACK que se ejecuta cuando el usuario presiona un botón del menú
-                if (!btnId) return; // Si cierra el menú sin presionar nada
-
-                const opcionSeleccionada = opciones.find(opt => opt.id === btnId);
-                if (opcionSeleccionada) {
-                    userDB[nombre].status = opcionSeleccionada.value; // Guardamos el nuevo estado (Visto, Espera o Ninguno)
-                    guardarDB();
-                    actualizarBarraAcciones(nombre);
-                }
-            });
-        }
-
-        // --- RESTO DE FUNCIONES (YA ESTABAN, NO TOCAR) ---
+        // --- RESTO DE FUNCIONES ---
         function abrirSoporte(url) { if (tg && tg.openLink) { tg.openLink(url); } else { window.open(url, '_blank'); } }
 
         function volverAlCatalogo() {
