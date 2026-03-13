@@ -3,288 +3,100 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AKaergsty</title>
+    <title>AKaergsty Premium</title>
     <style>
-        /* --- ESTILOS GENERALES --- */
         body {
-            margin: 0;
-            padding: 0;
-            background-color: #0f0f0f;
+            margin: 0; padding: 0;
+            background-color: #080808;
             color: #ffffff;
-            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-            overflow-x: hidden;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
 
-        /* --- VISTA DEL CATÁLOGO --- */
-        #vista-catalogo {
-            padding: 20px;
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-        
-        /* Cabecera con Título y Buscador */
+        /* --- VISTA CATÁLOGO --- */
+        #vista-catalogo { padding: 20px; max-width: 1200px; margin: 0 auto; }
         .header-catalogo {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 25px;
-            padding-bottom: 15px;
-            border-bottom: 1px solid #333;
-            flex-wrap: wrap;
-            gap: 15px;
+            display: flex; justify-content: space-between; align-items: center;
+            margin-bottom: 30px; border-bottom: 1px solid #222; padding-bottom: 15px;
         }
-
-        .titulo-principal {
-            font-size: 28px;
-            font-weight: bold;
-            color: #0088cc;
-            margin: 0;
-        }
-
-        /* Buscador Inteligente */
-        .search-container {
-            flex-grow: 1;
-            max-width: 300px;
-            display: flex;
-            justify-content: flex-end;
-        }
-
+        .titulo-principal { font-size: 32px; color: #0088cc; margin: 0; font-weight: 800; }
+        
         #buscador {
-            width: 100%;
-            padding: 10px 15px;
-            border-radius: 20px;
-            border: 2px solid #2a2a2a;
-            background: #1c1c1c;
-            color: white;
-            font-size: 14px;
-            outline: none;
-            transition: border-color 0.3s, box-shadow 0.3s;
+            background: #151515; border: 1px solid #333; color: white;
+            padding: 10px 20px; border-radius: 25px; width: 250px; outline: none;
         }
 
-        #buscador:focus {
-            border-color: #0088cc;
-            box-shadow: 0 0 10px rgba(0, 136, 204, 0.3);
-        }
-
-        /* Cuadrícula de Animes */
         .grid-animes {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
-            gap: 20px;
+            display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 20px;
         }
 
         .tarjeta-anime {
-            position: relative;
-            border-radius: 10px;
-            overflow: hidden;
-            cursor: pointer;
-            aspect-ratio: 2 / 3;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-            background-color: #1a1a1a;
+            position: relative; border-radius: 12px; overflow: hidden; cursor: pointer;
+            transition: all 0.3s ease; background: #111; aspect-ratio: 2/3;
         }
-
-        .tarjeta-anime:hover {
-            transform: translateY(-8px) scale(1.03);
-            box-shadow: 0 10px 20px rgba(0, 136, 204, 0.2);
-        }
-
-        .tarjeta-anime img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-
+        .tarjeta-anime:hover { transform: scale(1.05); box-shadow: 0 0 20px rgba(0, 136, 204, 0.4); }
+        .tarjeta-anime img { width: 100%; height: 100%; object-fit: cover; }
         .titulo-tarjeta {
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            background: linear-gradient(transparent, rgba(0,0,0,0.95));
-            padding: 25px 10px 10px;
-            font-size: 14px;
-            font-weight: bold;
-            text-align: center;
+            position: absolute; bottom: 0; width: 100%; background: linear-gradient(transparent, rgba(0,0,0,0.9));
+            padding: 20px 5px 10px; font-size: 13px; text-align: center; font-weight: bold;
         }
 
-        /* --- VISTA DE DETALLES --- */
-        #vista-detalles {
-            display: none;
-            min-height: 100vh;
-            background-color: #121212;
-            padding: 20px;
+        /* --- VISTA DETALLES (EL CAMBIO ÉPICO) --- */
+        #vista-detalles { display: none; position: relative; min-height: 100vh; background: #080808; }
+
+        /* Banner de Fondo */
+        .banner-superior {
+            position: absolute; top: 0; left: 0; width: 100%; height: 500px;
+            z-index: 1; overflow: hidden;
+        }
+        .banner-superior img { width: 100%; height: 100%; object-fit: cover; opacity: 0.5; }
+        .degradado-fondo {
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            background: linear-gradient(to bottom, transparent 0%, #080808 90%);
         }
 
-        .header-detalles {
-            margin-bottom: 20px;
+        /* Contenido Principal */
+        .contenido-detalles {
+            position: relative; z-index: 2; padding: 40px 20px;
+            max-width: 1100px; margin: 0 auto; display: flex; gap: 40px; flex-wrap: wrap;
         }
 
-        .btn-atras {
-            background: #2a2a2a;
-            border: none;
-            color: white;
-            font-size: 16px;
-            padding: 10px 20px;
-            cursor: pointer;
-            border-radius: 20px;
-            font-weight: bold;
-            transition: background 0.3s;
+        .col-izquierda { flex: 0 0 280px; }
+        .portada-detalle {
+            width: 100%; border-radius: 15px; box-shadow: 0 10px 30px rgba(0,0,0,0.7);
+            border: 2px solid rgba(255,255,255,0.1);
         }
 
-        .btn-atras:hover {
-            background: #0088cc;
+        .col-derecha { flex: 1; min-width: 300px; }
+        .btn-atras-float {
+            background: rgba(0,0,0,0.6); border: 1px solid #444; color: white;
+            padding: 8px 15px; border-radius: 20px; cursor: pointer; margin-bottom: 20px;
         }
 
-        /* Contenedor dividido: Imagen (Izq) - Sinopsis (Der) */
-        .detalle-layout {
-            display: flex;
-            gap: 30px;
-            max-width: 1000px;
-            margin: 0 auto;
-            align-items: flex-start;
-        }
-
-        /* Lado Izquierdo (Imagen) */
-        .detalle-izquierda {
-            flex: 0 0 300px; /* Ancho fijo para la imagen */
-            border-radius: 12px;
-            overflow: hidden;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.8);
-        }
-
-        .detalle-izquierda img {
-            width: 100%;
-            height: auto;
-            display: block;
-            border-radius: 12px;
-        }
-
-        /* Lado Derecho (Información y Sinopsis) */
-        .detalle-derecha {
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-        }
-
-        .titulo-detalle {
-            font-size: 32px;
-            margin: 0 0 15px 0;
-            color: #ffffff;
-        }
-
-        .generos {
-            display: flex;
-            gap: 10px;
-            flex-wrap: wrap;
-            margin-bottom: 20px;
-        }
-
-        .tag-genero {
-            background-color: #0088cc;
-            border-radius: 15px;
-            padding: 5px 15px;
-            font-size: 13px;
-            font-weight: bold;
-            color: white;
-        }
-
-        /* Caja de Sinopsis con Degradado */
-        .caja-sinopsis {
-            background: linear-gradient(145deg, #1e1e1e 0%, #121212 100%);
-            border-left: 4px solid #0088cc;
-            padding: 20px;
-            border-radius: 0 12px 12px 0;
-            box-shadow: inset 0 0 20px rgba(0,0,0,0.5);
-            margin-bottom: 30px;
-        }
-
-        .sinopsis {
-            font-size: 15px;
-            line-height: 1.7;
-            color: #cccccc;
-            margin: 0;
-        }
-
-        /* --- SECCIÓN DE BOTONES CENTRADOS --- */
-        .contenedor-botones-centro {
-            display: flex;
-            justify-content: center;
-            width: 100%;
-        }
-
-        .seccion-botones {
-            background-color: #1a1a1a;
-            border-radius: 15px;
-            padding: 25px;
-            display: flex;
-            flex-direction: column;
-            align-items: center; /* Centra los botones horizontalmente */
-            gap: 12px;
-            width: 100%;
-            max-width: 350px; /* Tamaño máximo del bloque de botones */
-            box-shadow: 0 8px 20px rgba(0,0,0,0.4);
-        }
-
-        .titulo-seccion {
-            font-size: 16px;
-            margin: 0 0 10px 0;
-            color: #888;
-            text-align: center;
-            font-weight: bold;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-
-        .btn-azul {
-            background-color: #0088cc;
-            color: white;
-            border: none;
-            padding: 14px;
-            border-radius: 10px;
-            font-size: 16px;
-            font-weight: bold;
-            cursor: pointer;
-            width: 100%; /* El botón ocupa todo el ancho de su caja */
-            transition: background 0.2s, transform 0.1s;
-        }
-
-        .btn-azul:hover {
-            background-color: #006699;
-            transform: translateY(-2px);
-        }
-
-        .btn-volver-temp {
-            background-color: transparent;
-            color: #ff4444;
-            border: none;
-            padding: 10px;
-            font-size: 15px;
-            cursor: pointer;
-            font-weight: bold;
-            margin-top: 5px;
-        }
+        .titulo-detalle { font-size: 42px; margin: 10px 0; text-shadow: 2px 2px 10px rgba(0,0,0,0.8); }
         
-        .btn-volver-temp:hover {
-            text-decoration: underline;
+        .generos { display: flex; gap: 10px; margin-bottom: 20px; }
+        .tag-genero { background: #0088cc; padding: 5px 15px; border-radius: 20px; font-size: 12px; font-weight: bold; }
+
+        .caja-sinopsis {
+            background: rgba(20, 20, 20, 0.7); backdrop-filter: blur(10px);
+            padding: 25px; border-radius: 15px; border-left: 5px solid #0088cc;
+            line-height: 1.7; color: #ddd; margin-bottom: 30px;
         }
 
-        /* Adaptabilidad para pantallas de celular */
-        @media (max-width: 768px) {
-            .detalle-layout {
-                flex-direction: column;
-                align-items: center;
-            }
-            .detalle-izquierda {
-                flex: 0 0 auto;
-                width: 80%;
-                max-width: 300px;
-            }
-            .titulo-detalle {
-                text-align: center;
-            }
-            .generos {
-                justify-content: center;
-            }
+        /* Botones Centrados */
+        .area-interactiva-contenedor { display: flex; justify-content: center; }
+        .botones-box {
+            background: #151515; padding: 30px; border-radius: 20px; 
+            width: 100%; max-width: 400px; text-align: center;
         }
+        .btn-link {
+            background: #0088cc; color: white; border: none; width: 100%;
+            padding: 15px; border-radius: 10px; font-weight: bold; cursor: pointer;
+            margin-bottom: 10px; font-size: 16px; transition: 0.3s;
+        }
+        .btn-link:hover { background: #006699; transform: scale(1.02); }
+        .btn-volver { background: none; border: none; color: #ff4444; cursor: pointer; font-weight: bold; }
+
     </style>
 </head>
 <body>
@@ -292,216 +104,118 @@
     <div id="vista-catalogo">
         <div class="header-catalogo">
             <h1 class="titulo-principal">AKaergsty</h1>
-            <div class="search-container">
-                <input type="text" id="buscador" placeholder="Buscar anime..." oninput="filtrarCatalogo()">
-            </div>
+            <input type="text" id="buscador" placeholder="Buscar..." oninput="filtrar()">
         </div>
-        <div class="grid-animes" id="contenedor-grid">
-            </div>
+        <div class="grid-animes" id="grid"></div>
     </div>
 
     <div id="vista-detalles">
-        <div class="header-detalles">
-            <button class="btn-atras" onclick="cerrarDetalles()">← Volver al Catálogo</button>
+        <div class="banner-superior">
+            <img id="img-banner" src="" alt="">
+            <div class="degradado-fondo"></div>
         </div>
-        
-        <div class="detalle-layout">
-            <div class="detalle-izquierda">
-                <img id="img-detalle" src="" alt="Portada">
+
+        <div class="contenido-detalles">
+            <div class="col-izquierda">
+                <button class="btn-atras-float" onclick="cerrar()">← VOLVER</button>
+                <img id="img-portada" class="portada-detalle" src="" alt="">
             </div>
-            
-            <div class="detalle-derecha">
-                <h1 id="titulo-detalle" class="titulo-detalle"></h1>
-                
-                <div id="generos-detalle" class="generos">
-                    </div>
-                
+
+            <div class="col-derecha">
+                <h1 id="det-titulo" class="titulo-detalle"></h1>
+                <div id="det-generos" class="generos"></div>
                 <div class="caja-sinopsis">
-                    <p id="sinopsis-detalle" class="sinopsis"></p>
+                    <p id="det-sinopsis"></p>
                 </div>
 
-                <div class="contenedor-botones-centro">
-                    <div class="seccion-botones" id="area-interactiva">
-                        </div>
+                <div class="area-interactiva-contenedor">
+                    <div id="area-botones" class="botones-box"></div>
                 </div>
             </div>
         </div>
     </div>
 
     <script>
-        // --- BASE DE DATOS DEL ANIME ---
-        const baseDeDatosAnime = {
+        const base = {
             "Jigokuraku": {
-                sinopsis: "El ninja Gabimaru el Vacío es sentenciado a muerte, pero recibe una oportunidad de ser indultado si viaja a una isla misteriosa y recupera el elixir de la inmortalidad para el shogunato.",
-                generos: ["Acción", "Fantasía oscura", "Gore"],
-                enlaces: {
-                    "Temporada 1": {
-                        "Latino": "https://t.me/AnimeKaergsty1/4808",
-                        "Japonés": "https://t.me/AnimeKaergsty1/4805"
-                    },
-                    "Temporada 2": {
-                        "Latino": "https://t.me/AnimeKaergsty1/4443",
-                        "Japonés": "https://t.me/AnimeKaergsty1/4153"
-                    }
-                }
-            },
-            "Kaguya-sama wa Kokurasetai": {
-                sinopsis: "En la academia Shuchiin, los líderes del consejo estudiantil Miyuki Shirogane y Kaguya Shinomiya se gustan, pero su orgullo les impide confesarse. Comienza una guerra psicológica para hacer que el otro se declare primero.",
-                generos: ["Comedia Romántica", "Escolar", "Psicológico"],
-                enlaces: {
-                    "Temporada 1": {
-                        "Latino": "https://t.me/AnimeKaergsty1/5069",
-                        "Japonés": "https://t.me/AnimeKaergsty1/5067"
-                    },
-                    "Temporada 2": {
-                        "Latino": "https://t.me/AnimeKaergsty1/5073",
-                        "Japonés": "https://t.me/AnimeKaergsty1/5071"
-                    },
-                    "Temporada 3": {
-                        "Latino": "https://t.me/AnimeKaergsty1/5078",
-                        "Japonés": "https://t.me/AnimeKaergsty1/5075"
-                    }
-                }
-            },
-            "29-sai Dokushin Chuuken Boukensha no Nichijou": {
-                sinopsis: "La vida diaria de un aventurero de 29 años que sigue soltero y trabaja duro en el gremio, enfrentando los retos diarios de su profesión y su vida personal.",
-                generos: ["Aventura", "Fantasía", "Recuentos de la vida"],
-                banner: "img/29 sai Dokushin Chuuken Boukensha no Nichijou",
-                enlaces: {
-                    "Temporada 1": {
-                        "Japonés": "https://t.me/AnimeKaergsty1/3998"
-                    }
-                }
+                sinopsis: "Gabimaru el Vacío es sentenciado a muerte...",
+                generos: ["Acción", "Aventura"],
+                banner: "img/Jigokuraku-banner.jpg", // Aquí pones tu imagen horizontal
+                enlaces: { "Temporada 1": { "Latino": "url", "Japonés": "url" } }
             }
-            // Puedes seguir agregando más animes aquí abajo...
         };
 
-        // --- FUNCIONES DEL SISTEMA ---
-
-        function cargarCatalogo() {
-            const contenedor = document.getElementById('contenedor-grid');
-            contenedor.innerHTML = ""; 
-
-            for (const nombreAnime in baseDeDatosAnime) {
-                // Ahora el sistema arma la ruta de la imagen automáticamente
-                const rutaImagenReal = `img/${nombreAnime}.webp`;
-                
-                const tarjeta = document.createElement('div');
-                tarjeta.className = 'tarjeta-anime';
-                tarjeta.onclick = () => abrirDetalles(nombreAnime);
-
-                tarjeta.innerHTML = `
-                    <img src="${rutaImagenReal}" alt="${nombreAnime}" onerror="this.src='https://via.placeholder.com/160x240/1a1a1a/555555?text=Sin+Imagen'">
-                    <div class="titulo-tarjeta">${nombreAnime}</div>
-                `;
-                
-                contenedor.appendChild(tarjeta);
+        function cargar() {
+            const grid = document.getElementById('grid');
+            for (const key in base) {
+                const div = document.createElement('div');
+                div.className = 'tarjeta-anime';
+                div.onclick = () => abrir(key);
+                div.innerHTML = `<img src="img/${key}.webp"><div class="titulo-tarjeta">${key}</div>`;
+                grid.appendChild(div);
             }
         }
 
-        function abrirDetalles(nombreAnime) {
-            const anime = baseDeDatosAnime[nombreAnime];
-            const rutaImagenReal = `img/${nombreAnime}.webp`;
+        function abrir(key) {
+            const anime = base[key];
+            document.getElementById('img-banner').src = anime.banner || `img/${key}.webp`;
+            document.getElementById('img-portada').src = `img/${key}.webp`;
+            document.getElementById('det-titulo').innerText = key;
+            document.getElementById('det-sinopsis').innerText = anime.sinopsis;
             
-            // Llenar los datos
-            document.getElementById('img-detalle').src = rutaImagenReal;
-            
-            // Si la imagen falla en cargar, pone un fondo negro temporal
-            document.getElementById('img-detalle').onerror = function() {
-                this.src = 'https://via.placeholder.com/300x450/1a1a1a/555555?text=Sin+Imagen';
-            };
+            const gens = document.getElementById('det-generos');
+            gens.innerHTML = "";
+            anime.generos.forEach(g => gens.innerHTML += `<span class="tag-genero">${g}</span>`);
 
-            document.getElementById('titulo-detalle').innerText = nombreAnime;
-            document.getElementById('sinopsis-detalle').innerText = anime.sinopsis;
-            
-            // Llenar géneros
-            const contenedorGeneros = document.getElementById('generos-detalle');
-            contenedorGeneros.innerHTML = "";
-            anime.generos.forEach(genero => {
-                contenedorGeneros.innerHTML += `<span class="tag-genero">${genero}</span>`;
-            });
-
-            // Ocultar catálogo y mostrar detalles
             document.getElementById('vista-catalogo').style.display = 'none';
             document.getElementById('vista-detalles').style.display = 'block';
-            
-            window.scrollTo(0, 0);
-            mostrarTemporadas(nombreAnime);
+            window.scrollTo(0,0);
+            mostrarTemps(key);
         }
 
-        function cerrarDetalles() {
+        function mostrarTemps(key) {
+            const box = document.getElementById('area-botones');
+            box.innerHTML = `<p style="color:#888">TEMPORADAS</p>`;
+            Object.keys(base[key].enlaces).forEach(t => {
+                const b = document.createElement('button');
+                b.className = 'btn-link';
+                b.innerText = t;
+                b.onclick = () => mostrarIds(key, t);
+                box.appendChild(b);
+            });
+        }
+
+        function mostrarIds(key, t) {
+            const box = document.getElementById('area-botones');
+            box.innerHTML = `<p style="color:#888">${t}</p>`;
+            const ids = base[key].enlaces[t];
+            Object.keys(ids).forEach(i => {
+                const b = document.createElement('button');
+                b.className = 'btn-link';
+                b.innerText = i;
+                b.onclick = () => window.open(ids[i], '_blank');
+                box.appendChild(b);
+            });
+            const back = document.createElement('button');
+            back.className = 'btn-volver';
+            back.innerText = "← VOLVER";
+            back.onclick = () => mostrarTemps(key);
+            box.appendChild(back);
+        }
+
+        function cerrar() {
             document.getElementById('vista-detalles').style.display = 'none';
             document.getElementById('vista-catalogo').style.display = 'block';
-            // Limpia el buscador al volver
-            document.getElementById('buscador').value = "";
-            filtrarCatalogo();
         }
 
-        function mostrarTemporadas(nombreAnime) {
-            const areaInteractiva = document.getElementById('area-interactiva');
-            const enlaces = baseDeDatosAnime[nombreAnime].enlaces;
-            
-            areaInteractiva.innerHTML = `<p class="titulo-seccion">Selecciona una Temporada</p>`;
-
-            if (enlaces) {
-                Object.keys(enlaces).forEach(temp => {
-                    const btn = document.createElement('button');
-                    btn.className = 'btn-azul';
-                    btn.innerText = temp;
-                    btn.onclick = () => mostrarIdiomas(nombreAnime, temp);
-                    areaInteractiva.appendChild(btn);
-                });
-            } else {
-                areaInteractiva.innerHTML += `<button class="btn-azul" style="background-color: #555; cursor: default;">Próximamente</button>`;
-            }
-        }
-
-        function mostrarIdiomas(nombreAnime, temporada) {
-            const areaInteractiva = document.getElementById('area-interactiva');
-            const infoTemp = baseDeDatosAnime[nombreAnime].enlaces[temporada];
-            
-            areaInteractiva.innerHTML = `<p class="titulo-seccion">Idioma - ${temporada}</p>`;
-
-            Object.keys(infoTemp).forEach(idioma => {
-                const btn = document.createElement('button');
-                btn.className = 'btn-azul';
-                btn.innerText = idioma;
-                // Usando la API de Telegram para abrir el link si está disponible
-                btn.onclick = () => {
-                    if(window.Telegram && window.Telegram.WebApp && window.Telegram.WebApp.openTelegramLink) {
-                        window.Telegram.WebApp.openTelegramLink(infoTemp[idioma]);
-                    } else {
-                        window.open(infoTemp[idioma], '_blank');
-                    }
-                };
-                areaInteractiva.appendChild(btn);
-            });
-
-            const btnVolver = document.createElement('button');
-            btnVolver.className = 'btn-volver-temp';
-            btnVolver.innerText = "← Regresar a Temporadas";
-            btnVolver.onclick = () => mostrarTemporadas(nombreAnime);
-            areaInteractiva.appendChild(btnVolver);
-        }
-
-        // Función del Buscador Inteligente
-        function filtrarCatalogo() {
-            const textoBusqueda = document.getElementById('buscador').value.toLowerCase();
-            const tarjetas = document.querySelectorAll('.tarjeta-anime');
-
-            tarjetas.forEach(tarjeta => {
-                const titulo = tarjeta.querySelector('.titulo-tarjeta').innerText.toLowerCase();
-                if (titulo.includes(textoBusqueda)) {
-                    tarjeta.style.display = "block";
-                } else {
-                    tarjeta.style.display = "none";
-                }
+        function filtrar() {
+            const val = document.getElementById('buscador').value.toLowerCase();
+            document.querySelectorAll('.tarjeta-anime').forEach(t => {
+                t.style.display = t.innerText.toLowerCase().includes(val) ? 'block' : 'none';
             });
         }
 
-        // Iniciar todo
-        cargarCatalogo();
+        cargar();
     </script>
 </body>
 </html>
-
