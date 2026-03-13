@@ -30,48 +30,37 @@
             justify-content: start; 
         }
 
-        .card { 
-            background: #333; 
-            border-radius: 12px; 
-            overflow: hidden; 
-            text-align: center; 
-            padding-bottom: 12px; 
-            width: 160px;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.3);
-        }
+        .card {
+    cursor: pointer; /* Muestra el cursor de mano al pasar por encima */
+    transition: transform 0.2s, box-shadow 0.2s; /* Efecto suave para las animaciones */
+}
 
-        .card img { 
-            width: 100%; 
-            height: 230px; 
-            object-fit: cover; 
-            display: block;
-        }
+/* Efecto visual al pasar el mouse (hover) o tocar la tarjeta */
+.card:hover {
+    transform: translateY(-5px); /* Levanta ligeramente la tarjeta */
+    box-shadow: 0 10px 20px rgba(0,0,0,0.3); /* Aumenta la sombra para dar profundidad */
+}
 
-        .btn-play { 
-            background: #0088cc; 
-            color: white; 
-            border: none; 
-            padding: 8px 15px; 
-            border-radius: 5px; 
-            cursor: pointer; 
-            margin-top: 10px; 
-            font-weight: bold;
-        }
+/* Mejora el estilo del texto (el <p>) */
+.card p {
+    font-size: 16px; /* Ajusta el tamaño de fuente si es necesario */
+    font-weight: bold; /* Hace el texto en negrita */
+    margin: 10px 10px; /* Añade un poco de margen */
+    color: #333; /* Color de texto más oscuro (o el que prefieras) */
+}
     </style>
 </head>
 <body>
     <h2>Anime Kaergsty</h2>
     <div class="grid">
-        <div class="card">
+        <div class="card" onclick="sendVideo('ep01')">
             <img src="poster01.jpg" alt="Anime 1">
             <p>Kaguya-sama wa Kokurasetai</p>
-            <button class="btn-play" onclick="sendVideo('ep01')">Reproducir</button>
         </div>
 
-        <div class="card">
+        <div class="card" onclick="sendVideo('ep02')">
             <img src="poster02.jpg" alt="Anime 2">
             <p>Kaguya-sama wa Kokurasetai2</p>
-            <button class="btn-play" onclick="sendVideo('ep02')">Reproducir</button>
         </div>
         
         </div>
@@ -84,6 +73,7 @@
         }
 </body>
 </html>
+
 
 
 
