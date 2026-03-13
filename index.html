@@ -3,9 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Catálogo Anime Profesional</title>
+    <title>AKaergsty</title>
     <style>
-        /* --- ESTILOS GENERALES (Tema Oscuro) --- */
+        /* --- ESTILOS GENERALES --- */
         body {
             margin: 0;
             padding: 0;
@@ -18,35 +18,74 @@
         /* --- VISTA DEL CATÁLOGO --- */
         #vista-catalogo {
             padding: 20px;
+            max-width: 1200px;
+            margin: 0 auto;
         }
         
+        /* Cabecera con Título y Buscador */
         .header-catalogo {
-            font-size: 24px;
-            font-weight: bold;
-            margin-bottom: 20px;
-            padding-bottom: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 25px;
+            padding-bottom: 15px;
             border-bottom: 1px solid #333;
+            flex-wrap: wrap;
+            gap: 15px;
         }
 
+        .titulo-principal {
+            font-size: 28px;
+            font-weight: bold;
+            color: #0088cc;
+            margin: 0;
+        }
+
+        /* Buscador Inteligente */
+        .search-container {
+            flex-grow: 1;
+            max-width: 300px;
+            display: flex;
+            justify-content: flex-end;
+        }
+
+        #buscador {
+            width: 100%;
+            padding: 10px 15px;
+            border-radius: 20px;
+            border: 2px solid #2a2a2a;
+            background: #1c1c1c;
+            color: white;
+            font-size: 14px;
+            outline: none;
+            transition: border-color 0.3s, box-shadow 0.3s;
+        }
+
+        #buscador:focus {
+            border-color: #0088cc;
+            box-shadow: 0 0 10px rgba(0, 136, 204, 0.3);
+        }
+
+        /* Cuadrícula de Animes */
         .grid-animes {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
-            gap: 15px;
+            grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+            gap: 20px;
         }
 
         .tarjeta-anime {
             position: relative;
-            border-radius: 8px;
+            border-radius: 10px;
             overflow: hidden;
             cursor: pointer;
             aspect-ratio: 2 / 3;
-            /* Aquí está la animación profesional al pasar el mouse */
             transition: transform 0.3s ease, box-shadow 0.3s ease;
+            background-color: #1a1a1a;
         }
 
         .tarjeta-anime:hover {
             transform: translateY(-8px) scale(1.03);
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5);
+            box-shadow: 0 10px 20px rgba(0, 136, 204, 0.2);
         }
 
         .tarjeta-anime img {
@@ -60,67 +99,76 @@
             bottom: 0;
             left: 0;
             right: 0;
-            background: linear-gradient(transparent, rgba(0,0,0,0.9));
-            padding: 20px 10px 10px;
+            background: linear-gradient(transparent, rgba(0,0,0,0.95));
+            padding: 25px 10px 10px;
             font-size: 14px;
             font-weight: bold;
+            text-align: center;
         }
 
-        /* --- VISTA DE DETALLES (Estilo App) --- */
+        /* --- VISTA DE DETALLES --- */
         #vista-detalles {
-            display: none; /* Oculto por defecto */
+            display: none;
             min-height: 100vh;
             background-color: #121212;
-            padding-bottom: 40px;
+            padding: 20px;
         }
 
         .header-detalles {
-            padding: 15px 20px;
-            display: flex;
-            align-items: center;
-            background-color: transparent;
-            position: absolute;
-            top: 0;
-            z-index: 10;
+            margin-bottom: 20px;
         }
 
         .btn-atras {
-            background: rgba(0,0,0,0.5);
+            background: #2a2a2a;
             border: none;
             color: white;
-            font-size: 24px;
+            font-size: 16px;
+            padding: 10px 20px;
             cursor: pointer;
-            border-radius: 50%;
-            width: 40px;
-            height: 40px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            border-radius: 20px;
+            font-weight: bold;
             transition: background 0.3s;
         }
 
         .btn-atras:hover {
-            background: rgba(0,0,0,0.8);
+            background: #0088cc;
         }
 
-        .banner-detalle {
+        /* Contenedor dividido: Imagen (Izq) - Sinopsis (Der) */
+        .detalle-layout {
+            display: flex;
+            gap: 30px;
+            max-width: 1000px;
+            margin: 0 auto;
+            align-items: flex-start;
+        }
+
+        /* Lado Izquierdo (Imagen) */
+        .detalle-izquierda {
+            flex: 0 0 300px; /* Ancho fijo para la imagen */
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.8);
+        }
+
+        .detalle-izquierda img {
             width: 100%;
-            height: 300px;
-            object-fit: cover;
-            mask-image: linear-gradient(to bottom, black 50%, transparent 100%);
-            -webkit-mask-image: linear-gradient(to bottom, black 50%, transparent 100%);
+            height: auto;
+            display: block;
+            border-radius: 12px;
         }
 
-        .info-contenedor {
-            padding: 0 20px;
-            margin-top: -50px;
-            position: relative;
-            z-index: 5;
+        /* Lado Derecho (Información y Sinopsis) */
+        .detalle-derecha {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
         }
 
         .titulo-detalle {
-            font-size: 28px;
-            margin: 0 0 10px 0;
+            font-size: 32px;
+            margin: 0 0 15px 0;
+            color: #ffffff;
         }
 
         .generos {
@@ -131,53 +179,77 @@
         }
 
         .tag-genero {
-            border: 1px solid #555;
-            border-radius: 20px;
-            padding: 5px 12px;
-            font-size: 12px;
-            color: #ddd;
+            background-color: #0088cc;
+            border-radius: 15px;
+            padding: 5px 15px;
+            font-size: 13px;
+            font-weight: bold;
+            color: white;
         }
 
-        .sinopsis {
-            font-size: 14px;
-            line-height: 1.6;
-            color: #bbb;
+        /* Caja de Sinopsis con Degradado */
+        .caja-sinopsis {
+            background: linear-gradient(145deg, #1e1e1e 0%, #121212 100%);
+            border-left: 4px solid #0088cc;
+            padding: 20px;
+            border-radius: 0 12px 12px 0;
+            box-shadow: inset 0 0 20px rgba(0,0,0,0.5);
             margin-bottom: 30px;
         }
 
-        /* --- SECCIÓN DE TEMPORADAS E IDIOMAS --- */
+        .sinopsis {
+            font-size: 15px;
+            line-height: 1.7;
+            color: #cccccc;
+            margin: 0;
+        }
+
+        /* --- SECCIÓN DE BOTONES CENTRADOS --- */
+        .contenedor-botones-centro {
+            display: flex;
+            justify-content: center;
+            width: 100%;
+        }
+
         .seccion-botones {
             background-color: #1a1a1a;
-            border-radius: 12px;
-            padding: 20px;
+            border-radius: 15px;
+            padding: 25px;
             display: flex;
             flex-direction: column;
-            gap: 10px;
-            max-width: 400px;
+            align-items: center; /* Centra los botones horizontalmente */
+            gap: 12px;
+            width: 100%;
+            max-width: 350px; /* Tamaño máximo del bloque de botones */
+            box-shadow: 0 8px 20px rgba(0,0,0,0.4);
         }
 
         .titulo-seccion {
             font-size: 16px;
-            margin: 0 0 15px 0;
-            color: #aaa;
+            margin: 0 0 10px 0;
+            color: #888;
             text-align: center;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 1px;
         }
 
         .btn-azul {
             background-color: #0088cc;
             color: white;
             border: none;
-            padding: 12px;
-            border-radius: 8px;
+            padding: 14px;
+            border-radius: 10px;
             font-size: 16px;
             font-weight: bold;
             cursor: pointer;
+            width: 100%; /* El botón ocupa todo el ancho de su caja */
             transition: background 0.2s, transform 0.1s;
         }
 
         .btn-azul:hover {
             background-color: #006699;
-            transform: scale(1.02);
+            transform: translateY(-2px);
         }
 
         .btn-volver-temp {
@@ -185,50 +257,81 @@
             color: #ff4444;
             border: none;
             padding: 10px;
-            font-size: 16px;
+            font-size: 15px;
             cursor: pointer;
+            font-weight: bold;
             margin-top: 5px;
         }
         
         .btn-volver-temp:hover {
             text-decoration: underline;
         }
+
+        /* Adaptabilidad para pantallas de celular */
+        @media (max-width: 768px) {
+            .detalle-layout {
+                flex-direction: column;
+                align-items: center;
+            }
+            .detalle-izquierda {
+                flex: 0 0 auto;
+                width: 80%;
+                max-width: 300px;
+            }
+            .titulo-detalle {
+                text-align: center;
+            }
+            .generos {
+                justify-content: center;
+            }
+        }
     </style>
 </head>
 <body>
 
     <div id="vista-catalogo">
-        <div class="header-catalogo">Mi Biblioteca</div>
+        <div class="header-catalogo">
+            <h1 class="titulo-principal">AKaergsty</h1>
+            <div class="search-container">
+                <input type="text" id="buscador" placeholder="Buscar anime..." oninput="filtrarCatalogo()">
+            </div>
+        </div>
         <div class="grid-animes" id="contenedor-grid">
             </div>
     </div>
 
     <div id="vista-detalles">
         <div class="header-detalles">
-            <button class="btn-atras" onclick="cerrarDetalles()">←</button>
+            <button class="btn-atras" onclick="cerrarDetalles()">← Volver al Catálogo</button>
         </div>
-        <img id="img-detalle" class="banner-detalle" src="" alt="Banner">
         
-        <div class="info-contenedor">
-            <h1 id="titulo-detalle" class="titulo-detalle"></h1>
+        <div class="detalle-layout">
+            <div class="detalle-izquierda">
+                <img id="img-detalle" src="" alt="Portada">
+            </div>
             
-            <div id="generos-detalle" class="generos">
+            <div class="detalle-derecha">
+                <h1 id="titulo-detalle" class="titulo-detalle"></h1>
+                
+                <div id="generos-detalle" class="generos">
+                    </div>
+                
+                <div class="caja-sinopsis">
+                    <p id="sinopsis-detalle" class="sinopsis"></p>
                 </div>
-            
-            <p id="sinopsis-detalle" class="sinopsis"></p>
 
-            <div class="seccion-botones" id="area-interactiva">
+                <div class="contenedor-botones-centro">
+                    <div class="seccion-botones" id="area-interactiva">
+                        </div>
                 </div>
+            </div>
         </div>
     </div>
 
     <script>
         // --- BASE DE DATOS DEL ANIME ---
-        // Ahora incluimos imagen, sinopsis, géneros y enlaces en un solo lugar.
         const baseDeDatosAnime = {
             "Jigokuraku": {
-                imagen: "https://via.placeholder.com/300x450/222222/ffffff?text=Jigokuraku", 
-                banner: "https://via.placeholder.com/800x400/222222/ffffff?text=Jigokuraku",
                 sinopsis: "El ninja Gabimaru el Vacío es sentenciado a muerte, pero recibe una oportunidad de ser indultado si viaja a una isla misteriosa y recupera el elixir de la inmortalidad para el shogunato.",
                 generos: ["Acción", "Fantasía oscura", "Gore"],
                 enlaces: {
@@ -243,8 +346,6 @@
                 }
             },
             "Kaguya-sama wa Kokurasetai": {
-                imagen: "https://via.placeholder.com/300x450/442222/ffffff?text=Kaguya-sama",
-                banner: "https://via.placeholder.com/800x400/442222/ffffff?text=Kaguya-sama",
                 sinopsis: "En la academia Shuchiin, los líderes del consejo estudiantil Miyuki Shirogane y Kaguya Shinomiya se gustan, pero su orgullo les impide confesarse. Comienza una guerra psicológica para hacer que el otro se declare primero.",
                 generos: ["Comedia Romántica", "Escolar", "Psicológico"],
                 enlaces: {
@@ -253,29 +354,43 @@
                         "Japonés": "https://t.me/AnimeKaergsty1/5067"
                     },
                     "Temporada 2": {
+                        "Latino": "https://t.me/AnimeKaergsty1/5073",
                         "Japonés": "https://t.me/AnimeKaergsty1/5071"
+                    },
+                    "Temporada 3": {
+                        "Latino": "https://t.me/AnimeKaergsty1/5078",
+                        "Japonés": "https://t.me/AnimeKaergsty1/5075"
+                    }
+                }
+            },
+            "29-sai Dokushin Chuuken Boukensha no Nichijou": {
+                sinopsis: "La vida diaria de un aventurero de 29 años que sigue soltero y trabaja duro en el gremio, enfrentando los retos diarios de su profesión y su vida personal.",
+                generos: ["Aventura", "Fantasía", "Recuentos de la vida"],
+                enlaces: {
+                    "Temporada 1": {
+                        "Japonés": "https://t.me/AnimeKaergsty1/3998"
                     }
                 }
             }
+            // Puedes seguir agregando más animes aquí abajo...
         };
 
         // --- FUNCIONES DEL SISTEMA ---
 
-        // 1. Generar la cuadrícula del catálogo
         function cargarCatalogo() {
             const contenedor = document.getElementById('contenedor-grid');
-            contenedor.innerHTML = ""; // Limpiar
+            contenedor.innerHTML = ""; 
 
             for (const nombreAnime in baseDeDatosAnime) {
-                const anime = baseDeDatosAnime[nombreAnime];
+                // Ahora el sistema arma la ruta de la imagen automáticamente
+                const rutaImagenReal = `img/${nombreAnime}.webp`;
                 
                 const tarjeta = document.createElement('div');
                 tarjeta.className = 'tarjeta-anime';
-                // Al hacer clic, abre la vista de detalles
                 tarjeta.onclick = () => abrirDetalles(nombreAnime);
 
                 tarjeta.innerHTML = `
-                    <img src="${anime.imagen}" alt="${nombreAnime}">
+                    <img src="${rutaImagenReal}" alt="${nombreAnime}" onerror="this.src='https://via.placeholder.com/160x240/1a1a1a/555555?text=Sin+Imagen'">
                     <div class="titulo-tarjeta">${nombreAnime}</div>
                 `;
                 
@@ -283,12 +398,18 @@
             }
         }
 
-        // 2. Transición a la pantalla de detalles
         function abrirDetalles(nombreAnime) {
             const anime = baseDeDatosAnime[nombreAnime];
+            const rutaImagenReal = `img/${nombreAnime}.webp`;
             
             // Llenar los datos
-            document.getElementById('img-detalle').src = anime.banner || anime.imagen;
+            document.getElementById('img-detalle').src = rutaImagenReal;
+            
+            // Si la imagen falla en cargar, pone un fondo negro temporal
+            document.getElementById('img-detalle').onerror = function() {
+                this.src = 'https://via.placeholder.com/300x450/1a1a1a/555555?text=Sin+Imagen';
+            };
+
             document.getElementById('titulo-detalle').innerText = nombreAnime;
             document.getElementById('sinopsis-detalle').innerText = anime.sinopsis;
             
@@ -303,25 +424,23 @@
             document.getElementById('vista-catalogo').style.display = 'none';
             document.getElementById('vista-detalles').style.display = 'block';
             
-            // Desplazar hacia arriba
             window.scrollTo(0, 0);
-
-            // Cargar los botones de las temporadas
             mostrarTemporadas(nombreAnime);
         }
 
-        // 3. Volver al catálogo
         function cerrarDetalles() {
             document.getElementById('vista-detalles').style.display = 'none';
             document.getElementById('vista-catalogo').style.display = 'block';
+            // Limpia el buscador al volver
+            document.getElementById('buscador').value = "";
+            filtrarCatalogo();
         }
 
-        // 4. Mostrar botones de Temporadas
         function mostrarTemporadas(nombreAnime) {
             const areaInteractiva = document.getElementById('area-interactiva');
             const enlaces = baseDeDatosAnime[nombreAnime].enlaces;
             
-            areaInteractiva.innerHTML = `<p class="titulo-seccion">Temporadas disponibles</p>`;
+            areaInteractiva.innerHTML = `<p class="titulo-seccion">Selecciona una Temporada</p>`;
 
             if (enlaces) {
                 Object.keys(enlaces).forEach(temp => {
@@ -332,34 +451,54 @@
                     areaInteractiva.appendChild(btn);
                 });
             } else {
-                areaInteractiva.innerHTML += `<button class="btn-azul" style="background-color: #555;">Próximamente</button>`;
+                areaInteractiva.innerHTML += `<button class="btn-azul" style="background-color: #555; cursor: default;">Próximamente</button>`;
             }
         }
 
-        // 5. Mostrar botones de Idiomas al elegir una temporada
         function mostrarIdiomas(nombreAnime, temporada) {
             const areaInteractiva = document.getElementById('area-interactiva');
             const infoTemp = baseDeDatosAnime[nombreAnime].enlaces[temporada];
             
-            areaInteractiva.innerHTML = `<p class="titulo-seccion">${temporada}</p>`;
+            areaInteractiva.innerHTML = `<p class="titulo-seccion">Idioma - ${temporada}</p>`;
 
             Object.keys(infoTemp).forEach(idioma => {
                 const btn = document.createElement('button');
                 btn.className = 'btn-azul';
                 btn.innerText = idioma;
-                btn.onclick = () => window.open(infoTemp[idioma], '_blank');
+                // Usando la API de Telegram para abrir el link si está disponible
+                btn.onclick = () => {
+                    if(window.Telegram && window.Telegram.WebApp && window.Telegram.WebApp.openTelegramLink) {
+                        window.Telegram.WebApp.openTelegramLink(infoTemp[idioma]);
+                    } else {
+                        window.open(infoTemp[idioma], '_blank');
+                    }
+                };
                 areaInteractiva.appendChild(btn);
             });
 
-            // Botón para retroceder a la lista de temporadas
             const btnVolver = document.createElement('button');
             btnVolver.className = 'btn-volver-temp';
-            btnVolver.innerText = "← Volver a Temporadas";
+            btnVolver.innerText = "← Regresar a Temporadas";
             btnVolver.onclick = () => mostrarTemporadas(nombreAnime);
             areaInteractiva.appendChild(btnVolver);
         }
 
-        // Iniciar el catálogo al cargar la página
+        // Función del Buscador Inteligente
+        function filtrarCatalogo() {
+            const textoBusqueda = document.getElementById('buscador').value.toLowerCase();
+            const tarjetas = document.querySelectorAll('.tarjeta-anime');
+
+            tarjetas.forEach(tarjeta => {
+                const titulo = tarjeta.querySelector('.titulo-tarjeta').innerText.toLowerCase();
+                if (titulo.includes(textoBusqueda)) {
+                    tarjeta.style.display = "block";
+                } else {
+                    tarjeta.style.display = "none";
+                }
+            });
+        }
+
+        // Iniciar todo
         cargarCatalogo();
     </script>
 </body>
