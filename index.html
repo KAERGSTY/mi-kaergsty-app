@@ -24,7 +24,6 @@
             justify-content: center; 
         }
 
-        /* CONFIGURACIÓN DE LA TARJETA */
         .card {
             width: 160px;
             height: 310px; 
@@ -75,12 +74,26 @@
             transform: rotateY(180deg);
             background: #1c1c1c;
             border: 2px solid #0088cc;
-            padding: 10px;
+            padding: 15px 10px;
             box-sizing: border-box;
-            justify-content: center;
+            /* Cambios para el Scroll */
+            justify-content: flex-start; 
+            overflow-y: auto; 
         }
 
-        /* --- NUEVO: ANIMACIÓN FADE-IN --- */
+        /* Diseño de la barra de desplazamiento (Scrollbar) */
+        .card-back::-webkit-scrollbar {
+            width: 6px;
+        }
+        .card-back::-webkit-scrollbar-track {
+            background: #1c1c1c;
+            border-radius: 10px;
+        }
+        .card-back::-webkit-scrollbar-thumb {
+            background: #0088cc;
+            border-radius: 10px;
+        }
+
         @keyframes fadeIn {
             from { opacity: 0; transform: translateY(5px); }
             to { opacity: 1; transform: translateY(0); }
@@ -93,7 +106,7 @@
         .btn-container {
             display: flex;
             flex-direction: column;
-            gap: 12px;
+            gap: 10px;
             width: 100%;
         }
 
@@ -107,18 +120,10 @@
             font-weight: bold;
             cursor: pointer;
             transition: background 0.2s;
+            flex-shrink: 0; /* Evita que los botones se aplasten */
         }
 
         .btn-opcion:active { background: #005f8d; }
-
-        .btn-volver {
-            background: transparent;
-            color: #888;
-            border: none;
-            margin-top: 15px;
-            font-size: 12px;
-            cursor: pointer;
-        }
     </style>
 </head>
 <body>
@@ -139,8 +144,8 @@
         <div class="card" id="anime2">
             <div class="card-inner">
                 <div class="card-front" onclick="seleccionarTemporadas('anime2')">
-                    <img src="img/poster02.jpg" alt="Kaguya 2">
-                    <p>Kaguya-sama 2</p>
+                    <img src="img/poster02.jpg" alt="Anime 2">
+                    <p>One Piece</p>
                 </div>
                 <div class="card-back" id="back-anime2"></div>
             </div>
@@ -156,7 +161,15 @@
             "anime1": {
                 "temporadas": {
                     "Temporada 1": { "Español": "https://t.me/link1", "Japonés": "https://t.me/link2" },
-                    "Temporada 2": { "Español": "https://t.me/link3", "Japonés": "https://t.me/link4" }
+                    "Temporada 2": { "Español": "https://t.me/link3", "Japonés": "https://t.me/link4" },
+                    "Temporada 3": { "Español": "https://t.me/link", "Japonés": "https://t.me/link" },
+                    "Temporada 4": { "Español": "https://t.me/link", "Japonés": "https://t.me/link" },
+                    "Temporada 5": { "Español": "https://t.me/link", "Japonés": "https://t.me/link" },
+                    "Temporada 6": { "Español": "https://t.me/link", "Japonés": "https://t.me/link" },
+                    "Temporada 7": { "Español": "https://t.me/link", "Japonés": "https://t.me/link" },
+                    "Temporada 8": { "Español": "https://t.me/link", "Japonés": "https://t.me/link" },
+                    "Temporada 9": { "Español": "https://t.me/link", "Japonés": "https://t.me/link" },
+                    "Temporada 10": { "Español": "https://t.me/link", "Japonés": "https://t.me/link" }
                 }
             },
             "anime2": {
@@ -167,15 +180,23 @@
         };
 
         let idAbierto = null;
+        let temporizador = null; // Guardará nuestro contador de 8 segundos
+
+        // Función para iniciar o reiniciar los 8 segundos
+        function iniciarTemporizador(id) {
+            if (temporizador) clearTimeout(temporizador);
+            temporizador = setTimeout(() => {
+                cerrarCard(id);
+            }, 8000); // 8000 milisegundos = 8 segundos
+        }
 
         function seleccionarTemporadas(id) {
             if (idAbierto && idAbierto !== id) cerrarCard(idAbierto);
-            if (idAbierto === id) { cerrarCard(id); idAbierto = null; return; }
+            if (idAbierto === id) { cerrarCard(id); return; }
 
             const anime = datosAnime[id];
             const back = document.getElementById('back-' + id);
             
-            // Aplicamos la clase fade-in al contenedor de botones
             let html = `<div class="btn-container fade-in">`;
             for (let temp in anime.temporadas) {
                 html += `<button class="btn-opcion" onclick="event.stopPropagation(); seleccionarIdiomas('${id}', '${temp}')">${temp}</button>`;
@@ -185,6 +206,8 @@
             back.innerHTML = html;
             document.getElementById(id).classList.add('flipped');
             idAbierto = id;
+
+            iniciarTemporizador(id); // Arranca el tiempo al girar
         }
 
         function seleccionarIdiomas(id, temporada) {
@@ -192,18 +215,26 @@
             const idiomas = anime.temporadas[temporada];
             const back = document.getElementById('back-' + id);
             
-            // También aplicamos fade-in aquí para que el cambio de menú sea suave
             let html = `<div class="btn-container fade-in">`;
             for (let lang in idiomas) {
                 html += `<button class="btn-opcion" onclick="event.stopPropagation(); abrirLink('${idiomas[lang]}')">${lang}</button>`;
             }
-            html += `</div><button class="btn-volver fade-in" onclick="event.stopPropagation(); seleccionarTemporadas('${id}')">← Volver</button>`;
+            html += `</div>`;
             
             back.innerHTML = html;
+
+            iniciarTemporizador(id); // Reinicia el tiempo si eligen temporada
         }
 
-        function abrirLink(url) { tg.openTelegramLink(url); }
-        function cerrarCard(id) { document.getElementById(id).classList.remove('flipped'); }
+        function abrirLink(url) { 
+            tg.openTelegramLink(url); 
+        }
+
+        function cerrarCard(id) { 
+            document.getElementById(id).classList.remove('flipped'); 
+            if (temporizador) clearTimeout(temporizador);
+            if (idAbierto === id) idAbierto = null;
+        }
     </script>
 </body>
 </html>
