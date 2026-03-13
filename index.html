@@ -305,36 +305,9 @@
             .caja-sinopsis { text-align: left; font-size: 13.5px; padding: 18px;}
             .centro-botones { justify-content: center; }
         }
-
-        /* --- ESTILOS DE EDICIÓN Y BOTÓN + --- */
-        .tarjeta-agregar {
-            display: flex; justify-content: center; align-items: center;
-            font-size: 60px; font-weight: 100; color: rgba(255,255,255,0.2); 
-            border: 2px dashed rgba(255,255,255,0.2); background: transparent;
-            cursor: pointer;
-        }
-        .tarjeta-agregar:hover { color: #00aaff; border-color: #00aaff; background: rgba(0, 170, 255, 0.05); }
-
-        .editable-activo {
-            border-bottom: 1px dashed #00aaff;
-            cursor: text;
-            outline: none;
-            background: rgba(0, 170, 255, 0.1);
-            border-radius: 4px;
-            padding: 2px;
-        }
-
-        #btn-admin {
-            position: fixed; bottom: 20px; right: 20px; z-index: 1000;
-            background: rgba(20, 20, 25, 0.8); border: 1px solid rgba(255,255,255,0.1);
-            color: #555; padding: 10px; border-radius: 50%; cursor: pointer;
-            backdrop-filter: blur(5px);
-        }
     </style>
 </head>
 <body>
-
-    <button id="btn-admin" onclick="activarModoAdmin()">🔒</button>
 
     <div class="controles-app" style="display: none;"></div>
 
@@ -385,27 +358,6 @@
         });
 
         const urlBaseGitHub = "https://raw.githubusercontent.com/Kaergsty/mi-kaergsty-app/main/img/";
-
-        // --- MODO ADMIN ---
-        let modoAdmin = false;
-
-        function activarModoAdmin() {
-            if (modoAdmin) {
-                alert("El modo administrador ya está activo.");
-                return;
-            }
-            // Aquí pones la contraseña que tú quieras
-            const password = prompt("Ingresa la contraseña para editar:");
-            if (password === "AK2026") { // <-- CAMBIA "AK2026" POR TU CONTRASEÑA
-                modoAdmin = true;
-                document.getElementById('btn-admin').innerText = "🔓";
-                document.getElementById('btn-admin').style.color = "#00ff88";
-                alert("Modo edición activado.");
-                cargar(); // Recargamos para que aparezca el botón "+"
-            } else {
-                alert("Contraseña incorrecta.");
-            }
-        }
 
         // --- BASE DE DATOS ---
         const base = {
@@ -469,16 +421,6 @@
                 `;
                 grid.appendChild(div);
             }
-
-            // --- NUEVO: BOTÓN "+" SOLO SI ES ADMIN ---
-            if (modoAdmin) {
-                const divAdd = document.createElement('div');
-                divAdd.className = 'tarjeta-anime tarjeta-agregar';
-                divAdd.innerHTML = `+`;
-                divAdd.onclick = () => alert("Aquí irá la función para añadir un nuevo anime a la base de datos.");
-                grid.appendChild(divAdd);
-            }
-
             tg.BackButton.hide();
         }
 
@@ -530,28 +472,6 @@
             
             mostrarT(nombre);
             tg.BackButton.show();
-
-            // --- NUEVO: HACER TEXTOS EDITABLES SI ES ADMIN ---
-            const tituloEl = document.getElementById('det-titulo');
-            const sinopsisEl = document.getElementById('det-sinopsis');
-            
-            if (modoAdmin) {
-                tituloEl.setAttribute('contenteditable', 'true');
-                tituloEl.classList.add('editable-activo');
-                
-                sinopsisEl.setAttribute('contenteditable', 'true');
-                sinopsisEl.classList.add('editable-activo');
-
-                // Opcional: Avisar cuando editas algo
-                tituloEl.onblur = () => console.log("Nuevo título:", tituloEl.innerText);
-                sinopsisEl.onblur = () => console.log("Nueva sinopsis:", sinopsisEl.innerText);
-            } else {
-                // Si no es admin, asegurarnos de que no se pueda editar
-                tituloEl.removeAttribute('contenteditable');
-                tituloEl.classList.remove('editable-activo');
-                sinopsisEl.removeAttribute('contenteditable');
-                sinopsisEl.classList.remove('editable-activo');
-            }
         }
 
         function actualizarBarraAcciones() {
