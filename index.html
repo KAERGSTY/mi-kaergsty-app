@@ -24,6 +24,7 @@
             justify-content: center; 
         }
 
+        /* CONFIGURACIÓN DE LA TARJETA */
         .card {
             width: 160px;
             height: 310px; 
@@ -35,7 +36,7 @@
             position: relative;
             width: 100%;
             height: 100%;
-            transition: transform 0.6s;
+            transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
             transform-style: preserve-3d;
         }
 
@@ -62,6 +63,7 @@
             height: 230px;
             object-fit: cover;
         }
+
         .card-front p {
             font-size: 14px;
             font-weight: bold;
@@ -71,11 +73,21 @@
 
         .card-back {
             transform: rotateY(180deg);
-            background: #202020;
+            background: #1c1c1c;
             border: 2px solid #0088cc;
             padding: 10px;
             box-sizing: border-box;
-            justify-content: center; /* Centra los botones verticalmente */
+            justify-content: center;
+        }
+
+        /* --- NUEVO: ANIMACIÓN FADE-IN --- */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(5px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .fade-in {
+            animation: fadeIn 0.4s ease forwards;
         }
 
         .btn-container {
@@ -97,18 +109,15 @@
             transition: background 0.2s;
         }
 
-        .btn-opcion:active {
-            background: #005f8d;
-        }
+        .btn-opcion:active { background: #005f8d; }
 
         .btn-volver {
             background: transparent;
-            color: #aaaaaa;
+            color: #888;
             border: none;
-            margin-top: 20px;
-            font-size: 11px;
+            margin-top: 15px;
+            font-size: 12px;
             cursor: pointer;
-            text-decoration: underline;
         }
     </style>
 </head>
@@ -121,7 +130,7 @@
             <div class="card-inner">
                 <div class="card-front" onclick="seleccionarTemporadas('anime1')">
                     <img src="img/poster01.jpg" alt="Kaguya">
-                    <p>Kaguya-sama wa Kokurasetai</p>
+                    <p>Kaguya-sama</p>
                 </div>
                 <div class="card-back" id="back-anime1"></div>
             </div>
@@ -131,7 +140,7 @@
             <div class="card-inner">
                 <div class="card-front" onclick="seleccionarTemporadas('anime2')">
                     <img src="img/poster02.jpg" alt="Kaguya 2">
-                    <p>Kaguya-sama wa Kokurasetai 2</p>
+                    <p>Kaguya-sama 2</p>
                 </div>
                 <div class="card-back" id="back-anime2"></div>
             </div>
@@ -157,26 +166,17 @@
             }
         };
 
-        let idAbierto = null; // Guarda cuál está girado actualmente
+        let idAbierto = null;
 
         function seleccionarTemporadas(id) {
-            // 1. Si hay otro abierto, lo cerramos antes de abrir este
-            if (idAbierto && idAbierto !== id) {
-                cerrarCard(idAbierto);
-            }
-
-            // 2. Si tocamos el que ya está abierto, lo cerramos
-            if (idAbierto === id) {
-                cerrarCard(id);
-                idAbierto = null;
-                return;
-            }
+            if (idAbierto && idAbierto !== id) cerrarCard(idAbierto);
+            if (idAbierto === id) { cerrarCard(id); idAbierto = null; return; }
 
             const anime = datosAnime[id];
             const back = document.getElementById('back-' + id);
             
-            // Eliminamos el título "Temporadas" y el botón cerrar
-            let html = `<div class="btn-container">`;
+            // Aplicamos la clase fade-in al contenedor de botones
+            let html = `<div class="btn-container fade-in">`;
             for (let temp in anime.temporadas) {
                 html += `<button class="btn-opcion" onclick="event.stopPropagation(); seleccionarIdiomas('${id}', '${temp}')">${temp}</button>`;
             }
@@ -192,22 +192,18 @@
             const idiomas = anime.temporadas[temporada];
             const back = document.getElementById('back-' + id);
             
-            let html = `<div class="btn-container">`;
+            // También aplicamos fade-in aquí para que el cambio de menú sea suave
+            let html = `<div class="btn-container fade-in">`;
             for (let lang in idiomas) {
                 html += `<button class="btn-opcion" onclick="event.stopPropagation(); abrirLink('${idiomas[lang]}')">${lang}</button>`;
             }
-            html += `</div><button class="btn-volver" onclick="event.stopPropagation(); seleccionarTemporadas('${id}')">← Volver</button>`;
+            html += `</div><button class="btn-volver fade-in" onclick="event.stopPropagation(); seleccionarTemporadas('${id}')">← Volver</button>`;
             
             back.innerHTML = html;
         }
 
-        function abrirLink(url) {
-            tg.openTelegramLink(url);
-        }
-
-        function cerrarCard(id) {
-            document.getElementById(id).classList.remove('flipped');
-        }
+        function abrirLink(url) { tg.openTelegramLink(url); }
+        function cerrarCard(id) { document.getElementById(id).classList.remove('flipped'); }
     </script>
 </body>
 </html>
