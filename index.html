@@ -143,44 +143,43 @@
 
     <script>
         // CONFIGURACIÓN GITHUB: Esta es la "casa" de tus fotos
-        const urlBaseGitHub = "https://raw.githubusercontent.com/Kaergsty/KAERGSTY-BOT/main/img/";
+// 1. Asegúrate de que esta URL termine exactamente así
+const urlBaseGitHub = "https://raw.githubusercontent.com/Kaergsty/KAERGSTY-BOT/main/img/";
 
-        const base = {
-            "Jigokuraku": {
-                sinopsis: "Gabimaru el Vacío, un ninja de Iwagakure conocido por ser frío y eficiente, se encuentra en el corredor de la muerte. Su única esperanza es encontrar el Elixir de la Vida en una isla misteriosa.",
-                generos: ["Acción", "Aventura", "Fantasía"],
-                enlaces: {
-                    "Temporada 1": { "Latino": "https://t.me/c/123/1", "Japonés": "https://t.me/c/123/2" }
-                }
-            },
-            "Solo Leveling": {
-                sinopsis: "En un mundo donde cazadores con habilidades mágicas deben luchar contra monstruos feroces para proteger a la humanidad, Sung Jin-woo, el cazador más débil, recibe un extraño sistema.",
-                generos: ["Acción", "Aventura", "Fantasía"],
-                enlaces: {
-                    "Temporada 1": { "Latino": "https://t.me/c/123/3" }
-                }
-            }
-            // Para agregar más, copia un bloque de arriba y pégalo aquí
-        };
+const base = {
+    // IMPORTANTE: Escribe el nombre EXACTAMENTE como aparece el archivo en GitHub
+    "Jigokuraku": {
+        sinopsis: "Sinopsis aquí...",
+        enlaces: { "T1": { "Latino": "https://t.me/..." } }
+    },
+    "Kaguya-sama wa Kokurasetai": {
+        sinopsis: "Sinopsis aquí...",
+        enlaces: { "T1": { "Latino": "https://t.me/..." } }
+    }
+};
 
-        function cargar() {
-            const grid = document.getElementById('grid');
-            grid.innerHTML = "";
-            for (const nombre in base) {
-                const div = document.createElement('div');
-                div.className = 'tarjeta-anime';
-                div.onclick = () => abrir(nombre);
-                
-                // URL AUTOMÁTICA: GitHub Raw + Nombre + .webp
-                const imgUrl = urlBaseGitHub + encodeURIComponent(nombre) + ".webp";
-                
-                div.innerHTML = `
-                    <img src="${imgUrl}" onerror="this.src='https://via.placeholder.com/160x240/111/555?text=Error+Img'">
-                    <div class="titulo-tarjeta">${nombre}</div>
-                `;
-                grid.appendChild(div);
-            }
-        }
+function cargar() {
+    const grid = document.getElementById('grid');
+    grid.innerHTML = "";
+    for (const nombre in base) {
+        const div = document.createElement('div');
+        div.className = 'tarjeta-anime';
+        div.onclick = () => abrir(nombre);
+        
+        // Creamos la URL
+        const imgUrl = urlBaseGitHub + encodeURIComponent(nombre) + ".webp";
+        
+        // LOG DE AYUDA: Presiona F12 en tu navegador y verás qué link está intentando cargar
+        console.log("Intentando cargar:", imgUrl);
+        
+        div.innerHTML = `
+            <img src="${imgUrl}" 
+                 onerror="this.onerror=null; console.error('Error en:', this.src); this.src='https://via.placeholder.com/150x225/ff0000/ffffff?text=ERROR+LINK';">
+            <div class="titulo-tarjeta">${nombre}</div>
+        `;
+        grid.appendChild(div);
+    }
+}
 
         function abrir(nombre) {
             const anime = base[nombre];
@@ -262,5 +261,6 @@
     </script>
 </body>
 </html>
+
 
 
