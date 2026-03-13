@@ -149,33 +149,13 @@
         <input type="text" id="buscador" placeholder="Buscar anime..." oninput="filtrarAnimes()">
     </div>
 
-    <div class="grid" id="catalogo">
-        <div class="card" id="anime-2">
+    <div class="grid" id="catalogo"></div>
+        <div class="card" id="anime0">
             <div class="card-inner">
                 <div class="card-front" onclick="seleccionarTemporadas('anime1')">
                     <img src="img/poster01.jpg" alt="Kaguya">
                     <p class="titulo-anime">Kaguya-sama</p> </div>
                 <div class="card-back" id="back-anime1"></div>
-            </div>
-        </div>
-
-        <div class="card" id="anime-1">
-            <div class="card-inner">
-                <div class="card-front" onclick="seleccionarTemporadas('anime2')">
-                    <img src="img/poster02.jpg" alt="One Piece">
-                    <p class="titulo-anime">One Piece</p>
-                </div>
-                <div class="card-back" id="back-anime2"></div>
-            </div>
-        </div>
-        
-        <div class="card" id="anime0">
-            <div class="card-inner">
-                <div class="card-front" onclick="seleccionarTemporadas('anime3')">
-                    <img src="img/poster02.jpg" alt="Naruto">
-                    <p class="titulo-anime">Naruto Shippuden</p>
-                </div>
-                <div class="card-back" id="back-anime3"></div>
             </div>
         </div>
 
@@ -593,103 +573,124 @@
 
     <script>
         const tg = window.Telegram.WebApp;
-        tg.expand();
-        tg.ready();
+tg.expand();
+tg.ready();
 
-        const datosAnime = {
-            "anime1": {
-                "temporadas": {
-                    "Temporada 1": { "Español": "https://t.me/link1", "Japonés": "https://t.me/link2" },
-                    "Temporada 2": { "Español": "https://t.me/link3", "Japonés": "https://t.me/link4" },
-                    "Temporada 3": { "Español": "https://t.me/link", "Japonés": "https://t.me/link" }
-                }
-            },
-            "anime2": {
-                "temporadas": {
-                    "Temporada 1": { "Español": "https://t.me/link5", "Japonés": "https://t.me/link6" }
-                }
-            },
-            "anime3": {
-                "temporadas": {
-                    "Temporada 1": { "Español": "https://t.me/link7", "Japonés": "https://t.me/link8" }
-                }
-            }
-        };
+// --- AQUÍ ESTÁ TU LISTA DE ANIMES (Fácil de editar) ---
+const listaAnimes = [
+    "29 sai Dokushin Chuuken Boukensha no Nichijou",
+    "Akuyaku Reijou wa Ringoku no Outaishi ni Dekiai sareru",
+    "Android wa Keiken Ninzuu ni Hairimasu ka",
+    "Arne no Jikenbo",
+    "Champignon no Majo",
+    "Dark Moon Tsuki no Saidan",
+    "Darwin Jihen",
+    "Dead Account",
+    "Demi_chan_wa_kataritai",
+    "Eris no Seihai",
+    "Gaikotsu Kishi sama Tadaima Isekai e Odekakechuu",
+    "Goumon Baito-kun no Nichijou",
+    "Hanazakari no Kimitachi e",
+    "Hell Mode Yarikomizuki no Gamer wa Hai Settei no Isekai de Musou suru",
+    "Hikuidori_Ushuu_Boro_Tobi_gumi",
+    "Ikoku Nikki",
+    "Isekai no Sata wa Shachiku Shidai",
+    "Jigokuraku",
+    "Jingai Kyoushitsu no Ningengirai Kyoushi",
+    "Kaya chan wa Kowakunai",
+    "Kirei ni Shitemoraemasu ka..",
+    "Kizoku Tensei Megumareta Umare kara Saikou no Chikara wo Eru",
+    "Majutsushi Kunon wa Mieteiru",
+    "Maou no Musume wa Yasashisugiru!!",
+    "Mayonaka Heart Tune",
+    "Odayaka Kizoku no Kyuuka no Susume..",
+    "Okashi na Tensei",
+    "Okiraku Ryoushu no Tanoshii Ryouchi Bouei",
+    "Omagoto",
+    "Osananajimi to wa Love Comedy ni Naranai",
+    "Seihantai na Kimi to Boku",
+    "Shibou Yuugi de Meshi wo Kuu..",
+    "Tamon kun Ima Docchi",
+    "Tensei shitara Dragon no Tamago datta",
+    "Toumei Otoko to Ningen Onna Sonouchi Fuufu ni Naru Futari",
+    "Uruwashi no Yoi no Tsuki",
+    "Yuusha Party ni Kawaii Ko ga Ita node, Kokuhaku shitemita..",
+    "Yuusha Party wo Oidasareta Kiyoubinbou",
+    "Yuusha kei ni Shosu Choubatsu Yuusha 9004 tai Keimu Kiroku",
+    "Yuusha no Kuzu"
+];
 
-        // --- NUEVO: FUNCIÓN DEL BUSCADOR EN TIEMPO REAL ---
-        function filtrarAnimes() {
-            // Obtenemos lo que escribiste y lo pasamos a minúsculas
-            const textoBuscado = document.getElementById('buscador').value.toLowerCase();
-            // Agarramos todas las tarjetas
-            const tarjetas = document.querySelectorAll('.card');
+// Aquí pondrás tus links de Telegram cuando los tengas
+const enlacesAnime = {
+    "Jigokuraku": { "T1": "https://t.me/..." },
+    // El sistema buscará aquí por el nombre del anime
+};
 
-            // Revisamos tarjeta por tarjeta
-            tarjetas.forEach(tarjeta => {
-                // Sacamos el título de cada tarjeta
-                const titulo = tarjeta.querySelector('.titulo-anime').innerText.toLowerCase();
-                
-                // Si el título incluye lo que escribiste, lo mostramos, si no, lo ocultamos
-                if (titulo.includes(textoBuscado)) {
-                    tarjeta.style.display = "block"; // Mostrar
-                } else {
-                    tarjeta.style.display = "none";  // Ocultar
-                }
-            });
-        }
-        // ---------------------------------------------------
+// --- FUNCIÓN QUE CREA LAS TARJETAS SOLA ---
+function generarCatalogo() {
+    const contenedor = document.getElementById('catalogo');
+    
+    listaAnimes.forEach((nombre, index) => {
+        const id = `anime${index}`;
+        const nombreLimpio = nombre.replace(/_/g, ' '); // Quita los guiones bajos para el título
 
-        let idAbierto = null;
-        let temporizador = null;
+        const cardHTML = `
+            <div class="card" id="${id}">
+                <div class="card-inner">
+                    <div class="card-front" onclick="mostrarOpciones('${id}', '${nombre}')">
+                        <img src="img/${nombre}.webp" alt="${nombreLimpio}">
+                        <p class="titulo-anime">${nombreLimpio}</p>
+                    </div>
+                    <div class="card-back" id="back-${id}"></div>
+                </div>
+            </div>
+        `;
+        contenedor.innerHTML += cardHTML;
+    });
+}
 
-        function iniciarTemporizador(id) {
-            if (temporizador) clearTimeout(temporizador);
-            temporizador = setTimeout(() => { cerrarCard(id); }, 8000); 
-        }
+// Llamamos a la función al abrir la app
+generarCatalogo();
 
-        function seleccionarTemporadas(id) {
-            if (idAbierto && idAbierto !== id) cerrarCard(idAbierto);
-            if (idAbierto === id) { cerrarCard(id); return; }
+// --- LÓGICA DE INTERACCIÓN ---
+let idAbierto = null;
 
-            const anime = datosAnime[id];
-            const back = document.getElementById('back-' + id);
-            
-            let html = `<div class="btn-container fade-in">`;
-            for (let temp in anime.temporadas) {
-                html += `<button class="btn-opcion" onclick="event.stopPropagation(); seleccionarIdiomas('${id}', '${temp}')">${temp}</button>`;
-            }
-            html += `</div>`;
-            
-            back.innerHTML = html;
-            document.getElementById(id).classList.add('flipped');
-            idAbierto = id;
+function mostrarOpciones(id, nombreReal) {
+    if (idAbierto && idAbierto !== id) cerrarCard(idAbierto);
+    
+    const back = document.getElementById('back-' + id);
+    const opciones = enlacesAnime[nombreReal] || { "Próximamente": "#" };
 
-            iniciarTemporizador(id); 
-        }
+    let html = `<div class="btn-container fade-in">
+                    <p style="font-size:12px; color:#aaa;">${nombreReal}</p>`;
+    
+    for (let key in opciones) {
+        html += `<button class="btn-opcion" onclick="tg.openTelegramLink('${opciones[key]}')">${key}</button>`;
+    }
+    
+    html += `<button class="btn-opcion" style="background:#cc0000;" onclick="cerrarCard('${id}')">CERRAR</button>
+                </div>`;
+    
+    back.innerHTML = html;
+    document.getElementById(id).classList.add('flipped');
+    idAbierto = id;
+}
 
-        function seleccionarIdiomas(id, temporada) {
-            const anime = datosAnime[id];
-            const idiomas = anime.temporadas[temporada];
-            const back = document.getElementById('back-' + id);
-            
-            let html = `<div class="btn-container fade-in">`;
-            for (let lang in idiomas) {
-                html += `<button class="btn-opcion" onclick="event.stopPropagation(); abrirLink('${idiomas[lang]}')">${lang}</button>`;
-            }
-            html += `</div>`;
-            
-            back.innerHTML = html;
+function cerrarCard(id) {
+    document.getElementById(id).classList.remove('flipped');
+    idAbierto = null;
+}
 
-            iniciarTemporizador(id); 
-        }
-
-        function abrirLink(url) { tg.openTelegramLink(url); }
-
-        function cerrarCard(id) { 
-            document.getElementById(id).classList.remove('flipped'); 
-            if (temporizador) clearTimeout(temporizador);
-            if (idAbierto === id) idAbierto = null;
-        }
+function filtrarAnimes() {
+    const texto = document.getElementById('buscador').value.toLowerCase();
+    const tarjetas = document.querySelectorAll('.card');
+    tarjetas.forEach(t => {
+        const titulo = t.querySelector('.titulo-anime').innerText.toLowerCase();
+        t.style.display = titulo.includes(texto) ? "block" : "none";
+    });
+}
     </script>
 </body>
 </html>
+
 
