@@ -157,6 +157,11 @@
             }
         };
 
+        const tg = window.Telegram.WebApp; // Acceso directo a la API de Telegram
+        tg.expand(); // Hace que la app se abra en pantalla completa
+
+        const urlBaseGitHub = "https://raw.githubusercontent.com/Kaergsty/mi-kaergsty-app/main/img/";
+        
         function cargar() {
             const grid = document.getElementById('grid');
             grid.innerHTML = "";
@@ -254,4 +259,5 @@
     </script>
 </body>
 </html>
+
 
