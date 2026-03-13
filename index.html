@@ -6,80 +6,127 @@
     <title>AnimeKaergsty</title>
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
     <style>
-        .card-container {
-    perspective: 1000px; /* Importante para el efecto 3D */
-    width: 160px; /* Ancho de tu tarjeta */
-}
+        /* 1. CONFIGURACIÓN BASE */
+        body { 
+            font-family: sans-serif; 
+            background: #1a1a1a; 
+            color: white; 
+            margin: 0; 
+            padding-top: 20px; 
+        }
 
-/* El elemento que realmente gira */
-.card-inner {
-    position: relative;
-    width: 100%;
-    height: 100%; /* Ajusta la altura si es necesario */
-    transition: transform 0.6s;
-    transform-style: preserve-3d; /* Mantiene las caras en 3D */
-    cursor: pointer;
-}
+        h2 { color: #0088cc; text-align: center; margin-bottom: 20px; }
 
-/* Clase que activaremos para girar la tarjeta */
-.card-container.flipped .card-inner {
-    transform: rotateY(180deg);
-}
+        /* 2. LA REJILLA (GRID) */
+        .grid { 
+            display: grid; 
+            grid-template-columns: repeat(auto-fill, 160px); 
+            gap: 20px; 
+            padding: 20px; 
+            justify-content: center; 
+        }
 
-/* Estilo común para ambas caras */
-.card-front, .card-back {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    -webkit-backface-visibility: hidden; /* Oculta la cara trasera al girar */
-    backface-visibility: hidden;
-    border-radius: 12px;
-    background: #2a2a2a; /* Fondo oscuro */
-    overflow: hidden;
-    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
-}
+        /* 3. EFECTO DE GIRO (FLIP CARD) */
+        .card {
+            width: 160px;
+            height: 310px; /* Ajustado para que quepa la imagen + texto */
+            perspective: 1000px; /* Necesario para el efecto 3D */
+            cursor: pointer;
+        }
 
-/* Cara Delantera: Normal, mira hacia adelante */
-.card-front {
-    transform: rotateY(0deg);
-}
+        .card-inner {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            transition: transform 0.6s;
+            transform-style: preserve-3d;
+        }
 
-/* Cara Trasera: Girada 180 grados inicialmente */
-.card-back {
-    transform: rotateY(180deg);
-    padding: 10px;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    align-items: center;
-}
+        /* Esta clase hace que la tarjeta gire */
+        .card.flipped .card-inner {
+            transform: rotateY(180deg);
+        }
+
+        .card-front, .card-back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            -webkit-backface-visibility: hidden;
+            backface-visibility: hidden;
+            border-radius: 12px;
+            background: #2a2a2a;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        /* CARA DELANTERA */
+        .card-front img {
+            width: 100%;
+            height: 230px;
+            object-fit: cover;
+        }
+        .card-front p {
+            font-size: 14px;
+            font-weight: bold;
+            margin: 10px;
+            text-align: center;
+        }
+
+        /* CARA TRASERA (OPCIONES) */
+        .card-back {
+            transform: rotateY(180deg);
+            background: #2a2a2a;
+            border: 2px solid #0088cc;
+            padding: 10px;
+            box-sizing: border-box;
+            justify-content: center;
+        }
+
+        .card-back h4 { color: #0088cc; margin: 0 0 15px 0; font-size: 14px; }
+
+        .btn-container {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            width: 100%;
+        }
+
+        .btn-opcion {
+            background: #0088cc;
+            color: white;
+            border: none;
+            padding: 10px;
+            border-radius: 8px;
+            font-size: 12px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .btn-volver {
+            background: transparent;
+            color: #ff4444;
+            border: none;
+            margin-top: 15px;
+            font-size: 11px;
+            cursor: pointer;
+        }
     </style>
 </head>
 <body>
 
     <h2>Anime Kaergsty</h2>
 
-    <div id="modal-container" onclick="cerrarModal()">
-        <div class="modal-content" onclick="event.stopPropagation()">
-            <h4 id="modal-title" style="margin:0; color:#0088cc;">Opciones</h4>
-            <div id="modal-buttons">
-                </div>
-            <button class="btn-cerrar" onclick="cerrarModal()">[ CERRAR ]</button>
-        </div>
-    </div>
-
     <div class="grid">
-    <div class="card-container" id="anime1">
-        <div class="card-inner" onclick="flipCard('anime1')"> <div class="card-front">
-                <img src="https://i.postimg.cc/xxxxxx/poster01.jpg" alt="Kaguya-sama">
-                <p>Kaguya-sama wa Kokurasetai</p>
-            </div>
-            
-            <div class="card-back">
-                <h3>Temporadas</h3>
-                <div class="options-container">
+        <div class="card" id="anime1">
+            <div class="card-inner">
+                <div class="card-front" onclick="seleccionarTemporadas('anime1')">
+                    <img src="img/poster01.jpg" alt="Kaguya">
+                    <p>Kaguya-sama wa Kokurasetai</p>
+                </div>
+                <div class="card-back" id="back-anime1">
                     </div>
-                <p class="btn-voler">← Volver</p>
             </div>
         </div>
     </div>
@@ -89,75 +136,64 @@
         tg.expand();
         tg.ready();
 
-        // AQUÍ GUARDAS LOS LINKS DE TUS ANIMES
-        const datosKaguya = {
-            "Temporada 1": {
-                "Español": "https://t.me/AnimeKaergsty1/5067",
-                "Japonés": "https://t.me/AnimeKaergsty1/5068"
-            },
-            "Temporada 2": {
-                "Español": "https://t.me/AnimeKaergsty1/5069",
-                "Japonés": "https://t.me/AnimeKaergsty1/5070"
+        // AQUÍ PONES TUS LINKS
+        const datosAnime = {
+            "anime1": {
+                "titulo": "Kaguya-sama",
+                "temporadas": {
+                    "Temporada 1": {
+                        "Español": "https://t.me/AnimeKaergsty1/5067",
+                        "Japonés": "https://t.me/AnimeKaergsty1/5068"
+                    },
+                    "Temporada 2": {
+                        "Español": "https://t.me/AnimeKaergsty1/5069",
+                        "Japonés": "https://t.me/AnimeKaergsty1/5070"
+                    }
+                }
             }
         };
 
-        let animeActual = "";
-        let datosActuales = {};
-
-        // PASO 1: Mostrar Temporadas
-        function iniciarSeleccion(titulo, datos) {
-            animeActual = titulo;
-            datosActuales = datos;
-            mostrarTemporadas();
-            document.getElementById('modal-container').classList.add('visible');
-        }
-
-        function mostrarTemporadas() {
-            document.getElementById('modal-title').innerText = "Temporadas";
-            const container = document.getElementById('modal-buttons');
-            container.innerHTML = '';
-
-            for (const temp in datosActuales) {
-                const btn = document.createElement('button');
-                btn.className = 'btn-opcion';
-                btn.innerText = temp;
-                btn.onclick = () => mostrarIdiomas(temp); // Al hacer clic, va a idiomas
-                container.appendChild(btn);
+        // PASO 1: Girar y mostrar temporadas
+        function seleccionarTemporadas(id) {
+            const anime = datosAnime[id];
+            const back = document.getElementById('back-' + id);
+            
+            let html = `<h4>Temporadas</h4><div class="btn-container">`;
+            
+            for (let temp in anime.temporadas) {
+                html += `<button class="btn-opcion" onclick="seleccionarIdiomas('${id}', '${temp}')">${temp}</button>`;
             }
+            
+            html += `</div><button class="btn-volver" onclick="cerrarCard('${id}')">[ CERRAR ]</button>`;
+            
+            back.innerHTML = html;
+            document.getElementById(id).classList.add('flipped');
         }
 
-        // PASO 2: Mostrar Idiomas de esa Temporada
-        function mostrarIdiomas(temporada) {
-            document.getElementById('modal-title').innerText = temporada;
-            const container = document.getElementById('modal-buttons');
-            container.innerHTML = '';
-
-            const idiomas = datosActuales[temporada];
-
-            for (const lang in idiomas) {
-                const btn = document.createElement('button');
-                btn.className = 'btn-opcion';
-                btn.innerText = lang;
-                btn.onclick = () => {
-                    tg.openTelegramLink(idiomas[lang]); // Abre el link final
-                    cerrarModal();
-                };
-                container.appendChild(btn);
+        // PASO 2: Mostrar idiomas de esa temporada
+        function seleccionarIdiomas(id, temporada) {
+            const anime = datosAnime[id];
+            const idiomas = anime.temporadas[temporada];
+            const back = document.getElementById('back-' + id);
+            
+            let html = `<h4>${temporada}</h4><div class="btn-container">`;
+            
+            for (let lang in idiomas) {
+                html += `<button class="btn-opcion" onclick="abrirLink('${idiomas[lang]}')">${lang}</button>`;
             }
-
-            // Botón para regresar a temporadas
-            const btnVolver = document.createElement('button');
-            btnVolver.innerText = "← Volver";
-            btnVolver.className = 'btn-cerrar';
-            btnVolver.style.color = "#aaa";
-            btnVolver.onclick = mostrarTemporadas;
-            container.appendChild(btnVolver);
+            
+            html += `</div><button class="btn-volver" onclick="seleccionarTemporadas('${id}')">← Volver</button>`;
+            
+            back.innerHTML = html;
         }
 
-        function cerrarModal() {
-            document.getElementById('modal-container').classList.remove('visible');
+        function abrirLink(url) {
+            tg.openTelegramLink(url);
+        }
+
+        function cerrarCard(id) {
+            document.getElementById(id).classList.remove('flipped');
         }
     </script>
 </body>
 </html>
-
