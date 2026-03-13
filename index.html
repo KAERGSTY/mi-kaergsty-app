@@ -150,25 +150,6 @@
     </div>
 
     <div class="grid" id="catalogo"></div>
-        <div class="card" id="anime0">
-            <div class="card-inner">
-                <div class="card-front" onclick="seleccionarTemporadas('anime1')">
-                    <img src="img/poster01.jpg" alt="Kaguya">
-                    <p class="titulo-anime">Kaguya-sama</p> </div>
-                <div class="card-back" id="back-anime1"></div>
-            </div>
-        </div>
-
-        <div class="card" id="anime1">
-            <div class="card-inner">
-                <div class="card-front" onclick="seleccionarTemporadas('anime1')">
-                    <img src="img/poster01.jpg" alt="Kaguya">
-                    <p class="titulo-anime">Kaguya-sama wa Kokurasetai</p>
-                </div>
-                <div class="card-back" id="back-anime1"></div>
-            </div>
-        </div>
-
         <div class="card" id="anime2">
             <div class="card-inner">
                 <div class="card-front" onclick="seleccionarTemporadas('anime2')">
@@ -578,6 +559,7 @@ tg.ready();
 
 // --- AQUÍ ESTÁ TU LISTA DE ANIMES (Fácil de editar) ---
 const listaAnimes = [
+    "Kaguya-sama wa Kokurasetai",
     "29 sai Dokushin Chuuken Boukensha no Nichijou",
     "Akuyaku Reijou wa Ringoku no Outaishi ni Dekiai sareru",
     "Android wa Keiken Ninzuu ni Hairimasu ka",
@@ -692,5 +674,6 @@ function filtrarAnimes() {
     </script>
 </body>
 </html>
+
 
 
