@@ -209,14 +209,39 @@ const enlacesAnime = {
             "Español": "https://t.me/AnimeKaergsty1/4808",
             "Japonés": "https://t.me/AnimeKaergsty1/4805"
         }
-    // El sistema buscará aquí por el nombre del anime
+    }
 };
+
+// 2. Función para crear las tarjetas automáticamente
+function generarCatalogo() {
+    const contenedor = document.getElementById('catalogo');
+    contenedor.innerHTML = ""; // Limpiamos antes de empezar
+    
+    listaAnimes.forEach((nombre, index) => {
+        const id = `anime${index}`;
+        const nombreLimpio = nombre.replace(/_/g, ' '); 
+
+        const cardHTML = `
+            <div class="card" id="${id}">
+                <div class="card-inner">
+                    <div class="card-front" onclick="mostrarTemporadas('${id}', '${nombre}')">
+                        <img src="img/${nombre}.webp" alt="${nombreLimpio}">
+                        <p class="titulo-anime">${nombreLimpio}</p>
+                    </div>
+                    <div class="card-back" id="back-${id}"></div>
+                </div>
+            </div>
+        `;
+        contenedor.innerHTML += cardHTML;
+    });
+}
+
+// 3. Lógica de Navegación: TEMPORADAS
 function mostrarTemporadas(id, nombre) {
     const back = document.getElementById('back-' + id);
     const info = enlacesAnime[nombre];
 
     if (!info) {
-        // Si no tienes links, muestra el botón de próximamente como en tu diseño
         back.innerHTML = `
             <div class="btn-container">
                 <p class="titulo-back">${nombre}</p>
@@ -224,7 +249,6 @@ function mostrarTemporadas(id, nombre) {
                 <button class="btn-cerrar" onclick="cerrarCard('${id}')">CERRAR</button>
             </div>`;
     } else {
-        // Genera un botón por cada temporada que escribiste arriba
         let botones = "";
         for (let temp in info) {
             botones += `<button class="btn-opcion" onclick="mostrarIdiomas('${id}', '${nombre}', '${temp}')">${temp}</button>`;
@@ -240,13 +264,13 @@ function mostrarTemporadas(id, nombre) {
     document.getElementById(id).classList.add('flipped');
 }
 
+// 4. Lógica de Navegación: IDIOMAS
 function mostrarIdiomas(id, nombre, temporada) {
     const back = document.getElementById('back-' + id);
     const idiomas = enlacesAnime[nombre][temporada];
 
     let botones = "";
     for (let lang in idiomas) {
-        // Abre el link directamente en Telegram
         botones += `<button class="btn-opcion" onclick="window.Telegram.WebApp.openTelegramLink('${idiomas[lang]}')">${lang}</button>`;
     }
 
@@ -258,29 +282,16 @@ function mostrarIdiomas(id, nombre, temporada) {
         </div>`;
 }
 
+// 5. Funciones de utilidad (Cerrar y Filtrar)
 function cerrarCard(id) {
     document.getElementById(id).classList.remove('flipped');
-}        
-// --- FUNCIÓN QUE CREA LAS TARJETAS SOLA ---
-function generarCatalogo() {
-    const contenedor = document.getElementById('catalogo');
-    
-    listaAnimes.forEach((nombre, index) => {
-        const id = `anime${index}`;
-        const nombreLimpio = nombre.replace(/_/g, ' '); // Quita los guiones bajos para el título
+}
 
-        const cardHTML = `
-            <div class="card" id="${id}">
-                <div class="card-inner">
-                    <div class="card-front" onclick="mostrarOpciones('${id}', '${nombre}')">
-                        <img src="img/${nombre}.webp" alt="${nombreLimpio}">
-                        <p class="titulo-anime">${nombreLimpio}</p>
-                    </div>
-                    <div class="card-back" id="back-${id}"></div>
-                </div>
-            </div>
-        `;
-        contenedor.innerHTML += cardHTML;
+function filtrarAnimes() {
+    const texto = document.getElementById('buscador').value.toLowerCase();
+    document.querySelectorAll('.card').forEach(t => {
+        const titulo = t.querySelector('.titulo-anime').innerText.toLowerCase();
+        t.style.display = titulo.includes(texto) ? "block" : "none";
     });
 }
 
@@ -327,6 +338,7 @@ function filtrarAnimes() {
     </script>
 </body>
 </html>
+
 
 
 
