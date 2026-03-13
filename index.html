@@ -155,6 +155,7 @@
             },
             "Solo Leveling": {
                 sinopsis: "En un mundo donde cazadores con habilidades mágicas deben luchar contra monstruos feroces para proteger a la humanidad, Sung Jin-woo, el cazador más débil, recibe un extraño sistema.",
+                portada: "https://i.pinimg.com/1200x/5d/4d/90/5d4d90a821211cec21c463b2b94ab56e.jpg",
                 generos: ["Acción", "Aventura", "Fantasía"],
                 enlaces: {
                     "Temporada 1": { "Latino": "https://t.me/c/123/3" }
@@ -172,105 +173,110 @@
             }
         };
 
-        function cargar() {
-            const grid = document.getElementById('grid');
-            grid.innerHTML = "";
-            for (const nombre in base) {
-                const div = document.createElement('div');
-                div.className = 'tarjeta-anime';
-                div.onclick = () => abrir(nombre);
-                
-                // URL AUTOMÁTICA: GitHub Raw + Nombre + .webp
-                const imgUrl = urlBaseGitHub + encodeURIComponent(nombre) + ".webp";
-                
-                div.innerHTML = `
-                    <img src="${imgUrl}" onerror="this.src='https://via.placeholder.com/160x240/111/555?text=Error+Img'">
-                    <div class="titulo-tarjeta">${nombre}</div>
-                `;
-                grid.appendChild(div);
-            }
-        }
+        // 1. Asegúrate de que esta URL sea la correcta de tu repositorio actual
+    const urlBaseGitHub = "https://raw.githubusercontent.com/Kaergsty/mi-kaergsty-app/main/img/";
 
-        function abrir(nombre) {
+    function cargar() {
+        const grid = document.getElementById('grid');
+        grid.innerHTML = "";
+        for (const nombre in base) {
             const anime = base[nombre];
-            const imgUrl = urlBaseGitHub + encodeURIComponent(nombre) + ".webp";
-            const bannerUrl = urlBaseGitHub + encodeURIComponent(nombre) + "-banner.webp";
-
-            document.getElementById('det-img').src = imgUrl;
-            document.getElementById('bg-bluroso').src = bannerUrl;
+            const div = document.createElement('div');
+            div.className = 'tarjeta-anime';
+            div.onclick = () => abrir(nombre);
             
-            // Si el banner no existe, usa la imagen normal de fondo
-            document.getElementById('bg-bluroso').onerror = function() {
-                this.src = imgUrl;
-            };
+            // LÓGICA HÍBRIDA: Si existe 'portada' usa el link, si no, usa GitHub
+            let imgUrl = anime.portada ? anime.portada : urlBaseGitHub + encodeURIComponent(nombre) + ".webp";
+            
+            div.innerHTML = `
+                <img src="${imgUrl}" onerror="this.src='https://via.placeholder.com/160x240/111/555?text=Error+Img'">
+                <div class="titulo-tarjeta">${nombre}</div>
+            `;
+            grid.appendChild(div);
+        }
+    }
 
-            document.getElementById('det-titulo').innerText = nombre;
-            document.getElementById('det-sinopsis').innerText = anime.sinopsis;
+    function abrir(nombre) {
+        const anime = base[nombre];
+        // También aquí aplicamos la lógica híbrida para la imagen de detalle
+        let imgUrl = anime.portada ? anime.portada : urlBaseGitHub + encodeURIComponent(nombre) + ".webp";
+        const bannerUrl = urlBaseGitHub + encodeURIComponent(nombre) + "-banner.webp";
 
-            const gens = document.getElementById('det-generos');
-            gens.innerHTML = "";
+        document.getElementById('det-img').src = imgUrl;
+        document.getElementById('bg-bluroso').src = bannerUrl;
+        
+        document.getElementById('bg-bluroso').onerror = function() {
+            this.src = imgUrl;
+        };
+
+        document.getElementById('det-titulo').innerText = nombre;
+        document.getElementById('det-sinopsis').innerText = anime.sinopsis;
+
+        const gens = document.getElementById('det-generos');
+        gens.innerHTML = "";
+        if(anime.generos) {
             anime.generos.forEach(g => gens.innerHTML += `<span class="tag">${g}</span>`);
-
-            document.getElementById('vista-catalogo').style.display = 'none';
-            document.getElementById('vista-detalles').style.display = 'block';
-            window.scrollTo(0,0);
-            mostrarT(nombre);
         }
 
-        function mostrarT(nombre) {
-            const area = document.getElementById('area-botones');
-            area.innerHTML = `<span class="txt-guia">Seleccionar Temporada</span>`;
-            Object.keys(base[nombre].enlaces).forEach(t => {
-                const btn = document.createElement('button');
-                btn.className = 'btn-accion';
-                btn.innerText = t;
-                btn.onclick = () => mostrarI(nombre, t);
-                area.appendChild(btn);
-            });
-        }
+        document.getElementById('vista-catalogo').style.display = 'none';
+        document.getElementById('vista-detalles').style.display = 'block';
+        window.scrollTo(0,0);
+        mostrarT(nombre);
+    }
 
-        function mostrarI(nombre, t) {
-            const area = document.getElementById('area-botones');
-            const ids = base[nombre].enlaces[t];
-            area.innerHTML = `<span class="txt-guia">Idioma - ${t}</span>`;
-            Object.keys(ids).forEach(i => {
-                const btn = document.createElement('button');
-                btn.className = 'btn-accion';
-                btn.innerText = i;
-                btn.onclick = () => {
-                    // SEGURO PARA TELEGRAM: No cierra la app
-                    if (window.Telegram && window.Telegram.WebApp) {
-                        window.Telegram.WebApp.openLink(ids[i]);
-                    } else {
-                        window.open(ids[i], '_blank');
-                    }
-                };
-                area.appendChild(btn);
-            });
-            const back = document.createElement('button');
-            back.className = 'btn-v';
-            back.innerText = "← VOLVER";
-            back.onclick = () => mostrarT(nombre);
-            area.appendChild(back);
-        }
+    function mostrarT(nombre) {
+        const area = document.getElementById('area-botones');
+        area.innerHTML = `<span class="txt-guia">Seleccionar Temporada</span>`;
+        Object.keys(base[nombre].enlaces).forEach(t => {
+            const btn = document.createElement('button');
+            btn.className = 'btn-accion';
+            btn.innerText = t;
+            btn.onclick = () => mostrarI(nombre, t);
+            area.appendChild(btn);
+        });
+    }
 
-        function cerrar() {
-            document.getElementById('vista-detalles').style.display = 'none';
-            document.getElementById('vista-catalogo').style.display = 'block';
-        }
+    function mostrarI(nombre, t) {
+        const area = document.getElementById('area-botones');
+        const ids = base[nombre].enlaces[t];
+        area.innerHTML = `<span class="txt-guia">Idioma - ${t}</span>`;
+        Object.keys(ids).forEach(i => {
+            const btn = document.createElement('button');
+            btn.className = 'btn-accion';
+            btn.innerText = i;
+            btn.onclick = () => {
+                if (window.Telegram && window.Telegram.WebApp) {
+                    window.Telegram.WebApp.openLink(ids[i]);
+                } else {
+                    window.open(ids[i], '_blank');
+                }
+            };
+            area.appendChild(btn);
+        });
+        const back = document.createElement('button');
+        back.className = 'btn-v';
+        back.innerText = "← VOLVER";
+        back.onclick = () => mostrarT(nombre);
+        area.appendChild(back);
+    }
 
-        function filtrar() {
-            const v = document.getElementById('buscador').value.toLowerCase();
-            document.querySelectorAll('.tarjeta-anime').forEach(t => {
-                t.style.display = t.innerText.toLowerCase().includes(v) ? 'block' : 'none';
-            });
-        }
+    function cerrar() {
+        document.getElementById('vista-detalles').style.display = 'none';
+        document.getElementById('vista-catalogo').style.display = 'block';
+    }
 
-        // Iniciar el catálogo al cargar la página
-        cargar();
+    function filtrar() {
+        const v = document.getElementById('buscador').value.toLowerCase();
+        document.querySelectorAll('.tarjeta-anime').forEach(t => {
+            t.style.display = t.innerText.toLowerCase().includes(v) ? 'block' : 'none';
+        });
+    }
+
+    cargar();
     </script>
 </body>
 </html>
+
 
 
 
