@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>AKaergsty Premium</title>
+    <script src="https://telegram.org/js/telegram-web-app.js"></script>
     <style>
         /* --- ESTILOS BASE --- */
         body {
@@ -29,7 +30,6 @@
             padding: 12px 20px; border-radius: 30px; width: 250px; outline: none;
             transition: 0.3s;
         }
-        #buscador:focus { border-color: #0088cc; box-shadow: 0 0 10px rgba(0, 136, 204, 0.2); }
 
         .grid-animes { display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 20px; }
 
@@ -46,10 +46,9 @@
             font-size: 13px; font-weight: bold; text-align: center;
         }
 
-        /* --- VISTA DETALLES (ILUMINADA) --- */
+        /* --- VISTA DETALLES --- */
         #vista-detalles { display: none; min-height: 100vh; position: relative; }
 
-        /* Banner de fondo con iluminación */
         .bg-banner {
             position: absolute; top: 0; left: 0; width: 100%; height: 700px;
             z-index: -2; opacity: 0.5; filter: blur(50px); object-fit: cover;
@@ -64,10 +63,8 @@
         .header-detalles { padding: 20px 30px; }
         .btn-atras {
             background: rgba(255,255,255,0.1); border: none; color: white; padding: 10px 20px;
-            border-radius: 20px; cursor: pointer; font-weight: bold; transition: 0.3s;
-            backdrop-filter: blur(5px);
+            border-radius: 20px; cursor: pointer; font-weight: bold; backdrop-filter: blur(5px);
         }
-        .btn-atras:hover { background: #0088cc; }
 
         .layout-detalles {
             display: flex; gap: 40px; max-width: 1100px; margin: 20px auto;
@@ -81,7 +78,7 @@
         .img-lateral img { width: 100%; display: block; }
 
         .info-derecha { flex: 1; }
-        .titulo-anime { font-size: 40px; margin: 0 0 15px 0; font-weight: 800; text-shadow: 0 4px 10px rgba(0,0,0,0.5); }
+        .titulo-anime { font-size: 40px; margin: 0 0 15px 0; font-weight: 800; }
 
         .generos { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 25px; }
         .tag { background: #0088cc; padding: 5px 15px; border-radius: 20px; font-size: 12px; font-weight: bold; }
@@ -90,32 +87,27 @@
             background: rgba(255, 255, 255, 0.05); backdrop-filter: blur(15px);
             padding: 30px; border-radius: 20px; border-left: 5px solid #0088cc;
             line-height: 1.8; color: #eee; margin-bottom: 40px;
-            box-shadow: 0 15px 30px rgba(0,0,0,0.4);
         }
 
         .centro-botones { display: flex; justify-content: center; width: 100%; }
         .caja-botones {
             background: rgba(20, 20, 20, 0.8); padding: 30px; border-radius: 25px;
             width: 100%; max-width: 380px; display: flex; flex-direction: column; gap: 15px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.6); border: 1px solid #333;
+            border: 1px solid #333;
         }
-        .txt-guia { color: #888; font-size: 13px; text-transform: uppercase; letter-spacing: 2px; text-align: center; font-weight: bold; }
+        .txt-guia { color: #888; font-size: 13px; text-transform: uppercase; text-align: center; }
 
         .btn-accion {
             background: #0088cc; color: white; border: none; padding: 15px;
             border-radius: 12px; font-weight: bold; font-size: 16px; cursor: pointer;
-            transition: 0.3s;
         }
-        .btn-accion:hover { background: #00aaff; transform: translateY(-3px); box-shadow: 0 5px 15px rgba(0, 136, 204, 0.4); }
 
         .btn-v { background: none; border: none; color: #ff4444; font-weight: bold; cursor: pointer; margin-top: 5px;}
 
-        /* Responsivo */
         @media (max-width: 850px) {
             .layout-detalles { flex-direction: column; align-items: center; }
             .img-lateral { width: 260px; flex: none; }
             .titulo-anime { text-align: center; font-size: 32px; }
-            .generos { justify-content: center; }
         }
     </style>
 </head>
@@ -132,22 +124,16 @@
     <div id="vista-detalles">
         <img id="bg-bluroso" class="bg-banner" src="" alt="">
         <div class="header-detalles">
-            <button class="btn-atras" onclick="cerrar()">← VOLVER AL CATÁLOGO</button>
+            <button class="btn-atras" onclick="cerrar()">← VOLVER</button>
         </div>
-
         <div class="layout-detalles">
             <div class="img-lateral">
                 <img id="det-img" src="" alt="">
             </div>
-
             <div class="info-derecha">
                 <h1 id="det-titulo" class="titulo-anime"></h1>
                 <div id="det-generos" class="generos"></div>
-                
-                <div class="caja-sinopsis">
-                    <p id="det-sinopsis"></p>
-                </div>
-
+                <div class="caja-sinopsis"><p id="det-sinopsis"></p></div>
                 <div class="centro-botones">
                     <div class="caja-botones" id="area-botones"></div>
                 </div>
@@ -156,26 +142,25 @@
     </div>
 
     <script>
-        /* --- BASE DE DATOS (AQUÍ AGREGAS TUS ANIMES) --- */
+        // CONFIGURACIÓN GITHUB: Cambia esto por tus datos reales
+        const urlBaseGitHub = "https://raw.githubusercontent.com/TU_USUARIO/TU_REPOSITORIO/main/img/";
+
         const base = {
             "Jigokuraku": {
-                sinopsis: "Gabimaru el Vacío es sentenciado a muerte. Su única esperanza es viajar a una isla misteriosa para encontrar el Elixir de la Vida.",
-                generos: ["Acción", "Fantasía Oscura", "Ninja"],
+                sinopsis: "Gabimaru el Vacío busca el elixir de la inmortalidad.",
+                generos: ["Acción", "Fantasía"],
                 enlaces: {
-                    "Temporada 1": { "Latino": "https://t.me/ejemplo1", "Japonés": "https://t.me/ejemplo2" }
+                    "Temporada 1": { "Latino": "https://t.me/c/123/1", "Japonés": "https://t.me/c/123/2" }
                 }
             },
             "Solo Leveling": {
-                sinopsis: "En un mundo donde cazadores deben luchar contra monstruos, el cazador más débil de la humanidad recibe un poder extraño.",
-                generos: ["Acción", "Aventura", "RPG"],
+                sinopsis: "El cazador más débil se convierte en el más fuerte.",
+                generos: ["Acción", "Aventura"],
                 enlaces: {
-                    "Temporada 1": { "Latino": "https://t.me/ejemplo3" }
+                    "Temporada 1": { "Latino": "https://t.me/c/123/3" }
                 }
-            },
-            // Solo copia un bloque de arriba y pégalo aquí para añadir más.
+            }
         };
-
-        /* --- LÓGICA AUTOMÁTICA --- */
 
         function cargar() {
             const grid = document.getElementById('grid');
@@ -184,75 +169,67 @@
                 const div = document.createElement('div');
                 div.className = 'tarjeta-anime';
                 div.onclick = () => abrir(nombre);
-                
-                // Busca automáticamente la imagen con el nombre del anime
-                div.innerHTML = `
-                    <img src="img/${nombre}.webp" onerror="this.src='https://via.placeholder.com/160x240/111/555?text=${nombre}'">
-                    <div class="titulo-tarjeta">${nombre}</div>
-                `;
+                // URL Automática de GitHub
+                const imgUrl = urlBaseGitHub + encodeURIComponent(nombre) + ".webp";
+                div.innerHTML = `<img src="${imgUrl}"><div class="titulo-tarjeta">${nombre}</div>`;
                 grid.appendChild(div);
             }
         }
 
         function abrir(nombre) {
             const anime = base[nombre];
-            
-            // Portada automática
-            document.getElementById('det-img').src = `img/${nombre}.webp`;
-            
-            // Intenta poner el banner. Si no existe, el navegador usará la portada (gracias al CSS se verá bien igual)
-            const imgBanner = `img/${nombre}-banner.webp`;
-            document.getElementById('bg-bluroso').src = imgBanner;
-            
-            // Rellenar textos
+            const imgUrl = urlBaseGitHub + encodeURIComponent(nombre) + ".webp";
+            const bannerUrl = urlBaseGitHub + encodeURIComponent(nombre) + "-banner.webp";
+
+            document.getElementById('det-img').src = imgUrl;
+            document.getElementById('bg-bluroso').src = bannerUrl;
             document.getElementById('det-titulo').innerText = nombre;
             document.getElementById('det-sinopsis').innerText = anime.sinopsis;
 
-            // Rellenar géneros
             const gens = document.getElementById('det-generos');
             gens.innerHTML = "";
-            anime.generos.forEach(g => {
-                gens.innerHTML += `<span class="tag">${g}</span>`;
-            });
+            anime.generos.forEach(g => gens.innerHTML += `<span class="tag">${g}</span>`);
 
-            // Cambiar vista
             document.getElementById('vista-catalogo').style.display = 'none';
             document.getElementById('vista-detalles').style.display = 'block';
-            window.scrollTo(0,0);
-            mostrarTemporadas(nombre);
+            mostrarT(nombre);
         }
 
-        function mostrarTemporadas(nombre) {
+        function mostrarT(nombre) {
             const area = document.getElementById('area-botones');
             area.innerHTML = `<span class="txt-guia">Temporadas</span>`;
-            
-            Object.keys(base[nombre].enlaces).forEach(temp => {
+            Object.keys(base[nombre].enlaces).forEach(t => {
                 const btn = document.createElement('button');
                 btn.className = 'btn-accion';
-                btn.innerText = temp;
-                btn.onclick = () => mostrarIdiomas(nombre, temp);
+                btn.innerText = t;
+                btn.onclick = () => mostrarI(nombre, t);
                 area.appendChild(btn);
             });
         }
 
-        function mostrarIdiomas(nombre, temp) {
+        function mostrarI(nombre, t) {
             const area = document.getElementById('area-botones');
-            const idiomas = base[nombre].enlaces[temp];
-            area.innerHTML = `<span class="txt-guia">${temp}</span>`;
-            
-            Object.keys(idiomas).forEach(idioma => {
+            const ids = base[nombre].enlaces[t];
+            area.innerHTML = `<span class="txt-guia">${t}</span>`;
+            Object.keys(ids).forEach(i => {
                 const btn = document.createElement('button');
                 btn.className = 'btn-accion';
-                btn.innerText = idioma;
-                btn.onclick = () => window.open(idiomas[idioma], '_blank');
+                btn.innerText = i;
+                btn.onclick = () => {
+                    // Lógica para que NO se cierre la Mini App
+                    if (window.Telegram && window.Telegram.WebApp) {
+                        window.Telegram.WebApp.openLink(ids[i]);
+                    } else {
+                        window.open(ids[i], '_blank');
+                    }
+                };
                 area.appendChild(btn);
             });
-
-            const btnVolver = document.createElement('button');
-            btnVolver.className = 'btn-v';
-            btnVolver.innerText = "← VOLVER";
-            btnVolver.onclick = () => mostrarTemporadas(nombre);
-            area.appendChild(btnVolver);
+            const back = document.createElement('button');
+            back.className = 'btn-v';
+            back.innerText = "← VOLVER";
+            back.onclick = () => mostrarT(nombre);
+            area.appendChild(back);
         }
 
         function cerrar() {
@@ -261,16 +238,12 @@
         }
 
         function filtrar() {
-            const busqueda = document.getElementById('buscador').value.toLowerCase();
-            const tarjetas = document.querySelectorAll('.tarjeta-anime');
-            
-            tarjetas.forEach(tarjeta => {
-                const texto = tarjeta.innerText.toLowerCase();
-                tarjeta.style.display = texto.includes(busqueda) ? 'block' : 'none';
+            const v = document.getElementById('buscador').value.toLowerCase();
+            document.querySelectorAll('.tarjeta-anime').forEach(t => {
+                t.style.display = t.innerText.toLowerCase().includes(v) ? 'block' : 'none';
             });
         }
 
-        // Iniciar catálogo
         cargar();
     </script>
 </body>
