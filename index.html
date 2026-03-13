@@ -6,16 +6,15 @@
     <title>AKaergsty Premium</title>
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
     <style>
-        /* --- ESTILOS BASE --- */
+        /* --- DISEÑO ORIGINAL REPARADO --- */
         body {
             margin: 0; padding: 0;
             background-color: #0a0a0a;
             color: #ffffff;
-            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            font-family: 'Segoe UI', sans-serif;
             overflow-x: hidden;
         }
 
-        /* --- VISTA CATÁLOGO --- */
         #vista-catalogo { padding: 30px; max-width: 1200px; margin: 0 auto; }
         
         .header-catalogo {
@@ -23,23 +22,22 @@
             margin-bottom: 30px; padding-bottom: 15px; border-bottom: 1px solid #222;
         }
 
-        .titulo-principal { font-size: 30px; font-weight: 800; color: #0088cc; margin: 0; letter-spacing: 1px; }
+        .titulo-principal { font-size: 30px; font-weight: 800; color: #0088cc; margin: 0; }
 
         #buscador {
             background: #1a1a1a; border: 1px solid #333; color: white;
             padding: 12px 20px; border-radius: 30px; width: 250px; outline: none;
-            transition: 0.3s;
         }
 
         .grid-animes { display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 20px; }
 
         .tarjeta-anime {
             position: relative; border-radius: 12px; overflow: hidden; cursor: pointer;
-            aspect-ratio: 2/3; transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            background: #151515;
+            aspect-ratio: 2/3; background: #151515; transition: 0.4s;
         }
-        .tarjeta-anime:hover { transform: translateY(-10px); box-shadow: 0 10px 25px rgba(0, 136, 204, 0.3); }
+        .tarjeta-anime:hover { transform: translateY(-10px); }
         .tarjeta-anime img { width: 100%; height: 100%; object-fit: cover; }
+        
         .titulo-tarjeta {
             position: absolute; bottom: 0; width: 100%; padding: 25px 5px 10px;
             background: linear-gradient(transparent, rgba(0,0,0,0.95));
@@ -47,68 +45,24 @@
         }
 
         /* --- VISTA DETALLES --- */
-        #vista-detalles { display: none; min-height: 100vh; position: relative; }
-
-        .bg-banner {
-            position: absolute; top: 0; left: 0; width: 100%; height: 700px;
-            z-index: -2; opacity: 0.5; filter: blur(50px); object-fit: cover;
+        #vista-detalles { display: none; padding: 20px; min-height: 100vh; }
+        .btn-atras { 
+            background: #333; color: white; border: none; padding: 10px 20px; 
+            border-radius: 20px; cursor: pointer; margin-bottom: 20px;
         }
-
-        #vista-detalles::before {
-            content: ""; position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-            background: radial-gradient(circle at 20% 30%, rgba(0, 136, 204, 0.2) 0%, transparent 70%);
-            z-index: -1;
-        }
-
-        .header-detalles { padding: 20px 30px; }
-        .btn-atras {
-            background: rgba(255,255,255,0.1); border: none; color: white; padding: 10px 20px;
-            border-radius: 20px; cursor: pointer; font-weight: bold; backdrop-filter: blur(5px);
-        }
-
-        .layout-detalles {
-            display: flex; gap: 40px; max-width: 1100px; margin: 20px auto;
-            padding: 0 20px; align-items: flex-start;
-        }
-
-        .img-lateral {
-            flex: 0 0 300px; border-radius: 15px; overflow: hidden;
-            box-shadow: 0 15px 35px rgba(0,0,0,0.8); border: 1px solid rgba(255,255,255,0.1);
-        }
+        .layout-detalles { display: flex; gap: 30px; flex-wrap: wrap; }
+        .img-lateral { width: 280px; border-radius: 15px; overflow: hidden; }
         .img-lateral img { width: 100%; display: block; }
-
-        .info-derecha { flex: 1; }
-        .titulo-anime { font-size: 40px; margin: 0 0 15px 0; font-weight: 800; }
-
-        .generos { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 25px; }
-        .tag { background: #0088cc; padding: 5px 15px; border-radius: 20px; font-size: 12px; font-weight: bold; }
-
-        .caja-sinopsis {
-            background: rgba(255, 255, 255, 0.05); backdrop-filter: blur(15px);
-            padding: 30px; border-radius: 20px; border-left: 5px solid #0088cc;
-            line-height: 1.8; color: #eee; margin-bottom: 40px;
+        .info-derecha { flex: 1; min-width: 300px; }
+        .tag { background: #0088cc; padding: 5px 12px; border-radius: 15px; font-size: 12px; margin-right: 5px; }
+        
+        .caja-botones { 
+            background: #1a1a1a; padding: 20px; border-radius: 15px; 
+            display: flex; flex-direction: column; gap: 10px; margin-top: 20px; 
         }
-
-        .centro-botones { display: flex; justify-content: center; width: 100%; }
-        .caja-botones {
-            background: rgba(20, 20, 20, 0.8); padding: 30px; border-radius: 25px;
-            width: 100%; max-width: 380px; display: flex; flex-direction: column; gap: 15px;
-            border: 1px solid #333;
-        }
-        .txt-guia { color: #888; font-size: 13px; text-transform: uppercase; text-align: center; }
-
-        .btn-accion {
-            background: #0088cc; color: white; border: none; padding: 15px;
-            border-radius: 12px; font-weight: bold; font-size: 16px; cursor: pointer;
-        }
-
-        .btn-v { background: none; border: none; color: #ff4444; font-weight: bold; cursor: pointer; margin-top: 5px;}
-
-        @media (max-width: 850px) {
-            .layout-detalles { flex-direction: column; align-items: center; }
-            .img-lateral { width: 260px; flex: none; }
-            .titulo-anime { text-align: center; font-size: 32px; }
-        }
+        .btn-accion { background: #0088cc; color: white; border: none; padding: 12px; border-radius: 10px; cursor: pointer; font-weight: bold; }
+        .btn-v { background: none; border: none; color: #ff4444; cursor: pointer; font-weight: bold; margin-top: 10px; }
+        .txt-guia { color: #888; font-size: 13px; text-transform: uppercase; text-align: center; margin-bottom: 5px; }
     </style>
 </head>
 <body>
@@ -122,161 +76,127 @@
     </div>
 
     <div id="vista-detalles">
-        <img id="bg-bluroso" class="bg-banner" src="" alt="">
-        <div class="header-detalles">
-            <button class="btn-atras" onclick="cerrar()">← VOLVER AL CATÁLOGO</button>
-        </div>
-        <div class="layout-detalles">
-            <div class="img-lateral">
-                <img id="det-img" src="" alt="">
+        <button class="btn-atras" onclick="cerrar()">← VOLVER AL CATÁLOGO</button>
+        <div class="layout-detalles" id="contenido-detalles">
             </div>
-            <div class="info-derecha">
-                <h1 id="det-titulo" class="titulo-anime"></h1>
-                <div id="det-generos" class="generos"></div>
-                <div class="caja-sinopsis"><p id="det-sinopsis"></p></div>
-                <div class="centro-botones">
-                    <div class="caja-botones" id="area-botones"></div>
-                </div>
-            </div>
-        </div>
     </div>
 
     <script>
-        // CONFIGURACIÓN GITHUB: Esta es la "casa" de tus fotos
+        // CONFIGURACIÓN: Ruta corregida a tu repositorio mi-kaergsty-app
         const urlBaseGitHub = "https://raw.githubusercontent.com/Kaergsty/mi-kaergsty-app/main/img/";
 
         const base = {
             "Jigokuraku": {
-                sinopsis: "Gabimaru el Vacío, un ninja de Iwagakure conocido por ser frío y eficiente, se encuentra en el corredor de la muerte. Su única esperanza es encontrar el Elixir de la Vida en una isla misteriosa.",
-                generos: ["Acción", "Aventura", "Fantasía"],
-                enlaces: {
-                    "Temporada 1": { "Latino": "https://t.me/c/123/1", "Japonés": "https://t.me/c/123/2" }
-                }
+                sinopsis: "Gabimaru el Vacío busca el elixir de la inmortalidad.",
+                generos: ["Acción", "Fantasía"],
+                enlaces: { "Temporada 1": { "Latino": "https://t.me/c/123/1" } }
             },
             "Solo Leveling": {
-                sinopsis: "En un mundo donde cazadores con habilidades mágicas deben luchar contra monstruos feroces para proteger a la humanidad, Sung Jin-woo, el cazador más débil, recibe un extraño sistema.",
-                portada: "https://i.pinimg.com/1200x/5d/4d/90/5d4d90a821211cec21c463b2b94ab56e.jpg",
-                generos: ["Acción", "Aventura", "Fantasía"],
-                enlaces: {
-                    "Temporada 1": { "Latino": "https://t.me/c/123/3" }
-                }
+                sinopsis: "El cazador más débil se convierte en el más fuerte.",
+                generos: ["Acción", "Aventura"],
+                enlaces: { "Temporada 1": { "Latino": "https://t.me/c/123/3" } }
             },
-            "Demi chan wa kataritai": {
-                sinopsis: "La historia del manga se desarrolla en una época en la que los “ajin”, informalmente denominados “demi”, han comenzado a ser aceptados en la sociedad humana. Nuestro protagonista es Tetsuo Takahashi, un profesor de Biología que debe dar clases a tres demi con la esperanza de llegar a comprenderlos mejor.",
-                generos: ["Comedia", "Escolares", "Fantasía", "Seinen"],
-                enlaces: {
-                    "Temporada 1": { 
-                        "Japones": "https://t.me/AnimeKaergsty1/4940",
-                         "Latino": "https://t.me/AnimeKaergsty1/4943"
-                    }
-                }
+            "Kaguya-sama": {
+                sinopsis: "Guerra cerebral de amor.",
+                generos: ["Comedia", "Romance"],
+                portada: "https://i.pinimg.com/1200x/5d/4d/90/5d4d90a821211cec21c463b2b94ab56e.jpg",
+                enlaces: { "Temporada 1": { "Latino": "https://t.me/AnimeKaergsty1/5069" } }
             }
         };
 
-        // 1. Asegúrate de que esta URL sea la correcta de tu repositorio actual
-    const urlBaseGitHub = "https://raw.githubusercontent.com/Kaergsty/mi-kaergsty-app/main/img/";
+        function cargar() {
+            const grid = document.getElementById('grid');
+            grid.innerHTML = "";
+            for (const nombre in base) {
+                const anime = base[nombre];
+                const div = document.createElement('div');
+                div.className = 'tarjeta-anime';
+                div.onclick = () => abrir(nombre);
+                
+                // Lógica Híbrida: Usa 'portada' si existe, si no construye link de GitHub
+                let imgUrl = anime.portada ? anime.portada : urlBaseGitHub + encodeURIComponent(nombre) + ".webp";
+                
+                div.innerHTML = `
+                    <img src="${imgUrl}" onerror="this.src='https://via.placeholder.com/160x240/222/555?text=Error+Img'">
+                    <div class="titulo-tarjeta">${nombre}</div>
+                `;
+                grid.appendChild(div);
+            }
+        }
 
-    function cargar() {
-        const grid = document.getElementById('grid');
-        grid.innerHTML = "";
-        for (const nombre in base) {
+        function abrir(nombre) {
             const anime = base[nombre];
-            const div = document.createElement('div');
-            div.className = 'tarjeta-anime';
-            div.onclick = () => abrir(nombre);
-            
-            // LÓGICA HÍBRIDA: Si existe 'portada' usa el link, si no, usa GitHub
             let imgUrl = anime.portada ? anime.portada : urlBaseGitHub + encodeURIComponent(nombre) + ".webp";
-            
-            div.innerHTML = `
-                <img src="${imgUrl}" onerror="this.src='https://via.placeholder.com/160x240/111/555?text=Error+Img'">
-                <div class="titulo-tarjeta">${nombre}</div>
+            const cont = document.getElementById('contenido-detalles');
+
+            cont.innerHTML = `
+                <div class="img-lateral"><img src="${imgUrl}"></div>
+                <div class="info-derecha">
+                    <h1>${nombre}</h1>
+                    <div id="det-generos" style="margin-bottom:15px;"></div>
+                    <p style="line-height:1.6; color:#ccc;">${anime.sinopsis}</p>
+                    <div class="caja-botones" id="area-botones"></div>
+                </div>
             `;
-            grid.appendChild(div);
-        }
-    }
 
-    function abrir(nombre) {
-        const anime = base[nombre];
-        // También aquí aplicamos la lógica híbrida para la imagen de detalle
-        let imgUrl = anime.portada ? anime.portada : urlBaseGitHub + encodeURIComponent(nombre) + ".webp";
-        const bannerUrl = urlBaseGitHub + encodeURIComponent(nombre) + "-banner.webp";
-
-        document.getElementById('det-img').src = imgUrl;
-        document.getElementById('bg-bluroso').src = bannerUrl;
-        
-        document.getElementById('bg-bluroso').onerror = function() {
-            this.src = imgUrl;
-        };
-
-        document.getElementById('det-titulo').innerText = nombre;
-        document.getElementById('det-sinopsis').innerText = anime.sinopsis;
-
-        const gens = document.getElementById('det-generos');
-        gens.innerHTML = "";
-        if(anime.generos) {
+            const gens = document.getElementById('det-generos');
             anime.generos.forEach(g => gens.innerHTML += `<span class="tag">${g}</span>`);
+
+            document.getElementById('vista-catalogo').style.display = 'none';
+            document.getElementById('vista-detalles').style.display = 'block';
+            window.scrollTo(0,0);
+            mostrarT(nombre);
         }
 
-        document.getElementById('vista-catalogo').style.display = 'none';
-        document.getElementById('vista-detalles').style.display = 'block';
-        window.scrollTo(0,0);
-        mostrarT(nombre);
-    }
+        function mostrarT(nombre) {
+            const area = document.getElementById('area-botones');
+            area.innerHTML = `<span class="txt-guia">Temporadas</span>`;
+            Object.keys(base[nombre].enlaces).forEach(t => {
+                const btn = document.createElement('button');
+                btn.className = 'btn-accion';
+                btn.innerText = t;
+                btn.onclick = () => mostrarI(nombre, t);
+                area.appendChild(btn);
+            });
+        }
 
-    function mostrarT(nombre) {
-        const area = document.getElementById('area-botones');
-        area.innerHTML = `<span class="txt-guia">Seleccionar Temporada</span>`;
-        Object.keys(base[nombre].enlaces).forEach(t => {
-            const btn = document.createElement('button');
-            btn.className = 'btn-accion';
-            btn.innerText = t;
-            btn.onclick = () => mostrarI(nombre, t);
-            area.appendChild(btn);
-        });
-    }
+        function mostrarI(nombre, t) {
+            const area = document.getElementById('area-botones');
+            const links = base[nombre].enlaces[t];
+            area.innerHTML = `<span class="txt-guia">Idiomas - ${t}</span>`;
+            Object.keys(links).forEach(idioma => {
+                const btn = document.createElement('button');
+                btn.className = 'btn-accion';
+                btn.innerText = idioma;
+                btn.onclick = () => {
+                    if (window.Telegram && window.Telegram.WebApp) {
+                        window.Telegram.WebApp.openLink(links[idioma]);
+                    } else {
+                        window.open(links[idioma], '_blank');
+                    }
+                };
+                area.appendChild(btn);
+            });
+            const back = document.createElement('button');
+            back.className = 'btn-v';
+            back.innerText = "← VOLVER";
+            back.onclick = () => mostrarT(nombre);
+            area.appendChild(back);
+        }
 
-    function mostrarI(nombre, t) {
-        const area = document.getElementById('area-botones');
-        const ids = base[nombre].enlaces[t];
-        area.innerHTML = `<span class="txt-guia">Idioma - ${t}</span>`;
-        Object.keys(ids).forEach(i => {
-            const btn = document.createElement('button');
-            btn.className = 'btn-accion';
-            btn.innerText = i;
-            btn.onclick = () => {
-                if (window.Telegram && window.Telegram.WebApp) {
-                    window.Telegram.WebApp.openLink(ids[i]);
-                } else {
-                    window.open(ids[i], '_blank');
-                }
-            };
-            area.appendChild(btn);
-        });
-        const back = document.createElement('button');
-        back.className = 'btn-v';
-        back.innerText = "← VOLVER";
-        back.onclick = () => mostrarT(nombre);
-        area.appendChild(back);
-    }
+        function cerrar() {
+            document.getElementById('vista-detalles').style.display = 'none';
+            document.getElementById('vista-catalogo').style.display = 'block';
+        }
 
-    function cerrar() {
-        document.getElementById('vista-detalles').style.display = 'none';
-        document.getElementById('vista-catalogo').style.display = 'block';
-    }
+        function filtrar() {
+            const v = document.getElementById('buscador').value.toLowerCase();
+            document.querySelectorAll('.tarjeta-anime').forEach(t => {
+                t.style.display = t.innerText.toLowerCase().includes(v) ? 'block' : 'none';
+            });
+        }
 
-    function filtrar() {
-        const v = document.getElementById('buscador').value.toLowerCase();
-        document.querySelectorAll('.tarjeta-anime').forEach(t => {
-            t.style.display = t.innerText.toLowerCase().includes(v) ? 'block' : 'none';
-        });
-    }
-
-    cargar();
+        cargar();
     </script>
 </body>
 </html>
-
-
-
-
