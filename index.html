@@ -6,16 +6,25 @@
     <title>AKaergsty Premium</title>
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
     <style>
-        /* --- ESTILOS BASE --- */
+        /* --- ESTILOS BASE Y FONDO ANIMADO --- */
         body {
             margin: 0; padding: 0;
-            background-color: #0a0a0a;
+            /* Fondo con degradado en movimiento */
+            background: linear-gradient(-45deg, #050505, #0d1624, #120b1f, #050505);
+            background-size: 400% 400%;
+            animation: moverFondo 15s ease infinite;
             color: #ffffff;
             font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
             overflow-x: hidden;
             display: flex;
             flex-direction: column;
             min-height: 100vh;
+        }
+
+        @keyframes moverFondo {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
         }
 
         /* --- VISTA CATÁLOGO --- */
@@ -29,17 +38,19 @@
         
         .header-catalogo {
             display: flex; justify-content: space-between; align-items: center;
-            margin-bottom: 20px; padding-bottom: 15px; border-bottom: 1px solid #222;
+            margin-bottom: 20px; padding-bottom: 15px; border-bottom: 1px solid rgba(255,255,255,0.05);
             flex-wrap: wrap; gap: 15px;
         }
 
         .titulo-principal { font-size: 28px; font-weight: 800; color: #0088cc; margin: 0; letter-spacing: 1px; }
 
         #buscador {
-            background: #1a1a1a; border: 1px solid #333; color: white;
+            background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 255, 255, 0.1); color: white;
             padding: 10px 18px; border-radius: 30px; width: 230px; outline: none;
             transition: 0.3s;
+            backdrop-filter: blur(5px);
         }
+        #buscador:focus { border-color: #0088cc; background: rgba(255, 255, 255, 0.08); }
 
         .grid-animes { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 15px; }
 
@@ -47,16 +58,18 @@
             position: relative; border-radius: 10px; overflow: hidden; cursor: pointer;
             aspect-ratio: 2/3; transition: 0.3s ease-out;
             background: #151515;
+            border: 1px solid rgba(255,255,255,0.02);
         }
-        .tarjeta-anime:hover { transform: translateY(-5px); box-shadow: 0 8px 20px rgba(0, 136, 204, 0.2); }
+        .tarjeta-anime:hover { transform: translateY(-5px); box-shadow: 0 8px 25px rgba(0, 136, 204, 0.3); border-color: rgba(0, 136, 204, 0.4);}
         .tarjeta-anime img { width: 100%; height: 100%; object-fit: cover; }
         .titulo-tarjeta {
-            position: absolute; bottom: 0; width: 100%; padding: 20px 5px 8px;
+            position: absolute; bottom: 0; width: 100%; padding: 25px 5px 10px;
             background: linear-gradient(transparent, rgba(0,0,0,0.95));
-            font-size: 12px; font-weight: bold; text-align: center; box-sizing: border-box;
+            font-size: 13px; font-weight: bold; text-align: center; box-sizing: border-box;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.8);
         }
 
-        /* --- VISTA DETALLES (OPTIMIZADA) --- */
+        /* --- VISTA DETALLES --- */
         #vista-detalles { 
             display: none; min-height: 100vh; position: relative; 
             width: 100%; max-width: 1200px; margin: 0 auto; box-sizing: border-box;
@@ -66,7 +79,7 @@
         .bg-banner {
             position: absolute; top: 0; left: 0; width: 100vw; 
             height: 500px; 
-            z-index: -2; opacity: 0.4; filter: blur(40px); object-fit: cover;
+            z-index: -2; opacity: 0.3; filter: blur(45px); object-fit: cover;
             margin-left: calc(-50vw + 50%);
         }
         
@@ -79,21 +92,20 @@
         .img-lateral {
             flex: 0 0 260px; 
             border-radius: 12px; overflow: hidden;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.7); border: 1px solid rgba(255,255,255,0.08);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.6); border: 1px solid rgba(255,255,255,0.08);
             margin-top: 20px;
         }
         .img-lateral img { width: 100%; display: block; }
 
         .info-derecha { flex: 1; display: flex; flex-direction: column; gap: 8px; position: relative;}
         
-        /* Contenedor principal de título y soporte para alinearlos */
         .header-info { display: flex; justify-content: space-between; align-items: flex-start; gap: 20px; margin-bottom: 5px; flex-wrap: wrap; }
-        .titulo-anime { font-size: 36px; margin: 0; font-weight: 800; line-height: 1.1; flex: 1;}
+        .titulo-anime { font-size: 36px; margin: 0; font-weight: 800; line-height: 1.1; flex: 1; text-shadow: 0 2px 10px rgba(0,0,0,0.5);}
 
         /* --- ESTILOS DE ESTADO Y PUNTOS ANIMADOS --- */
         .estado-container {
             display: flex; align-items: center; gap: 8px;
-            font-size: 13px; font-weight: 600; color: #888;
+            font-size: 13px; font-weight: 600; color: #aaa;
             margin-top: -5px; 
         }
         
@@ -104,16 +116,14 @@
             animation: pulsoPunto 1.5s infinite ease-in-out;
         }
         
-        .punto-rojo { background-color: #ff4444; }
-        .punto-rojo { animation-name: pulsoRojo; }
+        .punto-rojo { background-color: #ff4444; animation-name: pulsoRojo; }
         @keyframes pulsoRojo {
             0% { opacity: 0.6; box-shadow: 0 0 0 0 rgba(255, 68, 68, 0.4); }
             50% { opacity: 1; box-shadow: 0 0 0 5px rgba(255, 68, 68, 0); }
             100% { opacity: 0.6; box-shadow: 0 0 0 0 rgba(255, 68, 68, 0); }
         }
 
-        .punto-verde { background-color: #00cc66; }
-        .punto-verde { animation-name: pulsoVerde; }
+        .punto-verde { background-color: #00cc66; animation-name: pulsoVerde; }
         @keyframes pulsoVerde {
             0% { opacity: 0.6; box-shadow: 0 0 0 0 rgba(0, 204, 102, 0.4); }
             50% { opacity: 1; box-shadow: 0 0 0 5px rgba(0, 204, 102, 0); }
@@ -123,7 +133,7 @@
         .txt-finalizado { color: #ff6666; }
         .txt-emision { color: #00ff88; }
 
-        /* --- ESTILOS DE SOPORTE "CAMUFLADOS" --- */
+        /* --- ESTILOS DE SOPORTE --- */
         .soporte-container {
             display: flex; gap: 10px; align-items: center;
             margin-top: 5px; 
@@ -132,7 +142,7 @@
         .btn-soporte {
             background: rgba(255, 255, 255, 0.02); 
             border: 1px solid rgba(255, 255, 255, 0.05); 
-            color: #777; 
+            color: #999; 
             padding: 8px 16px; border-radius: 20px;
             font-size: 12px; font-weight: bold; text-transform: uppercase;
             cursor: pointer; transition: 0.3s;
@@ -141,141 +151,135 @@
         }
         
         .btn-soporte:hover {
-            background: rgba(255, 255, 255, 0.05);
-            border-color: rgba(255, 255, 255, 0.1);
+            background: rgba(255, 255, 255, 0.08);
+            border-color: rgba(255, 255, 255, 0.15);
             color: #fff;
-            box-shadow: 0 0 10px rgba(255,255,255,0.05);
+            box-shadow: 0 0 15px rgba(255,255,255,0.05);
         }
 
         .btn-subs {
             color: #0088cc;
-            border-color: rgba(0, 136, 204, 0.2);
-            animation: pulsoBordeSubs 2s infinite;
+            border-color: rgba(0, 136, 204, 0.3);
+            animation: pulsoBordeSubs 2.5s infinite;
         }
         .btn-subs:hover {
             color: #fff;
-            background: rgba(0, 136, 204, 0.1);
-            border-color: rgba(0, 136, 204, 0.4);
+            background: rgba(0, 136, 204, 0.15);
+            border-color: rgba(0, 136, 204, 0.6);
         }
 
         @keyframes pulsoBordeSubs {
-            0% { box-shadow: 0 0 0 0 rgba(0, 136, 204, 0.1); border-color: rgba(0, 136, 204, 0.2); }
-            50% { box-shadow: 0 0 0 4px rgba(0, 136, 204, 0); border-color: rgba(0, 136, 204, 0.4); }
+            0% { box-shadow: 0 0 0 0 rgba(0, 136, 204, 0.15); border-color: rgba(0, 136, 204, 0.2); }
+            50% { box-shadow: 0 0 0 4px rgba(0, 136, 204, 0); border-color: rgba(0, 136, 204, 0.5); }
             100% { box-shadow: 0 0 0 0 rgba(0, 136, 204, 0); border-color: rgba(0, 136, 204, 0.2); }
         }
 
-        /* --- NUEVOS ESTILOS PARA NOMBRES OPCIONALES (SIMPLIFICADO) --- */
+        /* --- NOMBRES OPCIONALES Y GÉNEROS --- */
         .nombres-opcionales {
             display: flex; flex-direction: column; gap: 2px;
             margin-top: 2px; margin-bottom: 10px;
             font-size: 13px; color: #888;
         }
-        .nombres-linea {
-            display: flex; gap: 8px; flex-wrap: wrap; align-items: center;
-        }
+        .nombres-linea { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; }
         .tag-idioma {
-            font-style: italic; background: rgba(255,255,255,0.02);
-            padding: 2px 8px; border-radius: 4px; border: 1px solid rgba(255,255,255,0.02);
+            font-style: italic; background: rgba(255,255,255,0.03);
+            padding: 3px 10px; border-radius: 6px; border: 1px solid rgba(255,255,255,0.04);
         }
 
-        .generos { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 12px; }
-        .tag { background: #0088cc; padding: 4px 12px; border-radius: 20px; font-size: 11px; font-weight: bold; }
+        .generos { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 15px; }
+        .tag { background: rgba(0, 136, 204, 0.2); border: 1px solid rgba(0, 136, 204, 0.4); color: #66ccff; padding: 5px 14px; border-radius: 20px; font-size: 11px; font-weight: bold; text-shadow: 0 1px 2px rgba(0,0,0,0.5);}
 
-        /* --- CAJA DE SINOPSIS Y ACCIONES INTEGRADAS --- */
+        /* --- CAJA DE SINOPSIS --- */
         .contenedor-sinopsis-acciones {
-            background: rgba(255, 255, 255, 0.04); backdrop-filter: blur(10px);
-            border-radius: 12px; border-left: 4px solid #0088cc;
-            margin-bottom: 20px; box-sizing: border-box;
-            overflow: hidden; 
+            background: rgba(20, 20, 25, 0.4); backdrop-filter: blur(12px);
+            border-radius: 14px; border-left: 4px solid #0088cc;
+            margin-bottom: 25px; box-sizing: border-box;
+            border-top: 1px solid rgba(255,255,255,0.03);
+            border-right: 1px solid rgba(255,255,255,0.03);
+            border-bottom: 1px solid rgba(255,255,255,0.03);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.2);
         }
 
         .caja-sinopsis {
-            padding: 18px 18px 10px; 
-            line-height: 1.6; color: #ccc; font-size: 14px;
+            padding: 20px; 
+            line-height: 1.6; color: #ddd; font-size: 14px;
         }
         .caja-sinopsis p { margin: 0; }
 
-        /* --- BARRA SEPARADORA SUTIL --- */
-        .barra-separadora {
-            height: 1px; width: 100%;
-            background: linear-gradient(90deg, rgba(255,255,255,0.01) 0%, rgba(255,255,255,0.08) 50%, rgba(255,255,255,0.01) 100%);
-            margin-top: 10px;
-        }
-
-        /* --- NUEVA BARRA DE ACCIONES (INTERACTIVA) SIN STATUS --- */
         .barra-acciones {
-            display: flex; gap: 10px; padding: 10px 18px 15px; 
-            /* Quitamos el border-top y usamos la barra-separadora encima */
+            display: flex; gap: 10px; padding: 0 20px 15px; 
             flex-wrap: wrap;
         }
 
-        /* Estilo general de los botones de acción */
-        .btn-accion-integra {
-            background: rgba(255,255,255,0.02);
-            border: 1px solid rgba(255,255,255,0.05);
-            color: #aaa;
-            padding: 7px 15px; border-radius: 10px;
-            font-size: 12px; font-weight: bold;
-            cursor: pointer; transition: 0.2s ease;
-            display: flex; align-items: center; gap: 6px;
+        /* --- NUEVO DISEÑO DE BOTONES DE TEMPORADAS (MENOS TOSCO) --- */
+        .centro-botones { display: flex; justify-content: flex-start; width: 100%; margin-top: 10px;}
+        
+        .caja-botones {
+            background: rgba(15, 18, 25, 0.65); backdrop-filter: blur(15px); 
+            padding: 25px; border-radius: 20px;
+            width: 100%; max-width: 400px; display: flex; flex-direction: column; gap: 12px;
+            border: 1px solid rgba(255,255,255,0.06); box-sizing: border-box;
+            box-shadow: 0 12px 30px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.05);
         }
         
-        .btn-accion-integra:hover {
-            background: rgba(255,255,255,0.06);
-            color: #fff;
-            border-color: rgba(255,255,255,0.1);
+        .txt-guia { 
+            color: #888; font-size: 11px; text-transform: uppercase; 
+            text-align: center; margin-bottom: 8px; font-weight: bold; letter-spacing: 1px;
         }
-
-        /* --- ESTILOS DE "LIKE" (VERDE AL PRESIONAR) --- */
-        .btn-accion-integra.active-like {
-            background: rgba(0, 204, 102, 0.1);
-            border-color: rgba(0, 204, 102, 0.3);
-            color: #00cc66;
-            box-shadow: 0 0 10px rgba(0, 204, 102, 0.1);
-        }
-
-        /* --- ESTILOS DE "DISLIKE" (ROJO AL PRESIONAR) --- */
-        .btn-accion-integra.active-dislike {
-            background: rgba(255, 68, 68, 0.1);
-            border-color: rgba(255, 68, 68, 0.3);
-            color: #ff4444;
-            box-shadow: 0 0 10px rgba(255, 68, 68, 0.1);
-        }
-
-        /* Íconos SVG simples para Like/Dislike */
-        .icono { width: 14px; height: 14px; display: inline-block; fill: currentColor; }
-
-        .centro-botones { display: flex; justify-content: center; width: 100%; }
-        .caja-botones {
-            background: rgba(15, 15, 15, 0.95); padding: 22px; border-radius: 18px;
-            width: 100%; max-width: 360px; display: flex; flex-direction: column; gap: 10px;
-            border: 1px solid #333; box-sizing: border-box;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.6);
-        }
-        .txt-guia { color: #888; font-size: 11px; text-transform: uppercase; text-align: center; margin-bottom: 5px;}
 
         .btn-accion {
-            background: #0088cc; color: white; border: none; padding: 12px;
-            border-radius: 8px; font-weight: bold; font-size: 14px; cursor: pointer; transition: 0.2s;
+            background: linear-gradient(135deg, rgba(0, 136, 204, 0.8) 0%, rgba(0, 85, 128, 0.8) 100%);
+            color: white; border: 1px solid rgba(255,255,255,0.1); 
+            padding: 14px; border-radius: 12px; 
+            font-weight: 600; font-size: 14px; letter-spacing: 0.5px;
+            cursor: pointer; transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+            box-shadow: 0 4px 15px rgba(0, 136, 204, 0.15);
+            display: flex; justify-content: center; align-items: center; gap: 8px;
         }
-        .btn-accion:active { transform: scale(0.97); }
+        
+        .btn-accion:hover { 
+            transform: translateY(-2px); 
+            box-shadow: 0 6px 20px rgba(0, 136, 204, 0.4);
+            border-color: rgba(255,255,255,0.3);
+            background: linear-gradient(135deg, rgba(0, 153, 230, 0.9) 0%, rgba(0, 102, 153, 0.9) 100%);
+        }
+        
+        .btn-accion:active { transform: scale(0.98) translateY(1px); box-shadow: 0 2px 10px rgba(0, 136, 204, 0.2); }
 
-        .btn-v { background: none; border: none; color: #ff4444; font-weight: bold; cursor: pointer; margin-top: 5px; font-size: 12px;}
+        .btn-v { 
+            background: rgba(255, 68, 68, 0.1); border: 1px solid rgba(255, 68, 68, 0.2); 
+            color: #ff6666; font-weight: bold; cursor: pointer; 
+            padding: 12px; border-radius: 12px; margin-top: 5px; font-size: 12px;
+            transition: 0.3s;
+        }
+        .btn-v:hover {
+            background: rgba(255, 68, 68, 0.2); border-color: rgba(255, 68, 68, 0.4); color: #fff;
+        }
+
+        /* Clases de animación dinámica para los botones */
+        .animar-entrada {
+            opacity: 0;
+            animation: entradaSuave 0.4s cubic-bezier(0.25, 0.8, 0.25, 1) forwards;
+        }
+        @keyframes entradaSuave {
+            0% { opacity: 0; transform: translateY(15px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
 
         @media (max-width: 850px) {
             .layout-detalles { flex-direction: column; align-items: center; gap: 15px; padding: 15px; }
-            .img-lateral { width: 200px; flex: none; margin-top: 10px; }
+            .img-lateral { width: 220px; flex: none; margin-top: 10px; }
             .info-derecha { align-items: center; text-align: center; width: 100%;}
             .header-info { flex-direction: column; align-items: center; gap: 5px; width: 100%; }
-            .titulo-anime { font-size: 26px; text-align: center; width: 100%;}
+            .titulo-anime { font-size: 28px; text-align: center; width: 100%;}
             .estado-container { justify-content: center; margin-top: 2px;}
             .soporte-container { justify-content: center; margin-top: 10px; width: 100%;}
-            .btn-soporte { padding: 6px 12px; font-size: 10px; }
+            .btn-soporte { padding: 8px 14px; font-size: 11px; }
             .nombres-linea { justify-content: center; }
             .generos { justify-content: center; }
-            .barra-acciones { justify-content: center; padding-left: 10px; padding-right: 10px;}
-            .btn-accion-integra { padding: 6px 12px; font-size: 11px; }
-            .caja-sinopsis { text-align: left; font-size: 13px; padding: 15px;}
+            .barra-acciones { justify-content: center; padding: 0 10px 15px;}
+            .caja-sinopsis { text-align: left; font-size: 13.5px; padding: 18px;}
+            .centro-botones { justify-content: center; }
         }
     </style>
 </head>
@@ -310,9 +314,6 @@
 
                 <div class="contenedor-sinopsis-acciones">
                     <div class="caja-sinopsis"><p id="det-sinopsis"></p></div>
-                    
-                    <div class="barra-separadora"></div>
-
                     <div id="barra-acciones" class="barra-acciones"></div>
                 </div>
 
@@ -376,7 +377,6 @@
             }
         };
 
-        // --- INICIALIZACIÓN ---
         function cargar() {
             const grid = document.getElementById('grid');
             grid.innerHTML = "";
@@ -406,7 +406,6 @@
             document.getElementById('det-titulo').innerText = nombre;
             document.getElementById('det-sinopsis').innerText = anime.sinopsis;
 
-            // --- NUEVA LÓGICA PARA NOMBRES OPCIONALES (SIMPLIFICADO) ---
             const nomCont = document.getElementById('det-nombres-opcionales');
             nomCont.innerHTML = "";
             if (anime.nombresAlternativos) {
@@ -415,13 +414,12 @@
                 for (const lang in anime.nombresAlternativos) {
                     const tag = document.createElement('span');
                     tag.className = 'tag-idioma';
-                    tag.innerText = anime.nombresAlternativos[lang]; // Quitamos el nombre del idioma
+                    tag.innerText = anime.nombresAlternativos[lang]; 
                     linea.appendChild(tag);
                 }
                 nomCont.appendChild(linea);
             }
 
-            // --- LÓGICA PARA BOTONES DE SOPORTE ---
             const sopCont = document.getElementById('det-soporte');
             const urlSuscripcion = "https://t.me/YourBotSupport"; 
             const urlDonacion = "https://www.patreon.com/YourPage";
@@ -430,18 +428,15 @@
                 <button class="btn-soporte" onclick="abrirSoporte('${urlDonacion}')">♥ Donar</button>
             `;
 
-            // Estado Animado
             const estCont = document.getElementById('det-estado');
             let puntoClase = "punto-rojo", textoClase = "txt-finalizado";
             if (anime.estado === "En Emisión") { puntoClase = "punto-verde"; textoClase = "txt-emision"; }
             estCont.innerHTML = `<span>Estado:</span><span class="punto ${puntoClase}"></span><span class="${textoClase}">${anime.estado}</span>`;
 
-            // Géneros
             const gens = document.getElementById('det-generos');
             gens.innerHTML = "";
             anime.generos.forEach(g => { gens.innerHTML += `<span class="tag">${g}</span>`; });
 
-            // --- NUEVA LÓGICA DE ACCIONES INTERACTIVAS SIN STATUS ---
             actualizarBarraAcciones();
 
             document.getElementById('vista-catalogo').style.display = 'none';
@@ -452,12 +447,11 @@
             tg.BackButton.show();
         }
 
-        // --- ACTUALIZAR LA BARRA DE ACCIONES SIN EL BOTÓN STATUS ---
         function actualizarBarraAcciones() {
             const area = document.getElementById('barra-acciones');    
+            area.innerHTML = ""; // Limpiado temporal si necesitas poner algo luego
         }
 
-        // --- RESTO DE FUNCIONES ---
         function abrirSoporte(url) { if (tg && tg.openLink) { tg.openLink(url); } else { window.open(url, '_blank'); } }
 
         function volverAlCatalogo() {
@@ -469,10 +463,13 @@
         function mostrarT(nombre) {
             const area = document.getElementById('area-botones');
             area.innerHTML = `<span class="txt-guia">Temporadas</span>`;
-            Object.keys(base[nombre].enlaces).forEach(t => {
+            
+            Object.keys(base[nombre].enlaces).forEach((t, index) => {
                 const btn = document.createElement('button');
-                btn.className = 'btn-accion';
-                btn.innerText = t;
+                btn.className = 'btn-accion animar-entrada';
+                // Añadimos un pequeño retraso (delay) dinámico a cada botón para que caigan en cascada
+                btn.style.animationDelay = `${index * 0.1}s`; 
+                btn.innerHTML = `🎥 ${t}`; // Agregado un iconito para que no se vea tan vacío
                 btn.onclick = () => mostrarI(nombre, t);
                 area.appendChild(btn);
             });
@@ -482,15 +479,19 @@
             const area = document.getElementById('area-botones');
             const links = base[nombre].enlaces[t];
             area.innerHTML = `<span class="txt-guia">Idiomas - ${t}</span>`;
-            Object.keys(links).forEach(idioma => {
+            
+            Object.keys(links).forEach((idioma, index) => {
                 const btn = document.createElement('button');
-                btn.className = 'btn-accion';
-                btn.innerText = idioma;
+                btn.className = 'btn-accion animar-entrada';
+                btn.style.animationDelay = `${index * 0.1}s`; 
+                btn.innerHTML = `▶️ ${idioma}`; // Agregado iconito
                 btn.onclick = () => { if (window.Telegram && window.Telegram.WebApp) { window.Telegram.WebApp.openLink(links[idioma]); } else { window.open(links[idioma], '_blank'); } };
                 area.appendChild(btn);
             });
+            
             const back = document.createElement('button');
-            back.className = 'btn-v';
+            back.className = 'btn-v animar-entrada';
+            back.style.animationDelay = `${Object.keys(links).length * 0.1}s`;
             back.innerText = "← VOLVER A TEMPORADAS";
             back.onclick = () => mostrarT(nombre);
             area.appendChild(back);
@@ -505,4 +506,3 @@
     </script>
 </body>
 </html>
-
