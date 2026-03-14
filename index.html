@@ -6,10 +6,8 @@
     <title>AKaergsty Premium</title>
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
     <style>
-        /* --- ESTILOS BASE Y FONDO ANIMADO --- */
         body {
             margin: 0; padding: 0;
-            /* Fondo con degradado en movimiento */
             background: linear-gradient(-45deg, #050505, #0d1624, #120b1f, #050505);
             background-size: 400% 400%;
             animation: moverFondo 15s ease infinite;
@@ -20,14 +18,11 @@
             flex-direction: column;
             min-height: 100vh;
         }
-
         @keyframes moverFondo {
             0% { background-position: 0% 50%; }
             50% { background-position: 100% 50%; }
             100% { background-position: 0% 50%; }
         }
-
-        /* --- VISTA CATÁLOGO --- */
         #vista-catalogo { 
             padding: 20px; 
             width: 100%;
@@ -35,14 +30,11 @@
             margin: 0 auto;
             box-sizing: border-box;
         }
-        
         .header-catalogo {
             display: flex; justify-content: space-between; align-items: center;
             margin-bottom: 20px; padding-bottom: 15px; border-bottom: 1px solid rgba(255,255,255,0.05);
             flex-wrap: wrap; gap: 15px;
         }
-
-        /* --- TÍTULO CON BRILLO SUTIL Y ANIMACIÓN --- */
         .titulo-principal { 
             font-size: 28px; 
             font-weight: 800; 
@@ -51,17 +43,10 @@
             letter-spacing: 1px; 
             animation: brilloSutil 3s ease-in-out infinite; 
         }
-
         @keyframes brilloSutil {
-            0%, 100% {
-                text-shadow: 0 0 5px rgba(0, 136, 204, 0.4);
-            }
-            50% {
-                text-shadow: 0 0 15px rgba(0, 170, 255, 0.9), 0 0 25px rgba(0, 170, 255, 0.5);
-                color: #33bbff; 
-            }
+            0%, 100% { text-shadow: 0 0 5px rgba(0, 136, 204, 0.4); }
+            50% { text-shadow: 0 0 15px rgba(0, 170, 255, 0.9), 0 0 25px rgba(0, 170, 255, 0.5); color: #33bbff; }
         }
-
         #buscador {
             background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 255, 255, 0.1); color: white;
             padding: 10px 18px; border-radius: 30px; width: 230px; outline: none;
@@ -69,9 +54,7 @@
             backdrop-filter: blur(5px);
         }
         #buscador:focus { border-color: #0088cc; background: rgba(255, 255, 255, 0.08); }
-
         .grid-animes { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 15px; }
-
         .tarjeta-anime {
             position: relative; border-radius: 10px; overflow: hidden; cursor: pointer;
             aspect-ratio: 2/3; transition: 0.3s ease-out;
@@ -86,27 +69,22 @@
             font-size: 13px; font-weight: bold; text-align: center; box-sizing: border-box;
             text-shadow: 0 2px 4px rgba(0,0,0,0.8);
         }
-
-        /* --- VISTA DETALLES --- */
         #vista-detalles { 
             display: none; min-height: 100vh; position: relative; 
             width: 100%; max-width: 1200px; margin: 0 auto; box-sizing: border-box;
             padding-bottom: 40px; 
         }
-
         .bg-banner {
             position: absolute; top: 0; left: 0; width: 100vw; 
             height: 500px; 
             z-index: -2; opacity: 0.3; filter: blur(45px); object-fit: cover;
             margin-left: calc(-50vw + 50%);
         }
-        
         .layout-detalles {
             display: flex; gap: 30px; 
             max-width: 1100px; margin: 0 auto;
             padding: 20px; align-items: flex-start; box-sizing: border-box;
         }
-
         .img-lateral {
             flex: 0 0 260px; 
             border-radius: 12px; overflow: hidden;
@@ -114,49 +92,37 @@
             margin-top: 20px;
         }
         .img-lateral img { width: 100%; display: block; }
-
         .info-derecha { flex: 1; display: flex; flex-direction: column; gap: 8px; position: relative;}
-        
         .header-info { display: flex; justify-content: space-between; align-items: flex-start; gap: 20px; margin-bottom: 5px; flex-wrap: wrap; }
         .titulo-anime { font-size: 36px; margin: 0; font-weight: 800; line-height: 1.1; flex: 1; text-shadow: 0 2px 10px rgba(0,0,0,0.5);}
-
-        /* --- ESTILOS DE ESTADO Y PUNTOS ANIMADOS --- */
         .estado-container {
             display: flex; align-items: center; gap: 8px;
             font-size: 13px; font-weight: 600; color: #aaa;
             margin-top: -5px; 
         }
-        
         .punto {
             width: 9px; height: 9px; border-radius: 50%;
             display: inline-block;
             box-shadow: 0 0 5px rgba(255,255,255,0.2);
-            animation: pulsoPunto 1.5s infinite ease-in-out;
         }
-        
-        .punto-rojo { background-color: #ff4444; animation-name: pulsoRojo; }
+        .punto-rojo { background-color: #ff4444; animation: pulsoRojo 1.5s infinite ease-in-out; }
         @keyframes pulsoRojo {
             0% { opacity: 0.6; box-shadow: 0 0 0 0 rgba(255, 68, 68, 0.4); }
             50% { opacity: 1; box-shadow: 0 0 0 5px rgba(255, 68, 68, 0); }
             100% { opacity: 0.6; box-shadow: 0 0 0 0 rgba(255, 68, 68, 0); }
         }
-
-        .punto-verde { background-color: #00cc66; animation-name: pulsoVerde; }
+        .punto-verde { background-color: #00cc66; animation: pulsoVerde 1.5s infinite ease-in-out; }
         @keyframes pulsoVerde {
             0% { opacity: 0.6; box-shadow: 0 0 0 0 rgba(0, 204, 102, 0.4); }
             50% { opacity: 1; box-shadow: 0 0 0 5px rgba(0, 204, 102, 0); }
             100% { opacity: 0.6; box-shadow: 0 0 0 0 rgba(0, 204, 102, 0); }
         }
-
         .txt-finalizado { color: #ff6666; }
         .txt-emision { color: #00ff88; }
-
-        /* --- ESTILOS DE SOPORTE --- */
         .soporte-container {
             display: flex; gap: 10px; align-items: center;
             margin-top: 5px; 
         }
-        
         .btn-soporte {
             background: rgba(255, 255, 255, 0.02); 
             border: 1px solid rgba(255, 255, 255, 0.05); 
@@ -167,14 +133,12 @@
             backdrop-filter: blur(5px); 
             display: flex; align-items: center; gap: 6px;
         }
-        
         .btn-soporte:hover {
             background: rgba(255, 255, 255, 0.08);
             border-color: rgba(255, 255, 255, 0.15);
             color: #fff;
             box-shadow: 0 0 15px rgba(255,255,255,0.05);
         }
-
         .btn-subs {
             color: #0088cc;
             border-color: rgba(0, 136, 204, 0.3);
@@ -185,14 +149,11 @@
             background: rgba(0, 136, 204, 0.15);
             border-color: rgba(0, 136, 204, 0.6);
         }
-
         @keyframes pulsoBordeSubs {
             0% { box-shadow: 0 0 0 0 rgba(0, 136, 204, 0.15); border-color: rgba(0, 136, 204, 0.2); }
             50% { box-shadow: 0 0 0 4px rgba(0, 136, 204, 0); border-color: rgba(0, 136, 204, 0.5); }
             100% { box-shadow: 0 0 0 0 rgba(0, 136, 204, 0); border-color: rgba(0, 136, 204, 0.2); }
         }
-
-        /* --- NOMBRES OPCIONALES Y GÉNEROS --- */
         .nombres-opcionales {
             display: flex; flex-direction: column; gap: 2px;
             margin-top: 2px; margin-bottom: 10px;
@@ -203,11 +164,8 @@
             font-style: italic; background: rgba(255,255,255,0.03);
             padding: 3px 10px; border-radius: 6px; border: 1px solid rgba(255,255,255,0.04);
         }
-
         .generos { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 15px; }
         .tag { background: rgba(0, 136, 204, 0.2); border: 1px solid rgba(0, 136, 204, 0.4); color: #66ccff; padding: 5px 14px; border-radius: 20px; font-size: 11px; font-weight: bold; text-shadow: 0 1px 2px rgba(0,0,0,0.5);}
-
-        /* --- CAJA DE SINOPSIS --- */
         .contenedor-sinopsis-acciones {
             background: rgba(20, 20, 25, 0.4); backdrop-filter: blur(12px);
             border-radius: 14px; border-left: 4px solid #0088cc;
@@ -217,27 +175,17 @@
             border-bottom: 1px solid rgba(255,255,255,0.03);
             box-shadow: 0 8px 20px rgba(0,0,0,0.2);
         }
-
         .caja-sinopsis {
             padding: 20px; 
             line-height: 1.6; color: #ddd; font-size: 14px;
         }
         .caja-sinopsis p { margin: 0; }
-
         .barra-acciones {
             display: flex; gap: 10px; padding: 0 20px 15px; 
             flex-wrap: wrap;
         }
-        
-        /* CORRECCIÓN: Quita el espacio extra si la barra de acciones está vacía */
-        .barra-acciones:empty {
-            padding: 0;
-            display: none;
-        }
-
-        /* --- NUEVO DISEÑO DE BOTONES DE TEMPORADAS (MENOS TOSCO) --- */
+        .barra-acciones:empty { padding: 0; display: none; }
         .centro-botones { display: flex; justify-content: flex-start; width: 100%; margin-top: 10px;}
-        
         .caja-botones {
             background: rgba(15, 18, 25, 0.65); backdrop-filter: blur(15px); 
             padding: 25px; border-radius: 20px;
@@ -245,12 +193,10 @@
             border: 1px solid rgba(255,255,255,0.06); box-sizing: border-box;
             box-shadow: 0 12px 30px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.05);
         }
-        
         .txt-guia { 
             color: #888; font-size: 11px; text-transform: uppercase; 
             text-align: center; margin-bottom: 8px; font-weight: bold; letter-spacing: 1px;
         }
-
         .btn-accion {
             background: linear-gradient(135deg, rgba(0, 136, 204, 0.8) 0%, rgba(0, 85, 128, 0.8) 100%);
             color: white; border: 1px solid rgba(255,255,255,0.1); 
@@ -260,27 +206,20 @@
             box-shadow: 0 4px 15px rgba(0, 136, 204, 0.15);
             display: flex; justify-content: center; align-items: center; gap: 8px;
         }
-        
         .btn-accion:hover { 
             transform: translateY(-2px); 
             box-shadow: 0 6px 20px rgba(0, 136, 204, 0.4);
             border-color: rgba(255,255,255,0.3);
             background: linear-gradient(135deg, rgba(0, 153, 230, 0.9) 0%, rgba(0, 102, 153, 0.9) 100%);
         }
-        
         .btn-accion:active { transform: scale(0.98) translateY(1px); box-shadow: 0 2px 10px rgba(0, 136, 204, 0.2); }
-
         .btn-v { 
             background: rgba(255, 68, 68, 0.1); border: 1px solid rgba(255, 68, 68, 0.2); 
             color: #ff6666; font-weight: bold; cursor: pointer; 
             padding: 12px; border-radius: 12px; margin-top: 5px; font-size: 12px;
             transition: 0.3s;
         }
-        .btn-v:hover {
-            background: rgba(255, 68, 68, 0.2); border-color: rgba(255, 68, 68, 0.4); color: #fff;
-        }
-
-        /* Clases de animación dinámica para los botones */
+        .btn-v:hover { background: rgba(255, 68, 68, 0.2); border-color: rgba(255, 68, 68, 0.4); color: #fff; }
         .animar-entrada {
             opacity: 0;
             animation: entradaSuave 0.4s cubic-bezier(0.25, 0.8, 0.25, 1) forwards;
@@ -289,7 +228,6 @@
             0% { opacity: 0; transform: translateY(15px); }
             100% { opacity: 1; transform: translateY(0); }
         }
-
         @media (max-width: 850px) {
             .layout-detalles { flex-direction: column; align-items: center; gap: 15px; padding: 15px; }
             .img-lateral { width: 220px; flex: none; margin-top: 10px; }
@@ -330,17 +268,13 @@
                     <h1 id="det-titulo" class="titulo-anime"></h1>
                     <div id="det-soporte" class="soporte-container"></div>
                 </div>
-                
                 <div id="det-nombres-opcionales" class="nombres-opcionales"></div>
-
                 <div id="det-estado" class="estado-container"></div>
                 <div id="det-generos" class="generos"></div>
-
                 <div class="contenedor-sinopsis-acciones">
                     <div class="caja-sinopsis"><p id="det-sinopsis"></p></div>
                     <div id="barra-acciones" class="barra-acciones"></div>
                 </div>
-
                 <div class="centro-botones">
                     <div class="caja-botones" id="area-botones"></div>
                 </div>
@@ -360,6 +294,9 @@
         const urlBaseGitHub = "https://raw.githubusercontent.com/Kaergsty/mi-kaergsty-app/main/img/";
 
         // --- BASE DE DATOS ---
+        // Para agregar más temporadas, solo añade más keys en "enlaces":
+        // "Temporada 2": { "Latino": "...", "Japonés": "..." }
+        // ¡El botón aparece automáticamente!
         const base = {
             "Jigokuraku": {
                 nombresAlternativos: { 
@@ -369,7 +306,9 @@
                 sinopsis: "Gabimaru el Vacío busca el elixir de la inmortalidad en una isla misteriosa.",
                 generos: ["Acción", "Aventura", "Fantasía"],
                 estado: "Finalizado",
-                enlaces: { "Temporada 1": { "Latino": "https://t.me/c/123/1", "Japonés": "https://t.me/c/123/2" } }
+                enlaces: { 
+                    "Temporada 1": { "Latino": "https://t.me/c/123/1", "Japonés": "https://t.me/c/123/2" }
+                }
             },
             "Solo Leveling": {
                 nombresAlternativos: { 
@@ -379,18 +318,23 @@
                 sinopsis: "El cazador más débil Sung Jin-woo recibe un extraño sistema para subir de nivel.",
                 portada: "https://m.media-amazon.com/images/M/MV5BM2M4YzdkMTEtMjUyYy00ZWY0LWI5ODQtNGRkZWQ1MzU5MWM2XkEyXkFqcGc@._V1_FMjpg_UX1000_.jpg",
                 generos: ["Acción", "Aventura", "Fantasía"],
-                estado: "Finalizado",
-                enlaces: { "Temporada 1": { "Latino": "https://t.me/c/123/3" } }
+                estado: "En Emisión",
+                enlaces: { 
+                    "Temporada 1": { "Latino": "https://t.me/c/123/3" },
+                    "Temporada 2": { "Latino": "https://t.me/c/123/4", "Japonés": "https://t.me/c/123/5" }
+                }
             },
             "Demi chan wa kataritai": {
                 nombresAlternativos: { 
                     "Japonés": "亜人ちゃんは語りたい", 
                     "Inglés": "Interviews with Monster Girls" 
                 },
-                sinopsis: "La historia del manga se desarrolla en una época en la que los “ajin”, informalmente denominados “demi”, han comenzado a ser aceptados en la sociedad humana. Nuestro protagonista es Tetsuo Takahashi, un profesor de Biología que debe dar clases a tres demi con la esperanza de llegar a comprenderlos mejor.",
+                sinopsis: "La historia del manga se desarrolla en una época en la que los "ajin", informalmente denominados "demi", han comenzado a ser aceptados en la sociedad humana. Nuestro protagonista es Tetsuo Takahashi, un profesor de Biología que debe dar clases a tres demi con la esperanza de llegar a comprenderlos mejor.",
                 generos: ["Comedia", "Escolares", "Fantasía", "Seinen"],
                 estado: "Finalizado",
-                enlaces: { "Temporada 1": { "Japonés": "https://t.me/AnimeKaergsty1/4940", "Latino": "https://t.me/AnimeKaergsty1/4943" } }
+                enlaces: { 
+                    "Temporada 1": { "Japonés": "https://t.me/AnimeKaergsty1/4940", "Latino": "https://t.me/AnimeKaergsty1/4943" }
+                }
             },
             "Hikuidori Ushuu Boro Tobi gumi": {
                 nombresAlternativos: { 
@@ -400,7 +344,9 @@
                 sinopsis: "El samurái que extinguió el gran incendio se llamaba 'El pájaro que come fuego'. Matsunaga Gengo, conocido en su tiempo como el 'Pájaro que come fuego', era el mejor samurái bombero de Edo. Había renunciado a la brigada de incendios por una razón, pero de repente recibió una invitación para servir en el clan Shinjo. El equipo de bomberos del clan Shinjo no tenía dinero ni personal y era menospreciado por quienes los rodeaban. Con el apoyo de su esposa, Miyuki, Gengo decide reconstruir el clan de bomberos colapsado como su presidente. Gengo y sus amigos, todos con sus propias peculiaridades, luchan por 'salvar cualquier vida', a pesar de ser ridiculizados como 'escaladores de techos harapientos' (la Boro-Tobi-Gumi). En Edo, una misteriosa serie de incendios sospechosos llamados 'fuegos de zorro' continúa.",
                 generos: ["Comedia", "Escolares", "Shounen"],
                 estado: "Finalizado",
-                enlaces: { "Temporada 1": { "Japonés": "https://t.me/AnimeKaergsty1/4155",} }
+                enlaces: { 
+                    "Temporada 1": { "Japonés": "https://t.me/AnimeKaergsty1/4155" }
+                }
             }
         };
 
@@ -412,9 +358,7 @@
                 const div = document.createElement('div');
                 div.className = 'tarjeta-anime';
                 div.onclick = () => abrir(nombre);
-                
                 let imgUrl = anime.portada ? anime.portada : urlBaseGitHub + encodeURIComponent(nombre) + ".webp";
-                
                 div.innerHTML = `
                     <img src="${imgUrl}" onerror="this.src='https://via.placeholder.com/150x225/222/555?text=Error+Img'">
                     <div class="titulo-tarjeta">${nombre}</div>
@@ -476,7 +420,7 @@
 
         function actualizarBarraAcciones() {
             const area = document.getElementById('barra-acciones');    
-            area.innerHTML = ""; // Limpiado temporal si necesitas poner algo luego
+            area.innerHTML = "";
         }
 
         function abrirSoporte(url) { if (tg && tg.openLink) { tg.openLink(url); } else { window.open(url, '_blank'); } }
@@ -490,13 +434,11 @@
         function mostrarT(nombre) {
             const area = document.getElementById('area-botones');
             area.innerHTML = `<span class="txt-guia">Temporadas</span>`;
-            
             Object.keys(base[nombre].enlaces).forEach((t, index) => {
                 const btn = document.createElement('button');
                 btn.className = 'btn-accion animar-entrada';
-                // Añadimos un pequeño retraso (delay) dinámico a cada botón para que caigan en cascada
                 btn.style.animationDelay = `${index * 0.1}s`; 
-                btn.innerHTML = `🎬 ${t}`; // Agregado un iconito para que no se vea tan vacío
+                btn.innerHTML = `🎬 ${t}`;
                 btn.onclick = () => mostrarI(nombre, t);
                 area.appendChild(btn);
             });
@@ -506,16 +448,14 @@
             const area = document.getElementById('area-botones');
             const links = base[nombre].enlaces[t];
             area.innerHTML = `<span class="txt-guia">Idiomas - ${t}</span>`;
-            
             Object.keys(links).forEach((idioma, index) => {
                 const btn = document.createElement('button');
                 btn.className = 'btn-accion animar-entrada';
                 btn.style.animationDelay = `${index * 0.1}s`; 
-                btn.innerHTML = `▶️ ${idioma}`; // Agregado iconito
+                btn.innerHTML = `▶️ ${idioma}`;
                 btn.onclick = () => { if (window.Telegram && window.Telegram.WebApp) { window.Telegram.WebApp.openTelegramLink(links[idioma]); } else { window.open(links[idioma], '_blank'); } };
                 area.appendChild(btn);
             });
-            
             const back = document.createElement('button');
             back.className = 'btn-v animar-entrada';
             back.style.animationDelay = `${Object.keys(links).length * 0.1}s`;
