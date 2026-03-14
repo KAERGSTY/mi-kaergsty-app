@@ -512,7 +512,7 @@
                 btn.className = 'btn-accion animar-entrada';
                 btn.style.animationDelay = `${index * 0.1}s`; 
                 btn.innerHTML = `▶️ ${idioma}`; // Agregado iconito
-                btn.onclick = () => { if (window.Telegram && window.Telegram.WebApp) { window.Telegram.WebApp.openLink(links[idioma]); } else { window.open(links[idioma], '_blank'); } };
+                btn.onclick = () => { if (window.Telegram && window.Telegram.WebApp) { window.Telegram.WebApp.openTelegramLink(links[idioma]); } else { window.open(links[idioma], '_blank'); } };
                 area.appendChild(btn);
             });
             
