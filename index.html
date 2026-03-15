@@ -262,6 +262,20 @@
             .caja-sinopsis { text-align: left; font-size: 13.5px; padding: 18px;}
             .centro-botones { justify-content: center; }
         }
+        .btn-comentario-especial {
+            background: linear-gradient(135deg, rgba(0, 136, 204, 0.2) 0%, rgba(0, 85, 128, 0.4) 100%) !important;
+            border: 1px solid rgba(0, 170, 255, 0.3) !important;
+            margin-top: 15px !important;
+            color: #00aaff !important;
+            font-weight: bold !important;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+
+        }
+        .btn-comentario-especial:active{
+            transform: scale(0.95);
+            background: rgba(0, 170, 255, 0.3) !important;
+        }
     </style>
 </head>
 <body>
@@ -367,6 +381,31 @@
                 enlaces: { 
                     "Temporada 1": { "Japonés": "https://t.me/AnimeKaergsty1/4155" }
                 }
+            },
+            "29 sai Dokushin Chuuken Boukensha no Nichijou": {
+                nombresAlternativos: {
+                "Japonés" : "29歳独身中堅冒険者の日常",
+                 "Inglés" : "An Adventurer's Daily Grind at Age 29"
+                },
+                sinopsis : "Esta historia trata sobre Shinonome Hajime, un aventurero de Silver Range. Él está dedicado a cumplir misiones del gremio. Un día, al completar una misión para conseguir carne de monstruo, se encuentra con una extraña chica llamada Lily en una mazmorra, quien resulta ser más problemática de lo que vale. Al salvar a la chica de una muerte segura, su historia le recuerda su propio pasado y decide hacerse cargo de ella",
+                generos : ["Fantasía", "Aventuras"],
+                estado  : "Finalizado",
+                enlaces : {
+                    "Temporada 1" : { "Japonés" : "https://t.me/AnimeKaergsty1/3998"}
+                }
+            },
+            "Akuyaku Reijou wa Ringoku no Outaishi ni Dekiai sareru" :{
+                nombresAlternativos:{
+                    "Japonés" : "悪役令嬢は隣国の王太子に溺愛される",
+                    "Ingles" : "The Villiainess Is Adored by the Crown Prince of the Neighboring Kingdom"
+                },
+                sinopsis:"En el día antes de su caída, Lady Tiararose Lapis Clementille recuerda que está en un juego de otome que había jugado en su vida anterior. Solía adorar al interés amoroso principal, el Príncipe Hartknights Lapis-Lazuli Lactomuth, pero, desafortunadamente, no fue reencarnada como la heroína, sino como la peor enemiga de él—la villana prometida. En su ceremonia de graduación, sin pestañear, Hartknights condena a Tiararose por crímenes supuestos, rompe su compromiso y proclama a la heroína Akari como su nueva prometida. No importa si Tiararose es inocente, él la destierra del reino. Pero antes de que su sentencia pueda ser ejecutada, aparece una figura sorprendente. Aquasteed Marineforest, el príncipe de un poderoso país vecino, ha estado albergando sentimientos por Tiararose durante bastante tiempo y anuncia su intención de casarse con ella. Adorada por el príncipe de otro reino, ¿qué le espera a la villana en su camino hacia un final feliz?",
+                generos: ["Fantasía","Romance","Shoujo"],
+                estado:"Finalizado",
+                enlaces:{
+                    "Temporada 1" :{
+                        "Japonés":"https://t.me/AnimeKaergsty1/4151"}
+                }
             }
         };
 
@@ -412,8 +451,8 @@
             }
 
             const sopCont = document.getElementById('det-soporte');
-            const urlSuscripcion = "https://ko-fi.com/summary/db8dfda1-f2d5-4607-93c8-4ce3d83c9d0b"; 
-            const urlDonacion = "https://paypal.me/AnimeKaergsty";
+            const urlSuscripcion = "https://paypal.me/AnimeKaergsty"; 
+            const urlDonacion = "https://ko-fi.com/summary/db8dfda1-f2d5-4607-93c8-4ce3d83c9d0b";
             
             // Aquí se agregan las clases btn-subs y btn-donar correspondientemente
             sopCont.innerHTML = `
@@ -456,7 +495,10 @@
         function mostrarT(nombre) {
             const area = document.getElementById('area-botones');
             area.innerHTML = `<span class="txt-guia">Temporadas</span>`;
-            Object.keys(base[nombre].enlaces).forEach((t, index) => {
+
+            const temporadas = Object.keys(base[nombre].enlaces);
+
+            temporadas.forEach((t, index) => {
                 const btn = document.createElement('button');
                 btn.className = 'btn-accion animar-entrada';
                 btn.style.animationDelay = `${index * 0.1}s`; 
@@ -464,6 +506,28 @@
                 btn.onclick = () => mostrarI(nombre, t);
                 area.appendChild(btn);
             });
+
+            const btnComentarios = document.createElement('button');
+            btnComentarios.className = 'btn-accion animar-entrada btn-comentario-especial';
+            btnComentarios.style.animationDelay = `${temporadas.length * 0.1}s`;
+            btnComentarios.innerHTML = `💬 COMENTARIOS`;
+            btnComentarios.onclick = () => crearOabrirTopic(nombre);
+            area.appendChild(btnComentarios);
+        }
+
+        function crearOabrirTopic(nombreAnime) {
+            const tg = window.Telegram.WebApp;
+            if (tg) {
+                tg.showPopup({
+                    title: 'Comunidad',
+                    message: '¿Quieres entrar al foro de ' + nombreAnime + '?',
+                    buttons: [{id: 'ok', type: 'default', text: 'Entrar al Grupo'}]
+                });
+                // Aquí es donde el Bot recibirá la señal para crear el topic
+                console.log("Solicitando Topic para: " + nombreAnime);
+            } else {
+                alert("Abriendo foro de: " + nombreAnime);
+            }
         }
 
         function mostrarI(nombre, t) {
@@ -475,7 +539,13 @@
                 btn.className = 'btn-accion animar-entrada';
                 btn.style.animationDelay = `${index * 0.1}s`; 
                 btn.innerHTML = `▶️ ${idioma}`;
-                btn.onclick = () => { if (window.Telegram && window.Telegram.WebApp) { window.Telegram.WebApp.openTelegramLink(links[idioma]); } else { window.open(links[idioma], '_blank'); } };
+                btn.onclick = () => { 
+                    if (window.Telegram && window.Telegram.WebApp) { 
+                        window.Telegram.WebApp.openTelegramLink(links[idioma]); 
+                    } else { 
+                        window.open(links[idioma], '_blank'); 
+                    } 
+                };
                 area.appendChild(btn);
             });
             const back = document.createElement('button');
@@ -488,7 +558,29 @@
 
         function filtrar() {
             const v = document.getElementById('buscador').value.toLowerCase();
-            document.querySelectorAll('.tarjeta-anime').forEach(t => { t.style.display = t.innerText.toLowerCase().includes(v) ? 'block' : 'none'; });
+            document.querySelectorAll('.tarjeta-anime').forEach(t => { 
+                t.style.display = t.innerText.toLowerCase().includes(v) ? 'block' : 'none'; 
+            });
+        }
+        async function crearOabrirTopic(nombreAnime) {
+            const tg = window.Telegram.WebApp;
+    // IMPORTANTE: Mientras pruebes en tu PC, usa localhost. 
+    // Cuando subas a Render, cambiaremos esta URL.
+    const urlServidor = 'http://localhost:3000/crear-topic';
+
+    try {
+        const respuesta = await fetch(urlServidor, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ nombreAnime: nombreAnime })
+        });
+        const datos = await respuesta.json();
+        if (datos.success) {
+            tg.openTelegramLink(datos.link);
+        }
+    } catch (e) {
+        console.error("Error conectando al servidor:", e);
+    }
         }
 
         cargar();
