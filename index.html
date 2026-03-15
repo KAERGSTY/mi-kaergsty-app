@@ -276,11 +276,11 @@
             transform: scale(0.95);
             background: rgba(0, 170, 255, 0.3) !important;
         }
-        .btn-comentarios{
-            background: rgba(255, 255, 255, 0.1); /* Fondo semi-transparente */
-            backdrop-filter: blur(10px); /* El efecto de desenfoque de cristal */
+        .btn-comentarios {
+            background: rgba(255, 255, 255, 0.1) !important;
+            backdrop-filter: blur(10px);
             -webkit-backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.2); /* Borde sutil */
+            border: 1px solid rgba(255, 255, 255, 0.2) !important;
             border-radius: 12px;
             color: white;
             padding: 10px 20px;
@@ -289,19 +289,23 @@
             transition: all 0.3s ease;
             text-transform: uppercase;
             letter-spacing: 1px;
+            margin-top: 10px;
+            width: 100%;
         }
 
         .btn-comentarios:hover {
-            background: rgba(255, 255, 255, 0.2);
-            transform: translateY(-2px); /* Pequeño salto al pasar el mouse */
+            background: rgba(255, 255, 255, 0.2) !important;
+            transform: translateY(-2px);
         }
-        .btn-loading{
+
+        .btn-loading {
             opacity: 0.7;
             cursor: not-allowed;
             pointer-events: none;
         }
+
         .btn-loading::after {
-            content: " ⌛"; /* Un icono simple de carga */
+            content: " ⌛";
             animation: girar 1s infinite linear;
             display: inline-block;
         }
@@ -528,25 +532,23 @@
 
         function mostrarT(nombre) {
             const area = document.getElementById('area-botones');
-            area.innerHTML = `<span class="txt-guia">Temporadas</span>`;
-
+            area.innerHTML = '<span class="txt-guia">Temporadas</span>';
+            
             const temporadas = Object.keys(base[nombre].enlaces);
-
             temporadas.forEach((t, index) => {
                 const btn = document.createElement('button');
+                btn.innerText = t;
                 btn.className = 'btn-accion animar-entrada';
-                btn.style.animationDelay = `${index * 0.1}s`; 
-                btn.innerHTML = `🎬 ${t}`;
+                btn.style.animationDelay = `${index * 0.1}s`;
                 btn.onclick = () => mostrarI(nombre, t);
                 area.appendChild(btn);
             });
 
-            const btnComentarios = document.createElement('button');
-            btnComentarios.className = 'btn-accion animar-entrada btn-comentario-especial';
-            btnComentarios.style.animationDelay = `${temporadas.length * 0.1}s`;
-            btnComentarios.innerHTML = `💬 COMENTARIOS`;
-            btnComentarios.onclick = () => crearOabrirTopic(nombre);
-            area.appendChild(btnComentarios);
+            const btnCom = document.createElement('button');
+            btnCom.innerText = "💬 COMENTARIOS";
+            btnCom.className = "btn-comentarios animar-entrada"; // Clase nueva
+            btnCom.onclick = function() { crearOabrirTopic(nombre, this); }; // 'this' para el cargando
+            area.appendChild(btnCom);
         }
 
         function crearOabrirTopic(nombreAnime) {
@@ -596,7 +598,7 @@
                 t.style.display = t.innerText.toLowerCase().includes(v) ? 'block' : 'none'; 
             });
         }
-        async function crearOabrirTopic(nombreAnime, elementoBoton) { // <-- AQUÍ AGREGAMOS elementoBoton
+        async function crearOabrirTopic(nombreAnime, elementoBoton) {
             const tg = window.Telegram.WebApp;
             const urlServidor = 'https://mi-kaergsty-app.onrender.com/crear-topic';
     
@@ -604,24 +606,24 @@
             elementoBoton.innerText = "CARGANDO...";
             elementoBoton.classList.add('btn-loading');
 
-        try {
-            const respuesta = await fetch(urlServidor, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ nombreAnime: nombreAnime })
-        });
-            const datos = await respuesta.json();
-        
-        if (datos.success) {
-            tg.openTelegramLink(datos.link);
-        }
-    } catch (e) {
-            console.error("Error:", e);
-            tg.showAlert("El servidor está despertando, intenta de nuevo en 10 segundos.");
-    } finally {
-            elementoBoton.innerText = textoOriginal;
-            elementoBoton.classList.remove('btn-loading');
-    }
+            try {
+                const respuesta = await fetch(urlServidor, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ nombreAnime: nombreAnime })
+                });
+                const datos = await respuesta.json();
+                
+                if (datos.success) {
+                    tg.openTelegramLink(datos.link);
+                }
+            } catch (e) {
+                console.error("Error:", e);
+                tg.showAlert("El servidor está despertando, intenta de nuevo.");
+            } finally {
+                elementoBoton.innerText = textoOriginal;
+                elementoBoton.classList.remove('btn-loading');
+            }
 } // <-- AQUÍ ESTÁ LA LLAVE QUE FALTABA PARA QUITAR LA RAYA ROJA
 
         cargar();
