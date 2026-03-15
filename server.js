@@ -26,78 +26,67 @@ const leerBaseDatos = () => {
 const guardarBaseDatos = (data) => {
     fs.writeFileSync(DATABASE_FILE, JSON.stringify(data, null, 2));
 };
-// Usamos solo 'bloqueos' para ser consistentes
+// Asegúrate de que estas variables estén fuera del app.post
 const bloqueos = new Set();
 
 app.post('/crear-topic', async (req, res) => {
     const { nombreAnime } = req.body;
 
-    if (!nombreAnime) {
-        return res.status(400).json({ success: false, error: "Falta el nombre del anime" });
-    }
+    if (!nombreAnime) return res.status(400).json({ success: false });
 
-    // 1. ANTI-SPAM: Verificamos si ya hay una petición en curso para este anime
+    // 1. BLOQUEO INMEDIATO (Anti-clic rápido)
     if (bloqueos.has(nombreAnime)) {
-        return res.status(429).json({ 
-            success: false, 
-            error: "Procesando... por favor espera un momento.",
-            isSpam: true
-        });
+        console.log(`Bloqueado por spam: ${nombreAnime}`);
+        return res.status(429).json({ success: false, error: "Espera un momento..." });
     }
-
-    // Bloqueamos el nombre del anime inmediatamente
     bloqueos.add(nombreAnime);
 
     try {
-        let temas = leerBaseDatos(); // Cargamos la base de datos actualizada
+        // 2. LEER BASE DE DATOS (Forzamos lectura fresca)
+        let temas = leerBaseDatos(); 
 
-        // 2. EVITAR COPIAS: ¿Ya tenemos el tema guardado en el JSON?
+        // 3. VERIFICACIÓN DOBLE
         if (temas[nombreAnime]) {
+            const threadId = temas[nombreAnime];
+            const linkExistente = `https://t.me/c/${GROUP_ID.replace("-100", "")}/${threadId}`;
+            
+            // Intentamos verificar si el tema existe editándolo
             try {
-                // Verificamos si el tema sigue vivo en Telegram intentando "editarlo"
                 await axios.post(`${TELEGRAM_API}/editForumTopic`, {
                     chat_id: GROUP_ID,
-                    message_thread_id: temas[nombreAnime],
+                    message_thread_id: threadId,
                     name: nombreAnime
                 });
-                
-                const linkExistente = `https://t.me/c/${GROUP_ID.replace("-100", "")}/${temas[nombreAnime]}`;
-                
-                bloqueos.delete(nombreAnime); // Liberamos el candado
+                bloqueos.delete(nombreAnime);
                 return res.json({ success: true, link: linkExistente });
-
-            } catch (error) {
-                // Si falla, es que el tema fue borrado manualmente en Telegram
-                console.log(`El tema de ${nombreAnime} no existe en Telegram. Recreando...`);
-                delete temas[nombreAnime]; 
+            } catch (e) {
+                // Si da error, el tema no existe en Telegram, seguimos para crear uno nuevo
+                console.log("Tema en JSON pero no en Telegram. Recreando...");
             }
         }
 
-        // 3. CREACIÓN: Si no existe, pedimos a Telegram que cree el nuevo tema
+        // 4. CREACIÓN EN TELEGRAM
         const response = await axios.post(`${TELEGRAM_API}/createForumTopic`, {
             chat_id: GROUP_ID,
             name: nombreAnime
         });
 
-        const threadId = response.data.result.message_thread_id;
+        if (response.data && response.data.result) {
+            const nuevoThreadId = response.data.result.message_thread_id;
+            
+            // 5. ACTUALIZAR MEMORIA Y ARCHIVO AL INSTANTE
+            temas[nombreAnime] = nuevoThreadId;
+            guardarBaseDatos(temas); // Asegúrate que esta función use fs.writeFileSync
 
-        // Guardamos en el archivo JSON antes de responder
-        temas[nombreAnime] = threadId;
-        guardarBaseDatos(temas);
-
-        const nuevoLink = `https://t.me/c/${GROUP_ID.replace("-100", "")}/${threadId}`;
-        
-        bloqueos.delete(nombreAnime); // Liberamos el candado
-        res.json({ success: true, link: nuevoLink });
+            const nuevoLink = `https://t.me/c/${GROUP_ID.replace("-100", "")}/${nuevoThreadId}`;
+            
+            bloqueos.delete(nombreAnime);
+            return res.json({ success: true, link: nuevoLink });
+        }
 
     } catch (error) {
-        bloqueos.delete(nombreAnime); // Liberamos el candado si algo sale mal
-        
-        const mensajeError = error.response?.data?.description || error.message;
-        console.error("Error en Telegram:", mensajeError);
-        res.status(500).json({ success: false, error: mensajeError });
+        console.error("Error crítico:", error.response?.data || error.message);
+        bloqueos.delete(nombreAnime);
+        res.status(500).json({ success: false, error: "Error de conexión" });
     }
 });
-
-const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => console.log(`Servidor activo en puerto ${PORT}`));
