@@ -49,12 +49,30 @@
             50% { text-shadow: 0 0 15px rgba(0, 170, 255, 0.9), 0 0 25px rgba(0, 170, 255, 0.5); color: #33bbff; }
         }
         #buscador {
-            background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 255, 255, 0.1); color: white;
-            padding: 10px 18px; border-radius: 30px; width: 230px; outline: none;
-            transition: 0.3s;
+            background: rgba(255, 255, 255, 0.05); 
+            border: 1px solid rgba(255, 255, 255, 0.1); 
+            color: white;
+            padding: 10px 18px; 
+            border-radius: 30px; 
+            width: 230px; 
+            outline: none;
+            transition: all 0.2s ease;
             backdrop-filter: blur(5px);
         }
-        #buscador:focus { border-color: #0088cc; background: rgba(255, 255, 255, 0.08); }
+        .tecleando {animation: golpeNeon 0.3s ease-out;}
+
+        @keyframes golpeNeon {
+            0% { transform: scale(1); box-shadow: 0 0 0px rgba(0, 170, 255, 0); }
+            50% { transform: scale(1.05); box-shadow: 0 0 20px rgba(0, 170, 255, 0.8); border-color: #00aaff; }
+            100% { transform: scale(1.02); box-shadow: 0 0 10px rgba(0, 170, 255, 0.4); border-color: #00aaff; }
+        }
+
+        #buscador:focus { 
+            border-color: #00aaff; 
+            background: rgba(255, 255, 255, 0.12);
+            box-shadow: 0 0 15px rgba(0, 170, 255, 0.5); /* Brillo neón */
+            transform: scale(1.05); /* Se agranda un poquito */
+        }
         .grid-animes { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 15px; }
         .tarjeta-anime {
             position: relative; border-radius: 10px; overflow: hidden; cursor: pointer;
@@ -309,10 +327,13 @@
             animation: girar 1s infinite linear;
             display: inline-block;
         }
-
-        @keyframes girar {
-            from { transform: rotate(0deg); }
-            to { transform: rotate(360deg); }
+        .tarjeta-anime {transition: transform 0.3s ease, opacity 0.3s ease !important;
+        }
+        .efecto-busqueda {animation: aparecerAnime 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+        @keyframes aparecerAnime {
+        0% { opacity: 0; transform: scale(0.5) translateY(20px); }
+        100% { opacity: 1; transform: scale(1) translateY(0); }
         }
     </style>
 </head>
@@ -578,11 +599,35 @@
         }
 
         function filtrar() {
-            const v = document.getElementById('buscador').value.toLowerCase();
-            document.querySelectorAll('.tarjeta-anime').forEach(t => { 
-                t.style.display = t.innerText.toLowerCase().includes(v) ? 'block' : 'none'; 
-            });
+    const input = document.getElementById('buscador');
+    const v = input.value.toLowerCase();
+    const tarjetas = document.querySelectorAll('.tarjeta-anime');
+
+    // 1. ANIMACIÓN DEL BUSCADOR (El brillo que te gustó)
+    input.classList.remove('tecleando');
+    void input.offsetWidth; // Reset para que la animación se repita en cada letra
+    input.classList.add('tecleando');
+
+    // 2. ANIMACIÓN DE LAS IMÁGENES
+    tarjetas.forEach(t => {
+        const coincide = t.innerText.toLowerCase().includes(v);
+        
+        if (coincide) {
+            // Si la tarjeta estaba oculta, la mostramos
+            if (t.style.display !== 'block') {
+                t.style.display = 'block';
+            }
+            
+            // Efecto "Pop" en las imágenes
+            t.classList.remove('efecto-busqueda');
+            void t.offsetWidth; // Reset del efecto en la imagen
+            t.classList.add('efecto-busqueda');
+        } else {
+            t.style.display = 'none';
+            t.classList.remove('efecto-busqueda');
         }
+    });
+}
         async function crearOabrirTopic(nombreAnime, elementoBoton) {
     const tg = window.Telegram.WebApp;
     const urlServidor = 'https://mi-kaergsty-app.onrender.com/crear-topic';
