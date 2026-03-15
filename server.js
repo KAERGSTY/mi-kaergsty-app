@@ -24,37 +24,38 @@ const guardarBaseDatos = (data) => {
 
 app.post('/crear-topic', async (req, res) => {
     const { nombreAnime } = req.body;
-    let temas = leerBaseDatos();
-
-    // SI EL ANIME YA EXISTE, NO CREAMOS NADA NUEVO
-    if (temas[nombreAnime]) {
-        console.log(`El tema para ${nombreAnime} ya existe. Enviando link guardado...`);
-        return res.json({ success: true, link: temas[nombreAnime] });
-    }
 
     try {
-        console.log(`Creando tema nuevo para: ${nombreAnime}`);
-        const response = await axios.post(`https://api.telegram.org/bot${BOT_TOKEN}/createForumTopic`, {
-            chat_id: GROUP_ID,
-            name: nombreAnime
-        });
-
-        if (response.data.ok) {
-            const topicId = response.data.result.message_thread_id;
-            const cleanId = GROUP_ID.replace('-100', '');
-            const link = `https://t.me/c/${cleanId}/${topicId}`;
-
-            // GUARDAMOS EN LA "MEMORIA"
-            temas[nombreAnime] = link;
-            guardarBaseDatos(temas);
-
-            res.json({ success: true, link: link });
+        // ¿Ya tenemos el tema guardado?
+        if (temas[nombreAnime]) {
+            try {
+                // TRUCO: Intentamos "editar" el nombre al mismo nombre. 
+                // Si el tema fue borrado, Telegram dará error y saltará al 'catch'.
+                await bot.editForumTopic(chatId, temas[nombreAnime], { name: nombreAnime });
+                
+                const linkExistente = `https://t.me/c/${chatId.toString().replace("-100", "")}/${temas[nombreAnime]}`;
+                return res.json({ success: true, link: linkExistente });
+            } catch (error) {
+                // Si llegamos aquí, es que el tema NO existe en Telegram.
+                console.log(`El tema de ${nombreAnime} fue borrado. Creando uno nuevo...`);
+                delete temas[nombreAnime]; // Lo borramos de nuestra memoria
+            }
         }
-    } catch (error) {
-        console.error("Error de Telegram:", error.response ? error.response.data : error.message);
-    res.status(500).json({ success: false });
-    }
 
+        // Crear un nuevo tema si no existía o si fue borrado
+        const topic = await bot.createForumTopic(chatId, nombreAnime);
+        temas[nombreAnime] = topic.message_thread_id;
+
+        // Guardar en el archivo para no olvidar
+        fs.writeFileSync('./temas.json', JSON.stringify(temas, null, 2));
+
+        const nuevoLink = `https://t.me/c/${chatId.toString().replace("-100", "")}/${topic.message_thread_id}`;
+        res.json({ success: true, link: nuevoLink });
+
+    } catch (error) {
+        console.error("Error general:", error);
+        res.status(500).json({ success: false, error: error.message });
+    }
 });
 
 const PORT = process.env.PORT || 3000;
