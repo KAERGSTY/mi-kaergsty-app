@@ -564,9 +564,8 @@
         }
         async function crearOabrirTopic(nombreAnime) {
             const tg = window.Telegram.WebApp;
-    // IMPORTANTE: Mientras pruebes en tu PC, usa localhost. 
-    // Cuando subas a Render, cambiaremos esta URL.
-    const urlServidor = 'http://localhost:3000/crear-topic';
+
+    const urlServidor = 'https://mi-kaergsty-app.onrender.com/crear-topic';
 
     try {
         const respuesta = await fetch(urlServidor, {
