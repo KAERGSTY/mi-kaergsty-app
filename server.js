@@ -26,6 +26,8 @@ const leerBaseDatos = () => {
 const guardarBaseDatos = (data) => {
     fs.writeFileSync(DATABASE_FILE, JSON.stringify(data, null, 2));
 };
+// Usamos solo 'bloqueos' para ser consistentes
+const bloqueos = new Set();
 
 app.post('/crear-topic', async (req, res) => {
     const { nombreAnime } = req.body;
@@ -34,25 +36,25 @@ app.post('/crear-topic', async (req, res) => {
         return res.status(400).json({ success: false, error: "Falta el nombre del anime" });
     }
 
-    // 1. ANTI-SPAM: Verificamos si ya estamos procesando este anime
-    if (creandoTema.has(nombreAnime)) {
+    // 1. ANTI-SPAM: Verificamos si ya hay una petición en curso para este anime
+    if (bloqueos.has(nombreAnime)) {
         return res.status(429).json({ 
             success: false, 
-            error: "Procesando... por favor espera.",
+            error: "Procesando... por favor espera un momento.",
             isSpam: true
         });
     }
 
-    // Bloqueamos este anime para que no entren peticiones duplicadas
-    creandoTema.add(nombreAnime);
+    // Bloqueamos el nombre del anime inmediatamente
+    bloqueos.add(nombreAnime);
 
     try {
-        let temas = leerBaseDatos(); // Cargamos la memoria actual
+        let temas = leerBaseDatos(); // Cargamos la base de datos actualizada
 
-        // 2. EVITAR COPIAS: ¿Ya tenemos el tema guardado?
+        // 2. EVITAR COPIAS: ¿Ya tenemos el tema guardado en el JSON?
         if (temas[nombreAnime]) {
             try {
-                // TRUCO: Intentamos "editar" el nombre para verificar si existe
+                // Verificamos si el tema sigue vivo en Telegram intentando "editarlo"
                 await axios.post(`${TELEGRAM_API}/editForumTopic`, {
                     chat_id: GROUP_ID,
                     message_thread_id: temas[nombreAnime],
@@ -61,17 +63,17 @@ app.post('/crear-topic', async (req, res) => {
                 
                 const linkExistente = `https://t.me/c/${GROUP_ID.replace("-100", "")}/${temas[nombreAnime]}`;
                 
-                creandoTema.delete(nombreAnime); // Liberamos el candado
+                bloqueos.delete(nombreAnime); // Liberamos el candado
                 return res.json({ success: true, link: linkExistente });
 
             } catch (error) {
-                // Si falla (ej. error 400), es que el tema fue borrado en Telegram.
-                console.log(`El tema de ${nombreAnime} fue borrado. Creando uno nuevo...`);
+                // Si falla, es que el tema fue borrado manualmente en Telegram
+                console.log(`El tema de ${nombreAnime} no existe en Telegram. Recreando...`);
                 delete temas[nombreAnime]; 
             }
         }
 
-        // 3. CREACIÓN AUTOMÁTICA: Crear un nuevo tema en Telegram
+        // 3. CREACIÓN: Si no existe, pedimos a Telegram que cree el nuevo tema
         const response = await axios.post(`${TELEGRAM_API}/createForumTopic`, {
             chat_id: GROUP_ID,
             name: nombreAnime
@@ -79,24 +81,23 @@ app.post('/crear-topic', async (req, res) => {
 
         const threadId = response.data.result.message_thread_id;
 
-        // Guardar en el archivo JSON
+        // Guardamos en el archivo JSON antes de responder
         temas[nombreAnime] = threadId;
         guardarBaseDatos(temas);
 
         const nuevoLink = `https://t.me/c/${GROUP_ID.replace("-100", "")}/${threadId}`;
         
-        creandoTema.delete(nombreAnime); // Liberamos el candado
+        bloqueos.delete(nombreAnime); // Liberamos el candado
         res.json({ success: true, link: nuevoLink });
 
     } catch (error) {
-        creandoTema.delete(nombreAnime); // Liberamos el candado en caso de error
+        bloqueos.delete(nombreAnime); // Liberamos el candado si algo sale mal
         
-        // Manejo de errores detallado de Telegram
         const mensajeError = error.response?.data?.description || error.message;
-        console.error("Error al gestionar Telegram:", mensajeError);
+        console.error("Error en Telegram:", mensajeError);
         res.status(500).json({ success: false, error: mensajeError });
     }
 });
 
 const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => console.log(`Servidor con memoria activo en puerto ${PORT}`));
+app.listen(PORT, () => console.log(`Servidor activo en puerto ${PORT}`));
