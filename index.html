@@ -551,21 +551,6 @@
             area.appendChild(btnCom);
         }
 
-        function crearOabrirTopic(nombreAnime) {
-            const tg = window.Telegram.WebApp;
-            if (tg) {
-                tg.showPopup({
-                    title: 'Comunidad',
-                    message: '¿Quieres entrar al foro de ' + nombreAnime + '?',
-                    buttons: [{id: 'ok', type: 'default', text: 'Entrar al Grupo'}]
-                });
-                // Aquí es donde el Bot recibirá la señal para crear el topic
-                console.log("Solicitando Topic para: " + nombreAnime);
-            } else {
-                alert("Abriendo foro de: " + nombreAnime);
-            }
-        }
-
         function mostrarI(nombre, t) {
             const area = document.getElementById('area-botones');
             const links = base[nombre].enlaces[t];
