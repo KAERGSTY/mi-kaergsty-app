@@ -7,17 +7,18 @@
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
     <style>
         body {
-            margin: 0; padding: 0;
-            /* Se aclaró sutilmente para que se note la animación, sin perder el aspecto oscuro premium */
-            background: linear-gradient(-45deg, #11141c, #223758, #2d1a50, #11141c);
-            background-size: 400% 400%;
-            animation: moverFondo 15s ease infinite;
-            color: #ffffff;
-            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            background: #0c0c0f;
+            background-image:
+                radial-gradient(ellipse 80% 40% at 20% 60%, rgba(46, 75, 218, 0.6) 0%, transparent 60%),
+                radial-gradient(ellipse 60% 50% at 80% 30%, rgba(135, 27, 145, 0.5) 0%, transparent 60%);
+            background-size: 300% 300%;
+            animation: moverFondo 10s ease infinite;
+            color: #d4d4d8;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
             overflow-x: hidden;
-            display: flex;
-            flex-direction: column;
             min-height: 100vh;
+            -webkit-font-smoothing: antialiased;
+
         }
         @keyframes moverFondo {
             0% { background-position: 0% 50%; }
@@ -400,7 +401,7 @@
                 estado: "Finalizado",
                 enlaces: { 
                     "Temporada 1": { "Latino": "https://t.me/AnimeKaergsty1/4808", "Japonés": "https://t.me/AnimeKaergsty1/4805" },
-                    "Temporada 2": { "Latino": "https://t.me/AnimeKaergsty1/4443", "Japonés": "https://t.me/AnimeKaergsty1/4153" }
+                    "Temporada 2": { "Lati": "https://t.me/AnimeKaergsty1/4443", "Japonés": "https://t.me/AnimeKaergsty1/4153" }
                 }
             },
             "Solo Leveling": {
@@ -580,7 +581,7 @@
                 const btn = document.createElement('button');
                 btn.className = 'btn-accion animar-entrada';
                 btn.style.animationDelay = `${index * 0.1}s`; 
-                btn.innerHTML = `▶️ ${idioma}`;
+                btn.innerHTML = `▶ ${idioma}`;
                 btn.onclick = () => { 
                     if (window.Telegram && window.Telegram.WebApp) { 
                         window.Telegram.WebApp.openTelegramLink(links[idioma]); 
@@ -593,7 +594,7 @@
             const back = document.createElement('button');
             back.className = 'btn-v animar-entrada';
             back.style.animationDelay = `${Object.keys(links).length * 0.1}s`;
-            back.innerText = "← VOLVER A TEMPORADAS";
+            back.innerText = "◄ 𝐴𝑇𝑅𝐴𝑆";
             back.onclick = () => mostrarT(nombre);
             area.appendChild(back);
         }
