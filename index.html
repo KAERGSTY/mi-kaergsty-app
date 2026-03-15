@@ -276,6 +276,40 @@
             transform: scale(0.95);
             background: rgba(0, 170, 255, 0.3) !important;
         }
+        .btn-comentarios{
+            background: rgba(255, 255, 255, 0.1); /* Fondo semi-transparente */
+            backdrop-filter: blur(10px); /* El efecto de desenfoque de cristal */
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2); /* Borde sutil */
+            border-radius: 12px;
+            color: white;
+            padding: 10px 20px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .btn-comentarios:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: translateY(-2px); /* Pequeño salto al pasar el mouse */
+        }
+        .btn-loading{
+            opacity: 0.7;
+            cursor: not-allowed;
+            pointer-events: none;
+        }
+        .btn-loading::after {
+            content: " ⌛"; /* Un icono simple de carga */
+            animation: girar 1s infinite linear;
+            display: inline-block;
+        }
+
+        @keyframes girar {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
     </style>
 </head>
 <body>
@@ -562,25 +596,33 @@
                 t.style.display = t.innerText.toLowerCase().includes(v) ? 'block' : 'none'; 
             });
         }
-        async function crearOabrirTopic(nombreAnime) {
+        async function crearOabrirTopic(nombreAnime, elementoBoton) { // <-- AQUÍ AGREGAMOS elementoBoton
             const tg = window.Telegram.WebApp;
+            const urlServidor = 'https://mi-kaergsty-app.onrender.com/crear-topic';
+    
+            const textoOriginal = elementoBoton.innerText;
+            elementoBoton.innerText = "CARGANDO...";
+            elementoBoton.classList.add('btn-loading');
 
-    const urlServidor = 'https://mi-kaergsty-app.onrender.com/crear-topic';
-
-    try {
-        const respuesta = await fetch(urlServidor, {
+        try {
+            const respuesta = await fetch(urlServidor, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ nombreAnime: nombreAnime })
         });
-        const datos = await respuesta.json();
+            const datos = await respuesta.json();
+        
         if (datos.success) {
             tg.openTelegramLink(datos.link);
         }
     } catch (e) {
-        console.error("Error conectando al servidor:", e);
+            console.error("Error:", e);
+            tg.showAlert("El servidor está despertando, intenta de nuevo en 10 segundos.");
+    } finally {
+            elementoBoton.innerText = textoOriginal;
+            elementoBoton.classList.remove('btn-loading');
     }
-        }
+} // <-- AQUÍ ESTÁ LA LLAVE QUE FALTABA PARA QUITAR LA RAYA ROJA
 
         cargar();
     </script>
