@@ -599,32 +599,48 @@
             });
         }
         async function crearOabrirTopic(nombreAnime, elementoBoton) {
-            const tg = window.Telegram.WebApp;
-            const urlServidor = 'https://mi-kaergsty-app.onrender.com/crear-topic';
-    
-            const textoOriginal = elementoBoton.innerText;
-            elementoBoton.innerText = "CARGANDO...";
-            elementoBoton.classList.add('btn-loading');
+    const tg = window.Telegram.WebApp;
+    const urlServidor = 'https://mi-kaergsty-app.onrender.com/crear-topic';
 
-            try {
-                const respuesta = await fetch(urlServidor, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ nombreAnime: nombreAnime })
-                });
-                const datos = await respuesta.json();
-                
-                if (datos.success) {
-                    tg.openTelegramLink(datos.link);
-                }
-            } catch (e) {
-                console.error("Error:", e);
-                tg.showAlert("El servidor está despertando, intenta de nuevo.");
-            } finally {
-                elementoBoton.innerText = textoOriginal;
-                elementoBoton.classList.remove('btn-loading');
-            }
-} // <-- AQUÍ ESTÁ LA LLAVE QUE FALTABA PARA QUITAR LA RAYA ROJA
+    // ANTI-SPAM FRONTEND: Si el botón ya está desactivado, ignoramos el clic
+    if (elementoBoton.disabled) return;
+
+    const textoOriginal = elementoBoton.innerText;
+    elementoBoton.innerText = "CARGANDO...";
+    elementoBoton.classList.add('btn-loading');
+    
+    // Desactivamos el botón físicamente para que no reciba más clics
+    elementoBoton.disabled = true; 
+    elementoBoton.style.pointerEvents = 'none'; 
+
+    try {
+        const respuesta = await fetch(urlServidor, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ nombreAnime: nombreAnime })
+        });
+        
+        const datos = await respuesta.json();
+
+        if (datos.success) {
+            tg.openTelegramLink(datos.link);
+        } else {
+            // Si el servidor nos devuelve un error (ej. Anti-spam o falla de Telegram)
+            console.error("Error del servidor:", datos.error);
+            tg.showAlert(datos.error || "Hubo un problema al abrir los comentarios.");
+        }
+    } catch (e) {
+        // Este catch atrapa errores de red (cuando el servidor de Render está dormido)
+        console.error("Error de red:", e);
+        tg.showAlert("El servidor está despertando, intenta de nuevo en unos segundos.");
+    } finally {
+        // IMPORTANTE: Siempre restaurar el botón al terminar, pase lo que pase
+        elementoBoton.innerText = textoOriginal;
+        elementoBoton.classList.remove('btn-loading');
+        elementoBoton.disabled = false;
+        elementoBoton.style.pointerEvents = 'auto';
+    }
+}
 
         cargar();
     </script>
