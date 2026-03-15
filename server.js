@@ -7,7 +7,7 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-const BOT_TOKEN = '8667538688:AAFh_7MXmJpcUEYOMQejFHcd2fTHRTOP1Gs'; 
+const BOT_TOKEN = process.env.BOT_TOKEN;
 const GROUP_ID = '-1003769953279'; // ID de Rose confirmado
 const DATABASE_FILE = 'temas.json';
 
