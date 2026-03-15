@@ -38,37 +38,46 @@ app.post('/crear-topic', async (req, res) => {
 
     if (!nombreAnime) return res.status(400).json({ success: false, error: "Falta nombre" });
 
-    // 1. BLOQUEO ANTI-SPAM: Si ya se está procesando este anime, ignorar
-    if (bloqueos.has(nombreAnime)) {
-        return res.status(429).json({ success: false, error: "Ya se está creando, espera..." });
+    // 1. VERIFICAR EN BASE DE DATOS PRIMERO (antes del bloqueo)
+    let temas = leerBaseDatos();
+
+    if (temas[nombreAnime]) {
+        const threadId = temas[nombreAnime];
+        const linkExistente = `https://t.me/c/${GROUP_ID.replace("-100", "")}/${threadId}`;
+        return res.json({ success: true, link: linkExistente });
     }
+
+    // 2. BLOQUEO ANTI-SPAM: Si ya se está procesando este anime, ignorar
+    if (bloqueos.has(nombreAnime)) {
+        // Esperar hasta que el otro proceso termine y devolver el resultado
+        let intentos = 0;
+        while (bloqueos.has(nombreAnime) && intentos < 20) {
+            await new Promise(resolve => setTimeout(resolve, 300));
+            intentos++;
+        }
+        // Después de esperar, leer el resultado ya guardado
+        temas = leerBaseDatos();
+        if (temas[nombreAnime]) {
+            const threadId = temas[nombreAnime];
+            const link = `https://t.me/c/${GROUP_ID.replace("-100", "")}/${threadId}`;
+            return res.json({ success: true, link: link });
+        }
+        return res.status(429).json({ success: false, error: "Intenta de nuevo" });
+    }
+
     bloqueos.add(nombreAnime);
 
     try {
-        let temas = leerBaseDatos(); // Cargamos los datos guardados
-
-        // 2. DETECTAR SI YA EXISTE
+        // 3. VOLVER A VERIFICAR después de obtener el bloqueo (double-check)
+        temas = leerBaseDatos();
         if (temas[nombreAnime]) {
             const threadId = temas[nombreAnime];
-            try {
-                // Verificamos si el tema sigue existiendo en Telegram
-                await axios.post(`${TELEGRAM_API}/editForumTopic`, {
-                    chat_id: GROUP_ID,
-                    message_thread_id: threadId,
-                    name: nombreAnime
-                });
-                
-                const linkExistente = `https://t.me/c/${GROUP_ID.replace("-100", "")}/${threadId}`;
-                bloqueos.delete(nombreAnime);
-                return res.json({ success: true, link: linkExistente });
-            } catch (error) {
-                // Si da error 400 es que el tema fue borrado en Telegram
-                console.log("Tema no encontrado en Telegram, creando uno nuevo...");
-                delete temas[nombreAnime];
-            }
+            const linkExistente = `https://t.me/c/${GROUP_ID.replace("-100", "")}/${threadId}`;
+            bloqueos.delete(nombreAnime);
+            return res.json({ success: true, link: linkExistente });
         }
 
-        // 3. CREAR TEMA NUEVO (Si no existía o fue borrado)
+        // 4. CREAR TEMA NUEVO
         const response = await axios.post(`${TELEGRAM_API}/createForumTopic`, {
             chat_id: GROUP_ID,
             name: nombreAnime
