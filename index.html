@@ -736,7 +736,7 @@
                     // Obtenemos el nombre real del anime para comparar.
                     let nombreReal = (typeof base[x] === 'string') ? base[x] : (base[x].nombre || x);
 
-                    if (nombreReal.toLowerCase().includes(params.toLowerCase())) {
+                    if (nombreReal.toLowerCase() === params.toLowerCase().replace(/_/g, ' ')) {
                         abrir(nombreReal); // Ejecuta tu función de abrir
                         break; // Detenemos la búsqueda
                     }
