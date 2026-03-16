@@ -159,7 +159,6 @@
             color: #fff;
             box-shadow: 0 0 15px rgba(255,255,255,0.05);
         }
-        /* Botón de Suscripción (Azul) */
         .btn-subs {
             color: #0088cc;
             border-color: rgba(0, 136, 204, 0.3);
@@ -175,7 +174,6 @@
             50% { box-shadow: 0 0 0 4px rgba(0, 136, 204, 0); border-color: rgba(0, 136, 204, 0.5); }
             100% { box-shadow: 0 0 0 0 rgba(0, 136, 204, 0); border-color: rgba(0, 136, 204, 0.2); }
         }
-        /* Botón de Donar (Rojo) */
         .btn-donar {
             color: #ff4444;
             border-color: rgba(255, 68, 68, 0.3);
@@ -191,7 +189,6 @@
             50% { box-shadow: 0 0 0 4px rgba(255, 68, 68, 0); border-color: rgba(255, 68, 68, 0.5); }
             100% { box-shadow: 0 0 0 0 rgba(255, 68, 68, 0); border-color: rgba(255, 68, 68, 0.2); }
         }
-
         .nombres-opcionales {
             display: flex; flex-direction: column; gap: 2px;
             margin-top: 2px; margin-bottom: 10px;
@@ -236,22 +233,18 @@
             text-align: center; margin-bottom: 8px; font-weight: bold; letter-spacing: 1px;
         }
         .btn-accion {
-            background: rgba(0, 170, 255, 0.03); /* Fondo casi transparente */
+            background: rgba(0, 170, 255, 0.03); 
             color: #e0e0e0; 
-            border: 1px solid rgba(0, 170, 255, 0.2); /* Borde sutil */
+            border: 1px solid rgba(0, 170, 255, 0.2); 
             padding: 14px; 
             border-radius: 12px; 
-            font-weight: 500; /* Letra un poco más fina para el minimalismo */
+            font-weight: 500; 
             font-size: 15px; 
             letter-spacing: 0.5px;
             cursor: pointer; 
             transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
-            display: flex; 
-            justify-content: center; 
-            align-items: center; 
-            gap: 8px;
-            position: relative;
-            overflow: hidden; /* Necesario para el efecto de luz */
+            display: flex; justify-content: center; align-items: center; gap: 8px;
+            position: relative; overflow: hidden; 
         }
         .btn-accion:hover { 
             transform: translateY(-2px); 
@@ -260,44 +253,10 @@
             background: linear-gradient(135deg, rgba(0, 153, 230, 0.9) 0%, rgba(0, 102, 153, 0.9) 100%);
         }
         .btn-accion:active { transform: scale(0.98) translateY(1px); box-shadow: 0 2px 10px rgba(0, 136, 204, 0.2); }
-        .btn-accion::before {
-            content: "";
-            position: absolute;
-            top: 0; left: -100%;
-            width: 100%; height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
-            transition: left 0.6s ease;
-        }
-        .btn-accion:active { 
-            transform: scale(0.96) translateY(0); /* Rebote hacia adentro al hacer clic */
-            box-shadow: none;
-            background: rgba(0, 170, 255, 0.2);
-        }
-
-        /* Animación de entrada más elegante */
-        .animar-entrada {
-            opacity: 0;
-            animation: entradaMinimalista 0.4s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
-        }
-
+        .animar-entrada { opacity: 0; animation: entradaMinimalista 0.4s cubic-bezier(0.2, 0.8, 0.2, 1) forwards; }
         @keyframes entradaMinimalista {
             0% { opacity: 0; transform: translateY(10px) scale(0.98); }
             100% { opacity: 1; transform: translateY(0) scale(1); }
-        }
-        @media (max-width: 850px) {
-            .layout-detalles { flex-direction: column; align-items: center; gap: 15px; padding: 15px; }
-            .img-lateral { width: 220px; flex: none; margin-top: 10px; }
-            .info-derecha { align-items: center; text-align: center; width: 100%;}
-            .header-info { flex-direction: column; align-items: center; gap: 5px; width: 100%; }
-            .titulo-anime { font-size: 28px; text-align: center; width: 100%;}
-            .estado-container { justify-content: center; margin-top: 2px;}
-            .soporte-container { justify-content: center; margin-top: 10px; width: 100%;}
-            .btn-soporte { padding: 8px 14px; font-size: 11px; }
-            .nombres-linea { justify-content: center; }
-            .generos { justify-content: center; }
-            .barra-acciones { justify-content: center; padding: 0 10px 15px;}
-            .caja-sinopsis { text-align: left; font-size: 13.5px; padding: 18px;}
-            .centro-botones { justify-content: center; }
         }
         .btn-comentario-especial {
             background: linear-gradient(135deg, rgba(0, 136, 204, 0.2) 0%, rgba(0, 85, 128, 0.4) 100%) !important;
@@ -307,103 +266,60 @@
             font-weight: bold !important;
             text-transform: uppercase;
             letter-spacing: 1px;
-
         }
         .btn-v { 
-            background: transparent; 
-            border: 1px dashed rgba(255, 255, 255, 0.15); 
-            color: #aaa; 
-            font-weight: 500; 
-            cursor: pointer; 
-            padding: 12px; 
-            border-radius: 12px; 
-            margin-top: 5px; 
-            font-size: 13px;
-            letter-spacing: 1px;
-            transition: all 0.3s;
+            background: transparent; border: 1px dashed rgba(255, 255, 255, 0.15); 
+            color: #aaa; font-weight: 500; cursor: pointer; padding: 12px; 
+            border-radius: 12px; margin-top: 5px; font-size: 13px; letter-spacing: 1px; transition: all 0.3s;
         }
-
-        .btn-v:hover { 
-            background: rgba(255, 255, 255, 0.05); 
-            border-color: rgba(255, 255, 255, 0.5); 
-            color: #fff; 
-        }
-        .btn-comentario-especial:active{
-            transform: scale(0.95);
-            background: rgba(0, 170, 255, 0.3) !important;
-        }
+        .btn-v:hover { background: rgba(255, 255, 255, 0.05); border-color: rgba(255, 255, 255, 0.5); color: #fff; }
         .btn-comentarios {
-            background: transparent !important;
-            border: 1px solid rgba(255, 255, 255, 0.15) !important;
-            color: #ccc;
-            padding: 12px 20px;
-            border-radius: 12px;
-            font-weight: 500;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            letter-spacing: 1px;
-            margin-top: 10px;
-            width: 100%;
+            background: transparent !important; border: 1px solid rgba(255, 255, 255, 0.15) !important;
+            color: #ccc; padding: 12px 20px; border-radius: 12px; font-weight: 500; cursor: pointer;
+            transition: all 0.3s ease; letter-spacing: 1px; margin-top: 10px; width: 100%;
         }
-
-        .btn-comentarios:hover {
-            background: rgba(255, 255, 255, 0.05) !important;
-            border-color: rgba(255, 255, 255, 0.4) !important;
-            color: #fff;
-            transform: translateY(-2px);
-        }
-        .btn-comentarios:active {
-            transform: scale(0.97);
-        }
-
-        .btn-loading {
-            opacity: 0.7;
-            cursor: not-allowed;
-            pointer-events: none;
-        }
-
-        .btn-loading::after {
-            content: " ⌛";
-            animation: girar 1s infinite linear;
-            display: inline-block;
-        }
-        .tarjeta-anime {transition: transform 0.3s ease, opacity 0.3s ease !important;
-        }
-        .efecto-busqueda {animation: aparecerAnime 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-        }
+        .btn-comentarios:hover { background: rgba(255, 255, 255, 0.05) !important; border-color: rgba(255, 255, 255, 0.4) !important; color: #fff; transform: translateY(-2px); }
+        .btn-loading { opacity: 0.7; cursor: not-allowed; pointer-events: none; }
+        .btn-loading::after { content: " ⌛"; animation: girar 1s infinite linear; display: inline-block; }
+        .efecto-busqueda {animation: aparecerAnime 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
         @keyframes aparecerAnime {
-        0% { opacity: 0; transform: scale(0.5) translateY(20px); }
-        100% { opacity: 1; transform: scale(1) translateY(0); }
+            0% { opacity: 0; transform: scale(0.5) translateY(20px); }
+            100% { opacity: 1; transform: scale(1) translateY(0); }
+        }
+
+        /* --- BOTÓN SECRETO ESTILOS --- */
+        .btn-secreto {
+            position: absolute;
+            top: 25px;      
+            right: 25px;    
+            font-size: 24px; 
+            opacity: 0.15;   /* Puedes subir este número si no lo ves bien */
+            cursor: pointer;
+            z-index: 99999;  
+            color: white;
+            padding: 5px;  
+            user-select: none;
+            transition: 0.3s;
+        }
+        .btn-secreto:hover { opacity: 0.8; color: #0088cc; }
+
+        @media (max-width: 850px) {
+            .layout-detalles { flex-direction: column; align-items: center; gap: 15px; padding: 15px; }
+            .img-lateral { width: 220px; flex: none; margin-top: 10px; }
+            .info-derecha { align-items: center; text-align: center; width: 100%;}
+            .header-info { flex-direction: column; align-items: center; gap: 5px; width: 100%; }
+            .titulo-anime { font-size: 28px; text-align: center; width: 100%;}
+            .estado-container { justify-content: center; margin-top: 2px;}
+            .soporte-container { justify-content: center; margin-top: 10px; width: 100%;}
+            .nombres-linea, .generos, .barra-acciones, .centro-botones { justify-content: center; }
+            .caja-sinopsis { text-align: left; font-size: 13.5px; padding: 18px;}
         }
         @media (max-width: 768px) {
-        #vista-catalogo {
-            padding: 8px !important; /* Menos padding lateral para dar más espacio a las portadas */
+            #vista-catalogo { padding: 8px !important; }
+            .grid-animes { grid-template-columns: repeat(3, 1fr) !important; gap: 8px !important; }
+            .tarjeta-anime { min-width: 0 !important; border-radius: 8px; }
+            .titulo-tarjeta { font-size: 11px !important; padding: 20px 4px 6px !important; line-height: 1.2; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
         }
-        
-        .grid-animes {
-            /* El !important asegura que nada más pueda cambiar esto en móviles */
-            grid-template-columns: repeat(3, 1fr) !important; 
-            gap: 8px !important; /* Espacio reducido entre tarjetas */
-        }
-        
-        .tarjeta-anime {
-            min-width: 0 !important; /* Evita que el ancho mínimo rompa las 3 columnas */
-            border-radius: 8px; /* Bordes ligeramente más pequeños para encajar mejor */
-        }
-        
-        .titulo-tarjeta {
-            font-size: 11px !important; /* Letra un poco más pequeña para que el texto no se corte */
-            padding: 20px 4px 6px !important; 
-            line-height: 1.2;
-        }
-        .titulo-tarjeta {
-            /* ... tus otros estilos ... */
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis; /* Esto pone los "..." si el nombre es muy largo */
-        }
-}
-
     </style>
 </head>
 <body>
@@ -411,21 +327,21 @@
     <div class="controles-app" style="display: none;"></div>
 
     <div id="vista-catalogo">
-    <div class="header-catalogo" style="flex-direction: column; align-items: center; gap: 12px;">
-        
-        <div style="display: flex; align-items: center; gap: 10px;">
-            <img src="https://cdn.iconscout.com/icon/free/png-256/free-avion-telegrama-icon-svg-download-png-3147579.png" 
-                 style="height: 30px; width: auto; filter: drop-shadow(0 0 5px rgba(0, 170, 255, 0.4));">
-            <h1 class="titulo-principal" style="margin: 0;">AnimeKaergsty</h1>
+        <div class="header-catalogo" style="flex-direction: column; align-items: center; gap: 12px;">
+            <div style="display: flex; align-items: center; gap: 10px;">
+                <img src="https://cdn.iconscout.com/icon/free/png-256/free-avion-telegrama-icon-svg-download-png-3147579.png" 
+                     style="height: 30px; width: auto; filter: drop-shadow(0 0 5px rgba(0, 170, 255, 0.4));">
+                <h1 class="titulo-principal" style="margin: 0;">AnimeKaergsty</h1>
+            </div>
+            <input type="text" id="buscador" placeholder="Buscar anime..." oninput="filtrar()">
         </div>
-
-        <input type="text" id="buscador" placeholder="Buscar anime..." oninput="filtrar()">
+        <div class="grid-animes" id="grid"></div>
     </div>
 
-    <div class="grid-animes" id="grid"></div>
-</div>
-
     <div id="vista-detalles">
+        
+        <span id="btn-secreto-link" class="btn-secreto" onclick="copiarLinkSecreto()">🔗</span>
+        
         <img id="bg-bluroso" class="bg-banner" src="" alt="">
         <div class="layout-detalles">
             <div class="img-lateral">
@@ -461,10 +377,6 @@
 
         const urlBaseGitHub = "https://raw.githubusercontent.com/Kaergsty/mi-kaergsty-app/main/img/";
 
-        // --- BASE DE DATOS ---
-        // Para agregar más temporadas, solo añade más keys en "enlaces":
-        // "Temporada 2": { "Latino": "...", "Japonés": "..." }
-        // ¡El botón aparece automáticamente!
         const base = {
             "Jigokuraku": {
                 nombresAlternativos: { 
@@ -703,12 +615,10 @@
                 }
             }
         };
-
         function cargar() {
             const grid = document.getElementById('grid');
             grid.innerHTML = "";
             
-            // Obtenemos las llaves (nombres), las convertimos en array y las invertimos
             const nombresInvertidos = Object.keys(base).reverse();
 
             nombresInvertidos.forEach(nombre => {
@@ -725,21 +635,16 @@
                 `;
                 grid.appendChild(div);
             });
-            window.Telegram.WebApp.ready(); // Le avisa a Telegram que la app está lista
+            
             const params = window.Telegram.WebApp.initDataUnsafe.start_param;
 
             if (params) {
-                // Convertimos "Android_wa_..." a "android wa ..." para comparar sin fallos
                 let nombreBuscado = params.replace(/_/g, ' ').toLowerCase().trim();
 
-                // 2. Recorremos todas las LLAVES de tu base de datos
                 for (let nombreEnBase in base) {
-                    // nombreEnBase es el texto en naranja de tu imagen
                     let nombreLimpio = nombreEnBase.toLowerCase().trim();
-
-                    // 3. Si coinciden o si el nombre largo empieza con el link
                     if (nombreLimpio === nombreBuscado || nombreLimpio.startsWith(nombreBuscado)) {
-                        abrir(nombreEnBase); // Llama a la función para abrir ese anime
+                        abrir(nombreEnBase); 
                         break; 
                     }
                 }
@@ -748,7 +653,12 @@
             tg.BackButton.hide();
         }
 
+        // Variable global para que el botón de copiar sepa de qué anime sacar el link
+        window.animeSeleccionado = "";
+
         function abrir(nombre) {
+            window.animeSeleccionado = nombre; // Guardamos el nombre actual al abrir
+            
             const anime = base[nombre];
             let imgUrl = anime.portada ? anime.portada : urlBaseGitHub + encodeURIComponent(nombre) + ".webp";
             
@@ -775,7 +685,6 @@
             const urlSuscripcion = "https://ko-fi.com/summary/db8dfda1-f2d5-4607-93c8-4ce3d83c9d0b"; 
             const urlDonacion = "https://paypal.me/AnimeKaergsty";
             
-            // Aquí se agregan las clases btn-subs y btn-donar correspondientemente
             sopCont.innerHTML = `
                 <button class="btn-soporte btn-subs" onclick="abrirSoporte('${urlSuscripcion}')">★ Suscripción</button>
                 <button class="btn-soporte btn-donar" onclick="abrirSoporte('${urlDonacion}')">♥ Donar</button>
@@ -829,8 +738,8 @@
 
             const btnCom = document.createElement('button');
             btnCom.innerText = "💬 COMENTARIOS";
-            btnCom.className = "btn-comentarios animar-entrada"; // Clase nueva
-            btnCom.onclick = function() { crearOabrirTopic(nombre, this); }; // 'this' para el cargando
+            btnCom.className = "btn-comentarios animar-entrada"; 
+            btnCom.onclick = function() { crearOabrirTopic(nombre, this); }; 
             area.appendChild(btnCom);
         }
 
@@ -861,93 +770,85 @@
         }
 
         function filtrar() {
-    const input = document.getElementById('buscador');
-    const v = input.value.toLowerCase();
-    const tarjetas = document.querySelectorAll('.tarjeta-anime');
+            const input = document.getElementById('buscador');
+            const v = input.value.toLowerCase();
+            const tarjetas = document.querySelectorAll('.tarjeta-anime');
 
-    // 1. ANIMACIÓN DEL BUSCADOR (El brillo que te gustó)
-    input.classList.remove('tecleando');
-    void input.offsetWidth; // Reset para que la animación se repita en cada letra
-    input.classList.add('tecleando');
+            input.classList.remove('tecleando');
+            void input.offsetWidth; 
+            input.classList.add('tecleando');
 
-    // 2. ANIMACIÓN DE LAS IMÁGENES
-    tarjetas.forEach(t => {
-        const coincide = t.innerText.toLowerCase().includes(v);
-        
-        if (coincide) {
-            // Si la tarjeta estaba oculta, la mostramos
-            if (t.style.display !== 'block') {
-                t.style.display = 'block';
-            }
-            
-            // Efecto "Pop" en las imágenes
-            t.classList.remove('efecto-busqueda');
-            void t.offsetWidth; // Reset del efecto en la imagen
-            t.classList.add('efecto-busqueda');
-        } else {
-            t.style.display = 'none';
-            t.classList.remove('efecto-busqueda');
-        }
-    });
-}
-        async function crearOabrirTopic(nombreAnime, elementoBoton) {
-    const tg = window.Telegram.WebApp;
-    const urlServidor = 'https://mi-kaergsty-app.onrender.com/crear-topic';
-
-    // ANTI-SPAM FRONTEND: Si el botón ya está desactivado, ignoramos el clic
-    if (elementoBoton.disabled) return;
-
-    const textoOriginal = elementoBoton.innerText;
-    elementoBoton.innerText = "CARGANDO...";
-    elementoBoton.classList.add('btn-loading');
-    
-    // Desactivamos el botón físicamente para que no reciba más clics
-    elementoBoton.disabled = true; 
-    elementoBoton.style.pointerEvents = 'none'; 
-
-    try {
-        const respuesta = await fetch(urlServidor, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ nombreAnime: nombreAnime })
-        });
-        
-        const datos = await respuesta.json();
-
-        if (datos.success) {
-            tg.openTelegramLink(datos.link);
-        } else {
-            // Si el servidor nos devuelve un error (ej. Anti-spam o falla de Telegram)
-            console.error("Error del servidor:", datos.error);
-            tg.showAlert(datos.error || "Hubo un problema al abrir los comentarios.");
-        }
-    } catch (e) {
-        // Este catch atrapa errores de red (cuando el servidor de Render está dormido)
-        console.error("Error de red:", e);
-        tg.showAlert("El servidor está despertando, intenta de nuevo en unos segundos.");
-    } finally {
-        // IMPORTANTE: Siempre restaurar el botón al terminar, pase lo que pase
-        elementoBoton.innerText = textoOriginal;
-        elementoBoton.classList.remove('btn-loading');
-        elementoBoton.disabled = false;
-        elementoBoton.style.pointerEvents = 'auto';
-    }
-        window.onload = function() {
-    // 1. Leemos el parámetro del link de Telegram
-        const params = window.Telegram.WebApp.initDataUnsafe.start_param;
-
-        if (params) {
-            // 2. Buscamos en tu "base" si existe un anime que coincida con el parámetro
-            // Esto hace que si el link es ?startapp=Jigokuraku, funcione solo
-            for (let nombre in base) {
-                if (nombre.toLowerCase().includes(params.toLowerCase())) {
-                    abrir(nombre); // <--- Usamos 'abrir', que es tu función real
-                    return; // Dejamos de buscar si ya lo encontramos
+            tarjetas.forEach(t => {
+                const coincide = t.innerText.toLowerCase().includes(v);
+                
+                if (coincide) {
+                    if (t.style.display !== 'block') {
+                        t.style.display = 'block';
+                    }
+                    t.classList.remove('efecto-busqueda');
+                    void t.offsetWidth; 
+                    t.classList.add('efecto-busqueda');
+                } else {
+                    t.style.display = 'none';
+                    t.classList.remove('efecto-busqueda');
                 }
+            });
+        }
+
+        async function crearOabrirTopic(nombreAnime, elementoBoton) {
+            const tg = window.Telegram.WebApp;
+            const urlServidor = 'https://mi-kaergsty-app.onrender.com/crear-topic';
+
+            if (elementoBoton.disabled) return;
+
+            const textoOriginal = elementoBoton.innerText;
+            elementoBoton.innerText = "CARGANDO...";
+            elementoBoton.classList.add('btn-loading');
+            
+            elementoBoton.disabled = true; 
+            elementoBoton.style.pointerEvents = 'none'; 
+
+            try {
+                const respuesta = await fetch(urlServidor, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ nombreAnime: nombreAnime })
+                });
+                
+                const datos = await respuesta.json();
+
+                if (datos.success) {
+                    tg.openTelegramLink(datos.link);
+                } else {
+                    console.error("Error del servidor:", datos.error);
+                    tg.showAlert(datos.error || "Hubo un problema al abrir los comentarios.");
+                }
+            } catch (e) {
+                console.error("Error de red:", e);
+                tg.showAlert("El servidor está despertando, intenta de nuevo en unos segundos.");
+            } finally {
+                elementoBoton.innerText = textoOriginal;
+                elementoBoton.classList.remove('btn-loading');
+                elementoBoton.disabled = false;
+                elementoBoton.style.pointerEvents = 'auto';
             }
         }
-    };
-}
+
+        // --- FUNCIÓN DEL BOTÓN SECRETO ---
+        function copiarLinkSecreto() {
+            if (!window.animeSeleccionado) return;
+            
+            const parametro = window.animeSeleccionado.toLowerCase().trim().replace(/\s+/g, '_');
+            const linkFinal = "https://t.me/Catalogo2026_bot/kaergsty?startapp=" + parametro;
+
+            navigator.clipboard.writeText(linkFinal).then(() => {
+                console.log("Enlace copiado: " + linkFinal);
+                tg.MainButton.setText("¡ENLACE COPIADO!").show();
+                setTimeout(() => tg.MainButton.hide(), 2000);
+            }).catch(err => {
+                console.error("Fallo al copiar: ", err);
+            });
+        }
 
         cargar();
     </script>
