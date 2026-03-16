@@ -729,16 +729,17 @@
             const params = window.Telegram.WebApp.initDataUnsafe.start_param;
 
             if (params) {
-                // 1. Convertimos los guiones bajos del link en espacios 
-                // Ejemplo: "toumei_lapiz" -> "toumei lapiz"
-                let nombreBuscado = params.replace(/_/g, ' ').toLowerCase();
+                // Convertimos "Android_wa_..." a "android wa ..." para comparar sin fallos
+                let nombreBuscado = params.replace(/_/g, ' ').toLowerCase().trim();
 
-                for (let id in base) {
-                    let nombreEnBase = base[id].nombre.toLowerCase();
+                // 2. Recorremos todas las LLAVES de tu base de datos
+                for (let nombreEnBase in base) {
+                    // nombreEnBase es el texto en naranja de tu imagen
+                    let nombreLimpio = nombreEnBase.toLowerCase().trim();
 
-                    // 2. Comparación EXACTA: Si el nombre es idéntico, se abre
-                    if (nombreEnBase === nombreBuscado) {
-                        abrir(base[id].nombre);
+                    // 3. Si coinciden o si el nombre largo empieza con el link
+                    if (nombreLimpio === nombreBuscado || nombreLimpio.startsWith(nombreBuscado)) {
+                        abrir(nombreEnBase); // Llama a la función para abrir ese anime
                         break; 
                     }
                 }
