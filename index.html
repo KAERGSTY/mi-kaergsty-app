@@ -726,19 +726,20 @@
                 grid.appendChild(div);
             });
             window.Telegram.WebApp.ready(); // Le avisa a Telegram que la app está lista
-    
-    const params = window.Telegram.WebApp.initDataUnsafe.start_param;
+            const params = window.Telegram.WebApp.initDataUnsafe.start_param;
 
             if (params) {
-                // Buscamos en tu base de datos
-                for (let x in base) {
-                    // Si base es un array, 'x' es el índice (0, 1, 2...). 
-                    // Obtenemos el nombre real del anime para comparar.
-                    let nombreReal = (typeof base[x] === 'string') ? base[x] : (base[x].nombre || x);
+                // 1. Convertimos los guiones bajos del link en espacios 
+                // Ejemplo: "toumei_lapiz" -> "toumei lapiz"
+                let nombreBuscado = params.replace(/_/g, ' ').toLowerCase();
 
-                    if (nombreReal.toLowerCase() === params.toLowerCase().replace(/_/g, ' ')) {
-                        abrir(nombreReal); // Ejecuta tu función de abrir
-                        break; // Detenemos la búsqueda
+                for (let id in base) {
+                    let nombreEnBase = base[id].nombre.toLowerCase();
+
+                    // 2. Comparación EXACTA: Si el nombre es idéntico, se abre
+                    if (nombreEnBase === nombreBuscado) {
+                        abrir(base[id].nombre);
+                        break; 
                     }
                 }
             }
