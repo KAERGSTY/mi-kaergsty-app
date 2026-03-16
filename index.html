@@ -236,13 +236,22 @@
             text-align: center; margin-bottom: 8px; font-weight: bold; letter-spacing: 1px;
         }
         .btn-accion {
-            background: linear-gradient(135deg, rgba(0, 136, 204, 0.8) 0%, rgba(0, 85, 128, 0.8) 100%);
-            color: white; border: 1px solid rgba(255,255,255,0.1); 
-            padding: 14px; border-radius: 12px; 
-            font-weight: 600; font-size: 14px; letter-spacing: 0.5px;
-            cursor: pointer; transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
-            box-shadow: 0 4px 15px rgba(0, 136, 204, 0.15);
-            display: flex; justify-content: center; align-items: center; gap: 8px;
+            background: rgba(0, 170, 255, 0.03); /* Fondo casi transparente */
+            color: #e0e0e0; 
+            border: 1px solid rgba(0, 170, 255, 0.2); /* Borde sutil */
+            padding: 14px; 
+            border-radius: 12px; 
+            font-weight: 500; /* Letra un poco más fina para el minimalismo */
+            font-size: 15px; 
+            letter-spacing: 0.5px;
+            cursor: pointer; 
+            transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+            display: flex; 
+            justify-content: center; 
+            align-items: center; 
+            gap: 8px;
+            position: relative;
+            overflow: hidden; /* Necesario para el efecto de luz */
         }
         .btn-accion:hover { 
             transform: translateY(-2px); 
@@ -251,20 +260,29 @@
             background: linear-gradient(135deg, rgba(0, 153, 230, 0.9) 0%, rgba(0, 102, 153, 0.9) 100%);
         }
         .btn-accion:active { transform: scale(0.98) translateY(1px); box-shadow: 0 2px 10px rgba(0, 136, 204, 0.2); }
-        .btn-v { 
-            background: rgba(255, 68, 68, 0.1); border: 1px solid rgba(255, 68, 68, 0.2); 
-            color: #ff6666; font-weight: bold; cursor: pointer; 
-            padding: 12px; border-radius: 12px; margin-top: 5px; font-size: 12px;
-            transition: 0.3s;
+        .btn-accion::before {
+            content: "";
+            position: absolute;
+            top: 0; left: -100%;
+            width: 100%; height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+            transition: left 0.6s ease;
         }
-        .btn-v:hover { background: rgba(255, 68, 68, 0.2); border-color: rgba(255, 68, 68, 0.4); color: #fff; }
+        .btn-accion:active { 
+            transform: scale(0.96) translateY(0); /* Rebote hacia adentro al hacer clic */
+            box-shadow: none;
+            background: rgba(0, 170, 255, 0.2);
+        }
+
+        /* Animación de entrada más elegante */
         .animar-entrada {
             opacity: 0;
-            animation: entradaSuave 0.4s cubic-bezier(0.25, 0.8, 0.25, 1) forwards;
+            animation: entradaMinimalista 0.4s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
         }
-        @keyframes entradaSuave {
-            0% { opacity: 0; transform: translateY(15px); }
-            100% { opacity: 1; transform: translateY(0); }
+
+        @keyframes entradaMinimalista {
+            0% { opacity: 0; transform: translateY(10px) scale(0.98); }
+            100% { opacity: 1; transform: translateY(0) scale(1); }
         }
         @media (max-width: 850px) {
             .layout-detalles { flex-direction: column; align-items: center; gap: 15px; padding: 15px; }
@@ -291,30 +309,51 @@
             letter-spacing: 1px;
 
         }
+        .btn-v { 
+            background: transparent; 
+            border: 1px dashed rgba(255, 255, 255, 0.15); 
+            color: #aaa; 
+            font-weight: 500; 
+            cursor: pointer; 
+            padding: 12px; 
+            border-radius: 12px; 
+            margin-top: 5px; 
+            font-size: 13px;
+            letter-spacing: 1px;
+            transition: all 0.3s;
+        }
+
+        .btn-v:hover { 
+            background: rgba(255, 255, 255, 0.05); 
+            border-color: rgba(255, 255, 255, 0.5); 
+            color: #fff; 
+        }
         .btn-comentario-especial:active{
             transform: scale(0.95);
             background: rgba(0, 170, 255, 0.3) !important;
         }
         .btn-comentarios {
-            background: rgba(255, 255, 255, 0.1) !important;
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.2) !important;
+            background: transparent !important;
+            border: 1px solid rgba(255, 255, 255, 0.15) !important;
+            color: #ccc;
+            padding: 12px 20px;
             border-radius: 12px;
-            color: white;
-            padding: 10px 20px;
+            font-weight: 500;
             cursor: pointer;
-            font-weight: bold;
             transition: all 0.3s ease;
-            text-transform: uppercase;
             letter-spacing: 1px;
             margin-top: 10px;
             width: 100%;
         }
 
         .btn-comentarios:hover {
-            background: rgba(255, 255, 255, 0.2) !important;
+            background: rgba(255, 255, 255, 0.05) !important;
+            border-color: rgba(255, 255, 255, 0.4) !important;
+            color: #fff;
             transform: translateY(-2px);
+        }
+        .btn-comentarios:active {
+            transform: scale(0.97);
         }
 
         .btn-loading {
@@ -336,6 +375,35 @@
         0% { opacity: 0; transform: scale(0.5) translateY(20px); }
         100% { opacity: 1; transform: scale(1) translateY(0); }
         }
+        @media (max-width: 768px) {
+        #vista-catalogo {
+            padding: 8px !important; /* Menos padding lateral para dar más espacio a las portadas */
+        }
+        
+        .grid-animes {
+            /* El !important asegura que nada más pueda cambiar esto en móviles */
+            grid-template-columns: repeat(3, 1fr) !important; 
+            gap: 8px !important; /* Espacio reducido entre tarjetas */
+        }
+        
+        .tarjeta-anime {
+            min-width: 0 !important; /* Evita que el ancho mínimo rompa las 3 columnas */
+            border-radius: 8px; /* Bordes ligeramente más pequeños para encajar mejor */
+        }
+        
+        .titulo-tarjeta {
+            font-size: 11px !important; /* Letra un poco más pequeña para que el texto no se corte */
+            padding: 20px 4px 6px !important; 
+            line-height: 1.2;
+        }
+        .titulo-tarjeta {
+            /* ... tus otros estilos ... */
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis; /* Esto pone los "..." si el nombre es muy largo */
+        }
+}
+
     </style>
 </head>
 <body>
@@ -343,12 +411,19 @@
     <div class="controles-app" style="display: none;"></div>
 
     <div id="vista-catalogo">
-        <div class="header-catalogo">
-            <h1 class="titulo-principal">AnimeKaergsty</h1>
-            <input type="text" id="buscador" placeholder="Buscar anime..." oninput="filtrar()">
+    <div class="header-catalogo" style="flex-direction: column; align-items: center; gap: 12px;">
+        
+        <div style="display: flex; align-items: center; gap: 10px;">
+            <img src="https://cdn.iconscout.com/icon/free/png-256/free-avion-telegrama-icon-svg-download-png-3147579.png" 
+                 style="height: 30px; width: auto; filter: drop-shadow(0 0 5px rgba(0, 170, 255, 0.4));">
+            <h1 class="titulo-principal" style="margin: 0;">AnimeKaergsty</h1>
         </div>
-        <div class="grid-animes" id="grid"></div>
+
+        <input type="text" id="buscador" placeholder="Buscar anime..." oninput="filtrar()">
     </div>
+
+    <div class="grid-animes" id="grid"></div>
+</div>
 
     <div id="vista-detalles">
         <img id="bg-bluroso" class="bg-banner" src="" alt="">
@@ -577,24 +652,43 @@
                         "Japones":"https://t.me/AnimeKaergsty1/4108",
                         "Latino": "https://t.me/AnimeKaergsty1/4225"}
                 }
+            },
+            "Android wa Keiken Ninzuu ni Hairimasu ka??":{
+                nombresAlternativos:{
+                    "Japonés":"アンドロイドは経験人数に入りますか??",
+                    "Ingles":"Does It Count If You Lose Your Virginity to an Android?"},
+                sinopsis:"La asistente de oficina Tsuda Akane, de 28 años, parece tenerlo todo bajo control. Hermosa, inteligente y una trabajadora indispensable en una fábrica de robótica, Akane es admirada en su trabajo... porque sus colegas no la ven en casa. En privado, Akane es un desastre total, con un apartamento que parece más un vertedero que un espacio habitable. ¡Menos mal que, en un momento de borrachera, pidió un nuevo androide llamado Nadeshiko para ayudarla a limpiar! Bueno, tal vez no sea tan bueno, porque la hermosa androide que llega es sensual irresistible. ¡Akane está a punto de recibir más servicio del que esperaba!",
+                generos:["Ciencia Ficción","Ecchi","Yuri"],
+                estado:"Finalizado",
+                enlaces:{
+                    "Temporada 1":{
+                        "Japonés":"https://t.me/AnimeKaergsty1/4106"}
+                }
             }
         };
 
         function cargar() {
             const grid = document.getElementById('grid');
             grid.innerHTML = "";
-            for (const nombre in base) {
+            
+            // Obtenemos las llaves (nombres), las convertimos en array y las invertimos
+            const nombresInvertidos = Object.keys(base).reverse();
+
+            nombresInvertidos.forEach(nombre => {
                 const anime = base[nombre];
                 const div = document.createElement('div');
                 div.className = 'tarjeta-anime';
                 div.onclick = () => abrir(nombre);
+                
                 let imgUrl = anime.portada ? anime.portada : urlBaseGitHub + encodeURIComponent(nombre) + ".webp";
+                
                 div.innerHTML = `
                     <img src="${imgUrl}" onerror="this.src='https://via.placeholder.com/150x225/222/555?text=Error+Img'">
                     <div class="titulo-tarjeta">${nombre}</div>
                 `;
                 grid.appendChild(div);
-            }
+            });
+            
             tg.BackButton.hide();
         }
 
