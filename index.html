@@ -725,6 +725,23 @@
                 `;
                 grid.appendChild(div);
             });
+            window.Telegram.WebApp.ready(); // Le avisa a Telegram que la app está lista
+    
+    const params = window.Telegram.WebApp.initDataUnsafe.start_param;
+
+            if (params) {
+                // Buscamos en tu base de datos
+                for (let x in base) {
+                    // Si base es un array, 'x' es el índice (0, 1, 2...). 
+                    // Obtenemos el nombre real del anime para comparar.
+                    let nombreReal = (typeof base[x] === 'string') ? base[x] : (base[x].nombre || x);
+
+                    if (nombreReal.toLowerCase().includes(params.toLowerCase())) {
+                        abrir(nombreReal); // Ejecuta tu función de abrir
+                        break; // Detenemos la búsqueda
+                    }
+                }
+            }
             
             tg.BackButton.hide();
         }
@@ -913,6 +930,21 @@
         elementoBoton.disabled = false;
         elementoBoton.style.pointerEvents = 'auto';
     }
+        window.onload = function() {
+    // 1. Leemos el parámetro del link de Telegram
+        const params = window.Telegram.WebApp.initDataUnsafe.start_param;
+
+        if (params) {
+            // 2. Buscamos en tu "base" si existe un anime que coincida con el parámetro
+            // Esto hace que si el link es ?startapp=Jigokuraku, funcione solo
+            for (let nombre in base) {
+                if (nombre.toLowerCase().includes(params.toLowerCase())) {
+                    abrir(nombre); // <--- Usamos 'abrir', que es tu función real
+                    return; // Dejamos de buscar si ya lo encontramos
+                }
+            }
+        }
+    };
 }
 
         cargar();
