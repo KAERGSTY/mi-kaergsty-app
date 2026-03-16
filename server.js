@@ -8,6 +8,11 @@ app.use(cors());
 app.use(express.json());
 
 // CONFIGURACIÓN
+app.get('/keep-alive', (req, res) => {
+    console.log("Ping recibido: El servidor sigue despierto.");
+    res.status(200).send('OK');
+});
+
 const BOT_TOKEN = process.env.BOT_TOKEN;
 const GROUP_ID = '-1003769953279'; 
 const DATABASE_FILE = 'temas.json';
