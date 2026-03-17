@@ -620,6 +620,9 @@
         };
 
         function cargar() {
+            // 1. Lo primero que hacemos es esconder el botón por si acaso
+            tg.BackButton.hide(); 
+
             const grid = document.getElementById('grid');
             grid.innerHTML = "";
             
@@ -648,13 +651,12 @@
                 for (let nombreEnBase in base) {
                     let nombreLimpio = nombreEnBase.toLowerCase().trim();
                     if (nombreLimpio === nombreBuscado || nombreLimpio.startsWith(nombreBuscado)) {
-                        abrir(nombreEnBase); 
+                        abrir(nombreEnBase); // Aquí se activará el BackButton.show() y ya nadie lo esconderá
                         break; 
                     }
                 }
             }
-            
-            tg.BackButton.hide();
+            // Borra el tg.BackButton.hide() que tenías aquí al final
         }
 
         // Variable global para que el botón de copiar sepa de qué anime sacar el link
@@ -723,7 +725,7 @@
         function volverAlCatalogo() {
             document.getElementById('vista-detalles').style.display = 'none';
             document.getElementById('vista-catalogo').style.display = 'block';
-            tg.BackButton.hide();
+            tg.BackButton.hide(); // <--- Asegúrate de que esta línea esté ahí
         }
 
         function mostrarT(nombre) {
