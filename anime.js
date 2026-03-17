@@ -1,5 +1,5 @@
 window.base = {
-    "2": {
+    "#": {
         "29 sai Dokushin Chuuken Boukensha no Nichijou": {
             nombresAlternativos: {
                 "Japonés": "29歳独身中堅冒険者の日常",
@@ -43,6 +43,8 @@ window.base = {
             }
         }
     },
+    "B": {},
+    "C": {},
     "D": {
         "Dark Moon Tsuki no Saidan": {
             nombresAlternativos: {
@@ -85,6 +87,9 @@ window.base = {
             }
         }
     },
+    "E": {},
+    "F": {},
+    "G": {},
     "H": {
         "Hell Mode Yarikomizuki no Gamer wa Hai Settei no Isekai de Musou suru": {
             nombresAlternativos: {
@@ -113,6 +118,7 @@ window.base = {
             }
         }
     },
+    "I": {},
     "J": {
         "Jigokuraku": {
             nombresAlternativos: {
@@ -158,6 +164,8 @@ window.base = {
             }
         }
     },
+    "L": {},
+    "M": {},
     "N": {
         "Niwatori Fighter": {
             nombresAlternativos: {
@@ -175,6 +183,10 @@ window.base = {
             }
         }
     },
+    "O": {},
+    "P": {},
+    "Q": {},
+    "R": {},
     "S": {
         "Seihantai na Kimi to Boku": {
             nombresAlternativos: {
@@ -265,6 +277,9 @@ window.base = {
             }
         }
     },
+    "V": {},
+    "W": {},
+    "X": {},
     "Y": {
         "Yuusha no Kuzu": {
             nombresAlternativos: {
@@ -280,5 +295,6 @@ window.base = {
                 }
             }
         }
-    }
+    },
+    "Z": {}
 };
