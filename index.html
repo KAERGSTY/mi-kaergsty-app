@@ -712,7 +712,12 @@
             window.scrollTo(0,0);
             
             mostrarT(nombre);
-            tg.BackButton.show();
+                    setTimeout(() => {
+                if (typeof tg !== 'undefined' && tg.BackButton) {
+                    tg.BackButton.show();
+                    console.log("Botón Atrás forzado"); // Esto te ayudará a ver si se ejecuta
+                }
+            }, 150); 
         }
 
         function actualizarBarraAcciones() {
