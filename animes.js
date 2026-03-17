@@ -1,4 +1,4 @@
-const base = {
+window.base = {
             "Jigokuraku": {
                 nombresAlternativos: { 
                     "Japonés": "地獄楽", 
