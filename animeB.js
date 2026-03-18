@@ -348,6 +348,7 @@ window.base["Boku no Tsuma wa Kanjou ga Nai"] = {
     },
     sinopsis: "Takuma compra una robot doméstica llamada Mina. Aunque ella es una máquina, él comienza a tratarla como si fuera su esposa, explorando lo que significa el amor.",
     estado: "Finalizado",
+    generos: ["Ciencia Ficción", "Romance", "Recuentos de la vida"],
     enlaces: {
         "Temporada 1": {
             "Japonés": "https://t.me/TuCanal/LINK"
