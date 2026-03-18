@@ -324,41 +324,38 @@
             .titulo-tarjeta { font-size: 11px !important; padding: 20px 4px 6px !important; line-height: 1.2; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
         }
         .btn-visto-nube {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 12px; 
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            color: #888;
-            padding: 10px 20px;
-            border-radius: 25px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            margin-bottom: 15px;
-        }
-        
-        .btn-visto-nube.visto-activo {
-            background: rgba(0, 170, 255, 0.15);
-            border-color: #00aaff;
-            color: #00aaff;
-            box-shadow: 0 0 15px rgba(0, 170, 255, 0.3);
-        }
-        
-        /* NUEVO: Estilos para el logo-visto (tu imagen jpg) */
-        .logo-visto {
-            width: 20px;
-            height: auto;
-            border-radius: 4px;
-            transition: transform 0.3s ease;
-        }
-        .btn-visto-nube:hover .logo-visto {
-            transform: scale(1.1); 
-        }
+    display: inline-flex; /* Cambiado de flex a inline-flex */
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    color: #888;
+    padding: 8px 16px; /* Padding más reducido */
+    border-radius: 20px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin: 10px 0 20px 0; /* Espaciado equilibrado */
+    width: auto; /* IMPORTANTE: Para que no se estire */
+    align-self: flex-start; /* Lo alinea a la izquierda en desktop */
+}
 
-        @media (max-width: 850px) {
-            .btn-visto-nube { align-self: center; } 
-        }
+/* El icono: ahora con tamaño controlado */
+.icon-visto {
+    width: 18px;  /* Tamaño pequeño y elegante */
+    height: 18px;
+    color: inherit;
+    transition: transform 0.3s ease;
+    flex-shrink: 0; /* Evita que el icono se aplaste */
+}
+
+/* Ajuste para que en móviles se vea centrado y bonito */
+@media (max-width: 850px) {
+    .btn-visto-nube { 
+        align-self: center; 
+        margin: 10px auto 20px auto;
+    }
+}
     </style>
 </head>
 <body>
