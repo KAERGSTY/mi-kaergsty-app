@@ -1,9 +1,17 @@
-const tg = window.Telegram.WebApp;
-const cloud = tg.CloudStorage;
+// No declaramos 'tg' aquí para evitar que la app se rompa por duplicados.
+// Usamos directamente el 'tg' que ya definiste en tu index.html.
 
-// 1. Función principal del botón
+// 1. Función principal para marcar/desmarcar
 function toggleVisto(animeId) {
     if (!animeId) return;
+
+    // Verificamos si CloudStorage está disponible (evita errores fuera de Telegram)
+    if (!window.tg || !window.tg.CloudStorage) {
+        console.warn("CloudStorage no disponible.");
+        return;
+    }
+
+    const cloud = window.tg.CloudStorage;
 
     cloud.getItem('vistos_anime', (err, value) => {
         let vistos = value ? JSON.parse(value) : [];
@@ -11,10 +19,8 @@ function toggleVisto(animeId) {
 
         if (index === -1) {
             vistos.push(animeId);
-            console.log(`Marcado: ${animeId}`);
         } else {
             vistos.splice(index, 1);
-            console.log(`Quitado: ${animeId}`);
         }
 
         cloud.setItem('vistos_anime', JSON.stringify(vistos), (err, success) => {
@@ -25,9 +31,11 @@ function toggleVisto(animeId) {
     });
 }
 
-// 2. Función para chequear el estado al abrir el anime
+// 2. Función para chequear el estado al abrir el detalle del anime
 function chequearEstadoVisto(animeId) {
-    cloud.getItem('vistos_anime', (err, value) => {
+    if (!window.tg || !window.tg.CloudStorage) return;
+
+    window.tg.CloudStorage.getItem('vistos_anime', (err, value) => {
         const vistos = value ? JSON.parse(value) : [];
         actualizarUIBoton(vistos.includes(animeId));
     });

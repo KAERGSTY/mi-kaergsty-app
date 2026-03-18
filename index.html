@@ -324,19 +324,20 @@
             .titulo-tarjeta { font-size: 11px !important; padding: 20px 4px 6px !important; line-height: 1.2; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
         }
         .btn-visto-nube {
-            background: rgba(255, 255, 255, 0.03);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px; /* Espacio entre el ojo y el texto */
+            background: rgba(255, 255, 255, 0.05);
             border: 1px solid rgba(255, 255, 255, 0.1);
             color: #888;
             padding: 10px 20px;
             border-radius: 25px;
-            font-size: 13px;
-            font-weight: bold;
             cursor: pointer;
             transition: all 0.3s ease;
             margin-bottom: 15px;
-            width: fit-content;
-            align-self: flex-start; /* Se alinea a la izquierda en PC */
         }
+        
 
         /* Cuando ya está marcado */
         .btn-visto-nube.visto-activo {
@@ -345,10 +346,22 @@
             color: #00aaff;
             box-shadow: 0 0 15px rgba(0, 170, 255, 0.3);
         }
+        .icon-visto {
+            width: 20px; /* tamaño del recuadro */
+            height: 15px;
+            color: inherit; /* Usa el mismo color del texto del botón */
+            transition: transform 0.3s ease; /* Pequeña animación */
+        }
+        .btn-visto-nube:hover .icon-visto {
+            transform: scale(1.1); /* Se agranda un poquito */
+        }
+        @media (max-width: 850px) {
+            .btn-visto-nube { align-self: center; } /* Se centra en móvil */
+        }
 
-@media (max-width: 850px) {
-    .btn-visto-nube { align-self: center; } /* Se centra en móvil */
-}
+
+
+        
     </style>
 </head>
 <body>
@@ -385,8 +398,12 @@
                 <div id="det-estado" class="estado-container"></div>
                 <div id="det-generos" class="generos"></div>
                 <button id="btn-visto-nube" class="btn-visto-nube" onclick="toggleVisto(window.animeSeleccionado)">
-                    👁️ Marcar como visto
-                </button>
+                <svg class="icon-visto" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M2.036 12.322a1.012 1.012 0 010-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.963-7.178z" />
+                <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                </svg>
+                <span>Marcar como visto</span>
+            </button>
                 <div class="contenedor-sinopsis-acciones">
                     <div class="caja-sinopsis"><p id="det-sinopsis"></p></div>
                     <div id="barra-acciones" class="barra-acciones"></div>
