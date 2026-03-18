@@ -71,8 +71,8 @@
         #buscador:focus { 
             border-color: #00aaff; 
             background: rgba(255, 255, 255, 0.12);
-            box-shadow: 0 0 15px rgba(0, 170, 255, 0.5); /* Brillo neón */
-            transform: scale(1.05); /* Se agranda un poquito */
+            box-shadow: 0 0 15px rgba(0, 170, 255, 0.5); 
+            transform: scale(1.05); 
         }
         .grid-animes { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 15px; }
         .tarjeta-anime {
@@ -289,15 +289,15 @@
 
         /* --- BOTÓN SECRETO ESTILOS --- */
         .btn-secreto {
-            position: fixed; /* 'fixed' hace que se quede pegado a la pantalla, incluso si bajas */
-            bottom: 1px;    /* Lo mandamos abajo, muy lejos de la 'X' */
-            right: 1px;     /* Esquina inferior derecha */
+            position: fixed; 
+            bottom: 1px;    
+            right: 1px;     
             font-size: 24px; 
             opacity: 0.15;   
             cursor: pointer;
             z-index: 99999;  
             color: white;
-            padding: 10px;   /* Área de toque más grande para el celular */
+            padding: 10px;   
             user-select: none;
             transition: 1.3s;
         }
@@ -327,7 +327,7 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 12px; /* Espacio entre el ojo y el texto */
+            gap: 12px; 
             background: rgba(255, 255, 255, 0.05);
             border: 1px solid rgba(255, 255, 255, 0.1);
             color: #888;
@@ -338,30 +338,27 @@
             margin-bottom: 15px;
         }
         
-
-        /* Cuando ya está marcado */
         .btn-visto-nube.visto-activo {
             background: rgba(0, 170, 255, 0.15);
             border-color: #00aaff;
             color: #00aaff;
             box-shadow: 0 0 15px rgba(0, 170, 255, 0.3);
         }
-        .icon-visto {
-            width: 20px; /* tamaño del recuadro */
-            height: 15px;
-            color: inherit; /* Usa el mismo color del texto del botón */
-            transition: transform 0.3s ease; /* Pequeña animación */
-        }
-        .btn-visto-nube:hover .icon-visto {
-            transform: scale(1.1); /* Se agranda un poquito */
-        }
-        @media (max-width: 850px) {
-            .btn-visto-nube { align-self: center; } /* Se centra en móvil */
-        }
-
-
-
         
+        /* NUEVO: Estilos para el logo-visto (tu imagen jpg) */
+        .logo-visto {
+            width: 20px;
+            height: auto;
+            border-radius: 4px;
+            transition: transform 0.3s ease;
+        }
+        .btn-visto-nube:hover .logo-visto {
+            transform: scale(1.1); 
+        }
+
+        @media (max-width: 850px) {
+            .btn-visto-nube { align-self: center; } 
+        }
     </style>
 </head>
 <body>
@@ -397,13 +394,12 @@
                 <div id="det-nombres-opcionales" class="nombres-opcionales"></div>
                 <div id="det-estado" class="estado-container"></div>
                 <div id="det-generos" class="generos"></div>
-                <button id="btn-visto-nube" class="btn-visto-nube" onclick="toggleVisto(window.animeSeleccionado)">
-                <svg class="icon-visto" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" d="M2.036 12.322a1.012 1.012 0 010-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.963-7.178z" />
-                <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
-                </svg>
-                <span>Marcar como visto</span>
-            </button>
+                
+                <button id="btn-visto-nube" class="btn-visto-nube" onclick="toggleVisto()">
+                    <img src="image_972702.jpg" class="logo-visto">
+                    <span>Marcar como visto</span>
+                </button>
+                
                 <div class="contenedor-sinopsis-acciones">
                     <div class="caja-sinopsis"><p id="det-sinopsis"></p></div>
                     <div id="barra-acciones" class="barra-acciones"></div>
@@ -430,9 +426,7 @@
 
         const urlBaseGitHub = "https://raw.githubusercontent.com/Kaergsty/mi-kaergsty-app/main/img/";
 
-
         function cargar() {
-            // 1. Lo primero que hacemos es esconder el botón por si acaso
             tg.BackButton.hide(); 
 
             const grid = document.getElementById('grid');
@@ -463,41 +457,72 @@
                 for (let nombreEnBase in base) {
                     let nombreLimpio = nombreEnBase.toLowerCase().trim();
                     if (nombreLimpio === nombreBuscado || nombreLimpio.startsWith(nombreBuscado)) {
-                        abrir(nombreEnBase); // Aquí se activará el BackButton.show() y ya nadie lo esconderá
+                        abrir(nombreEnBase); 
                         break; 
                     }
                 }
             }
-            // Borra el tg.BackButton.hide() que tenías aquí al final
         }
 
-        // Variable global para que el botón de copiar sepa de qué anime sacar el link
         window.animeSeleccionado = "";
 
+        // --- FUNCIONES ACTUALIZADAS ---
         function abrir(nombre) {
-            window.animeSeleccionado = nombre; // Esto tiene que ir PRIMERO
+            window.animeSeleccionado = nombre; 
             
-            const anime = base[nombre];
+            const anime = base[nombre]; 
             if (!anime) return;
 
-            // ... (Tu código actual de llenar imágenes y textos) ...
+            let imgUrl = anime.portada ? anime.portada : urlBaseGitHub + encodeURIComponent(nombre) + ".webp";
+            
+            document.getElementById('det-img').src = imgUrl;
+            document.getElementById('bg-bluroso').src = imgUrl;
             document.getElementById('det-titulo').innerText = nombre;
-            document.getElementById('det-sinopsis').innerText = anime.sinopsis;
-            // ... (El resto de tu lógica de etiquetas y botones) ...
+            document.getElementById('det-sinopsis').innerText = anime.sinopsis || "Sinopsis no disponible.";
 
-            // CAMBIO AQUÍ: Llamamos a la función de chequeo
-            chequearEstadoVisto(nombre);
+            const nomCont = document.getElementById('det-nombres-opcionales');
+            nomCont.innerHTML = "";
+            if (anime.nombresAlternativos) {
+                const linea = document.createElement('div');
+                linea.className = 'nombres-linea';
+                for (const lang in anime.nombresAlternativos) {
+                    const tag = document.createElement('span');
+                    tag.className = 'tag-idioma';
+                    tag.innerText = anime.nombresAlternativos[lang]; 
+                    linea.appendChild(tag);
+                }
+                nomCont.appendChild(linea);
+            }
+
+            const estCont = document.getElementById('det-estado');
+            let puntoClase = "punto-rojo", textoClase = "txt-finalizado";
+            if (anime.estado === "En Emisión") { 
+                puntoClase = "punto-verde"; 
+                textoClase = "txt-emision"; 
+            }
+            estCont.innerHTML = `<span>Estado:</span><span class="punto ${puntoClase}"></span><span class="${textoClase}">${anime.estado || "Desconocido"}</span>`;
+
+            const gens = document.getElementById('det-generos');
+            gens.innerHTML = "";
+            if (anime.generos) {
+                anime.generos.forEach(g => { gens.innerHTML += `<span class="tag">${g}</span>`; });
+            }
 
             document.getElementById('vista-catalogo').style.display = 'none';
             document.getElementById('vista-detalles').style.display = 'block';
             window.scrollTo(0,0);
+
             mostrarT(nombre);
+            chequearEstadoVisto(nombre);
+
+            if (typeof tg !== 'undefined') {
+                tg.BackButton.show();
+            }
         }
 
-        // COPIA ESTO JUSTO DEBAJO DE LA FUNCIÓN ABRIR
         function toggleVisto() {
             const id = window.animeSeleccionado;
-            if (!id) return;
+            if (!id || typeof tg === 'undefined') return;
 
             tg.CloudStorage.getItem('vistos_anime', (err, value) => {
                 let vistos = value ? JSON.parse(value) : [];
@@ -514,6 +539,7 @@
         }
 
         function chequearEstadoVisto(id) {
+            if (!id || typeof tg === 'undefined') return;
             tg.CloudStorage.getItem('vistos_anime', (err, value) => {
                 const vistos = value ? JSON.parse(value) : [];
                 actualizarUIBoton(vistos.includes(id));
@@ -523,15 +549,11 @@
         function actualizarUIBoton(estaVisto) {
             const btn = document.getElementById('btn-visto-nube');
             if (!btn) return;
-            const logoImg = '<img src="image_972702.jpg" class="logo-visto">';
-            if (estaVisto) {
-                btn.classList.add('visto-activo');
-                btn.innerHTML = `${logoImg} <span>✅ Visto</span>`;
-            } else {
-                btn.classList.remove('visto-activo');
-                btn.innerHTML = `${logoImg} <span>Marcar como visto</span>`;
-            }
+            const logoImg = '<img src="image_972702.jpg" class="logo-visto">'; 
+            btn.innerHTML = estaVisto ? `${logoImg} <span>✅ Visto</span>` : `${logoImg} <span>Marcar como visto</span>`;
+            btn.classList.toggle('visto-activo', estaVisto);
         }
+        // --- FIN FUNCIONES ACTUALIZADAS ---
 
         function actualizarBarraAcciones() {
             const area = document.getElementById('barra-acciones');    
@@ -543,7 +565,7 @@
         function volverAlCatalogo() {
             document.getElementById('vista-detalles').style.display = 'none';
             document.getElementById('vista-catalogo').style.display = 'block';
-            tg.BackButton.hide(); // <--- Asegúrate de que esta línea esté ahí
+            tg.BackButton.hide(); 
         }
 
         function mostrarT(nombre) {
@@ -658,7 +680,6 @@
             }
         }
 
-        // --- FUNCIÓN DEL BOTÓN SECRETO ---
         function copiarLinkSecreto() {
             if (!window.animeSeleccionado) return;
             
@@ -673,11 +694,6 @@
                 console.error("Fallo al copiar: ", err);
             });
         }
-
-
-
-
-
 
         cargar();
     </script>
