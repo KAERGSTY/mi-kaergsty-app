@@ -550,17 +550,16 @@
             const btn = document.getElementById('btn-visto-nube');
             if (!btn) return;
 
-            const urlIconoOjo = urlBaseGitHub + "ojo.png"; 
-            const urlIconoCheck = urlBaseGitHub + "ojo no visto.png";
+            // Ajusta los nombres de archivo a como los tengas en tu carpeta /img/
+            const urlIconoOjo = urlBaseGitHub + "ojo no visto.png"; 
+            const urlIconoCheck = urlBaseGitHub + "ojo.png";
 
             if (estaVisto) {
                 btn.classList.add('visto-activo');
-                // Usamos el SVG del check y quitamos el emoji
-                btn.innerHTML = `${iconoCheck} <span>Visto</span>`;
+                btn.innerHTML = `<img src="${urlIconoCheck}" class="icon-visto"> <span>Visto</span>`;
             } else {
                 btn.classList.remove('visto-activo');
-                // Usamos el SVG del ojo
-                btn.innerHTML = `${iconoOjo} <span>Marcar como visto</span>`;
+                btn.innerHTML = `<img src="${urlIconoOjo}" class="icon-visto"> <span>Marcar como visto</span>`;
             }
         }
         // --- FIN FUNCIONES ACTUALIZADAS ---
