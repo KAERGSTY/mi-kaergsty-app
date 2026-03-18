@@ -323,6 +323,32 @@
             .tarjeta-anime { min-width: 0 !important; border-radius: 8px; }
             .titulo-tarjeta { font-size: 11px !important; padding: 20px 4px 6px !important; line-height: 1.2; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
         }
+        .btn-visto-nube {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: #888;
+            padding: 10px 20px;
+            border-radius: 25px;
+            font-size: 13px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-bottom: 15px;
+            width: fit-content;
+            align-self: flex-start; /* Se alinea a la izquierda en PC */
+        }
+
+        /* Cuando ya está marcado */
+        .btn-visto-nube.visto-activo {
+            background: rgba(0, 170, 255, 0.15);
+            border-color: #00aaff;
+            color: #00aaff;
+            box-shadow: 0 0 15px rgba(0, 170, 255, 0.3);
+        }
+
+@media (max-width: 850px) {
+    .btn-visto-nube { align-self: center; } /* Se centra en móvil */
+}
     </style>
 </head>
 <body>
@@ -358,6 +384,9 @@
                 <div id="det-nombres-opcionales" class="nombres-opcionales"></div>
                 <div id="det-estado" class="estado-container"></div>
                 <div id="det-generos" class="generos"></div>
+                <button id="btn-visto-nube" class="btn-visto-nube" onclick="toggleVisto(window.animeSeleccionado)">
+                    👁️ Marcar como visto
+                </button>
                 <div class="contenedor-sinopsis-acciones">
                     <div class="caja-sinopsis"><p id="det-sinopsis"></p></div>
                     <div id="barra-acciones" class="barra-acciones"></div>
@@ -369,6 +398,7 @@
         </div>
     </div>
 
+    <script src="storage.js"></script>
     <script src="animeA.js"></script>
     <script src="animeB.js"></script>
 
@@ -483,6 +513,7 @@
                     console.log("Botón Atrás forzado");
                 }
             }, 150); 
+            chequearEstadoVisto(nombre);
         }
 
         function actualizarBarraAcciones() {
@@ -625,6 +656,11 @@
                 console.error("Fallo al copiar: ", err);
             });
         }
+
+
+
+
+
 
         cargar();
     </script>
