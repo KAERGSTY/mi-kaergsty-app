@@ -475,89 +475,63 @@
         window.animeSeleccionado = "";
 
         function abrir(nombre) {
-    // 1. Guardamos el nombre globalmente para el botón de "Visto"
-    window.animeSeleccionado = nombre; 
-    
-    // 2. Buscamos el anime en la base de datos
-    const anime = base[nombre];
-    
-    // ⚠️ VALIDACIÓN CRÍTICA: Si el anime no existe, detenemos la función para no romper la app
-    if (!anime) {
-        console.error(`Error: No se encontró información para el anime "${nombre}"`);
-        return; 
-    }
+            window.animeSeleccionado = nombre; // Esto tiene que ir PRIMERO
+            
+            const anime = base[nombre];
+            if (!anime) return;
 
-    // 3. Gestión de Imágenes
-    const imgUrl = anime.portada || (urlBaseGitHub + encodeURIComponent(nombre) + ".webp");
-    document.getElementById('det-img').src = imgUrl;
-    document.getElementById('bg-bluroso').src = imgUrl;
+            // ... (Tu código actual de llenar imágenes y textos) ...
+            document.getElementById('det-titulo').innerText = nombre;
+            document.getElementById('det-sinopsis').innerText = anime.sinopsis;
+            // ... (El resto de tu lógica de etiquetas y botones) ...
 
-    // 4. Textos Principales (Título y Sinopsis)
-    document.getElementById('det-titulo').innerText = nombre;
-    document.getElementById('det-sinopsis').innerText = anime.sinopsis;
+            // CAMBIO AQUÍ: Llamamos a la función de chequeo
+            chequearEstadoVisto(nombre);
 
-    // 5. Nombres Alternativos (Generación de etiquetas)
-    const nomCont = document.getElementById('det-nombres-opcionales');
-    nomCont.innerHTML = ""; // Limpiamos el contenedor
-    if (anime.nombresAlternativos) {
-        const linea = document.createElement('div');
-        linea.className = 'nombres-linea';
-        for (const lang in anime.nombresAlternativos) {
-            const tag = document.createElement('span');
-            tag.className = 'tag-idioma';
-            tag.innerText = anime.nombresAlternativos[lang]; 
-            linea.appendChild(tag);
+            document.getElementById('vista-catalogo').style.display = 'none';
+            document.getElementById('vista-detalles').style.display = 'block';
+            window.scrollTo(0,0);
+            mostrarT(nombre);
         }
-        nomCont.appendChild(linea);
-    }
 
-    // 6. Botones de Soporte (Ko-fi y PayPal)
-    const sopCont = document.getElementById('det-soporte');
-    const urlSuscripcion = "https://ko-fi.com/summary/db8dfda1-f2d5-4607-93c8-4ce3d83c9d0b"; 
-    const urlDonacion = "https://paypal.me/AnimeKaergsty";
-    sopCont.innerHTML = `
-        <button class="btn-soporte btn-subs" onclick="abrirSoporte('${urlSuscripcion}')">★ Suscripción</button>
-        <button class="btn-soporte btn-donar" onclick="abrirSoporte('${urlDonacion}')">♥ Donar</button>
-    `;
+        // COPIA ESTO JUSTO DEBAJO DE LA FUNCIÓN ABRIR
+        function toggleVisto() {
+            const id = window.animeSeleccionado;
+            if (!id) return;
 
-    // 7. Estado de Emisión (Semáforo rojo/verde)
-    const estCont = document.getElementById('det-estado');
-    const enEmision = (anime.estado === "En Emisión");
-    const puntoClase = enEmision ? "punto-verde" : "punto-rojo";
-    const textoClase = enEmision ? "txt-emision" : "txt-finalizado";
-    estCont.innerHTML = `<span>Estado:</span><span class="punto ${puntoClase}"></span><span class="${textoClase}">${anime.estado}</span>`;
+            tg.CloudStorage.getItem('vistos_anime', (err, value) => {
+                let vistos = value ? JSON.parse(value) : [];
+                const index = vistos.indexOf(id);
+                if (index === -1) { vistos.push(id); } else { vistos.splice(index, 1); }
 
-    // 8. Etiquetas de Géneros
-    const gens = document.getElementById('det-generos');
-    gens.innerHTML = "";
-    if (anime.generos && anime.generos.length > 0) {
-        anime.generos.forEach(g => { 
-            gens.innerHTML += `<span class="tag">${g}</span>`; 
-        });
-    }
-
-    // 9. Actualización de Interfaz y Cambio de Vista
-    actualizarBarraAcciones();
-    document.getElementById('vista-catalogo').style.display = 'none';
-    document.getElementById('vista-detalles').style.display = 'block';
-    window.scrollTo(0, 0); // Regresa arriba al abrir
-    
-    // 10. Carga de Temporadas
-    mostrarT(nombre);
-    
-    // 11. Integración con Telegram (Botón Atrás y Estado Visto)
-    setTimeout(() => {
-        // Usamos window.Telegram.WebApp para que sea 100% seguro y no lance errores si lo abres en tu HP Pavilion fuera de Telegram
-        if (window.Telegram && window.Telegram.WebApp && window.Telegram.WebApp.BackButton) {
-            window.Telegram.WebApp.BackButton.show();
-            console.log("Botón Atrás forzado correctamente");
+                tg.CloudStorage.setItem('vistos_anime', JSON.stringify(vistos), (err, success) => {
+                    if (success) {
+                        actualizarUIBoton(vistos.includes(id));
+                        tg.HapticFeedback.impactOccurred('medium');
+                    }
+                });
+            });
         }
-    }, 150); 
-    
-    if (typeof chequearEstadoVisto === 'function') {
-        chequearEstadoVisto(nombre);
-    }
-}
+
+        function chequearEstadoVisto(id) {
+            tg.CloudStorage.getItem('vistos_anime', (err, value) => {
+                const vistos = value ? JSON.parse(value) : [];
+                actualizarUIBoton(vistos.includes(id));
+            });
+        }
+
+        function actualizarUIBoton(estaVisto) {
+            const btn = document.getElementById('btn-visto-nube');
+            if (!btn) return;
+            const logoImg = '<img src="image_972702.jpg" class="logo-visto">';
+            if (estaVisto) {
+                btn.classList.add('visto-activo');
+                btn.innerHTML = `${logoImg} <span>✅ Visto</span>`;
+            } else {
+                btn.classList.remove('visto-activo');
+                btn.innerHTML = `${logoImg} <span>Marcar como visto</span>`;
+            }
+        }
 
         function actualizarBarraAcciones() {
             const area = document.getElementById('barra-acciones');    
