@@ -18,7 +18,6 @@
             overflow-x: hidden;
             min-height: 100vh;
             -webkit-font-smoothing: antialiased;
-
         }
         @keyframes moverFondo {
             0% { background-position: 0% 50%; }
@@ -89,6 +88,22 @@
             font-size: 13px; font-weight: bold; text-align: center; box-sizing: border-box;
             text-shadow: 0 2px 4px rgba(0,0,0,0.8);
         }
+        
+        /* --- ESTILOS SKELETON LOADER --- */
+        .esqueleto {
+            background: #2a2a35;
+            background-image: linear-gradient(90deg, #2a2a35 0px, #3f3f5a 40px, #2a2a35 80px);
+            background-size: 200% 100%;
+            animation: brilloEsqueleto 1.5s infinite linear;
+        }
+        @keyframes brilloEsqueleto {
+            0% { background-position: -200% 0; }
+            100% { background-position: 200% 0; }
+        }
+        .img-oculta { opacity: 0; transition: opacity 0.3s ease; }
+        .img-cargada { opacity: 1; }
+        /* ------------------------------- */
+
         #vista-detalles { 
             display: none; min-height: 100vh; position: relative; 
             width: 100%; max-width: 1200px; margin: 0 auto; box-sizing: border-box;
@@ -97,8 +112,8 @@
         .bg-banner {
             position: absolute; top: 0; left: 0; width: 100vw; 
             height: 500px; 
-            z-index: -2; opacity: 0.3; filter: blur(45px); object-fit: cover;
-            margin-left: calc(-50vw + 50%);
+            z-index: -2; opacity: 0.3; filter: blur(20px); /* OPTIMIZADO: Menos blur para mejor rendimiento */
+            object-fit: cover; margin-left: calc(-50vw + 50%);
         }
         .layout-detalles {
             display: flex; gap: 30px; 
@@ -139,56 +154,7 @@
         }
         .txt-finalizado { color: #ff6666; }
         .txt-emision { color: #00ff88; }
-        .soporte-container {
-            display: flex; gap: 10px; align-items: center;
-            margin-top: 5px; 
-        }
-        .btn-soporte {
-            background: rgba(255, 255, 255, 0.02); 
-            border: 1px solid rgba(255, 255, 255, 0.05); 
-            color: #999; 
-            padding: 8px 16px; border-radius: 20px;
-            font-size: 12px; font-weight: bold; text-transform: uppercase;
-            cursor: pointer; transition: 0.3s;
-            backdrop-filter: blur(5px); 
-            display: flex; align-items: center; gap: 6px;
-        }
-        .btn-soporte:hover {
-            background: rgba(255, 255, 255, 0.08);
-            border-color: rgba(255, 255, 255, 0.15);
-            color: #fff;
-            box-shadow: 0 0 15px rgba(255,255,255,0.05);
-        }
-        .btn-subs {
-            color: #0088cc;
-            border-color: rgba(0, 136, 204, 0.3);
-            animation: pulsoBordeSubs 2.5s infinite;
-        }
-        .btn-subs:hover {
-            color: #fff;
-            background: rgba(0, 136, 204, 0.15);
-            border-color: rgba(0, 136, 204, 0.6);
-        }
-        @keyframes pulsoBordeSubs {
-            0% { box-shadow: 0 0 0 0 rgba(0, 136, 204, 0.15); border-color: rgba(0, 136, 204, 0.2); }
-            50% { box-shadow: 0 0 0 4px rgba(0, 136, 204, 0); border-color: rgba(0, 136, 204, 0.5); }
-            100% { box-shadow: 0 0 0 0 rgba(0, 136, 204, 0); border-color: rgba(0, 136, 204, 0.2); }
-        }
-        .btn-donar {
-            color: #ff4444;
-            border-color: rgba(255, 68, 68, 0.3);
-            animation: pulsoBordeDonar 2.5s infinite;
-        }
-        .btn-donar:hover {
-            color: #fff;
-            background: rgba(255, 68, 68, 0.15);
-            border-color: rgba(255, 68, 68, 0.6);
-        }
-        @keyframes pulsoBordeDonar {
-            0% { box-shadow: 0 0 0 0 rgba(255, 68, 68, 0.15); border-color: rgba(255, 68, 68, 0.2); }
-            50% { box-shadow: 0 0 0 4px rgba(255, 68, 68, 0); border-color: rgba(255, 68, 68, 0.5); }
-            100% { box-shadow: 0 0 0 0 rgba(255, 68, 68, 0); border-color: rgba(255, 68, 68, 0.2); }
-        }
+        .soporte-container { display: flex; gap: 10px; align-items: center; margin-top: 5px; }
         .nombres-opcionales {
             display: flex; flex-direction: column; gap: 2px;
             margin-top: 1px; margin-bottom: 1px;
@@ -210,15 +176,9 @@
             border-bottom: 1px solid rgba(255,255,255,0.03);
             box-shadow: 0 8px 20px rgba(0,0,0,0.2);
         }
-        .caja-sinopsis {
-            padding: 20px; 
-            line-height: 1.6; color: #ddd; font-size: 14px;
-        }
+        .caja-sinopsis { padding: 20px; line-height: 1.6; color: #ddd; font-size: 14px; }
         .caja-sinopsis p { margin: 0; }
-        .barra-acciones {
-            display: flex; gap: 10px; padding: 0 20px 15px; 
-            flex-wrap: wrap;
-        }
+        .barra-acciones { display: flex; gap: 10px; padding: 0 20px 15px; flex-wrap: wrap; }
         .barra-acciones:empty { padding: 0; display: none; }
         .centro-botones { display: flex; justify-content: flex-start; width: 100%; margin-top: 10px;}
         .caja-botones {
@@ -233,22 +193,16 @@
             text-align: center; margin-bottom: 8px; font-weight: bold; letter-spacing: 1px;
         }
         .btn-accion {
-            background: rgba(0, 170, 255, 0.03); 
-            color: #e0e0e0; 
-            border: 1px solid rgba(0, 170, 255, 0.2); 
-            padding: 14px; 
-            border-radius: 12px; 
-            font-weight: 500; 
-            font-size: 15px; 
-            letter-spacing: 0.5px;
-            cursor: pointer; 
+            background: rgba(0, 170, 255, 0.03); color: #e0e0e0; 
+            border: 1px solid rgba(0, 170, 255, 0.2); padding: 14px; 
+            border-radius: 12px; font-weight: 500; font-size: 15px; 
+            letter-spacing: 0.5px; cursor: pointer; 
             transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
             display: flex; justify-content: center; align-items: center; gap: 8px;
             position: relative; overflow: hidden; 
         }
         .btn-accion:hover { 
-            transform: translateY(-2px); 
-            box-shadow: 0 6px 20px rgba(0, 136, 204, 0.4);
+            transform: translateY(-2px); box-shadow: 0 6px 20px rgba(0, 136, 204, 0.4);
             border-color: rgba(255,255,255,0.3);
             background: linear-gradient(135deg, rgba(0, 153, 230, 0.9) 0%, rgba(0, 102, 153, 0.9) 100%);
         }
@@ -258,35 +212,12 @@
             0% { opacity: 0; transform: translateY(10px) scale(0.98); }
             100% { opacity: 1; transform: translateY(0) scale(1); }
         }
-        .btn-comentario-especial {
-            background: linear-gradient(135deg, rgba(0, 136, 204, 0.2) 0%, rgba(0, 85, 128, 0.4) 100%) !important;
-            border: 1px solid rgba(0, 170, 255, 0.3) !important;
-            margin-top: 15px !important;
-            color: #00aaff !important;
-            font-weight: bold !important;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
         .btn-v { 
-            background: transparent; 
-            border: 1px dashed #b83030; /* Recuadro rojo discontinuo */
-            color: #922828;            /* Letra roja */
-            font-weight: 600; 
-            cursor: pointer; 
-            padding: 10px; 
-            border-radius: 12px; 
-            margin-top: 5px; 
-            font-size: 13px; 
-            letter-spacing: 1px; 
-            transition: all 0.3s;
-            width: 100%; /* Para que ocupe el ancho de la caja de botones */
+            background: transparent; border: 1px dashed #b83030; color: #922828; 
+            font-weight: 600; cursor: pointer; padding: 10px; border-radius: 12px; 
+            margin-top: 5px; font-size: 13px; letter-spacing: 1px; transition: all 0.3s; width: 100%; 
         }
-
-.btn-v:hover { 
-    background: rgba(255, 68, 68, 0.05); /* Un toque muy leve de fondo al pasar el mouse */
-    border-color: #ff6666; 
-    color: #ff6666; 
-}
+        .btn-v:hover { background: rgba(255, 68, 68, 0.05); border-color: #ff6666; color: #ff6666; }
         .btn-comentarios {
             background: transparent !important; border: 1px solid rgba(255, 255, 255, 0.15) !important;
             color: #ccc; padding: 12px 20px; border-radius: 12px; font-weight: 500; cursor: pointer;
@@ -295,29 +226,31 @@
         .btn-comentarios:hover { background: rgba(255, 255, 255, 0.05) !important; border-color: rgba(255, 255, 255, 0.4) !important; color: #fff; transform: translateY(-2px); }
         .btn-loading { opacity: 0.7; cursor: not-allowed; pointer-events: none; }
         .btn-loading::after { content: " ⌛"; animation: girar 1s infinite linear; display: inline-block; }
-        .efecto-busqueda {animation: aparecerAnime 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
-        @keyframes aparecerAnime {
-            0% { opacity: 0; transform: scale(0.5) translateY(20px); }
-            100% { opacity: 1; transform: scale(1) translateY(0); }
-        }
-
-        /* --- BOTÓN SECRETO ESTILOS --- */
+        
+        /* Botón Secreto */
         .btn-secreto {
-            position: fixed; 
-            bottom: 1px;    
-            right: 1px;     
-            font-size: 24px; 
-            opacity: 0.15;   
-            cursor: pointer;
-            z-index: 99999;  
-            color: white;
-            padding: 10px;   
-            user-select: none;
-            transition: 1.3s;
+            position: fixed; bottom: 1px; right: 1px; font-size: 24px; 
+            opacity: 0.15; cursor: pointer; z-index: 99999; color: white;
+            padding: 10px; user-select: none; transition: 1.3s;
         }
-        .btn-secreto:hover { 
-            opacity: 0.8; 
-            color: #0088cc; 
+        .btn-secreto:hover { opacity: 0.8; color: #0088cc; }
+
+        /* Botón Visto */
+        .btn-visto-nube {
+            display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+            background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 255, 255, 0.1);
+            color: #888; padding: 6px 145px; border-radius: 20px; cursor: pointer;
+            transition: all 0.3s ease; margin: 1px 0 1px 0; width: fit-content; font-size: 13px;
+        }
+        .icon-visto { width: 18px; height: 18px; color: inherit; transition: transform 0.3s ease; flex-shrink: 0; }
+        .btn-visto-nube.visto-activo {
+            background: rgba(0, 255, 136, 0.1) !important; color: #288b5d !important; 
+            border: 1.5px solid #27865a !important; animation: brilloVerdeBucle 6s infinite ease-in-out; 
+        }
+        @keyframes brilloVerdeBucle {
+            0% { box-shadow: 0 0 8px rgba(0, 255, 136, 0.3); border-color: rgba(0, 255, 136, 0.4); transform: scale(1); }
+            50% { box-shadow: 0 0 20px rgba(0, 255, 136, 0.623); border-color: rgba(0, 255, 136, 0.795); transform: scale(1.02); }
+            100% { box-shadow: 0 0 8px rgba(0, 255, 136, 0.3); border-color: rgba(0, 255, 136, 0.4); transform: scale(1); }
         }
 
         @media (max-width: 850px) {
@@ -330,76 +263,13 @@
             .soporte-container { justify-content: center; margin-top: 10px; width: 100%;}
             .nombres-linea, .generos, .barra-acciones, .centro-botones { justify-content: center; }
             .caja-sinopsis { text-align: left; font-size: 13.5px; padding: 18px;}
+            .btn-visto-nube { align-self: center; margin: 10px auto 20px auto; padding: 8px 30px; }
         }
         @media (max-width: 768px) {
             #vista-catalogo { padding: 8px !important; }
             .grid-animes { grid-template-columns: repeat(3, 1fr) !important; gap: 8px !important; }
             .tarjeta-anime { min-width: 0 !important; border-radius: 8px; }
             .titulo-tarjeta { font-size: 11px !important; padding: 20px 4px 6px !important; line-height: 1.2; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-        }
-        .btn-visto-nube {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            gap: 8px;
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            color: #888;
-            padding: 6px 145px; /* Más compacto */
-            border-radius: 20px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            /* Reducimos el margen: 5px arriba y 10px abajo */
-            margin: 1px 0 1px 0; 
-            width: fit-content;
-            font-size: 13px;
-        }
-
-        /* El icono: ahora con tamaño controlado */
-        .icon-visto {
-            width: 18px;  /* Tamaño pequeño y elegante */
-            height: 18px;
-            color: inherit;
-            transition: transform 0.3s ease;
-            flex-shrink: 0; /* Evita que el icono se aplaste */
-        }
-
-        /* Ajuste para que en móviles se vea centrado y bonito */
-        @media (max-width: 850px) {
-            .btn-visto-nube { 
-                align-self: center; 
-                margin: 10px auto 20px auto;
-            }
-        }
-        @keyframes brilloVerdeBucle {
-            0% { 
-                box-shadow: 0 0 8px rgba(0, 255, 136, 0.3); 
-                border-color: rgba(0, 255, 136, 0.4);
-                transform: scale(1);
-            }
-            50% { 
-                box-shadow: 0 0 20px rgba(0, 255, 136, 0.623); 
-                border-color: rgba(0, 255, 136, 0.795);
-                transform: scale(1.02); /* Crece un poquito al brillar */
-            }
-            100% { 
-                box-shadow: 0 0 8px rgba(0, 255, 136, 0.3); 
-                border-color: rgba(0, 255, 136, 0.4);
-                transform: scale(1);
-            }
-        }
-
-        /* El botón cuando está activado */
-        .btn-visto-nube.visto-activo {
-            background: rgba(0, 255, 136, 0.1) !important;
-            color: #288b5d !important; /* Verde neón */
-            border: 1.5px solid #27865a !important;
-            animation: brilloVerdeBucle 6s infinite ease-in-out; /* El bucle infinito */
-        }
-
-        /* Asegura que el icono SVG también cambie de color */
-        .btn-visto-nube.visto-activo .icon-visto {
-            color: #18a04c;
         }
     </style>
 </head>
@@ -420,10 +290,9 @@
     </div>
 
     <div id="vista-detalles">
-        
         <span id="btn-secreto-link" class="btn-secreto" onclick="copiarLinkSecreto()">🔗</span>
-        
         <img id="bg-bluroso" class="bg-banner" src="" alt="">
+        
         <div class="layout-detalles">
             <div class="img-lateral">
                 <img id="det-img" src="" alt="">
@@ -438,8 +307,8 @@
                 <div id="det-generos" class="generos"></div>
                 
                 <button id="btn-visto-nube" class="btn-visto-nube" onclick="toggleVisto()">
-                    <img src="image_972702.jpg" class="logo-visto">
-                    <span>Marcar como visto</span>
+                    <img src="image_972702.jpg" class="icon-visto" id="icono-visto-img">
+                    <span id="texto-visto-btn">Marcar como visto</span>
                 </button>
                 
                 <div class="contenedor-sinopsis-acciones">
@@ -470,36 +339,30 @@
 
         const urlBaseGitHub = "https://raw.githubusercontent.com/Kaergsty/mi-kaergsty-app/main/img/";
 
+        // --- VARIABLES DE PAGINACIÓN ---
+        let itemsMostrados = 0;
+        const itemsPorPagina = 24;
+        let nombresBase = [];
+        let nombresFiltrados = [];
+        let timeoutBusqueda;
+
+        // --- CARGA INICIAL ---
         function cargar() {
             tg.BackButton.hide(); 
-
             const grid = document.getElementById('grid');
             grid.innerHTML = "";
             
-            const nombresInvertidos = Object.keys(base).reverse();
+            // Preparamos los arrays de nombres una sola vez
+            nombresBase = Object.keys(base).reverse();
+            nombresFiltrados = [...nombresBase];
+            itemsMostrados = 0;
 
-            nombresInvertidos.forEach(nombre => {
-                const anime = base[nombre];
-                const div = document.createElement('div');
-                div.className = 'tarjeta-anime';
-                div.onclick = () => abrir(nombre);
-                
-                let carpetaDestino = anime.carpeta ? anime.carpeta : "img";
-                    let urlDinamica = `https://raw.githubusercontent.com/Kaergsty/mi-kaergsty-app/main/${carpetaDestino}/`;
-                    let imgUrl = anime.portada ? anime.portada : urlDinamica + encodeURIComponent(nombre) + ".webp";
-                    
-                div.innerHTML = `
-                    <img src="${imgUrl}" onerror="this.src='https://via.placeholder.com/150x225/222/555?text=Error+Img'">
-                    <div class="titulo-tarjeta">${nombre}</div>
-                `;
-                grid.appendChild(div);
-            });
-            
+            renderizarSiguientes();
+
+            // Parámetros de Telegram al abrir
             const params = window.Telegram.WebApp.initDataUnsafe.start_param;
-
             if (params) {
                 let nombreBuscado = params.replace(/_/g, ' ').toLowerCase().trim();
-
                 for (let nombreEnBase in base) {
                     let nombreLimpio = nombreEnBase.toLowerCase().trim();
                     if (nombreLimpio === nombreBuscado || nombreLimpio.startsWith(nombreBuscado)) {
@@ -510,18 +373,80 @@
             }
         }
 
+        // --- RENDERIZADO POR BLOQUES Y SKELETON ---
+        function renderizarSiguientes() {
+            const grid = document.getElementById('grid');
+            const fragmento = document.createDocumentFragment();
+            
+            const limite = Math.min(itemsMostrados + itemsPorPagina, nombresFiltrados.length);
+            
+            for (let i = itemsMostrados; i < limite; i++) {
+                const nombre = nombresFiltrados[i];
+                const anime = base[nombre];
+                
+                const div = document.createElement('div');
+                div.className = 'tarjeta-anime esqueleto animar-entrada'; 
+                div.onclick = () => abrir(nombre);
+                
+                let carpetaDestino = anime.carpeta ? anime.carpeta : "img";
+                let urlDinamica = `https://raw.githubusercontent.com/Kaergsty/mi-kaergsty-app/main/${carpetaDestino}/`;
+                let imgUrl = anime.portada ? anime.portada : urlDinamica + encodeURIComponent(nombre) + ".webp";
+                
+                div.innerHTML = `
+                    <img src="${imgUrl}" loading="lazy" class="img-oculta"
+                         onload="this.classList.remove('img-oculta'); this.classList.add('img-cargada'); this.parentElement.classList.remove('esqueleto');"
+                         onerror="this.src='https://via.placeholder.com/150x225/222/555?text=Error'; this.classList.remove('img-oculta'); this.classList.add('img-cargada'); this.parentElement.classList.remove('esqueleto');">
+                    <div class="titulo-tarjeta">${nombre}</div>
+                `;
+                fragmento.appendChild(div);
+            }
+            
+            grid.appendChild(fragmento);
+            itemsMostrados = limite;
+        }
+
+        // Detectar scroll para cargar más animes
+        window.onscroll = function() {
+            if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight - 500) {
+                if (itemsMostrados < nombresFiltrados.length && document.getElementById('vista-catalogo').style.display !== 'none') {
+                    renderizarSiguientes();
+                }
+            }
+        };
+
+        // --- BUSCADOR OPTIMIZADO (DEBOUNCE) ---
+        function filtrar() {
+            clearTimeout(timeoutBusqueda);
+            const input = document.getElementById('buscador');
+            input.classList.add('tecleando');
+            
+            timeoutBusqueda = setTimeout(() => {
+                const v = input.value.toLowerCase().trim();
+                const grid = document.getElementById('grid');
+                
+                nombresFiltrados = nombresBase.filter(nombre => 
+                    nombre.toLowerCase().includes(v)
+                );
+                
+                grid.innerHTML = "";
+                itemsMostrados = 0;
+                renderizarSiguientes();
+                
+                input.classList.remove('tecleando');
+            }, 300);
+        }
+
+        // --- FUNCIONES DE VISTAS ---
         window.animeSeleccionado = "";
 
-        // --- FUNCIONES ACTUALIZADAS ---
         function abrir(nombre) {
             window.animeSeleccionado = nombre; 
-            
             const anime = base[nombre]; 
             if (!anime) return;
 
             let carpetaDestino = anime.carpeta ? anime.carpeta : "img";
-                let urlDinamica = `https://raw.githubusercontent.com/Kaergsty/mi-kaergsty-app/main/${carpetaDestino}/`;
-                let imgUrl = anime.portada ? anime.portada : urlDinamica + encodeURIComponent(nombre) + ".webp";
+            let urlDinamica = `https://raw.githubusercontent.com/Kaergsty/mi-kaergsty-app/main/${carpetaDestino}/`;
+            let imgUrl = anime.portada ? anime.portada : urlDinamica + encodeURIComponent(nombre) + ".webp";
             
             document.getElementById('det-img').src = imgUrl;
             document.getElementById('bg-bluroso').src = imgUrl;
@@ -568,6 +493,13 @@
             }
         }
 
+        function volverAlCatalogo() {
+            document.getElementById('vista-detalles').style.display = 'none';
+            document.getElementById('vista-catalogo').style.display = 'block';
+            tg.BackButton.hide(); 
+        }
+
+        // --- SISTEMA DE GUARDADO EN LA NUBE ---
         function toggleVisto() {
             const id = window.animeSeleccionado;
             if (!id || typeof tg === 'undefined') return;
@@ -596,35 +528,25 @@
 
         function actualizarUIBoton(estaVisto) {
             const btn = document.getElementById('btn-visto-nube');
+            const imgIcono = document.getElementById('icono-visto-img');
+            const textoVisto = document.getElementById('texto-visto-btn');
             if (!btn) return;
 
-            // Ajusta los nombres de archivo a como los tengas en tu carpeta /img/
             const urlIconoOjo = urlBaseGitHub + "ojo no visto.png"; 
             const urlIconoCheck = urlBaseGitHub + "ojo.png";
 
             if (estaVisto) {
                 btn.classList.add('visto-activo');
-                btn.innerHTML = `<img src="${urlIconoCheck}" class="icon-visto"> <span>Visto</span>`;
+                imgIcono.src = urlIconoCheck;
+                textoVisto.innerText = "Visto";
             } else {
                 btn.classList.remove('visto-activo');
-                btn.innerHTML = `<img src="${urlIconoOjo}" class="icon-visto"> <span>Marcar como visto</span>`;
+                imgIcono.src = urlIconoOjo;
+                textoVisto.innerText = "Marcar como visto";
             }
         }
-        // --- FIN FUNCIONES ACTUALIZADAS ---
 
-        function actualizarBarraAcciones() {
-            const area = document.getElementById('barra-acciones');    
-            area.innerHTML = "";
-        }
-
-        function abrirSoporte(url) { if (tg && tg.openLink) { tg.openLink(url); } else { window.open(url, '_blank'); } }
-
-        function volverAlCatalogo() {
-            document.getElementById('vista-detalles').style.display = 'none';
-            document.getElementById('vista-catalogo').style.display = 'block';
-            tg.BackButton.hide(); 
-        }
-
+        // --- BOTONES Y NAVEGACIÓN DE ENLACES ---
         function mostrarT(nombre) {
             const area = document.getElementById('area-botones');
             area.innerHTML = '<span class="txt-guia">Temporadas</span>';
@@ -672,32 +594,6 @@
             area.appendChild(back);
         }
 
-        function filtrar() {
-            const input = document.getElementById('buscador');
-            const v = input.value.toLowerCase();
-            const tarjetas = document.querySelectorAll('.tarjeta-anime');
-
-            input.classList.remove('tecleando');
-            void input.offsetWidth; 
-            input.classList.add('tecleando');
-
-            tarjetas.forEach(t => {
-                const coincide = t.innerText.toLowerCase().includes(v);
-                
-                if (coincide) {
-                    if (t.style.display !== 'block') {
-                        t.style.display = 'block';
-                    }
-                    t.classList.remove('efecto-busqueda');
-                    void t.offsetWidth; 
-                    t.classList.add('efecto-busqueda');
-                } else {
-                    t.style.display = 'none';
-                    t.classList.remove('efecto-busqueda');
-                }
-            });
-        }
-
         async function crearOabrirTopic(nombreAnime, elementoBoton) {
             const tg = window.Telegram.WebApp;
             const urlServidor = 'https://mi-kaergsty-app.onrender.com/crear-topic';
@@ -707,7 +603,6 @@
             const textoOriginal = elementoBoton.innerText;
             elementoBoton.innerText = "CARGANDO...";
             elementoBoton.classList.add('btn-loading');
-            
             elementoBoton.disabled = true; 
             elementoBoton.style.pointerEvents = 'none'; 
 
@@ -739,19 +634,16 @@
 
         function copiarLinkSecreto() {
             if (!window.animeSeleccionado) return;
-            
             const parametro = window.animeSeleccionado.toLowerCase().trim().replace(/\s+/g, '_');
             const linkFinal = "https://t.me/Catalogo2026_bot/kaergsty?startapp=" + parametro;
 
             navigator.clipboard.writeText(linkFinal).then(() => {
-                console.log("Enlace copiado: " + linkFinal);
                 tg.MainButton.setText("¡ENLACE COPIADO!").show();
                 setTimeout(() => tg.MainButton.hide(), 2000);
-            }).catch(err => {
-                console.error("Fallo al copiar: ", err);
-            });
+            }).catch(err => console.error("Fallo al copiar: ", err));
         }
 
+        // Iniciar app
         cargar();
     </script>
 </body>
