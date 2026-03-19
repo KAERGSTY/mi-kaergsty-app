@@ -456,6 +456,7 @@
     <script src="storage.js"></script>
     <script src="animeA.js"></script>
     <script src="animeB.js"></script>
+    <script src="animeC.js"></script>
 
     <script>
         const tg = window.Telegram.WebApp;
@@ -482,8 +483,10 @@
                 div.className = 'tarjeta-anime';
                 div.onclick = () => abrir(nombre);
                 
-                let imgUrl = anime.portada ? anime.portada : urlBaseGitHub + encodeURIComponent(nombre) + ".webp";
-                
+                let carpetaDestino = anime.carpeta ? anime.carpeta : "img";
+                    let urlDinamica = `https://raw.githubusercontent.com/Kaergsty/mi-kaergsty-app/main/${carpetaDestino}/`;
+                    let imgUrl = anime.portada ? anime.portada : urlDinamica + encodeURIComponent(nombre) + ".webp";
+                    
                 div.innerHTML = `
                     <img src="${imgUrl}" onerror="this.src='https://via.placeholder.com/150x225/222/555?text=Error+Img'">
                     <div class="titulo-tarjeta">${nombre}</div>
@@ -515,7 +518,9 @@
             const anime = base[nombre]; 
             if (!anime) return;
 
-            let imgUrl = anime.portada ? anime.portada : urlBaseGitHub + encodeURIComponent(nombre) + ".webp";
+            let carpetaDestino = anime.carpeta ? anime.carpeta : "img";
+                let urlDinamica = `https://raw.githubusercontent.com/Kaergsty/mi-kaergsty-app/main/${carpetaDestino}/`;
+                let imgUrl = anime.portada ? anime.portada : urlDinamica + encodeURIComponent(nombre) + ".webp";
             
             document.getElementById('det-img').src = imgUrl;
             document.getElementById('bg-bluroso').src = imgUrl;
