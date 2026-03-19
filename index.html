@@ -7,6 +7,7 @@
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
     <style>
         body {
+            scroll-behavior: smooth;
             background: #0c0c0f;
             background-image:
                 radial-gradient(ellipse 80% 40% at 20% 60%, rgba(134, 112, 156, 0.6) 0%, transparent 60%),
@@ -439,7 +440,12 @@
         // --- FUNCIONES DE VISTAS ---
         window.animeSeleccionado = "";
 
+        let posicionScrollGuardada = 0;
+
         function abrir(nombre) {
+            // Guardamos la posición del scroll antes de cambiar de vista
+            posicionScrollGuardada = window.scrollY;
+
             window.animeSeleccionado = nombre; 
             const anime = base[nombre]; 
             if (!anime) return;
@@ -483,7 +489,9 @@
 
             document.getElementById('vista-catalogo').style.display = 'none';
             document.getElementById('vista-detalles').style.display = 'block';
-            window.scrollTo(0,0);
+            
+            // Al entrar a los detalles, siempre subimos al inicio de esa página
+            window.scrollTo(0, 0);
 
             mostrarT(nombre);
             chequearEstadoVisto(nombre);
@@ -496,7 +504,15 @@
         function volverAlCatalogo() {
             document.getElementById('vista-detalles').style.display = 'none';
             document.getElementById('vista-catalogo').style.display = 'block';
-            tg.BackButton.hide(); 
+            
+            // Regresamos el scroll a la posición que guardamos antes
+            setTimeout(() => {
+                window.scrollTo(0, posicionScrollGuardada);
+            }, 10);
+
+            if (typeof tg !== 'undefined') {
+                tg.BackButton.hide(); 
+            }
         }
 
         // --- SISTEMA DE GUARDADO EN LA NUBE ---
