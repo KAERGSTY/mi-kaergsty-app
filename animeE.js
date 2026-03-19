@@ -31,7 +31,7 @@ window.base["Eiyuu Kyoushitsu"] = {
     }
 };
 
-window.base["Elf-san wa Yaserarenai."] = {
+window.base["Elf san wa Yaserarenai"] = {
     carpeta: "imgE",
     nombresAlternativos: {
         "Japonés": "エルフさんは痩せられない。",
