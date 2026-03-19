@@ -447,9 +447,26 @@
                 const v = input.value.toLowerCase().trim();
                 const grid = document.getElementById('grid');
                 
-                nombresFiltrados = nombresBase.filter(nombre => 
-                    nombre.toLowerCase().includes(v)
-                );
+                nombresFiltrados = nombresBase.filter(nombre => {
+                    // 1. Buscamos coincidencia en el nombre principal
+                    if (nombre.toLowerCase().includes(v)) {
+                        return true;
+                    }
+                    
+                    // 2. Si no coincide el principal, buscamos en los alternativos
+                    const anime = base[nombre];
+                    if (anime.nombresAlternativos) {
+                        // Extraemos todos los textos alternativos (ej: "Japonés", "Ingles")
+                        const textosAlternativos = Object.values(anime.nombresAlternativos);
+                        
+                        // .some() devuelve true si al menos uno de los nombres coincide
+                        return textosAlternativos.some(textoAlt => 
+                            textoAlt.toLowerCase().includes(v)
+                        );
+                    }
+                    
+                    return false;
+                });
                 
                 grid.innerHTML = "";
                 itemsMostrados = 0;
