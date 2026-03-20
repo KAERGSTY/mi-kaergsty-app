@@ -95,7 +95,7 @@ window.base["Jibaku Shounen Hanako-kun"] = {
     }
 };
 
-window.base["Jaku-Chara Tomozaki-kun 2nd Stage"] = {
+window.base["Jaku Chara Tomozaki kun"] = {
     carpeta: "imgJ",
     nombresAlternativos: {
         "Japonés": "弱キャラ友崎くん 2nd STAGE",
