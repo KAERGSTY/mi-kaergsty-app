@@ -113,7 +113,7 @@
         .bg-banner {
             position: absolute; top: 0; left: 0; width: 100vw; 
             height: 500px; 
-            z-index: -2; opacity: 0.3; filter: blur(20px); /* OPTIMIZADO: Menos blur para mejor rendimiento */
+            z-index: -2; opacity: 0.3; filter: blur(20px); 
             object-fit: cover; margin-left: calc(-50vw + 50%);
         }
         .layout-detalles {
@@ -320,6 +320,19 @@
                     <div class="caja-botones" id="area-botones"></div>
                 </div>
             </div>
+        </div>
+    </div> <footer style="margin-top: 20px; padding: 20px; text-align: center; width: 100%;">
+        <span id="disclaimer-link" style="font-size: 11px; color: rgba(255,255,255,0.3); cursor: pointer; text-decoration: underline; letter-spacing: 0.5px;">
+            Aviso de Deslinde Legal
+        </span>
+    </footer>
+
+    <div id="disclaimer-modal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.85); backdrop-filter: blur(8px); z-index: 10000; padding: 25px; box-sizing: border-box; align-items: center; justify-content: center;">
+        <div style="background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 20px; padding: 25px; color: #d4d4d8; font-size: 14px; max-width: 450px; line-height: 1.6; box-shadow: 0 20px 40px rgba(0,0,0,0.5);">
+            <h3 style="color: #00aaff; margin-top: 0;">Aviso de Responsabilidad</h3>
+            <p>Esta aplicación funciona únicamente como una interfaz de organización y acceso a contenido alojado en servidores de terceros. <strong>AnimeKaergsty</strong> no almacena, sube, ni aloja ningún archivo de video en servidores propios.</p>
+            <p style="font-size: 12px; color: #888;">Todo el contenido es propiedad de sus respectivos autores. Si usted es dueño de algún material y desea solicitar su retiro, por favor contáctenos a través de los canales oficiales.</p>
+            <button id="close-disclaimer" style="background: linear-gradient(135deg, #0099e6, #006699); color: white; border: none; padding: 12px; border-radius: 12px; width: 100%; cursor: pointer; font-weight: bold; margin-top: 10px; transition: 0.3s;">Entendido</button>
         </div>
     </div>
 
@@ -697,6 +710,27 @@
                 setTimeout(() => tg.MainButton.hide(), 2000);
             }).catch(err => console.error("Fallo al copiar: ", err));
         }
+
+        // --- LÓGICA DEL AVISO DE DESLINDE ---
+        const discLink = document.getElementById('disclaimer-link');
+        const discModal = document.getElementById('disclaimer-modal');
+        const discClose = document.getElementById('close-disclaimer');
+
+        discLink.onclick = () => {
+            discModal.style.display = 'flex';
+            if (tg && tg.HapticFeedback) {
+                tg.HapticFeedback.impactOccurred('light'); 
+            }
+        };
+
+        discClose.onclick = () => {
+            discModal.style.display = 'none';
+        };
+
+        // Cerrar si tocan fuera del cuadro
+        window.addEventListener('click', (e) => {
+            if (e.target == discModal) discModal.style.display = 'none';
+        });
 
         // Iniciar app
         cargar();
