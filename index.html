@@ -103,6 +103,50 @@
         }
         .img-oculta { opacity: 0; transition: opacity 0.3s ease; }
         .img-cargada { opacity: 1; }
+        
+        /* --- ESTILOS DEL RADAR DE ESTADO --- */
+        .status-indicator {
+            position: absolute;
+            top: 8px;
+            left: 8px;
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            z-index: 10;
+        }
+        .status-dot {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            display: block;
+            /* Animación suave de respiración */
+            animation: breathing-dot 3s ease-in-out infinite;
+        }
+        .status-indicator::after {
+            display: none; 
+        }
+        .status-emision .status-dot { background-color: #00ff00bd; }
+        .status-emision::after { background-color: #00ff00c4; }
+
+        .status-finalizado .status-dot { background-color: #ff0000cb; }
+        .status-finalizado::after { background-color: #ff0000c5; }
+
+        .status-parado .status-dot { background-color: #ffcc00c9; }
+        .status-parado::after { background-color: #ffcc00cb; }
+
+        @keyframes breathing-dot {
+            0%, 100% { 
+                opacity: 0.3; 
+                transform: scale(0.9);
+                filter: blur(1px); 
+            }
+            50% { 
+                opacity: 1; 
+                transform: scale(1);
+                filter: blur(0px);
+                box-shadow: 0 0 6px currentColor; /* Brillo muy ligero */
+            }
+        }
         /* ------------------------------- */
 
         #vista-detalles { 
@@ -153,8 +197,15 @@
             50% { opacity: 1; box-shadow: 0 0 0 5px rgba(0, 204, 102, 0); }
             100% { opacity: 0.6; box-shadow: 0 0 0 0 rgba(0, 204, 102, 0); }
         }
+        .punto-amarillo { background-color: #ffcc00; animation: pulsoAmarillo 1.5s infinite ease-in-out; }
+        @keyframes pulsoAmarillo {
+            0% { opacity: 0.6; box-shadow: 0 0 0 0 rgba(255, 204, 0, 0.4); }
+            50% { opacity: 1; box-shadow: 0 0 0 5px rgba(255, 204, 0, 0); }
+            100% { opacity: 0.6; box-shadow: 0 0 0 0 rgba(255, 204, 0, 0); }
+        }
         .txt-finalizado { color: #ff6666; }
         .txt-emision { color: #00ff88; }
+        .txt-parado { color: #ffcc00; }
         .soporte-container { display: flex; gap: 10px; align-items: center; margin-top: 5px; }
         .nombres-opcionales {
             display: flex; flex-direction: column; gap: 2px;
@@ -321,7 +372,9 @@
                 </div>
             </div>
         </div>
-    </div> <footer style="margin-top: 20px; padding: 20px; text-align: center; width: 100%;">
+    </div> 
+    
+    <footer style="margin-top: 20px; padding: 20px; text-align: center; width: 100%;">
         <span id="disclaimer-link" style="font-size: 11px; color: rgba(255,255,255,0.3); cursor: pointer; text-decoration: underline; letter-spacing: 0.5px;">
             Aviso de Deslinde Legal
         </span>
@@ -428,7 +481,15 @@
                 let urlDinamica = `https://raw.githubusercontent.com/Kaergsty/mi-kaergsty-app/main/${carpetaDestino}/`;
                 let imgUrl = anime.portada ? anime.portada : urlDinamica + encodeURIComponent(nombre) + ".webp";
                 
+                // Lógica del radar de estado
+                let claseEstado = "status-finalizado"; // por defecto
+                if (anime.estado === "En emisión") claseEstado = "status-emision";
+                if (anime.estado === "Pausado" || anime.estado === "Parado") claseEstado = "status-parado";
+
                 div.innerHTML = `
+                    <div class="status-indicator ${claseEstado}">
+                        <span class="status-dot"></span>
+                    </div>
                     <img src="${imgUrl}" loading="lazy" class="img-oculta"
                          onload="this.classList.remove('img-oculta'); this.classList.add('img-cargada'); this.parentElement.classList.remove('esqueleto');"
                          onerror="this.src='https://via.placeholder.com/150x225/222/555?text=Error'; this.classList.remove('img-oculta'); this.classList.add('img-cargada'); this.parentElement.classList.remove('esqueleto');">
@@ -461,18 +522,13 @@
                 const grid = document.getElementById('grid');
                 
                 nombresFiltrados = nombresBase.filter(nombre => {
-                    // 1. Buscamos coincidencia en el nombre principal
                     if (nombre.toLowerCase().includes(v)) {
                         return true;
                     }
                     
-                    // 2. Si no coincide el principal, buscamos en los alternativos
                     const anime = base[nombre];
                     if (anime.nombresAlternativos) {
-                        // Extraemos todos los textos alternativos (ej: "Japonés", "Ingles")
                         const textosAlternativos = Object.values(anime.nombresAlternativos);
-                        
-                        // .some() devuelve true si al menos uno de los nombres coincide
                         return textosAlternativos.some(textoAlt => 
                             textoAlt.toLowerCase().includes(v)
                         );
@@ -491,11 +547,9 @@
 
         // --- FUNCIONES DE VISTAS ---
         window.animeSeleccionado = "";
-
         let posicionScrollGuardada = 0;
 
         function abrir(nombre) {
-            // Guardamos la posición del scroll antes de cambiar de vista
             posicionScrollGuardada = window.scrollY;
 
             window.animeSeleccionado = nombre; 
@@ -527,9 +581,12 @@
 
             const estCont = document.getElementById('det-estado');
             let puntoClase = "punto-rojo", textoClase = "txt-finalizado";
-            if (anime.estado === "En Emisión") { 
+            if (anime.estado === "En emisión") { 
                 puntoClase = "punto-verde"; 
                 textoClase = "txt-emision"; 
+            } else if (anime.estado === "Pausado" || anime.estado === "Parado") {
+                puntoClase = "punto-amarillo";
+                textoClase = "txt-parado";
             }
             estCont.innerHTML = `<span>Estado:</span><span class="punto ${puntoClase}"></span><span class="${textoClase}">${anime.estado || "Desconocido"}</span>`;
 
@@ -542,7 +599,6 @@
             document.getElementById('vista-catalogo').style.display = 'none';
             document.getElementById('vista-detalles').style.display = 'block';
             
-            // Al entrar a los detalles, siempre subimos al inicio de esa página
             window.scrollTo(0, 0);
 
             mostrarT(nombre);
@@ -557,7 +613,6 @@
             document.getElementById('vista-detalles').style.display = 'none';
             document.getElementById('vista-catalogo').style.display = 'block';
             
-            // Regresamos el scroll a la posición que guardamos antes
             setTimeout(() => {
                 window.scrollTo(0, posicionScrollGuardada);
             }, 10);
