@@ -41,35 +41,23 @@ const guardarBaseDatos = (data) => {
 app.post('/crear-topic', async (req, res) => {
     const { nombreAnime } = req.body;
 
-    if (!nombreAnime) return res.status(400).json({ success: false, error: "Falta nombre" });
+    if (!nombreAnime) {
+        return res.status(400).json({ success: false, error: "Nombre del anime requerido" });
+    }
 
-    // 1. VERIFICAR EN BASE DE DATOS PRIMERO (antes del bloqueo)
+    // 1. VERIFICAR si ya existe en la base de datos
     let temas = leerBaseDatos();
-
     if (temas[nombreAnime]) {
         const threadId = temas[nombreAnime];
-        const linkExistente = `https://t.me/c/${GROUP_ID.replace("-100", "")}/${threadId}`;
+        // CAMBIO: Ahora usa el enlace público del grupo
+        const linkExistente = `https://t.me/ComentariosKaergsty/${threadId}`;
         return res.json({ success: true, link: linkExistente });
     }
 
-    // 2. BLOQUEO ANTI-SPAM: Si ya se está procesando este anime, ignorar
+    // 2. BLOQUEO para evitar creaciones duplicadas simultáneas
     if (bloqueos.has(nombreAnime)) {
-        // Esperar hasta que el otro proceso termine y devolver el resultado
-        let intentos = 0;
-        while (bloqueos.has(nombreAnime) && intentos < 20) {
-            await new Promise(resolve => setTimeout(resolve, 300));
-            intentos++;
-        }
-        // Después de esperar, leer el resultado ya guardado
-        temas = leerBaseDatos();
-        if (temas[nombreAnime]) {
-            const threadId = temas[nombreAnime];
-            const link = `https://t.me/c/${GROUP_ID.replace("-100", "")}/${threadId}`;
-            return res.json({ success: true, link: link });
-        }
-        return res.status(429).json({ success: false, error: "Intenta de nuevo" });
+        return res.status(429).json({ success: false, error: "Creación en progreso, intenta de nuevo." });
     }
-
     bloqueos.add(nombreAnime);
 
     try {
@@ -77,7 +65,8 @@ app.post('/crear-topic', async (req, res) => {
         temas = leerBaseDatos();
         if (temas[nombreAnime]) {
             const threadId = temas[nombreAnime];
-            const linkExistente = `https://t.me/c/${GROUP_ID.replace("-100", "")}/${threadId}`;
+            // CAMBIO: Ahora usa el enlace público del grupo
+            const linkExistente = `https://t.me/ComentariosKaergsty/${threadId}`;
             bloqueos.delete(nombreAnime);
             return res.json({ success: true, link: linkExistente });
         }
@@ -95,7 +84,8 @@ app.post('/crear-topic', async (req, res) => {
             temas[nombreAnime] = nuevoThreadId;
             guardarBaseDatos(temas);
 
-            const nuevoLink = `https://t.me/c/${GROUP_ID.replace("-100", "")}/${nuevoThreadId}`;
+            // CAMBIO: Ahora usa el enlace público del grupo
+            const nuevoLink = `https://t.me/ComentariosKaergsty/${nuevoThreadId}`;
             bloqueos.delete(nombreAnime);
             return res.json({ success: true, link: nuevoLink });
         }
@@ -103,9 +93,11 @@ app.post('/crear-topic', async (req, res) => {
     } catch (error) {
         console.error("Error crítico:", error.response?.data || error.message);
         bloqueos.delete(nombreAnime);
-        res.status(500).json({ success: false, error: "Error en el servidor" });
+        return res.status(500).json({ success: false, error: "No se pudo crear el tema." });
     }
 });
 
-const PORT = process.env.PORT || 10000;
-app.listen(PORT, () => console.log(`Servidor activo en puerto ${PORT}`));
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => {
+    console.log(`Servidor corriendo en puerto ${PORT}`);
+});
