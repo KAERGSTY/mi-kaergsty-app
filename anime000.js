@@ -1,5 +1,5 @@
 window.base["2.5-jigen no Ririsa"] = {
-    carpeta: "img000",
+    carpeta: "img#",
     nombresAlternativos: {
         "Japonés": "2.5次元の誘惑",
         "Ingles": "2.5 Dimensional Seduction"
@@ -16,7 +16,7 @@ window.base["2.5-jigen no Ririsa"] = {
 };
 
 window.base["16bit Sensation: Another Layer"] = {
-    carpeta: "img000",
+    carpeta: "img#",
     nombresAlternativos: {
         "Japonés": "16bitセンセーション ANOTHER LAYER",
         "Ingles": "16bit Sensation: Another Layer"
@@ -33,7 +33,7 @@ window.base["16bit Sensation: Another Layer"] = {
 };
 
 window.base["#COMPASS 2.0－Sentou Setsuri Kaiseki System"] = {
-    carpeta: "img000",
+    carpeta: "img#",
     nombresAlternativos: {
         "Japonés": "#コンパス2.0 戦闘摂理解析システム",
         "Ingles": "#COMPASS 2.0"
@@ -50,7 +50,7 @@ window.base["#COMPASS 2.0－Sentou Setsuri Kaiseki System"] = {
 };
 
 window.base["30-sai made Doutei dato Mahoutsukai ni Nareru Rashii"] = {
-    carpeta: "img000",
+    carpeta: "img#",
     nombresAlternativos: {
         "Japonés": "30歳まで童貞だと魔法使いになれるらしい",
         "Ingles": "Cherry Magic! Thirty Years of Virginity Can Make You a Wizard?!"
@@ -67,7 +67,7 @@ window.base["30-sai made Doutei dato Mahoutsukai ni Nareru Rashii"] = {
 };
 
 window.base["3-nen Z-gumi Ginpachi-sensei"] = {
-    carpeta: "img000",
+    carpeta: "img#",
     nombresAlternativos: {
         "Japonés": "3年Z組銀八先生",
         "Ingles": "Class 3-Z Ginpachi-sensei"
