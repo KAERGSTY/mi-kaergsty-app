@@ -442,8 +442,25 @@
             const grid = document.getElementById('grid');
             grid.innerHTML = "";
             
-            // Preparamos los arrays de nombres una sola vez
-            nombresBase = Object.keys(base).reverse();
+            // 1. Obtenemos los nombres en el orden original (invertido según tu estructura inicial)
+            let nombresInvertidos = Object.keys(base).reverse();
+            
+            // 2. Ordenamos para que los "En emisión" y los que tienen ID vayan arriba
+            nombresBase = nombresInvertidos.sort((a, b) => {
+                // Prioridad #1: ID manual (por si quieres forzar alguno arriba aunque no esté en emisión)
+                let idA = base[a].id || 0;
+                let idB = base[b].id || 0;
+                if (idB !== idA) return idB - idA;
+
+                // Prioridad #2: Estado "En emisión"
+                let estadoA = base[a].estado === "En emisión" ? 1 : 0;
+                let estadoB = base[b].estado === "En emisión" ? 1 : 0;
+                if (estadoB !== estadoA) return estadoB - estadoA;
+
+                // Prioridad #3: Si son iguales en todo lo anterior, mantienen su orden natural
+                return 0;
+            });
+
             nombresFiltrados = [...nombresBase];
             itemsMostrados = 0;
 

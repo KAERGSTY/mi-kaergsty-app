@@ -240,3 +240,35 @@ window.base["Isshun de Chiryou shiteita noni"] = {
         }
     }
 };
+
+window.base["Ikoku Nikki"] = {
+    carpeta: "imgI",
+    nombresAlternativos: {
+        "Japonés": "違国日記",
+        "Ingles": "Diary of Our Days at the Breakwater"
+    },
+    sinopsis: "Tras la repentina muerte de sus padres, la tímida adolescente Asa es adoptada por su tía Makio, una novelista distante. Ambas comienzan a convivir, sanando sus heridas emocionales y aprendiendo a entenderse mutuamente.",
+    estado: "Finalizado",
+    generos: ["Recuentos de la vida", "Drama"],
+    enlaces: {
+        "Temporada 1": {
+            "Japonés": "https://t.me/AnimeKaergsty1/3900"
+        }
+    }
+};
+
+window.base["Isekai no Sata wa Shachiku Shidai"] = {
+    carpeta: "imgI",
+    nombresAlternativos: {
+        "Japonés": "異世界の沙汰は社畜次第",
+        "Ingles": "The Affairs of the Other World Depend on the Corporate Slave"
+    },
+    sinopsis: "Kondo, un oficinista explotado, es transportado a otro mundo junto a la Doncella Sagrada. Aunque no es el elegido, su increíble ética de trabajo corporativo resulta ser justo lo que necesita este nuevo reino de fantasía.",
+    estado: "Finalizado",
+    generos: ["Isekai", "Fantasía", "Boys Love"],
+    enlaces: {
+        "Temporada 1": {
+            "Japonés": "https://t.me/AnimeKaergsty1/3962"
+        }
+    }
+};

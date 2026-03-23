@@ -93,3 +93,19 @@ window.base["Emociones Del Dragon Volador Del Samurai"] = {
         }
     }
 };
+
+window.base["Eris no Seihai"] = {
+    carpeta: "imgE",
+    nombresAlternativos: {
+        "Japonés": "エリスの聖杯",
+        "Ingles": "The Holy Grail of Eris"
+    },
+    sinopsis: "Connie, una joven noble ordinaria, es poseída por el fantasma de Scarlett Castiel, una villana infame ejecutada diez años atrás. Juntas, se adentran en la alta sociedad para descubrir la verdad detrás de la muerte de Scarlett.",
+    estado: "Finalizado",
+    generos: ["Fantasía", "Misterio", "Drama"],
+    enlaces: {
+        "Temporada 1": {
+            "Japonés": "https://t.me/AnimeKaergsty1/4047"
+        }
+    }
+};

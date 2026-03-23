@@ -82,3 +82,19 @@ window.base["3-nen Z-gumi Ginpachi-sensei"] = {
         }
     }
 };
+
+window.base["29-sai Dokushin Chuuken Boukensha no Nichijou"] = {
+    carpeta: "imgAA",
+    nombresAlternativos: {
+        "Japonés": "29歳独身中堅冒険者の日常",
+        "Ingles": "The Daily Life of a 29-Year-Old Single Adventurer"
+    },
+    sinopsis: "Hajime es un aventurero de rango medio a punto de cumplir 30 años. Su vida rutinaria da un vuelco cuando salva a una joven en un calabozo, lo que le lleva a cuestionarse su soltería y su futuro en el gremio.",
+    estado: "Finalizado",
+    generos: ["Fantasía", "Aventura", "Recuentos de la vida"],
+    enlaces: {
+        "Temporada 1": {
+            "Japonés": "https://t.me/AnimeKaergsty1/3998"
+        }
+    }
+};

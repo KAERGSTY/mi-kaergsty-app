@@ -375,7 +375,52 @@ window.base = {
                         "Japonés": "https://t.me/TuCanal/LINK"
                     }
                 }
+            },
+            "Arne no Jikenbo":{
+                nombresAlternativos: {
+                    "Japonés": "アルネの事件簿",
+                    "Ingles": "The Case Book of Arne"
+                },
+                sinopsis: "Lynn, una chica humana amante del misterio, termina en una extraña ciudad habitada por criaturas fantásticas. Allí conoce a Arne, un vampiro autoproclamado 'detective', y juntos resuelven crímenes sobrenaturales.",
+                estado: "Finalizado",
+                generos: ["Misterio", "Fantasía", "Sobrenatural"],
+                enlaces: {
+                    "Temporada 1": {
+                        "Japonés": "https://t.me/AnimeKaergsty1/3968"
+                    }
+                }
+            },
+            "Android wa Keiken Ninzuu ni Hairimasu ka":{
+                nombresAlternativos: {
+                    "Japonés": "アンドロイドは経験人数に入りますか？？",
+                    "Ingles": "Do Androids Count Towards Your Body Count?"
+                },
+                sinopsis: "En un futuro donde las relaciones con androides son comunes, la historia sigue a un joven que compra una hermosa androide para evitar la soledad, cuestionándose los límites entre el amor artificial y el genuino.",
+                estado: "Próximamente",
+                generos: ["Sci-Fi", "Romance", "Ecchi"],
+                enlaces: {
+                    "Temporada 1": {
+                        "Japonés": "",
+                        "Latino": ""
+                    }
+                }
+            },
+            "Akuyaku Reijou wa Ringoku no Outaishi ni Dekiai sareru":{
+                nombresAlternativos: {
+                    "Japonés": "悪役令嬢は隣国の王太子に溺愛される",
+                    "Ingles": "The Villainess Is Adored by the Crown Prince of the Neighboring Kingdom"
+                },
+                sinopsis: "Tiararose, reencarnada como la villana de un juego otome, es exiliada en el final del juego. Inesperadamente, el príncipe heredero del reino vecino se interpone y le propone matrimonio, cambiando su destino por completo.",
+                estado: "Finalizado",
+                generos: ["Romance", "Fantasía", "Isekai"],
+                enlaces: {
+                    "Temporada 1": {
+                        "Japonés": "",
+                        "Latino": ""
+                    }
+                }
             }
+
 
             
 

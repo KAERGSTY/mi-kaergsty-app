@@ -164,3 +164,19 @@ window.base["Chichi wa Eiyuu, Haha wa Seirei, Musume no Watashi wa Tenseisha"] =
         }
     }
 };
+
+window.base["Champignon no Majo"] = {
+    carpeta: "imgC",
+    nombresAlternativos: {
+        "Japonés": "シャンピニオンの魔女",
+        "Ingles": "The Mushroom Witch"
+    },
+    sinopsis: "Luna es una bruja que vive aislada en un bosque de hongos debido a una maldición que genera esporas venenosas a su alrededor. Sin embargo, su vida solitaria cambia cuando acoge a un niño humano en su hogar.",
+    estado: "Finalizado",
+    generos: ["Fantasía", "Drama", "Magia"],
+    enlaces: {
+        "Temporada 1": {
+            "Japonés": "https://t.me/AnimeKaergsty1/4043"
+        }
+    }
+};

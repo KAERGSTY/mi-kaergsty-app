@@ -304,3 +304,70 @@ window.base["Disney Twisted-Wonderland The Animation"] = {
     estado: "Finalizado",
     enlaces: { "Temporada 1": { "Japonés": "LINK_AQUÍ" } }
 };
+
+window.base["Darwin Jihen"] = {
+    carpeta: "imgD",
+    nombresAlternativos: {
+        "Japonés": "ダーウィン事変",
+        "Ingles": "The Darwin Incident"
+    },
+    sinopsis: "Charlie, un 'humanzee' (híbrido entre humano y chimpancé), es criado en secreto hasta que se inscribe en un instituto. Allí, su existencia desata conflictos con un grupo terrorista por los derechos de los animales.",
+    estado: "Finalizado",
+    generos: ["Drama", "Sci-Fi", "Suspense"],
+    enlaces: {
+        "Temporada 1": {
+            "Japonés": "https://t.me/AnimeKaergsty1/3966",
+            "Latino": "https://t.me/AnimeKaergsty1/3980"
+        }
+    }
+};
+
+window.base["Dark Moon Tsuki no Saidan"] = {
+    carpeta: "imgD",
+    nombresAlternativos: {
+        "Japonés": "黒の月: 月の祭壇",
+        "Ingles": "DARK MOON: THE BLOOD ALTAR"
+    },
+    sinopsis: "Siete chicos vampiros que asisten a una misteriosa academia cruzan caminos con una chica especial. Esta historia de fantasía urbana revela oscuros secretos, hombres lobo y un destino entrelazado por la sangre.",
+    estado: "Finalizado",
+    generos: ["Fantasía", "Vampiros", "Drama"],
+    enlaces: {
+        "Temporada 1": {
+            "Japonés": "https://t.me/AnimeKaergsty1/4108",
+            "Latino": "https://t.me/AnimeKaergsty1/4225"
+        }
+    }
+};
+
+window.base["Dead Account"] = {
+    carpeta: "imgD",
+    nombresAlternativos: {
+        "Japonés": "デッドアカウント",
+        "Ingles": "Dead Account"
+    },
+    sinopsis: "Souji es un estudiante que oculta un gran secreto: gana dinero 'exorcizando' espíritus que habitan en los videos virales de internet. Su vida se complica cuando se enfrenta a anomalías digitales cada vez más peligrosas.",
+    estado: "Finalizado",
+    generos: ["Sobrenatural", "Misterio", "Acción"],
+    enlaces: {
+        "Temporada 1": {
+            "Japonés": "https://t.me/AnimeKaergsty1/4123"
+        }
+    }
+};
+
+window.base["Demi-chan wa Kataritai"] = {
+    carpeta: "imgD",
+    nombresAlternativos: {
+        "Japonés": "亜人ちゃんは語りたい",
+        "Ingles": "Interviews with Monster Girls"
+    },
+    sinopsis: "Tetsuo Takahashi es un profesor de biología fascinado por las 'Demi' (chicas monstruo como vampiras, súcubos y dullahan). Cuando varias de ellas se matriculan en su instituto, aprovecha para entrevistarlas y ayudarlas en sus vidas diarias.",
+    estado: "Finalizado",
+    generos: ["Comedia", "Sobrenatural", "Escolar"],
+    enlaces: {
+        "Temporada 1": {
+            "Japonés": "https://t.me/AnimeKaergsty1/4940",
+            "Latino": "https://t.me/AnimeKaergsty1/4943"
+        }
+    }
+};

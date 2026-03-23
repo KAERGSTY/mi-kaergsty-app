@@ -303,3 +303,84 @@ window.base["Yarinaoshi Reijou wa Ryuutei Heika wo Kouryakuchuu"] = {
         }
     }
 };
+
+window.base["Yuusha Party wo Oidasareta Kiyoubinbou"] = {
+    carpeta: "imgY",
+    nombresAlternativos: {
+        "Japonés": "勇者パーティーを追い出された器用貧乏",
+        "Ingles": "The Jack-of-All-Trades Dropped from the Hero's Party"
+    },
+    sinopsis: "Orn, apodado el 'maestro de nada', es expulsado del grupo del héroe por falta de una habilidad especializada. Sin embargo, su conocimiento en múltiples disciplinas lo convierte en un aventurero excepcionalmente versátil.",
+    estado: "Finalizado",
+    generos: ["Aventura", "Fantasía", "Acción"],
+    enlaces: {
+        "Temporada 1": {
+            "Japonés": "https://t.me/AnimeKaergsty1/3837"
+        }
+    }
+};
+
+window.base["Yuusha-kei ni Shosu Choubatsu Yuusha 9004-tai Keimu Kiroku"] = {
+    carpeta: "imgY",
+    nombresAlternativos: {
+        "Japonés": "勇者刑に処す 懲罰勇者9004隊刑務記録",
+        "Ingles": "Sentenced to Be a Hero"
+    },
+    sinopsis: "En un mundo donde convertirse en héroe es un castigo para los peores criminales, un grupo de 'héroes penales' debe luchar en las líneas del frente contra los demonios para redimir sus pecados o morir en el intento.",
+    estado: "Finalizado",
+    generos: ["Fantasía", "Acción", "Oscuro"],
+    enlaces: {
+        "Temporada 1": {
+            "Japonés": "https://t.me/AnimeKaergsty1/3885",
+            "Latino": "https://t.me/AnimeKaergsty1/3888"
+        }
+    }
+};
+
+window.base["Yuusha Party ni Kawaii Ko ga Ita node, Kokuhaku shitemita"] = {
+    carpeta: "imgY",
+    nombresAlternativos: {
+        "Japonés": "勇者パーティーにかわいい子がいたので、告白してみた。",
+        "Ingles": "I Confessed to a Cute Girl in the Hero's Party"
+    },
+    sinopsis: "Youki, un poderoso soldado del ejército del Rey Demonio, se enamora a primera vista de la curandera del grupo del Héroe. ¡Para estar con ella, decide traicionar a los demonios y unirse al bando de la humanidad!",
+    estado: "Próximamente",
+    generos: ["Comedia", "Romance", "Fantasía"],
+    enlaces: {
+        "Temporada 1": {
+            "Japonés": "https://t.me/AnimeKaergsty1/3958"
+        }
+    }
+};
+
+window.base["Yoroi Shin Den Samurai Troopers"] = {
+    carpeta: "imgY",
+    nombresAlternativos: {
+        "Japonés": "鎧伝サムライトルーパー",
+        "Ingles": "Ronin Warriors"
+    },
+    sinopsis: "Cinco jóvenes con armaduras místicas deben unirse para combatir las fuerzas oscuras de Talpa, el señor de la guerra del Imperio Doom, que ha regresado para conquistar el mundo humano.",
+    estado: "Finalizado",
+    generos: ["Acción", "Fantasía", "Aventura"],
+    enlaces: {
+        "Temporada 1": {
+            "Japonés": "https://t.me/AnimeKaergsty1/3964"
+        }
+    }
+};
+
+window.base["Yuusha no Kuzu"] = {
+    carpeta: "imgY",
+    nombresAlternativos: {
+        "Japonés": "勇者のクズ",
+        "Ingles": "Trash of the Hero"
+    },
+    sinopsis: "En un Japón contemporáneo donde la magia y la tecnología coexisten, los 'héroes' son cazadores de recompensas financiados por la mafia. Yashiro, un héroe endeudado y de moral cuestionable, hace cualquier trabajo sucio para sobrevivir.",
+    estado: "Finalizado",
+    generos: ["Acción", "Fantasía Urbana", "Seinen"],
+    enlaces: {
+        "Temporada 1": {
+            "Japonés": "https://t.me/AnimeKaergsty1/4125"
+        }
+    }
+};

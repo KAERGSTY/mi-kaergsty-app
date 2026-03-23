@@ -286,3 +286,35 @@ window.base["Gorilla no Kami kara Kago sareta Reijou"] = {
         }
     }
 };
+
+window.base["Gaikotsu Kishi-sama, Tadaima Isekai e Odekakechuu"] = {
+    carpeta: "imgG",
+    nombresAlternativos: {
+        "Japonés": "骸骨騎士様、只今異世界へお出掛け中",
+        "Ingles": "Skeleton Knight in Another World"
+    },
+    sinopsis: "Un jugador despierta en el mundo de su MMO favorito con la apariencia de su avatar, un caballero esqueleto. Para no llamar la atención, decide viajar como mercenario, pero su sentido de la justicia siempre lo mete en problemas.",
+    estado: "Finalizado",
+    generos: ["Isekai", "Fantasía", "Aventura"],
+    enlaces: {
+        "Temporada 1": {
+            "Japonés": "https://t.me/AnimeKaergsty1/3842"
+        }
+    }
+};
+
+window.base["Goumon Baito-kun no Nichijou"] = {
+    carpeta: "imgG",
+    nombresAlternativos: {
+        "Japonés": "拷問バイトくんの日常",
+        "Ingles": "The Daily Life of a Torture Part-timer"
+    },
+    sinopsis: "Una comedia oscura y peculiar sobre un chico que consigue un trabajo a tiempo parcial como torturador para una organización malvada, pero que trata sus tareas macabras con la misma mundanidad que un trabajo en una tienda de conveniencia.",
+    estado: "Finalizado",
+    generos: ["Comedia", "Humor Negro"],
+    enlaces: {
+        "Temporada 1": {
+            "Japonés": "https://t.me/AnimeKaergsty1/3900"
+        }
+    }
+};

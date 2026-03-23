@@ -157,3 +157,19 @@ window.base["Jijou wo Shiranai Tenkousei ga Guigui Kuru"] = {
         }
     }
 };
+
+window.base["Jingai Kyoushitsu no Ningengirai Kyoushi"] = {
+    carpeta: "imgJ",
+    nombresAlternativos: {
+        "Japonés": "人外教室の人間嫌い教師",
+        "Ingles": "The Misanthropic Teacher in a Classroom of Non-Humans"
+    },
+    sinopsis: "Un maestro que detesta profundamente a la humanidad es asignado a una clase muy peculiar: todos sus estudiantes son monstruos, espíritus y seres no humanos, con quienes termina llevándose sorprendentemente bien.",
+    estado: "Finalizado",
+    generos: ["Comedia", "Escolar", "Sobrenatural"],
+    enlaces: {
+        "Temporada 1": {
+            "Japonés": "https://t.me/AnimeKaergsty1/4121"
+        }
+    }
+};

@@ -400,3 +400,52 @@ window.base["Hazurewaku no Joutai Ijou Skill"] = {
         }
     }
 };
+
+window.base["Hell Mode Yarikomizuki no Gamer wa Hai Settei no Isekai de Musou suru"] = {
+    carpeta: "imgH",
+    nombresAlternativos: {
+        "Japonés": "ヘルモード ～やり込み好きのゲーマーは廃設定の異世界で無双する～",
+        "Ingles": "Hell Mode: The Hardcore Gamer Dominates in Another World"
+    },
+    sinopsis: "Kenichi, un jugador empedernido, elige jugar un misterioso juego en 'Modo Infierno'. Termina reencarnado como un siervo en un mundo de fantasía brutal, donde debe grindear desde cero para sobrevivir y volverse el más fuerte.",
+    estado: "Finalizado",
+    generos: ["Isekai", "Aventura", "Fantasía"],
+    enlaces: {
+        "Temporada 1": {
+            "Japonés": "https://t.me/AnimeKaergsty1/4104"
+        }
+    }
+};
+
+window.base["Hanazakari no Kimitachi e"] = {
+    carpeta: "imgH",
+    nombresAlternativos: {
+        "Japonés": "花ざかりの君たちへ",
+        "Ingles": "Hana-Kimi"
+    },
+    sinopsis: "Mizuki Ashiya se disfraza de chico para transferirse a una escuela exclusivamente masculina. Su objetivo es acercarse a Izumi Sano, un ex atleta de salto de altura al que admira, para convencerlo de volver a saltar.",
+    estado: "Finalizado",
+    generos: ["Romance", "Comedia", "Escolar", "Shojo"],
+    enlaces: {
+        "Temporada 1": {
+            "Japonés": "https://t.me/AnimeKaergsty1/3894",
+            "Latino": "https://t.me/AnimeKaergsty1/3911"
+        }
+    }
+};
+
+window.base["Hikuidori Ushuu Boro Tobi-gumi"] = {
+    carpeta: "imgH",
+    nombresAlternativos: {
+        "Japonés": "火喰鳥 宇州ぼろ鳶組",
+        "Ingles": "Hikuidori"
+    },
+    sinopsis: "En la era Edo, donde los incendios son una amenaza constante, sigue la vida y las batallas de los valientes bomberos que arriesgan todo para proteger la ciudad de las llamas devoradoras.",
+    estado: "En emisión",
+    generos: ["Histórico", "Acción", "Drama"],
+    enlaces: {
+        "Temporada 1": {
+            "Japonés": "https://t.me/AnimeKaergsty1/4155"
+        }
+    }
+};

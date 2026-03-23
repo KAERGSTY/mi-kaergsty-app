@@ -915,3 +915,37 @@ window.base["Saikyou no Shienshoku Wajutsushi"] = {
         }
     }
 };
+
+window.base["Shibou Yuugi de Meshi wo Kuu"] = {
+    carpeta: "imgS",
+    nombresAlternativos: {
+        "Japonés": "死亡遊戯で飯を食う。",
+        "Ingles": "Playing Death Games to Put Food on the Table"
+    },
+    sinopsis: "Yuuki se despierta regularmente en diferentes 'juegos de la muerte' organizados por anfitriones extraños. Como jugadora veterana, se gana la vida sobreviviendo a estos mortales desafíos con una actitud sorprendentemente casual.",
+    estado: "Finalizado",
+    generos: ["Acción", "Suspenso", "Psicológico"],
+    enlaces: {
+        "Temporada 1": {
+            "Japonés": "https://t.me/AnimeKaergsty1/4004",
+            "Latino": "https://t.me/AnimeKaergsty1/4198"
+        }
+    }
+};
+
+window.base["Seihantai na Kimi to Boku"] = {
+    carpeta: "imgS",
+    nombresAlternativos: {
+        "Japonés": "正反対な君と僕",
+        "Ingles": "You and I Are Polar Opposites"
+    },
+    sinopsis: "Suzuki, una chica alegre y extrovertida, está enamorada de Tani, un chico callado que prefiere pasar desapercibido. A pesar de sus personalidades diametralmente opuestas, comienzan a salir en esta refrescante comedia romántica.",
+    estado: "Finalizado",
+    generos: ["Comedia", "Romance", "Escolar"],
+    enlaces: {
+        "Temporada 1": {
+            "Japonés": "https://t.me/AnimeKaergsty1/4147",
+            "Latino": "https://t.me/AnimeKaergsty1/4163"
+        }
+    }
+};

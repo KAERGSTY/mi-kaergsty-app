@@ -334,3 +334,68 @@ window.base["Ore wa Subete wo Parry suru"] = {
         }
     }
 };
+
+window.base["Osananajimi to wa Love Comedy ni Naranai"] = {
+    carpeta: "imgO",
+    nombresAlternativos: {
+        "Japonés": "幼馴染とはラブコメにならない",
+        "Ingles": "You Can't Have a Romcom with Your Childhood Friend"
+    },
+    sinopsis: "Eiyuu y Shio han sido amigos de la infancia durante años. Aunque actúan como una pareja casada, ambos se niegan a admitir que están en una comedia romántica, llevando a situaciones divertidas y frustrantes para quienes los rodean.",
+    estado: "Finalizado",
+    generos: ["Comedia", "Romance", "Escolar"],
+    enlaces: {
+        "Temporada 1": {
+            "Japonés": "https://t.me/AnimeKaergsty1/3929"
+        }
+    }
+};
+
+window.base["Okiraku Ryoushu no Tanoshii Ryouchi Bouei"] = {
+    carpeta: "imgO",
+    nombresAlternativos: {
+        "Japonés": "お気楽領主の楽しい領地防衛",
+        "Ingles": "The Carefree Lord's Happy Territory Defense"
+    },
+    sinopsis: "Van, un niño de la nobleza con un talento aparentemente inútil, es exiliado a un territorio fronterizo. Para sorpresa de todos, usa su conocimiento y habilidades creativas para convertir su modesto pueblo en una ciudad próspera.",
+    estado: "Finalizado",
+    generos: ["Fantasía", "Isekai", "Gestión"],
+    enlaces: {
+        "Temporada 1": {
+            "Japonés": "https://t.me/AnimeKaergsty1/3996"
+        }
+    }
+};
+
+window.base["Odayaka Kizoku no Kyuuka no Susume"] = {
+    carpeta: "imgO",
+    nombresAlternativos: {
+        "Japonés": "穏やか貴族の休暇のすすめ。",
+        "Ingles": "A Gentle Noble's Vacation Recommendation"
+    },
+    sinopsis: "Lizel, un aristócrata de un mundo de fantasía, es transportado a otro mundo diferente. En lugar de entrar en pánico, decide tratar su nueva situación como unas largas vacaciones, disfrutando de las aventuras y la buena comida.",
+    estado: "Finalizado",
+    generos: ["Fantasía", "Isekai", "Recuentos de la vida"],
+    enlaces: {
+        "Temporada 1": {
+            "Japonés": "https://t.me/AnimeKaergsty1/4002"
+        }
+    }
+};
+
+window.base["Omagoto"] = {
+    carpeta: "imgO",
+    nombresAlternativos: {
+        "Japonés": "おまごと",
+        "Ingles": "Omagoto"
+    },
+    sinopsis: "Un manga intrigante que explora las complejidades de las relaciones humanas y los oscuros secretos que se esconden bajo la superficie de la vida cotidiana.",
+    estado: "En emisión",
+    generos: ["Drama", "Psicológico"],
+    enlaces: {
+        "Temporada 1": {
+            "Japonés": "https://t.me/AnimeKaergsty1/4045",
+            "Latino": "https://t.me/AnimeKaergsty1/4406"
+        }
+    }
+};

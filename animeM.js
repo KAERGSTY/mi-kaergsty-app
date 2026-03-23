@@ -753,3 +753,51 @@ window.base["Mushoku no Eiyuu"] = {
         }
     }
 };
+
+window.base["Majutsushi Kunon wa Mieteiru"] = {
+    carpeta: "imgM",
+    nombresAlternativos: {
+        "Japonés": "魔術師クノンは見えている",
+        "Ingles": "The Magician Kunon Sees Everything"
+    },
+    sinopsis: "Kunon es un joven noble ciego que descubre un talento excepcional para la magia de agua. Su objetivo es crear unos 'ojos de agua' mágicos para poder ver el mundo, emprendiendo un viaje lleno de descubrimientos.",
+    estado: "Finalizado",
+    generos: ["Fantasía", "Magia", "Aventura"],
+    enlaces: {
+        "Temporada 1": {
+            "Japonés": "https://t.me/AnimeKaergsty1/3896"
+        }
+    }
+};
+
+window.base["Maou no Musume wa Yasashisugiru!!"] = {
+    carpeta: "imgM",
+    nombresAlternativos: {
+        "Japonés": "魔王の娘は優しすぎる!!",
+        "Ingles": "The Demon King's Daughter Is Too Kind"
+    },
+    sinopsis: "El temido Rey Demonio tiene una pequeña hija llamada Dou. Sin embargo, en lugar de ser malvada y cruel, Dou es increíblemente amable, pura y adorable, lo que derrite el corazón de todos los demonios del castillo.",
+    estado: "Finalizado",
+    generos: ["Comedia", "Fantasía", "Recuentos de la vida"],
+    enlaces: {
+        "Temporada 1": {
+            "Japonés": "https://t.me/AnimeKaergsty1/3956"
+        }
+    }
+};
+
+window.base["Mayonaka Heart Tune"] = {
+    carpeta: "imgM",
+    nombresAlternativos: {
+        "Japonés": "真夜中ハートチューン",
+        "Ingles": "Midnight Heart Tune"
+    },
+    sinopsis: "Yamabuki Arata es un estudiante que busca a la chica detrás de un programa de radio nocturno que lo salvó en el pasado. Su búsqueda lo lleva a sospechar de cuatro chicas en su club de transmisión.",
+    estado: "Finalizado",
+    generos: ["Romance", "Comedia", "Harem", "Escolar"],
+    enlaces: {
+        "Temporada 1": {
+            "Japonés": "https://t.me/AnimeKaergsty1/3960"
+        }
+    }
+};

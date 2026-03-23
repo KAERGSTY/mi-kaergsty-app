@@ -672,3 +672,67 @@ window.base["Tomodachi no Imouto ga Ore ni dake Uzai"] = {
         }
     }
 };
+
+window.base["Toumei Otoko to Ningen Onna Sonouchi Fuufu ni Naru Futari"] = {
+    carpeta: "imgT",
+    nombresAlternativos: {
+        "Japonés": "透明男と人間女～そのうち夫婦になるふたり～",
+        "Ingles": "The Invisible Man and the Human Woman"
+    },
+    sinopsis: "Yakou, una oficinista humana, trabaja en una agencia de detectives junto a un hombre invisible bondadoso. Una dulce historia de amor donde los sentimientos son claros aunque uno de ellos no se pueda ver.",
+    estado: "Finalizado",
+    generos: ["Romance", "Sobrenatural", "Recuentos de la vida"],
+    enlaces: {
+        "Temporada 1": {
+            "Japonés": "https://t.me/AnimeKaergsty1/4049"
+        }
+    }
+};
+
+window.base["Tensei shitara Dragon no Tamago data"] = {
+    carpeta: "imgT",
+    nombresAlternativos: {
+        "Japonés": "転生したらドラゴンの卵だった",
+        "Ingles": "Reincarnated as a Dragon Hatchling"
+    },
+    sinopsis: "Un joven despierta en un bosque misterioso y descubre que se ha reencarnado en un simple huevo de dragón. Ahora debe sobrevivir, cazar y evolucionar para convertirse en una criatura mitológica temible.",
+    estado: "Finalizado",
+    generos: ["Isekai", "Aventura", "Fantasía"],
+    enlaces: {
+        "Temporada 1": {
+            "Japonés": "https://t.me/AnimeKaergsty1/4117"
+        }
+    }
+};
+
+window.base["Trigun Stargaze"] = {
+    carpeta: "imgT",
+    nombresAlternativos: {
+        "Japonés": "トライガン スターゲイズ",
+        "Ingles": "Trigun Stargaze"
+    },
+    sinopsis: "Una nueva y emocionante entrega del universo Trigun, continuando las aventuras en el árido planeta de No Man's Land donde los pistoleros, la redención y la acción desenfrenada están a la orden del día.",
+    estado: "Finalizado",
+    generos: ["Acción", "Sci-Fi", "Aventura"],
+    enlaces: {
+        "Temporada 1": {
+            "Japonés": "https://t.me/AnimeKaergsty1/4119"
+        }
+    }
+};
+
+window.base["Tamon-kun Ima Docchi"] = {
+    carpeta: "imgT",
+    nombresAlternativos: {
+        "Japonés": "多聞くん今どっち！？",
+        "Ingles": "Tamon's B-Side"
+    },
+    sinopsis: "Utage es una estudiante que trabaja a tiempo parcial limpiando casas. Su vida da un giro cuando descubre que uno de sus clientes es Tamon Ishibashi, su ídolo favorito, quien resulta tener una personalidad pesimista y desaliñada fuera del escenario.",
+    estado: "Finalizado",
+    generos: ["Comedia", "Romance", "Ídolos"],
+    enlaces: {
+        "Temporada 1": {
+            "Japonés": "https://t.me/AnimeKaergsty1/3831"
+        }
+    }
+};

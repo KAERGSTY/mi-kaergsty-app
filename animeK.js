@@ -901,3 +901,83 @@ window.base["Kanpekisugite Kawaige ga Nai to Konyaku Haki sareta"] = {
         }
     }
 };
+
+window.base["Kaguya-sama"] = {
+    carpeta: "imgK",
+    nombresAlternativos: {
+        "Japonés": "かぐや様は告らせたい",
+        "Ingles": "Kaguya-sama: Love is War"
+    },
+    sinopsis: "El presidente del consejo estudiantil, Miyuki Shirogane, y la vicepresidenta, Kaguya Shinomiya, están enamorados. Sin embargo, su orgullo les impide confesarlo, dando inicio a una guerra psicológica donde el primero en declararse pierde.",
+    estado: "Finalizado",
+    generos: ["Comedia", "Romance", "Escolar"],
+    enlaces: {
+        "Temporada 1": {
+            "Japonés": "https://t.me/AnimeKaergsty1/5067",
+            "Latino": "https://t.me/AnimeKaergsty1/5069"
+        },
+        "Temporada 2":{
+            "Japonés":"https://t.me/AnimeKaergsty1/5071",
+            "Latino":"https://t.me/AnimeKaergsty1/5073"
+        },
+        "Temporada 3":{
+            "Japonés":"https://t.me/AnimeKaergsty1/5075",
+            "Latino":"https://t.me/AnimeKaergsty1/5078"
+        },
+        "Especial":{
+            "Japones":"",
+            "Latino":""
+        },
+        "Temporada 4":{
+            "Japonés":"https://t.me/AnimeKaergsty1/3828"
+        }
+    }
+};
+
+window.base["Kizoku Tensei Megumareta Umare kara Saikyou no Chikara wo Eru"] = {
+    carpeta: "imgK",
+    nombresAlternativos: {
+        "Japonés": "貴族転生 ～恵まれた生まれから最強の力を得る～",
+        "Ingles": "Aristocrat's Reincarnation"
+    },
+    sinopsis: "Un emperador reencarna como el decimotercer príncipe de una familia noble. Con acceso ilimitado a recursos, talento innato y recuerdos de su vida pasada, decide vivir libremente mientras desarrolla habilidades inigualables.",
+    estado: "Finalizado",
+    generos: ["Fantasía", "Isekai", "Acción"],
+    enlaces: {
+        "Temporada 1": {
+            "Japonés": "https://t.me/AnimeKaergsty1/3898"
+        }
+    }
+};
+
+window.base["Kirei ni Shitemoraemasu ka"] = {
+    carpeta: "imgK",
+    nombresAlternativos: {
+        "Japonés": "きれいにしてもらえますか。",
+        "Ingles": "Can You Clean This Up?"
+    },
+    sinopsis: "Wakana dirige una pequeña tintorería en un tranquilo pueblo costero. A través de la ropa que le traen sus clientes, Wakana descubre pequeñas historias, secretos y sentimientos, en una obra relajante sobre la vida diaria.",
+    estado: "Finalizado",
+    generos: ["Recuentos de la vida", "Drama"],
+    enlaces: {
+        "Temporada 1": {
+            "Japonés": "https://t.me/AnimeKaergsty1/3932"
+        }
+    }
+};
+
+window.base["Kaya-chan wa Kowakunai"] = {
+    carpeta: "imgK",
+    nombresAlternativos: {
+        "Japonés": "カヤちゃんはコワくない",
+        "Ingles": "Kaya-chan Isn't Scary"
+    },
+    sinopsis: "Kaya es una niña de preescolar que aparentemente es problemática. Sin embargo, su maestra se da cuenta de que Kaya tiene la habilidad de ver y exorcizar aterradores espíritus malignos que acechan el jardín de infantes.",
+    estado: "Finalizado",
+    generos: ["Horror", "Sobrenatural", "Comedia"],
+    enlaces: {
+        "Temporada 1": {
+            "Japonés": "https://t.me/AnimeKaergsty1/4149"
+        }
+    }
+};

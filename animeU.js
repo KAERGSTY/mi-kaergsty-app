@@ -158,3 +158,19 @@ window.base["Uchi no Kaisha no Chiisai Senpai no Hanashi"] = {
         }
     }
 };
+
+window.base["Uruwashi no Yoi no Tsuki"] = {
+    carpeta: "imgU",
+    nombresAlternativos: {
+        "Japonés": "うるわしの宵の月",
+        "Ingles": "In the Clear Moonlit Dusk"
+    },
+    sinopsis: "Yoi es una chica conocida en su escuela como 'el príncipe' por su apariencia andrógina. Todo cambia cuando conoce a Ichimura, su contraparte masculina en popularidad, quien es el primero en tratarla verdaderamente como a una chica.",
+    estado: "Finalizado",
+    generos: ["Romance", "Shojo", "Escolar"],
+    enlaces: {
+        "Temporada 1": {
+            "Japonés": "https://t.me/AnimeKaergsty1/4145"
+        }
+    }
+};
