@@ -1,0 +1,168 @@
+window.base["Rinkai!"] = {
+    carpeta: "imgR",
+    sinopsis: "El mundo del ciclismo femenino competitivo de élite se abre paso. Izumi Ito, una joven que ama las bicicletas, decide entrar en el mundo de las carreras de keirin tras presenciar una competencia de alto nivel.",
+    estado: "Finalizado",
+    generos: ["Deportes"],
+    enlaces: {
+        "Temporada 1": {
+            "Sub Español": "https://t.me/Kaergsty/2/17621"
+        }
+    }
+};
+
+window.base["Re Monster"] = {
+    carpeta: "imgR",
+    sinopsis: "Tomokui Kanata muere tras una vida corta, pero se reencarna como un humilde duende llamado Goburou. Sin embargo, conserva sus recuerdos humanos y una habilidad que le permite volverse más fuerte al comer.",
+    estado: "Finalizado",
+    generos: ["Isekai", "Acción", "Fantasía"],
+    enlaces: {
+        "Temporada 1": {
+            "Sub Español": "https://t.me/Kaergsty/2/17243",
+            "Latino 🇲🇽": "https://t.me/Kaergsty/2154/17721"
+        }
+    }
+};
+
+window.base["Renai Flops"] = {
+    carpeta: "imgR",
+    sinopsis: "Kashiwagi Asahi se encuentra en medio de una serie de encuentros inusuales con cinco chicas de diferentes partes del mundo, siguiendo las predicciones de un horóscopo que vio en la televisión.",
+    estado: "Finalizado",
+    generos: ["Comedia", "Romance", "Ecchi"],
+    enlaces: {
+        "Temporada 1": {
+            "Sub Español": "https://t.me/Kaergsty/2/4476"
+        }
+    }
+};
+
+window.base["Ragna Crimson"] = {
+    carpeta: "imgR",
+    sinopsis: "En un mundo donde los dragones dominan el cielo y la tierra, Ragna, un cazador de dragones de bajo nivel, se une al misterioso Crimson para exterminar a los monarcas dragón cueste lo que cueste.",
+    estado: "Finalizado",
+    generos: ["Acción", "Fantasía"],
+    enlaces: {
+        "Temporada 1": {
+            "Sub Español": "https://t.me/Kaergsty/2/8551"
+        }
+    }
+};
+
+window.base["Ruri no Houseki"] = {
+    carpeta: "imgR",
+    sinopsis: "Ruri es una chica fascinada por las gemas y los minerales. Junto a una estudiante de posgrado amante de la geología, explora montañas y ríos en busca de tesoros naturales mientras aprende sobre el mundo mineral.",
+    estado: "Finalizado",
+    generos: ["Recuentos de la vida"],
+    enlaces: {
+        "Temporada 1": {
+            "Sub Español": "https://t.me/Kaergsty/2/49319"
+        }
+    }
+};
+
+window.base["Ramen Akaneko"] = {
+    carpeta: "imgR",
+    sinopsis: "Tamako acude a una entrevista de trabajo en una tienda de ramen regentada exclusivamente por gatos. Si le gustan los gatos, este es su lugar de trabajo ideal... aunque los jefes son un poco exigentes con la higiene.",
+    estado: "Finalizado",
+    generos: ["Comedia", "Gourmet"],
+    enlaces: {
+        "Temporada 1": {
+            "Sub Español": "https://t.me/Kaergsty/2/23492"
+        }
+    }
+};
+
+window.base["Ranma ½ (2024)"] = {
+    carpeta: "imgR",
+    sinopsis: "Remake del clásico. Ranma Saotome es un experto en artes marciales que, debido a una maldición, se convierte en chica al tocar el agua fría. Junto a su prometida Akane, vive situaciones caóticas y combates épicos.",
+    estado: "En emisión",
+    generos: ["Comedia", "Artes Marciales", "Romance"],
+    enlaces: {
+        "Temporada 1": {
+            "Sub Español": "https://t.me/Kaergsty/2/28848"
+        }
+    }
+};
+
+window.base["Raise wa Tanin ga Ii"] = {
+    carpeta: "imgR",
+    sinopsis: "Yoshino Somei es la nieta del jefe de la yakuza más grande de Osaka. Su vida cambia cuando su abuelo organiza su compromiso con Kirishima Miyama, el nieto de otro jefe yakuza que resulta ser un masoquista peligroso.",
+    estado: "En emisión",
+    generos: ["Romance", "Drama"],
+    enlaces: {
+        "Temporada 1": {
+            "Sub Español": "https://t.me/Kaergsty/2/28980"
+        }
+    }
+};
+
+window.base["Rekishi ni Nokoru Akujo ni Naru zo"] = {
+    carpeta: "imgR",
+    sinopsis: "Una chica se reencarna como Alicia, la villana de su juego otome favorito. Decidida a convertirse en la villana más grande de la historia, sus esfuerzos terminan atrayendo la atención positiva de todos a su alrededor.",
+    estado: "En emisión",
+    generos: ["Isekai", "Fantasía", "Romance"],
+    enlaces: {
+        "Temporada 1": {
+            "Sub Español": "https://t.me/Kaergsty/2/28734"
+        }
+    }
+};
+
+window.base["Rock wa Lady no Tashinami deshite"] = {
+    carpeta: "imgR",
+    sinopsis: "Ririsa es una joven de la alta sociedad que debe comportarse como una dama refinada, pero su verdadera pasión es el rock pesado y tocar la guitarra eléctrica a todo volumen.",
+    estado: "Finalizado",
+    generos: ["Música", "Recuentos de la vida"],
+    enlaces: {
+        "Temporada 1": {
+            "Sub Español": "https://t.me/Kaergsty/2/46357"
+        }
+    }
+};
+
+window.base["Ryza no Atelier"] = {
+    carpeta: "imgR",
+    sinopsis: "Ryza es una chica común que sueña con aventuras fuera de su aburrida aldea. Al conocer a un alquimista, descubre un mundo de magia y creación que cambiará su vida y la de sus amigos para siempre.",
+    estado: "Finalizado",
+    generos: ["Fantasía", "Aventura"],
+    enlaces: {
+        "Temporada 1": {
+            "Sub Español": "https://t.me/Kaergsty/2/7472"
+        }
+    }
+};
+
+window.base["Rokudenashi Majutsu Koushi to Akashic Records"] = {
+    carpeta: "imgR",
+    sinopsis: "Glenn Radars es un profesor sustituto en una prestigiosa academia de magia que parece ser un vago total. Sin embargo, cuando la academia es atacada, demuestra que su conocimiento de la magia es excepcional.",
+    estado: "Finalizado",
+    generos: ["Magia", "Acción", "Fantasía"],
+    enlaces: {
+        "Temporada 1": {
+            "Sub Español": "https://t.me/Kaergsty/2/753"
+        }
+    }
+};
+
+window.base["Rougo ni Sonaete Isekai de 8-manmai no Kinka"] = {
+    carpeta: "imgR",
+    sinopsis: "Mitsuha cae por un acantilado y termina en otro mundo. Al descubrir que puede viajar entre ambos mundos, decide ahorrar 80,000 monedas de oro para asegurar una jubilación cómoda en su hogar original.",
+    estado: "Finalizado",
+    generos: ["Isekai", "Fantasía"],
+    enlaces: {
+        "Temporada 1": {
+            "Sub Español": "https://t.me/Kaergsty/2/1062"
+        }
+    }
+};
+
+window.base["Re Zero"] = {
+    carpeta: "imgR",
+    sinopsis: "Subaru Natsuki continúa su lucha en el reino de Lugunica. En esta tercera temporada, la lucha contra el Culto de la Bruja se intensifica en la ciudad de las compuertas, Pristella.",
+    estado: "En emisión",
+    generos: ["Isekai", "Drama", "Fantasía", "Psicológico"],
+    enlaces: {
+        "Temporada 3": {
+            "Sub Español": "https://t.me/Kaergsty/2/28756"
+        }
+    }
+};
