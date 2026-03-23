@@ -756,7 +756,7 @@ window.base["Saigo ni Hitotsu dake Onegai shitemo Yoroshii deshou ka"] = {
     }
 };
 
-window.base["Slime Taoshite 300-nen, Shiranai uchi ni Level Max ni Nattemashita"] = {
+window.base["Slime Taoshite 300 nen Shiranai Uchi ni Level Max ni Nattemashita"] = {
     carpeta: "imgS",
     nombresAlternativos: {
         "Japonés": "スライム倒して300年、知らないうちにレベルMAXになってました",
