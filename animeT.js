@@ -117,7 +117,7 @@ window.base["Trillion Game"] = {
         "Ingles": "Trillion Game"
     },
     sinopsis: "Dos amigos muy diferentes, uno calculador y otro impulsivo, se proponen ganar un billón de dólares partiendo desde cero en el competitivo mundo empresarial.",
-    estado: "En emisión",
+    estado: "Finalizado",
     generos: ["Drama", "Suspenso"],
     enlaces: {
         "Temporada 1": {
@@ -342,7 +342,7 @@ window.base["Tsuma, Shougakusei ni Naru"] = {
         "Ingles": "My Wife Became an Elementary School Student"
     },
     sinopsis: "Diez años después de la muerte de su esposa, un hombre deprimido y su hija reciben la visita de una estudiante de primaria que afirma ser la reencarnación de su difunta esposa.",
-    estado: "En emisión",
+    estado: "Finalizado",
     generos: ["Drama", "Sobrenatural", "Recuentos de la vida"],
     enlaces: {
         "Temporada 1": {

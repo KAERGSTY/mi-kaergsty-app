@@ -441,7 +441,7 @@ window.base["Hikuidori Ushuu Boro Tobi-gumi"] = {
         "Ingles": "Hikuidori"
     },
     sinopsis: "En la era Edo, donde los incendios son una amenaza constante, sigue la vida y las batallas de los valientes bomberos que arriesgan todo para proteger la ciudad de las llamas devoradoras.",
-    estado: "En emisión",
+    estado: "Finalizado",
     generos: ["Histórico", "Acción", "Drama"],
     enlaces: {
         "Temporada 1": {

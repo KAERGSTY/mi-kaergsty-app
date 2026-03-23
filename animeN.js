@@ -237,3 +237,20 @@ window.base["Naze Boku no Sekai wo Daremo Oboeteinai no ka"] = {
         }
     }
 };
+
+window.base["Niwatori Fighter"] = {
+    carpeta: "imgN",
+    nombresAlternativos: {
+        "Japonés": "ニワトリ・ファイター",
+        "Ingles": "Rooster Fighter"
+    },
+    sinopsis: "La humanidad está al borde del colapso tras el descenso sin previo aviso de los demoníacos Kiju, que arrasan ciudades y aplastan todo a su paso. La resistencia fracasa. La esperanza se desvanece. Todo parece perdido… hasta que un gallo solitario da un paso al frente. Con espuelas afiladas como navajas y un grito de guerra que rasga el cielo, este improbable héroe lleva el destino del mundo sobre sus alas. Cuando las defensas caigan y la esperanza se desvanezca, un pájaro se alzará.",
+    generos: ["Acción", "Comedia"],
+    estado: "En emisión",
+    enlaces: {
+        "Temporada 1": {
+            "Japonés":"https://t.me/AnimeKaergsty1/5295",
+            "Latino":"https://t.me/AnimeKaergsty1/5298"
+        }
+    }
+};

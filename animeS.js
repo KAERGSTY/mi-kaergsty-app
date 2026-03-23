@@ -103,7 +103,7 @@ window.base["Sengoku Youko"] = {
         "Ingles": "Sengoku Youko"
     },
     sinopsis: "El mundo está dividido entre humanos y monstruos (katawara). Tama, una katawara que ama a los humanos, y su hermanastro Jinka, un humano que los odia, viajan juntos para detener crímenes atroces.",
-    estado: "En emisión",
+    estado: "Finalizado",
     generos: ["Acción", "Fantasía", "Aventura"],
     enlaces: {
         "Temporada 1": {
@@ -135,7 +135,7 @@ window.base["Seirei Gensouki"] = {
         "Ingles": "Seirei Gensouki: Spirit Chronicles"
     },
     sinopsis: "Rio, un huérfano de los suburbios que recuerda su vida pasada como Haruto Amakawa, continúa su viaje de autodescubrimiento y protección de sus seres queridos en un mundo de magia y espadas.",
-    estado: "En emisión",
+    estado: "Finzalizado",
     generos: ["Isekai", "Fantasía", "Aventura"],
     enlaces: {
         "Temporada 2": {
@@ -360,7 +360,7 @@ window.base["Sayounara Ryuusei, Konnichiwa Jinsei"] = {
         "Ingles": "Good Bye, Dragon Life"
     },
     sinopsis: "El dragón más antiguo y poderoso decide dejarse morir, pero reencarna como un humano de pueblo llamado Dolan. Ahora, prefiere vivir una vida tranquila en lugar de luchar, aunque los problemas siempre lo encuentran.",
-    estado: "En emisión",
+    estado: "Finalizado",
     generos: ["Fantasía", "Aventura", "Acción"],
     enlaces: {
         "Temporada 1": {
@@ -523,7 +523,7 @@ window.base["Sword Art Online Alternative Gun Gale Online II"] = {
         "Ingles": "Sword Art Online Alternative: Gun Gale Online"
     },
     sinopsis: "Llenn y sus amigos regresan al mundo de Gun Gale Online para participar en un nuevo y desafiante torneo Squad Jam, donde la supervivencia y la estrategia lo son todo.",
-    estado: "En emisión",
+    estado: "Finalizado",
     generos: ["Acción", "Sci-Fi", "Videojuegos"],
     enlaces: {
         "Temporada 2": {
@@ -571,7 +571,7 @@ window.base["Shin Tennis no Oujisama U-17 World Cup Semifinal"] = {
         "Ingles": "The Prince of Tennis II"
     },
     sinopsis: "El equipo de Japón avanza en la Copa Mundial Sub-17 y se prepara para enfrentarse a rivales aún más fuertes en las semifinales, poniendo a prueba sus habilidades y espíritu de equipo al límite.",
-    estado: "En emisión",
+    estado: "Finalizado",
     generos: ["Deportes"],
     enlaces: {
         "Temporada 1": {
@@ -907,7 +907,7 @@ window.base["Saikyou no Shienshoku Wajutsushi"] = {
         "Ingles": "The Most Notorious \"Talker\" Runs the World's Greatest Clan"
     },
     sinopsis: "Noel, cuyo abuelo fue un héroe, posee la clase de apoyo 'Orador', considerada la más débil. A través de la estrategia, la manipulación y tácticas despiadadas, está decidido a liderar el clan más fuerte del mundo.",
-    estado: "En emisión",
+    estado: "Finalizado",
     generos: ["Fantasía", "Acción", "Aventura"],
     enlaces: {
         "Temporada 1": {

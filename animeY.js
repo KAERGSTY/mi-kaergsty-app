@@ -226,7 +226,7 @@ window.base["Youkai Gakkou no Sensei Hajimemashita!"] = {
         "Ingles": "A Terrified Teacher at Ghoul School!"
     },
     sinopsis: "Haruaki Abe es un profesor cobarde que termina trabajando en una escuela llena de yokais. Deberá sobrevivir a sus extraños alumnos mientras intenta mantener la cordura en un ambiente sobrenatural.",
-    estado: "En emisión",
+    estado: "Finalizado",
     generos: ["Comedia", "Sobrenatural", "Escolar"],
     enlaces: {
         "Temporada 1": {

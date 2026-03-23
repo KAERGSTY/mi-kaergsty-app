@@ -6,7 +6,7 @@ window.base["One Piece"] = {
     },
     sinopsis: "Monkey D. Luffy se niega a permitir que nadie se interponga en su camino para convertirse en el Rey de los Piratas. Con un curso trazado por las traicioneras aguas del Grand Line, este es un capitán que nunca se rendirá hasta que consiga el tesoro más grande de la tierra: el Legendario One Piece.",
     generos: ["Acción", "Aventura", "Fantasía"],
-    estado: "En emisión",
+    estado: "Finalizado",
     enlaces: {
         "Serie": {
             "Japonés": "https://t.me/Kaergsty/2/43330"

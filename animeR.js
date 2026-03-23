@@ -102,7 +102,7 @@ window.base["Ranma ½ (2024)"] = {
         "Ingles": "Ranma 1/2 (2024)"
     },
     sinopsis: "Remake del clásico. Ranma Saotome es un experto en artes marciales que, debido a una maldición, se convierte en chica al tocar el agua fría. Junto a su prometida Akane, vive situaciones caóticas y combates épicos.",
-    estado: "En emisión",
+    estado: "Finalizado",
     generos: ["Comedia", "Artes Marciales", "Romance"],
     enlaces: {
         "Temporada 1": {
@@ -118,7 +118,7 @@ window.base["Raise wa Tanin ga Ii"] = {
         "Ingles": "Yakuza Fiancé: Raise wa Tanin ga Ii"
     },
     sinopsis: "Yoshino Somei es la nieta del jefe de la yakuza más grande de Osaka. Su vida cambia cuando su abuelo organiza su compromiso con Kirishima Miyama, el nieto de otro jefe yakuza que resulta ser un masoquista peligroso.",
-    estado: "En emisión",
+    estado: "Finalizado",
     generos: ["Romance", "Drama"],
     enlaces: {
         "Temporada 1": {
@@ -134,7 +134,7 @@ window.base["Rekishi ni Nokoru Akujo ni Naru zo"] = {
         "Ingles": "I'll Become a Villainess Who Goes Down in History"
     },
     sinopsis: "Una chica se reencarna como Alicia, la villana de su juego otome favorito. Decidida a convertirse en la villana más grande de la historia, sus esfuerzos terminan atrayendo la atención positiva de todos a su alrededor.",
-    estado: "En emisión",
+    estado: "Finalizado",
     generos: ["Isekai", "Fantasía", "Romance"],
     enlaces: {
         "Temporada 1": {
@@ -214,7 +214,7 @@ window.base["Re Zero"] = {
         "Ingles": "Re:ZERO -Starting Life in Another World-"
     },
     sinopsis: "Subaru Natsuki continúa su lucha en el reino de Lugunica. En esta tercera temporada, la lucha contra el Culto de la Bruja se intensifica en la ciudad de las compuertas, Pristella.",
-    estado: "En emisión",
+    estado: "Finalizado",
     generos: ["Isekai", "Drama", "Fantasía", "Psicológico"],
     enlaces: {
         "Temporada 3": {
