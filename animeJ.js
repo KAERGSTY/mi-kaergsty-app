@@ -133,11 +133,19 @@ window.base["Jidou Hanbaiki ni Umarekawatta Ore wa"] = {
         "Ingles": "Reborn as a Vending Machine, I Now Wander the Dungeon"
     },
     sinopsis: "Un fanático de las máquinas expendedoras muere protegiendo una y reencarna en otro mundo... ¡como una máquina expendedora!",
+    id:"1",
     generos: ["Fantasía", "Comedia", "Isekai"],
-    estado: "Finalizado",
+    estado: "Pausado",
     enlaces: {
         "Temporada 1": {
             "Japonés": "https://t.me/Kaergsty/2/7770"
+        },
+        "Temporada 2":{
+            "Japonés":"https://t.me/AnimeKaergsty1/1254",
+            "Latino":"https://t.me/AnimeKaergsty1/1911"
+        },
+        "Temporada 3":{
+            "Japones":"https://t.me/AnimeKaergsty1/5422"
         }
     }
 };
@@ -170,6 +178,23 @@ window.base["Jingai Kyoushitsu no Ningengirai Kyoushi"] = {
     enlaces: {
         "Temporada 1": {
             "Japonés": "https://t.me/AnimeKaergsty1/4121"
+        }
+    }
+};
+
+window.base["Jisho Akuyaku Reijo na Konyakusha no Kansatsu Kiroku"] = {
+    carpeta: "imgJ",
+    nombresAlternativos: {
+        "Japonés": "自称悪役令嬢な婚約者の観察記録。",
+        "Ingles": "An Observation Log of My Fiancée Who Calls Herself a Villainess"
+    },
+    sinopsis: "Reencarnada como la villana de un juego otome, Bertia intenta arruinar su compromiso... ¡pero lo único que consigue es cautivar aún más al príncipe!",
+    id:"1",
+    estado: "Pausado",
+    generos: ["Shiki","Fantasía","Romance"],
+    enlaces: {
+        "Temporada 1": {
+            "Japonés": "https://t.me/AnimeKaergsty1/5378"
         }
     }
 };

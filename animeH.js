@@ -449,3 +449,54 @@ window.base["Hikuidori Ushuu Boro Tobi-gumi"] = {
         }
     }
 };
+
+window.base["Honzuki no Gekokujou Shisho ni Naru Tame ni wa Shudan wo Erandeiraremasen"] = {
+    carpeta: "imgH",
+    nombresAlternativos: {
+        "Japonés": "本好きの下剋上 ～司書になるためには手段を選んでいられません～",
+        "Ingles": "Ascendance of a Bookworm"
+    },
+    sinopsis: "En un mundo de nobles mágicos, Rozemyne debe sobrevivir a complots mortales y luchar para devolver los libros a la vida.",
+    id:"1",
+    estado: "Pausado",
+    generos: ["Miya Kazuki","Fantasía","Recuentos de la Vida"],
+    enlaces: {
+        "Temporada 4": {
+            "Japonés": "https://t.me/AnimeKaergsty1/5380"
+        }
+    }
+};
+
+window.base["Hidarikiki no Eren"] = {
+    carpeta: "imgH",
+    nombresAlternativos: {
+        "Japonés": "左ききのエレン",
+        "Ingles": "Eren the Southpaw"
+    },
+    sinopsis: "Un simple grafiti desencadena un vínculo que podría sanar o destruir a dos jóvenes artistas.",
+    id:"1",
+    estado: "Pausado",
+    generos: ["Kappi","Drama","Recuentos de la Vida"],
+    enlaces: {
+        "Temporada 1": {
+            "Japonés": "https://t.me/AnimeKaergsty1/5394"
+        }
+    }
+};
+
+window.base["Himekishi wa Barbaroi no Yome"] = {
+    carpeta: "imgH",
+    nombresAlternativos: {
+        "Japonés": "姫騎士は蛮族バルバロイの嫁",
+        "Ingles": "The Warrior Princess and the Barbaric King"
+    },
+    sinopsis: "Serafina, la caballero más feroz, ¡recibe una inesperada propuesta de matrimonio tras ser capturada por los bárbaros!",
+    id:"1",
+    estado: "Pausado",
+    generos: ["	Noriaki Kotoba","Fantasía","Fantasía Oscura","Romance","Comedia"],
+    enlaces: {
+        "Temporada 1": {
+            "Japonés": "https://t.me/AnimeKaergsty1/5444"
+        }
+    }
+};

@@ -477,11 +477,16 @@ window.base["Kanojo Okarishimasu"] = {
         "Ingles": "Rent-a-Girlfriend Season 3"
     },
     sinopsis: "Kazuya decide producir una película independiente para que Chizuru pueda cumplir el sueño de su abuela, lo que acerca aún más a los dos, mientras Mini entra en escena para apoyarlos.",
+    id:"1",
     generos: ["Comedia Romántica", "Harem", "Drama"],
     estado: "Finalizado",
     enlaces: {
-        "Temporada 3": {
-            "Japonés": "https://t.me/Kaergsty/2/8328"
+        "Temporada 4": {
+            "Japonés": "https://t.me/AnimeKaergsty1/1238",
+            "Latino": "https://t.me/AnimeKaergsty1/1919"
+        },
+        "Temporada 5":{
+            "Japonés":"Kanojo, Okarishimasu 4th Season"
         }
     }
 };
@@ -978,6 +983,91 @@ window.base["Kaya-chan wa Kowakunai"] = {
     enlaces: {
         "Temporada 1": {
             "Japonés": "https://t.me/AnimeKaergsty1/4149"
+        }
+    }
+};
+
+window.base["Kamiina Botan Yoeru Sugata wa Yuri no Hana"] = {
+    carpeta: "imgK",
+    nombresAlternativos: {
+        "Japonés": "上伊那ぼたん、酔へる姿は百合の花",
+        "Ingles": "Botan Kamiina Fully Blossoms When Drunk"
+    },
+    sinopsis: "Dos estudiantes universitarios se convierten en compañeros de copas y se lanzan a explorar en busca de nuevos tragos y aventuras.",
+    id:"1",
+    estado: "Pausado",
+    generos: ["Hey", "Comedia", "Yuri"],
+    enlaces: {
+        "Temporada 1": {
+            "Japonés": "https://t.me/AnimeKaergsty1/5382"
+        }
+    }
+};
+
+window.base["Kujima Utaeba Ie Hororo"] = {
+    carpeta: "imgK",
+    nombresAlternativos: {
+        "Japonés": "クジマ歌えば家ほろろ",
+        "Ingles": "Kujima: Why Sing, When You Can Warble?"
+    },
+    sinopsis: "Arata conoce a Kujima, una extraña y habladora criatura que, en silencio, va entrelazando su calidez en el día a día de su familia.",
+    id:"1",
+    estado: "Pausado",
+    generos: ["Akira Konno", "Comedia", "Sobrenatural"],
+    enlaces: {
+        "Temporada 1": {
+            "Japonés": "https://t.me/AnimeKaergsty1/5406"
+        }
+    }
+};
+
+window.base["Kami no Niwatsuki Kusunoki-tei"] = {
+    carpeta: "imgK",
+    nombresAlternativos: {
+        "Japonés": "神の庭付き楠木邸",
+        "Ingles": "Kusunoki's Garden of Gods"
+    },
+    sinopsis: "Una colección de dioses inusuales comienza a visitar una casa después de que un exorcista expulsa a los antiguos espíritus malignos.",
+    id:"1",
+    estado: "Pausado",
+    generos: ["Enju", "Fantasía", "Recuentos de la vida"],
+    enlaces: {
+        "Temporada 1": {
+            "Japonés": "https://t.me/AnimeKaergsty1/5408"
+        }
+    }
+};
+
+window.base["Kanan sama wa Akumade Choroi"] = {
+    carpeta: "imgK",
+    nombresAlternativos: {
+        "Japonés": "カナン様はあくまでチョロい",
+        "Ingles": "Mistress Kanan is Devilishly Easy"
+    },
+    sinopsis: "Una joven demonio suele llevar las de ganar al devorar almas, ¡hasta que un compañero de clase le roba el corazón!",
+    id:"1",
+    estado: "Pausado",
+    generos: ["Nonco","Romance","Comedia"],
+    enlaces: {
+        "Temporada 1": {
+            "Japonés": "https://t.me/AnimeKaergsty1/5414"
+        }
+    }
+};
+
+window.base["Kami no Shizuku"] = {
+    carpeta: "imgK",
+    nombresAlternativos: {
+        "Japonés": "神の雫",
+        "Ingles": "The Drops of God"
+    },
+    sinopsis: "Shizuku Kanzaki e Issei Tomine se enfrentan en una prueba de sus conocimientos sobre el vino para asegurar la herencia de su padre.",
+    id:"1",
+    estado: "Pausado",
+    generos: ["Tadashi Agi","Shu Okimoto","Cocina","Drama"],
+    enlaces: {
+        "Temporada 1": {
+            "Japonés": "https://t.me/AnimeKaergsty1/5436"
         }
     }
 };

@@ -310,11 +310,15 @@ window.base["Tsue to Tsurugi no Wistoria"] = {
         "Ingles": "Wistoria: Wand and Sword"
     },
     sinopsis: "Will asiste a una academia de magia, pero carece de la habilidad para lanzar hechizos. Sin embargo, lo compensa con una destreza abrumadora con la espada para cumplir una promesa a su amiga de la infancia.",
-    estado: "Finalizado",
+    id:"1",
+    estado: "Pausado",
     generos: ["Acción", "Fantasía", "Magia"],
     enlaces: {
         "Temporada 1": {
-            "Sub Español": "https://t.me/Kaergsty/2/23826"
+            "Japonés": "https://t.me/Kaergsty/2/23826"
+        },
+        "Temporada 2":{
+            "Japonés":"https://t.me/AnimeKaergsty1/5434"
         }
     }
 };
@@ -561,18 +565,22 @@ window.base["Tondemo Skill de Isekai Hourou Meshi"] = {
     }
 };
 
-window.base["Tensei shitara Slime Datta Ken 3rd Season"] = {
+window.base["Tensei shitara Slime Datta Ken"] = {
     carpeta: "imgT",
     nombresAlternativos: {
         "Japonés": "転生したらスライムだった件",
         "Ingles": "That Time I Got Reincarnated as a Slime"
     },
-    sinopsis: "Rimuru Tempest, convertido en Señor Demonio, debe lidiar con las consecuencias políticas y enfrentar la hostilidad del Sacro Imperio de Lubelius en esta tercera temporada.",
-    estado: "Finalizado",
+    sinopsis: "Satoru Mikami es un hombre de 37 años que tiene un trabajo que no le gusta, sin salida y que no es feliz con la vida que lleva, pero cuando muere a manos de un ladrón y piensa que es su fin, se despierta descubriendo que se ha reencarnado en un mundo de magia y espada… ¡pero como un slime! Ahora tendrá que acostumbrarse a su nueva vida, aunque por suerte contará con dos habilidades únicas que le ayudarán a sobrevivir: una que le proporciona una gran comprensión de todo lo que le rodea, y otra que le permite copiar las habilidades de sus oponentes.",
+    id:"1",
+    estado: "Pausado",
     generos: ["Isekai", "Fantasía", "Acción"],
     enlaces: {
         "Temporada 3": {
-            "Sub Español": "https://t.me/Kaergsty/2/17429"
+            "Japones": "https://t.me/Kaergsty/2/17429"
+        },
+        "Temporada 4":{
+            "Japonés":"https://t.me/AnimeKaergsty1/5428"
         }
     }
 };
@@ -733,6 +741,23 @@ window.base["Tamon-kun Ima Docchi"] = {
     enlaces: {
         "Temporada 1": {
             "Japonés": "https://t.me/AnimeKaergsty1/3831"
+        }
+    }
+};
+
+window.base["Tongari Boshi no Atorie"] = {
+    carpeta: "imgT",
+    nombresAlternativos: {
+        "Japonés": "とんがり帽子のアトリエ",
+        "Ingles": "Witch Hat Atelier"
+    },
+    sinopsis: "Los sueños de Coco de usar magia podrían hacerse realidad después de que descubre un secreto y se convierte en aprendiz.",
+    id:"1",
+    estado: "Pausado",
+    generos: ["Kamome Shirahama", "Fantasía"],
+    enlaces: {
+        "Temporada 1": {
+            "Japonés": "https://t.me/AnimeKaergsty1/5446"
         }
     }
 };

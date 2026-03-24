@@ -272,7 +272,8 @@ window.base = {
                 estado: "Finalizado",
                 enlaces: {
                     "Temporada 1": {
-                        "Japonés": "https://t.me/TuCanal/LINK"
+                        "Japonés": "https://t.me/AnimeKaergsty1/2903",
+                        "Latino":"https://t.me/AnimeKaergsty1/3438"
                     }
                 }
             },
@@ -358,7 +359,8 @@ window.base = {
                 estado: "Finalizado",
                 enlaces: {
                     "Temporada 1": {
-                        "Japonés": "https://t.me/TuCanal/LINK"
+                        "Japonés":"https://t.me/AnimeKaergsty1/2778",
+                        "Latino":"https://t.me/AnimeKaergsty1/3318"
                     }
                 }
             },
@@ -372,7 +374,7 @@ window.base = {
                 estado: "Finalizado",
                 enlaces: {
                     "Temporada 1": {
-                        "Japonés": "https://t.me/TuCanal/LINK"
+                        "Japonés": "https://t.me/AnimeKaergsty1/2927"
                     }
                 }
             },
@@ -400,8 +402,7 @@ window.base = {
                 generos: ["Sci-Fi", "Romance", "Ecchi"],
                 enlaces: {
                     "Temporada 1": {
-                        "Japonés": "",
-                        "Latino": ""
+                        "Japonés": "https://t.me/AnimeKaergsty1/4106"
                     }
                 }
             },
@@ -415,8 +416,37 @@ window.base = {
                 generos: ["Romance", "Fantasía", "Isekai"],
                 enlaces: {
                     "Temporada 1": {
-                        "Japonés": "",
-                        "Latino": ""
+                        "Japonés": "https://t.me/AnimeKaergsty1/4151",
+                    }
+                }
+            },
+            "Awajima Hyakkei":{
+                nombresAlternativos:{
+                    "Japonés":"淡島百景",
+                    "Ingles":"A Hundred Scenes of AWAJIMA"
+                },
+                sinopsis:"¡Los sueños y los celos chocan en la Escuela de Ópera Awajima, mientras las rivales luchan por un lugar en el gran escenario!",
+                id:"1",
+                estado:"Pausado",
+                generos:["Takako Shimura","Drama","Recuentos de la Vida"],
+                enlaces:{
+                    "Temporada 1":{
+                        "Japonés":"https://t.me/AnimeKaergsty1/5374"
+                    }
+                }
+            },
+            "Aishiteru Gemu o Owarasetai":{
+                nombresAlternativos:{
+                    "Japonés":"愛してるゲームを終わらせたい",
+                    "Ingles":"I Want to End this Love Game"
+                },
+                sinopsis:"¡Yukiya y Miku están secretamente enamorados el uno del otro! ¿Podrán finalmente reunir el valor necesario para confesarse?",
+                id:"1",
+                estado:"Pausado",
+                generos:["Yuki Domoto","Romance","Comedia"],
+                enlaces:{
+                    "Temporada 1":{
+                        "Japonés":"https://t.me/AnimeKaergsty1/5404"
                     }
                 }
             }

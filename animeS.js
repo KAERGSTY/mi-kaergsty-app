@@ -715,11 +715,15 @@ window.base["Saikyou no Ousama, Nidome no Jinsei wa Nani o Suru"] = {
         "Ingles": "The Beginning After the End"
     },
     sinopsis: "El Rey Grey, gobernante supremo en un mundo dominado por la habilidad marcial, muere en circunstancias misteriosas y reencarna en un nuevo mundo lleno de magia, conservando los recuerdos de su vida pasada.",
-    estado: "Próximamente",
+    id:"1",
+    estado: "Pausado",
     generos: ["Isekai", "Fantasía", "Acción"],
     enlaces: {
         "Temporada 1": {
-            "Sub Español": "https://t.me/Kaergsty/2/43331"
+            "Japonés": "https://t.me/AnimeKaergsty1/67"
+        },
+        "Temporada 2":{
+            "Japonés":"https://t.me/AnimeKaergsty1/5432"
         }
     }
 };
@@ -946,6 +950,57 @@ window.base["Seihantai na Kimi to Boku"] = {
         "Temporada 1": {
             "Japonés": "https://t.me/AnimeKaergsty1/4147",
             "Latino": "https://t.me/AnimeKaergsty1/4163"
+        }
+    }
+};
+
+window.base["Shunkashuto Daikosha"] = {
+    carpeta: "imgS",
+    nombresAlternativos: {
+        "Japonés": "春夏秋冬代行者",
+        "Ingles": "Agents of the Four Seasons: Dance of Spring"
+    },
+    sinopsis: "Un humano a quien se le ha confiado el poder de la primavera regresa a un mundo sumido en un invierno eterno.",
+    id:"1",
+    estado: "Pausado",
+    generos: ["Fantasia", "Aventura"],
+    enlaces: {
+        "Temporada 1": {
+            "Japonés": "https://t.me/AnimeKaergsty1/5376"
+        }
+    }
+};
+
+window.base["Sunouboru Asu"] = {
+    carpeta: "imgS",
+    nombresAlternativos: {
+        "Japonés": "スノウボールアース",
+        "Ingles": "SNOWBALL EARTH"
+    },
+    sinopsis: "Tras 10 años en el espacio, Tetsuo regresa a una Tierra congelada para cumplir una promesa hecha a su amigo y camarada robot.",
+    id:"1",
+    estado: "Pausado",
+    generos: ["Yuhiro Tsujitsugu", "Ciencia Ficción"],
+    enlaces: {
+        "Temporada 1": {
+            "Japonés": "https://t.me/AnimeKaergsty1/5426"
+        }
+    }
+};
+
+window.base["Saikyo no Shokugyo wa Yusha demo Kenja demo naku Kanteishi (Kari) Rashii Desu yo"] = {
+    carpeta: "imgS",
+    nombresAlternativos: {
+        "Japonés": "最強の職業は勇者でも賢者でもなく鑑定士（仮）らしいですよ？",
+        "Ingles": "The strongest job is apparently not a hero or a sage, but an appraiser (provisional)!"
+    },
+    sinopsis: "Hibiki Manabe es transportado a un mundo donde los monstruos vagan libremente. ¡¿Podrá volver alguna vez a casa?!",
+    id:"1",
+    estado: "Pausado",
+    generos: ["Atekichi", "Isekai","Aventura"],
+    enlaces: {
+        "Temporada 1": {
+            "Japonés": "https://t.me/AnimeKaergsty1/5442"
         }
     }
 };

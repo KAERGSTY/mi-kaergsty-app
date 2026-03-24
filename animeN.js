@@ -254,3 +254,20 @@ window.base["Niwatori Fighter"] = {
         }
     }
 };
+
+window.base["Ni de iga ru obadozu"] = {
+    carpeta: "imgM",
+    nombresAlternativos: {
+        "Japonés": "にーでぃがーるオーバードーズ",
+        "Ingles": "NEEDY GIRL OVERDOSE"
+    },
+    sinopsis: "OMGkawaiiAngel busca la fama, pero detrás de su sonrisa, hay mucho más de lo que parece.",
+    id:"1",
+    estado:"Pausado",
+    generos: ["Xemono","WSS Playground","Romance","horror","drama","Comedia","Drama","Psicológico"],
+    enlaces: {
+        "Temporada 1": {
+            "Japonés": "https://t.me/AnimeKaergsty1/5416",
+        }
+    }
+};

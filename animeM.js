@@ -801,3 +801,54 @@ window.base["Mayonaka Heart Tune"] = {
         }
     }
 };
+
+window.base["Marijjitokishin"] = {
+    carpeta: "imgM",
+    nombresAlternativos: {
+        "Japonés": "マリッジトキシン",
+        "Ingles": "MARRIAGETOXIN"
+    },
+    sinopsis: "Hikaru Gero, un asesino de élite y heredero de una familia de maestros, debe encontrar una novia para proteger a su hermana.",
+    id:"1",
+    estado:"Pausado",
+    generos: ["Masahiro Hirakata","Comedia","Acción","Romance"],
+    enlaces: {
+        "Temporada 1": {
+            "Japonés": "https://t.me/AnimeKaergsty1/5412",
+        }
+    }
+};
+
+window.base["Meido-san wa Taberu dake"] = {
+    carpeta: "imgM",
+    nombresAlternativos: {
+        "Japonés": "メイドさんは食べるだけ",
+        "Ingles": "The Food Diary of Miss Maid"
+    },
+    sinopsis: "Atrapada en Japón por un año, ¡la aprendiz de sirvienta Suzume se abre paso comiendo cada aperitivo que puede encontrar!",
+    id:"1",
+    estado:"Pausado",
+    generos: ["Susumu Maeya","Comedia","Gourmet","Recuentos de la Vida"],
+    enlaces: {
+        "Temporada 1": {
+            "Japonés": "https://t.me/AnimeKaergsty1/5438",
+        }
+    }
+};
+
+window.base["Mairimashita! Iruma-kun"] = {
+    carpeta: "imgM",
+    nombresAlternativos: {
+        "Japonés": "魔入りました！入間くん",
+        "Ingles": "Welcome to Demon School! Iruma-kun"
+    },
+    sinopsis: "Suzuki Iruma ha sido vendido al demonio por sus padres irresponsables a cambio de dinero. Sorprendentemente, lo siguiente que sabe es que está viviendo con el demonio y ha sido transferido a una escuela en el Mundo Demonio",
+    id:"1",
+    estado:"Pausado",
+    generos: ["Osamu Nishi","Comedia","Demonios","Fantasía","Shounen","Sobrenatural"],
+    enlaces: {
+        "Temporada 4": {
+            "Japonés": "https://t.me/AnimeKaergsty1/5448",
+        }
+    }
+};

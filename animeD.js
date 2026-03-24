@@ -31,9 +31,35 @@ window.base["Dr Stone"] = {
         "Ingles": "Dr. Stone" 
     },
     sinopsis: "Senku usa el poder de la ciencia para reconstruir el mundo tras una petrificación global.",
-    generos: ["Ciencia Ficción", "Aventura"],
-    estado: "Finalizado",
-    enlaces: { "Temporada 1": { "Japonés": "LINK_AQUÍ" } }
+    id:"1",
+    generos: ["Riichiro Inagaki","Shounen","Ciencia Ficción", "Aventura"],
+    estado: "Pausado",
+    enlaces: { 
+        "Temporada 1": { 
+            "Japonés": "LINK_AQUÍ",
+            "Latino":"LINK_AQUÍ"
+        },
+        "Temporada 2": { 
+            "Japonés": "LINK_AQUÍ",
+            "Latino":"LINK_AQUÍ"
+        },
+        "Episodio Especial": { 
+            "Japonés": "LINK_AQUÍ",
+            "Latino":"LINK_AQUÍ"
+        },
+        "Temporada 3": { 
+            "Japonés": "LINK_AQUÍ",
+            "Latino":"LINK_AQUÍ"
+        },
+        "Temporada 4": { 
+            "Japonés": "https://t.me/AnimeKaergsty1/1933",
+            "Latino":"https://t.me/AnimeKaergsty1/1935"
+        },
+        "Temporada 5": { 
+            "Japonés": "https://t.me/AnimeKaergsty1/5390",
+            "Latino":"https://t.me/AnimeKaergsty1/5392"
+        }
+    }
 };
 
 window.base["Dragon Raja"] = {
@@ -368,6 +394,23 @@ window.base["Demi-chan wa Kataritai"] = {
         "Temporada 1": {
             "Japonés": "https://t.me/AnimeKaergsty1/4940",
             "Latino": "https://t.me/AnimeKaergsty1/4943"
+        }
+    }
+};
+
+window.base["Dorohedoro"] = {
+    carpeta: "imgD",
+    nombresAlternativos: {
+        "Japonés": "ドロヘドロ",
+        "Ingles": "DOROHEDORO"
+    },
+    sinopsis: "La trama se centra en Caiman, un chico que no recuerda quien era después de haber sido transformado por un hechicero. Esta transformación le dejó con la cabeza de un reptil y un deseo de descubrir la verdad sobre quién es realmente.",
+    id:"1",
+    estado:"Pausado",
+    generos: ["Q Hayashida","Acción","Comedia","Fantasía","Seinen","Terror"],
+    enlaces: {
+        "Temporada 1": {
+            "Japonés": "https://t.me/AnimeKaergsty1/5388",
         }
     }
 };

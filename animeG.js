@@ -318,3 +318,37 @@ window.base["Goumon Baito-kun no Nichijou"] = {
         }
     }
 };
+
+window.base["Gosutokonsato missing Songs"] = {
+    carpeta: "imgG",
+    nombresAlternativos: {
+        "Japonés": "ゴーストコンサート: missing Songs",
+        "Ingles": "Ghost Concert: missing Songs"
+    },
+    sinopsis: "En el año 2045, cuando el canto está prohibido, una chica de secundaria escucha una voz fantasmal que la posee y le otorga un gran poder.",
+    id:"1",
+    estado:"Pausado",
+    generos: ["Masato Jinbo","Musica","Ciencia Ficción"],
+    enlaces: {
+        "Temporada 1": {
+            "Japonés": "https://t.me/AnimeKaergsty1/5388",
+        }
+    }
+};
+
+window.base["Ganbare! Nakamura-kun!!"] = {
+    carpeta: "imgG",
+    nombresAlternativos: {
+        "Japonés": "ガンバレ! 中村くん!!",
+        "Ingles": "I Made Friends with the Second Prettiest Girl in My Class"
+    },
+    sinopsis: "Un chico de secundaria bastante torpe se enamora a primera vista de un compañero de clase, el chico de sus sueños.",
+    id:"1",
+    estado:"Pausado",
+    generos: ["Syundei","Comedia","Escolar","Recuentos de la vida","Yaoi"],
+    enlaces: {
+        "Temporada 1": {
+            "Japonés": "https://t.me/AnimeKaergsty1/5402",
+        }
+    }
+};

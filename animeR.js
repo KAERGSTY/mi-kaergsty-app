@@ -214,11 +214,49 @@ window.base["Re Zero"] = {
         "Ingles": "Re:ZERO -Starting Life in Another World-"
     },
     sinopsis: "Subaru Natsuki continúa su lucha en el reino de Lugunica. En esta tercera temporada, la lucha contra el Culto de la Bruja se intensifica en la ciudad de las compuertas, Pristella.",
-    estado: "Finalizado",
+    id:"1",
+    estado: "Pausado",
     generos: ["Isekai", "Drama", "Fantasía", "Psicológico"],
     enlaces: {
-        "Temporada 3": {
-            "Sub Español": "https://t.me/Kaergsty/2/28756"
+        "Temporadas 1,3": {
+            "JaponesLatino": "https://t.me/Kaergsty/2/28756"
+        },
+        "Temporada 4":{
+            "Japonés":"https://t.me/AnimeKaergsty1/5420"
+        }
+    }
+};
+
+window.base["Repurika Datte Koi o Suru"] = {
+    carpeta: "imgR",
+    nombresAlternativos: {
+        "Japonés": "レプリカだって、恋をする",
+        "Ingles": "Even a Replica Can Fall in Love"
+    },
+    sinopsis: "Una réplica de una joven estudiante intenta definir su propia vida tras enamorarse de un compañero de clase.",
+    id:"1",
+    estado:"Pausado",
+    generos: ["Harunadon","Romance","Recuentos de la Vida"],
+    enlaces: {
+        "Temporada 1": {
+            "Japonés": "https://t.me/AnimeKaergsty1/5396",
+        }
+    }
+};
+
+window.base["Raia Gemu"] = {
+    carpeta: "imgR",
+    nombresAlternativos: {
+        "Japonés": "ライアーゲーム",
+        "Ingles": "LIAR GAME"
+    },
+    sinopsis: "Nao Kanzaki recibe una extraña carta y 100 millones de yenes, y se entera de que ha sido seleccionada para el LIAR GAME.",
+    id:"1",
+    estado:"Pausado",
+    generos: ["Shinobu Kaitani","Drama"],
+    enlaces: {
+        "Temporada 1": {
+            "Japonés": "https://t.me/AnimeKaergsty1/5410",
         }
     }
 };

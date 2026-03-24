@@ -77,3 +77,20 @@ window.base["Party kara Tsuihou sareta Sono Chiyushi, Jitsu wa Saikyou ni Tsuki"
         }
     }
 };
+
+window.base["Ponkotsu Fūkiiin to Sukāto Take ga Futekisetsu na JK no Hanashi"] = {
+    carpeta: "imgP",
+    nombresAlternativos: {
+        "Japonés": "ポンコツ風紀委員とスカート丈が不適切なJKの話",
+        "Ingles": "The Klutzy Class Monitor and the Girl with the Short Skirt"
+    },
+    sinopsis: "El estricto y disciplinado Sakuradaimon-kun contra la despreocupada y rebelde Poem-chan: ¡surge una amistad inesperada!",
+    id:"1",
+    estado: "Pausado",
+    generos: ["	Takuma Yokota", "Romance", "Comedia"],
+    enlaces: {
+        "Temporada 1": {
+            "Sub Español": "https://t.me/Kaergsty/2/28849"
+        }
+    }
+};

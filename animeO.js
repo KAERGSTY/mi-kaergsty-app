@@ -5,11 +5,12 @@ window.base["One Piece"] = {
         "Ingles": "One Piece"
     },
     sinopsis: "Monkey D. Luffy se niega a permitir que nadie se interponga en su camino para convertirse en el Rey de los Piratas. Con un curso trazado por las traicioneras aguas del Grand Line, este es un capitán que nunca se rendirá hasta que consiga el tesoro más grande de la tierra: el Legendario One Piece.",
+    id:"1",
     generos: ["Acción", "Aventura", "Fantasía"],
-    estado: "Finalizado",
+    estado: "Pausado",
     enlaces: {
-        "Serie": {
-            "Japonés": "https://t.me/Kaergsty/2/43330"
+        "Temporada 20": {
+            "Japonés": "https://t.me/AnimeKaergsty1/5418"
         }
     }
 };
@@ -246,11 +247,15 @@ window.base["Otonari no Tenshi-sama"] = {
         "Ingles": "The Angel Next Door Spoils Me Rotten"
     },
     sinopsis: "Amane vive solo en un apartamento descuidado. Su vecina, Mahiru, la chica más hermosa de la escuela, decide cuidarlo y cocinarle tras verlo bajo la lluvia, iniciando una dulce relación entre ambos.",
+    id:"1",
     generos: ["Romance", "Recuentos de la vida"],
-    estado: "Finalizado",
+    estado: "Pausado",
     enlaces: {
         "Temporada 1": {
             "Japonés": "https://t.me/Kaergsty/2/224"
+        },
+        "Temporada 2":{
+            "Japonés":"https://t.me/AnimeKaergsty1/5430"
         }
     }
 };
@@ -396,6 +401,23 @@ window.base["Omagoto"] = {
         "Temporada 1": {
             "Japonés": "https://t.me/AnimeKaergsty1/4045",
             "Latino": "https://t.me/AnimeKaergsty1/4406"
+        }
+    }
+};
+
+window.base["Otaku ni Yasashii Gyaru wa Inai"] = {
+    carpeta: "imgO",
+    nombresAlternativos: {
+        "Japonés": "オタクに優しいギャルはいない！？",
+        "Ingles": "Gals Can't Be Kind to Otaku!?"
+    },
+    sinopsis: "Un joven otaku conoce a dos chicas en su clase que podrían compartir sus mismos gustos secretos por el fandom.",
+    id:"1",
+    estado:"Pausado",
+    generos: ["Norishiro-chan","Romance","Comedia"],
+    enlaces: {
+        "Temporada 1": {
+            "Japonés": "https://t.me/AnimeKaergsty1/5398",
         }
     }
 };

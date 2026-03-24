@@ -270,19 +270,19 @@ window.base["Yuusha Party wo Tsuihou sareta Beast Tamer"] = {
     }
 };
 
-window.base["Youkoso Jitsuryoku Shijou Shugi no Kyoushitsu e 3rd"] = {
+window.base["Youkoso Jitsuryoku Shijou Shugi no Kyoushitsu e"] = {
     carpeta: "imgY",
     nombresAlternativos: {
         "Japonés": "ようこそ実力至上主義の教室へ 3rd Season",
-        "Ingles": "Classroom of the Elite Season 3"
+        "Ingles": "Classroom of the Elite"
     },
     sinopsis: "Kiyotaka Ayanokouji continúa manipulando los eventos desde las sombras mientras la Clase D se enfrenta a exámenes especiales cada vez más despiadados para ascender en la jerarquía de la prestigiosa escuela.",
-    estado: "Finalizado",
+    id:"1",
+    estado: "Pausado",
     generos: ["Drama", "Psicológico", "Escolar"],
     enlaces: {
-        "Temporada 3": {
-            "Japonés": "",
-            "Latino": ""
+        "Temporada 4": {
+            "Japonés": "https://t.me/AnimeKaergsty1/5384",
         }
     }
 };
@@ -381,6 +381,23 @@ window.base["Yuusha no Kuzu"] = {
     enlaces: {
         "Temporada 1": {
             "Japonés": "https://t.me/AnimeKaergsty1/4125"
+        }
+    }
+};
+
+window.base["Yomi no Tsugai"] = {
+    carpeta: "imgY",
+    nombresAlternativos: {
+        "Japonés": "黄泉のツガイ",
+        "Ingles": "Daemons of the Shadow Realm"
+    },
+    sinopsis: "Dos gemelos se ven envueltos en una batalla entre aquellos que pueden controlar a seres sobrenaturales llamados Daemons.",
+    id:"1",
+    estado: "Pausado",
+    generos: ["Hiromu Arakawa","Aventura","Sobrenatural"],
+    enlaces: {
+        "Temporada 1": {
+            "Japonés": "https://t.me/AnimeKaergsty1/5386"
         }
     }
 };
