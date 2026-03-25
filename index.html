@@ -90,7 +90,6 @@
             text-shadow: 0 2px 4px rgba(0,0,0,0.8);
         }
         
-        /* --- ESTILOS SKELETON LOADER --- */
         .esqueleto {
             background: #2a2a35;
             background-image: linear-gradient(90deg, #2a2a35 0px, #3f3f5a 40px, #2a2a35 80px);
@@ -104,49 +103,22 @@
         .img-oculta { opacity: 0; transition: opacity 0.3s ease; }
         .img-cargada { opacity: 1; }
         
-        /* --- ESTILOS DEL RADAR DE ESTADO --- */
-        .status-indicator {
+        /* --- ESTILOS DEL RADAR DE ESTADO (TRIÁNGULO REDUCIDO) --- */
+        .status-ribbon {
             position: absolute;
-            top: 8px;
-            left: 8px;
-            width: 10px;
-            height: 10px;
-            border-radius: 50%;
+            top: 0;
+            left: 0;
+            width: 0;
+            height: 0;
+            /* Tamaño reducido a 25px para celulares */
+            border-top: 25px solid transparent; 
+            border-right: 25px solid transparent;
             z-index: 10;
+            filter: drop-shadow(1px 1px 2px rgba(0,0,0,0.4));
         }
-        .status-dot {
-            width: 100%;
-            height: 100%;
-            border-radius: 50%;
-            display: block;
-            /* Optimización de rendimiento */
-            will-change: opacity, transform;
-            transform: translateZ(0); 
-            animation: breathing-dot 4s ease-in-out infinite; /* Un poco más lenta para estresar menos */
-        }
-        .status-indicator::after {
-            display: none; 
-        }
-        .status-emision .status-dot { background-color: #00ff00bd; }
-        .status-emision::after { background-color: #00ff00c4; }
-
-        .status-finalizado .status-dot { background-color: #ff0000cb; }
-        .status-finalizado::after { background-color: #ff0000c5; }
-
-        .status-parado .status-dot { background-color: #ffcc00c9; }
-        .status-parado::after { background-color: #ffcc00cb; }
-
-        @keyframes breathing-dot {
-            0%, 100% { 
-                opacity: 0.4; 
-                transform: scale(0.9) translateZ(0);
-            }
-            50% { 
-                opacity: 1; 
-                transform: scale(1) translateZ(0);
-            }
-        }
-        /* ------------------------------- */
+        .status-emision { border-top-color: #1de21c; } 
+        .status-finalizado { border-top-color: #e62e2e; } 
+        .status-parado { border-top-color: #fae800; } 
 
         #vista-detalles { 
             display: none; min-height: 100vh; position: relative; 
@@ -278,7 +250,6 @@
         .btn-loading { opacity: 0.7; cursor: not-allowed; pointer-events: none; }
         .btn-loading::after { content: " ⌛"; animation: girar 1s infinite linear; display: inline-block; }
         
-        /* Botón Secreto */
         .btn-secreto {
             position: fixed; bottom: 1px; right: 1px; font-size: 24px; 
             opacity: 0.15; cursor: pointer; z-index: 99999; color: white;
@@ -286,7 +257,6 @@
         }
         .btn-secreto:hover { opacity: 0.8; color: #0088cc; }
 
-        /* Botón Visto */
         .btn-visto-nube {
             display: inline-flex; align-items: center; justify-content: center; gap: 8px;
             background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 255, 255, 0.1);
@@ -428,35 +398,28 @@
 
         const urlBaseGitHub = "https://raw.githubusercontent.com/Kaergsty/mi-kaergsty-app/main/img/";
 
-        // --- VARIABLES DE PAGINACIÓN ---
         let itemsMostrados = 0;
         const itemsPorPagina = 24;
         let nombresBase = [];
         let nombresFiltrados = [];
         let timeoutBusqueda;
 
-        // --- CARGA INICIAL ---
         function cargar() {
             tg.BackButton.hide(); 
             const grid = document.getElementById('grid');
             grid.innerHTML = "";
             
-            // 1. Obtenemos los nombres en el orden original (invertido según tu estructura inicial)
             let nombresInvertidos = Object.keys(base).reverse();
             
-            // 2. Ordenamos para que los "En emisión" y los que tienen ID vayan arriba
             nombresBase = nombresInvertidos.sort((a, b) => {
-                // Prioridad #1: ID manual (por si quieres forzar alguno arriba aunque no esté en emisión)
                 let idA = base[a].id || 0;
                 let idB = base[b].id || 0;
                 if (idB !== idA) return idB - idA;
 
-                // Prioridad #2: Estado "En emisión"
                 let estadoA = base[a].estado === "En emisión" ? 1 : 0;
                 let estadoB = base[b].estado === "En emisión" ? 1 : 0;
                 if (estadoB !== estadoA) return estadoB - estadoA;
 
-                // Prioridad #3: Si son iguales en todo lo anterior, mantienen su orden natural
                 return 0;
             });
 
@@ -465,7 +428,6 @@
 
             renderizarSiguientes();
 
-            // Parámetros de Telegram al abrir
             const params = window.Telegram.WebApp.initDataUnsafe.start_param;
             if (params) {
                 let nombreBuscado = params.replace(/_/g, ' ').toLowerCase().trim();
@@ -479,7 +441,6 @@
             }
         }
 
-        // --- RENDERIZADO POR BLOQUES Y SKELETON ---
         function renderizarSiguientes() {
             const grid = document.getElementById('grid');
             const fragmento = document.createDocumentFragment();
@@ -498,15 +459,12 @@
                 let urlDinamica = `https://raw.githubusercontent.com/Kaergsty/mi-kaergsty-app/main/${carpetaDestino}/`;
                 let imgUrl = anime.portada ? anime.portada : urlDinamica + encodeURIComponent(nombre) + ".webp";
                 
-                // Lógica del radar de estado
-                let claseEstado = "status-finalizado"; // por defecto
+                let claseEstado = "status-finalizado"; 
                 if (anime.estado === "En emisión") claseEstado = "status-emision";
                 if (anime.estado === "Pausado" || anime.estado === "Parado") claseEstado = "status-parado";
 
                 div.innerHTML = `
-                    <div class="status-indicator ${claseEstado}">
-                        <span class="status-dot"></span>
-                    </div>
+                    <div class="status-ribbon ${claseEstado}"></div>
                     <img src="${imgUrl}" loading="lazy" class="img-oculta"
                          onload="this.classList.remove('img-oculta'); this.classList.add('img-cargada'); this.parentElement.classList.remove('esqueleto');"
                          onerror="this.src='https://via.placeholder.com/150x225/222/555?text=Error'; this.classList.remove('img-oculta'); this.classList.add('img-cargada'); this.parentElement.classList.remove('esqueleto');">
@@ -519,7 +477,6 @@
             itemsMostrados = limite;
         }
 
-        // Detectar scroll para cargar más animes
         window.onscroll = function() {
             if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight - 500) {
                 if (itemsMostrados < nombresFiltrados.length && document.getElementById('vista-catalogo').style.display !== 'none') {
@@ -528,7 +485,6 @@
             }
         };
 
-        // --- BUSCADOR OPTIMIZADO (DEBOUNCE) ---
         function filtrar() {
             clearTimeout(timeoutBusqueda);
             const input = document.getElementById('buscador');
@@ -562,7 +518,6 @@
             }, 300);
         }
 
-        // --- FUNCIONES DE VISTAS ---
         window.animeSeleccionado = "";
         let posicionScrollGuardada = 0;
 
@@ -639,7 +594,6 @@
             }
         }
 
-        // --- SISTEMA DE GUARDADO EN LA NUBE ---
         function toggleVisto() {
             const id = window.animeSeleccionado;
             if (!id || typeof tg === 'undefined') return;
@@ -686,7 +640,6 @@
             }
         }
 
-        // --- BOTONES Y NAVEGACIÓN DE ENLACES ---
         function mostrarT(nombre) {
             const area = document.getElementById('area-botones');
             area.innerHTML = '<span class="txt-guia">Temporadas</span>';
@@ -783,7 +736,6 @@
             }).catch(err => console.error("Fallo al copiar: ", err));
         }
 
-        // --- LÓGICA DEL AVISO DE DESLINDE ---
         const discLink = document.getElementById('disclaimer-link');
         const discModal = document.getElementById('disclaimer-modal');
         const discClose = document.getElementById('close-disclaimer');
@@ -799,12 +751,10 @@
             discModal.style.display = 'none';
         };
 
-        // Cerrar si tocan fuera del cuadro
         window.addEventListener('click', (e) => {
             if (e.target == discModal) discModal.style.display = 'none';
         });
 
-        // Iniciar app
         cargar();
     </script>
 </body>
