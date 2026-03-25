@@ -6,25 +6,20 @@
     <title>AnimeKaergsty</title>
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
     <style>
+        /* OPTIMIZACIÓN: Fondo estático. Se eliminó la animación 'moverFondo' que causaba repintado constante */
         body {
             scroll-behavior: smooth;
             background: #0c0c0f;
             background-image:
-                radial-gradient(ellipse 80% 40% at 20% 60%, rgba(134, 112, 156, 0.6) 0%, transparent 60%),
-                radial-gradient(ellipse 60% 50% at 80% 30%, rgba(18, 67, 230, 0.5) 0%, transparent 60%);
-            background-size: 300% 300%;
-            animation: moverFondo 10s ease infinite;
+                radial-gradient(ellipse 80% 40% at 20% 60%, rgba(134, 112, 156, 0.3) 0%, transparent 60%),
+                radial-gradient(ellipse 60% 50% at 80% 30%, rgba(18, 67, 230, 0.2) 0%, transparent 60%);
             color: #d4d4d8;
             font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
             overflow-x: hidden;
             min-height: 100vh;
             -webkit-font-smoothing: antialiased;
         }
-        @keyframes moverFondo {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
-        }
+        
         #vista-catalogo { 
             padding: 20px;  
             width: 100%;
@@ -37,20 +32,24 @@
             margin-bottom: 20px; padding-bottom: 15px; border-bottom: 1px solid rgba(255,255,255,0.05);
             flex-wrap: wrap; gap: 15px;
         }
+        
+        /* OPTIMIZACIÓN: Se simplificó el text-shadow de la animación para aligerar la carga gráfica */
         .titulo-principal { 
             font-size: 28px; 
             font-weight: 800; 
             color: #00aaff; 
             margin: 0; 
             letter-spacing: 1px; 
-            animation: brilloSutil 3s ease-in-out infinite; 
+            animation: brilloSutil 4s ease-in-out infinite; 
         }
         @keyframes brilloSutil {
             0%, 100% { text-shadow: 0 0 5px rgba(0, 136, 204, 0.4); }
-            50% { text-shadow: 0 0 15px rgba(0, 170, 255, 0.9), 0 0 25px rgba(0, 170, 255, 0.5); color: #33bbff; }
+            50% { text-shadow: 0 0 15px rgba(0, 170, 255, 0.8); color: #33bbff; }
         }
+
+        /* OPTIMIZACIÓN: Se eliminó backdrop-filter: blur() por ser muy pesado en móviles */
         #buscador {
-            background: rgba(255, 255, 255, 0.05); 
+            background: rgba(30, 30, 35, 0.9); 
             border: 1px solid rgba(255, 255, 255, 0.1); 
             color: white;
             padding: 10px 18px; 
@@ -58,30 +57,32 @@
             width: 230px; 
             outline: none;
             transition: all 0.2s ease;
-            backdrop-filter: blur(5px);
         }
         .tecleando {animation: golpeNeon 0.3s ease-out;}
 
         @keyframes golpeNeon {
             0% { transform: scale(1); box-shadow: 0 0 0px rgba(0, 170, 255, 0); }
-            50% { transform: scale(1.05); box-shadow: 0 0 20px rgba(0, 170, 255, 0.8); border-color: #00aaff; }
-            100% { transform: scale(1.02); box-shadow: 0 0 10px rgba(0, 170, 255, 0.4); border-color: #00aaff; }
+            50% { transform: scale(1.05); box-shadow: 0 0 15px rgba(0, 170, 255, 0.6); border-color: #00aaff; }
+            100% { transform: scale(1.02); box-shadow: 0 0 8px rgba(0, 170, 255, 0.4); border-color: #00aaff; }
         }
 
         #buscador:focus { 
             border-color: #00aaff; 
-            background: rgba(255, 255, 255, 0.12);
-            box-shadow: 0 0 15px rgba(0, 170, 255, 0.5); 
+            background: rgba(40, 40, 45, 0.95);
+            box-shadow: 0 0 12px rgba(0, 170, 255, 0.4); 
             transform: scale(1.05); 
         }
         .grid-animes { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 15px; }
+        
+        /* OPTIMIZACIÓN: Se redujo el box-shadow excesivo en el hover */
         .tarjeta-anime {
             position: relative; border-radius: 10px; overflow: hidden; cursor: pointer;
-            aspect-ratio: 2/3; transition: 0.3s ease-out;
+            aspect-ratio: 2/3; transition: transform 0.2s ease-out, box-shadow 0.2s ease-out;
             background: #151515;
             border: 1px solid rgba(255,255,255,0.02);
+            will-change: transform; /* Ayuda al navegador a predecir la animación */
         }
-        .tarjeta-anime:hover { transform: translateY(-5px); box-shadow: 0 8px 25px rgba(0, 136, 204, 0.3); border-color: rgba(0, 136, 204, 0.4);}
+        .tarjeta-anime:hover { transform: translateY(-3px); box-shadow: 0 6px 15px rgba(0, 136, 204, 0.2); border-color: rgba(0, 136, 204, 0.4);}
         .tarjeta-anime img { width: 100%; height: 100%; object-fit: cover; }
         .titulo-tarjeta {
             position: absolute; bottom: 0; width: 100%; padding: 25px 5px 10px;
@@ -103,14 +104,12 @@
         .img-oculta { opacity: 0; transition: opacity 0.3s ease; }
         .img-cargada { opacity: 1; }
         
-        /* --- ESTILOS DEL RADAR DE ESTADO (TRIÁNGULO REDUCIDO) --- */
         .status-ribbon {
             position: absolute;
             top: 0;
             left: 0;
             width: 0;
             height: 0;
-            /* Tamaño reducido a 25px para celulares */
             border-top: 25px solid transparent; 
             border-right: 25px solid transparent;
             z-index: 10;
@@ -125,10 +124,12 @@
             width: 100%; max-width: 1200px; margin: 0 auto; box-sizing: border-box;
             padding-bottom: 40px; 
         }
+        
+        /* OPTIMIZACIÓN: Se redujo el blur(20px) a blur(10px) para no castigar la GPU */
         .bg-banner {
             position: absolute; top: 0; left: 0; width: 100vw; 
             height: 500px; 
-            z-index: -2; opacity: 0.3; filter: blur(20px); 
+            z-index: -2; opacity: 0.2; filter: blur(10px); 
             object-fit: cover; margin-left: calc(-50vw + 50%);
         }
         .layout-detalles {
@@ -139,140 +140,88 @@
         .img-lateral {
             flex: 0 0 330px; 
             border-radius: 12px; overflow: hidden;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.6); border: 1px solid rgba(255,255,255,0.08);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.5); border: 1px solid rgba(255,255,255,0.08);
             margin-top: 20px;
         }
         .img-lateral img { width: 100%; display: block; }
         .info-derecha { flex: 1; display: flex; flex-direction: column; gap: 8px; position: relative;}
         .header-info { display: flex; justify-content: space-between; align-items: flex-start; gap: 20px; margin-bottom: 5px; flex-wrap: wrap; }
-        .titulo-anime { font-size: 36px; margin: 0; font-weight: 800; line-height: 1.1; flex: 1; text-shadow: 0 2px 10px rgba(0,0,0,0.5);}
+        .titulo-anime { font-size: 36px; margin: 0; font-weight: 800; line-height: 1.1; flex: 1; text-shadow: 0 2px 8px rgba(0,0,0,0.5);}
         .estado-container {
             display: flex; align-items: center; gap: 8px;
             font-size: 13px; font-weight: 600; color: #aaa;
             margin-top: -5px; 
         }
-        .punto {
-            width: 9px; height: 9px; border-radius: 50%;
-            display: inline-block;
-            box-shadow: 0 0 5px rgba(255,255,255,0.2);
-        }
-        .punto-rojo { background-color: #ff4444; animation: pulsoRojo 1.5s infinite ease-in-out; }
-        @keyframes pulsoRojo {
-            0% { opacity: 0.6; box-shadow: 0 0 0 0 rgba(255, 68, 68, 0.4); }
-            50% { opacity: 1; box-shadow: 0 0 0 5px rgba(255, 68, 68, 0); }
-            100% { opacity: 0.6; box-shadow: 0 0 0 0 rgba(255, 68, 68, 0); }
-        }
-        .punto-verde { background-color: #00cc66; animation: pulsoVerde 1.5s infinite ease-in-out; }
-        @keyframes pulsoVerde {
-            0% { opacity: 0.6; box-shadow: 0 0 0 0 rgba(0, 204, 102, 0.4); }
-            50% { opacity: 1; box-shadow: 0 0 0 5px rgba(0, 204, 102, 0); }
-            100% { opacity: 0.6; box-shadow: 0 0 0 0 rgba(0, 204, 102, 0); }
-        }
-        .punto-amarillo { background-color: #ffcc00; animation: pulsoAmarillo 1.5s infinite ease-in-out; }
-        @keyframes pulsoAmarillo {
-            0% { opacity: 0.6; box-shadow: 0 0 0 0 rgba(255, 204, 0, 0.4); }
-            50% { opacity: 1; box-shadow: 0 0 0 5px rgba(255, 204, 0, 0); }
-            100% { opacity: 0.6; box-shadow: 0 0 0 0 rgba(255, 204, 0, 0); }
-        }
+        .punto { width: 9px; height: 9px; border-radius: 50%; display: inline-block; }
+        .punto-rojo { background-color: #ff4444; }
+        .punto-verde { background-color: #00cc66; }
+        .punto-amarillo { background-color: #ffcc00; }
+        
         .txt-finalizado { color: #ff6666; }
         .txt-emision { color: #00ff88; }
         .txt-parado { color: #ffcc00; }
         .soporte-container { display: flex; gap: 10px; align-items: center; margin-top: 5px; }
-        .nombres-opcionales {
-            display: flex; flex-direction: column; gap: 2px;
-            margin-top: 1px; margin-bottom: 1px;
-            font-size: 13px; color: #888;
-        }
+        .nombres-opcionales { display: flex; flex-direction: column; gap: 2px; margin-top: 1px; margin-bottom: 1px; font-size: 13px; color: #888; }
         .nombres-linea { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; }
-        .tag-idioma {
-            font-style: italic; background: rgba(255,255,255,0.03);
-            padding: 3px 10px; border-radius: 6px; border: 1px solid rgba(255,255,255,0.04);
-        }
+        .tag-idioma { font-style: italic; background: rgba(255,255,255,0.05); padding: 3px 10px; border-radius: 6px; }
         .generos { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 11px; }
-        .tag { background: rgba(0, 136, 204, 0.2); border: 1px solid rgba(0, 136, 204, 0.4); color: #66ccff; padding: 5px 14px; border-radius: 20px; font-size: 11px; font-weight: bold; text-shadow: 0 1px 2px rgba(0,0,0,0.5);}
+        .tag { background: rgba(0, 136, 204, 0.2); border: 1px solid rgba(0, 136, 204, 0.4); color: #66ccff; padding: 5px 14px; border-radius: 20px; font-size: 11px; font-weight: bold; }
+        
+        /* OPTIMIZACIÓN: Se eliminó backdrop-filter y se oscureció el fondo para mantener legibilidad */
         .contenedor-sinopsis-acciones {
-            background: rgba(20, 20, 25, 0.4); backdrop-filter: blur(12px);
+            background: rgba(25, 25, 30, 0.95); 
             border-radius: 19px; border-left: 4px solid #0088cc;
             margin-bottom: 1px; box-sizing: border-box;
             border-top: 1px solid rgba(255,255,255,0.03);
             border-right: 1px solid rgba(255,255,255,0.03);
             border-bottom: 1px solid rgba(255,255,255,0.03);
-            box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
         }
         .caja-sinopsis { padding: 20px; line-height: 1.6; color: #ddd; font-size: 14px; }
         .caja-sinopsis p { margin: 0; }
         .barra-acciones { display: flex; gap: 10px; padding: 0 20px 15px; flex-wrap: wrap; }
         .barra-acciones:empty { padding: 0; display: none; }
         .centro-botones { display: flex; justify-content: flex-start; width: 100%; margin-top: 10px;}
+        
+        /* OPTIMIZACIÓN: Se eliminó backdrop-filter */
         .caja-botones {
-            background: rgba(15, 18, 25, 0.65); backdrop-filter: blur(15px); 
+            background: rgba(20, 23, 30, 0.95);  
             padding: 25px; border-radius: 20px;
             width: 100%; max-width: 400px; display: flex; flex-direction: column; gap: 12px;
             border: 1px solid rgba(255,255,255,0.06); box-sizing: border-box;
-            box-shadow: 0 12px 30px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.05);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.3);
         }
-        .txt-guia { 
-            color: #888; font-size: 11px; text-transform: uppercase; 
-            text-align: center; margin-bottom: 8px; font-weight: bold; letter-spacing: 1px;
-        }
+        .txt-guia { color: #888; font-size: 11px; text-transform: uppercase; text-align: center; margin-bottom: 8px; font-weight: bold; letter-spacing: 1px; }
         .btn-accion {
-            background: rgba(0, 170, 255, 0.03); color: #e0e0e0; 
+            background: rgba(0, 170, 255, 0.05); color: #e0e0e0; 
             border: 1px solid rgba(0, 170, 255, 0.2); padding: 14px; 
             border-radius: 12px; font-weight: 500; font-size: 15px; 
-            letter-spacing: 0.5px; cursor: pointer; 
-            transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+            cursor: pointer; transition: background 0.2s, transform 0.2s;
             display: flex; justify-content: center; align-items: center; gap: 8px;
-            position: relative; overflow: hidden; 
         }
         .btn-accion:hover { 
-            transform: translateY(-2px); box-shadow: 0 6px 20px rgba(0, 136, 204, 0.4);
+            transform: translateY(-2px); 
+            background: rgba(0, 153, 230, 0.9);
             border-color: rgba(255,255,255,0.3);
-            background: linear-gradient(135deg, rgba(0, 153, 230, 0.9) 0%, rgba(0, 102, 153, 0.9) 100%);
         }
-        .btn-accion:active { transform: scale(0.98) translateY(1px); box-shadow: 0 2px 10px rgba(0, 136, 204, 0.2); }
-        .animar-entrada { opacity: 0; animation: entradaMinimalista 0.4s cubic-bezier(0.2, 0.8, 0.2, 1) forwards; }
+        .animar-entrada { opacity: 0; animation: entradaMinimalista 0.3s ease-out forwards; }
         @keyframes entradaMinimalista {
-            0% { opacity: 0; transform: translateY(10px) scale(0.98); }
-            100% { opacity: 1; transform: translateY(0) scale(1); }
+            0% { opacity: 0; transform: translateY(10px); }
+            100% { opacity: 1; transform: translateY(0); }
         }
-        .btn-v { 
-            background: transparent; border: 1px dashed #b83030; color: #922828; 
-            font-weight: 600; cursor: pointer; padding: 10px; border-radius: 12px; 
-            margin-top: 5px; font-size: 13px; letter-spacing: 1px; transition: all 0.3s; width: 100%; 
-        }
-        .btn-v:hover { background: rgba(255, 68, 68, 0.05); border-color: #ff6666; color: #ff6666; }
-        .btn-comentarios {
-            background: transparent !important; border: 1px solid rgba(255, 255, 255, 0.15) !important;
-            color: #ccc; padding: 12px 20px; border-radius: 12px; font-weight: 500; cursor: pointer;
-            transition: all 0.3s ease; letter-spacing: 1px; margin-top: 1px; width: 100%;
-        }
-        .btn-comentarios:hover { background: rgba(255, 255, 255, 0.05) !important; border-color: rgba(255, 255, 255, 0.4) !important; color: #fff; transform: translateY(-2px); }
+        .btn-v { background: transparent; border: 1px dashed #b83030; color: #922828; font-weight: 600; cursor: pointer; padding: 10px; border-radius: 12px; margin-top: 5px; font-size: 13px; width: 100%; }
+        .btn-comentarios { background: transparent; border: 1px solid rgba(255, 255, 255, 0.15); color: #ccc; padding: 12px 20px; border-radius: 12px; font-weight: 500; cursor: pointer; margin-top: 1px; width: 100%; }
         .btn-loading { opacity: 0.7; cursor: not-allowed; pointer-events: none; }
-        .btn-loading::after { content: " ⌛"; animation: girar 1s infinite linear; display: inline-block; }
         
-        .btn-secreto {
-            position: fixed; bottom: 1px; right: 1px; font-size: 24px; 
-            opacity: 0.15; cursor: pointer; z-index: 99999; color: white;
-            padding: 10px; user-select: none; transition: 1.3s;
-        }
-        .btn-secreto:hover { opacity: 0.8; color: #0088cc; }
-
+        .btn-secreto { position: fixed; bottom: 1px; right: 1px; font-size: 24px; opacity: 0.15; cursor: pointer; z-index: 99999; color: white; padding: 10px; transition: 0.3s; }
+        
         .btn-visto-nube {
             display: inline-flex; align-items: center; justify-content: center; gap: 8px;
             background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 255, 255, 0.1);
-            color: #888; padding: 6px 145px; border-radius: 20px; cursor: pointer;
-            transition: all 0.3s ease; margin: 1px 0 1px 0; width: fit-content; font-size: 13px;
+            color: #888; padding: 6px 145px; border-radius: 20px; cursor: pointer; margin: 1px 0; width: fit-content; font-size: 13px;
         }
-        .icon-visto { width: 18px; height: 18px; color: inherit; transition: transform 0.3s ease; flex-shrink: 0; }
-        .btn-visto-nube.visto-activo {
-            background: rgba(0, 255, 136, 0.1) !important; color: #288b5d !important; 
-            border: 1.5px solid #27865a !important; animation: brilloVerdeBucle 6s infinite ease-in-out; 
-        }
-        @keyframes brilloVerdeBucle {
-            0% { box-shadow: 0 0 8px rgba(0, 255, 136, 0.3); border-color: rgba(0, 255, 136, 0.4); transform: scale(1); }
-            50% { box-shadow: 0 0 20px rgba(0, 255, 136, 0.623); border-color: rgba(0, 255, 136, 0.795); transform: scale(1.02); }
-            100% { box-shadow: 0 0 8px rgba(0, 255, 136, 0.3); border-color: rgba(0, 255, 136, 0.4); transform: scale(1); }
-        }
+        .icon-visto { width: 18px; height: 18px; flex-shrink: 0; }
+        .btn-visto-nube.visto-activo { background: rgba(0, 255, 136, 0.1); color: #288b5d; border: 1.5px solid #27865a; }
 
         @media (max-width: 850px) {
             .layout-detalles { flex-direction: column; align-items: center; gap: 15px; padding: 15px; }
@@ -349,12 +298,12 @@
         </span>
     </footer>
 
-    <div id="disclaimer-modal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.85); backdrop-filter: blur(8px); z-index: 10000; padding: 25px; box-sizing: border-box; align-items: center; justify-content: center;">
-        <div style="background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 20px; padding: 25px; color: #d4d4d8; font-size: 14px; max-width: 450px; line-height: 1.6; box-shadow: 0 20px 40px rgba(0,0,0,0.5);">
+    <div id="disclaimer-modal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(15,15,20,0.95); z-index: 10000; padding: 25px; box-sizing: border-box; align-items: center; justify-content: center;">
+        <div style="background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 20px; padding: 25px; color: #d4d4d8; font-size: 14px; max-width: 450px; line-height: 1.6; box-shadow: 0 10px 30px rgba(0,0,0,0.5);">
             <h3 style="color: #00aaff; margin-top: 0;">Aviso de Responsabilidad</h3>
             <p>Esta aplicación funciona únicamente como una interfaz de organización y acceso a contenido alojado en servidores de terceros. <strong>AnimeKaergsty</strong> no almacena, sube, ni aloja ningún archivo de video en servidores propios.</p>
             <p style="font-size: 12px; color: #888;">Todo el contenido es propiedad de sus respectivos autores. Si usted es dueño de algún material y desea solicitar su retiro, por favor contáctenos a través de los canales oficiales.</p>
-            <button id="close-disclaimer" style="background: linear-gradient(135deg, #0099e6, #006699); color: white; border: none; padding: 12px; border-radius: 12px; width: 100%; cursor: pointer; font-weight: bold; margin-top: 10px; transition: 0.3s;">Entendido</button>
+            <button id="close-disclaimer" style="background: linear-gradient(135deg, #0099e6, #006699); color: white; border: none; padding: 12px; border-radius: 12px; width: 100%; cursor: pointer; font-weight: bold; margin-top: 10px;">Entendido</button>
         </div>
     </div>
 
@@ -386,6 +335,7 @@
     <script src="animeY.js"></script>
     <script src="animeZ.js"></script>
     <script src="animeAA.js"></script>
+
 
     <script>
         const tg = window.Telegram.WebApp;
@@ -495,18 +445,14 @@
                 const grid = document.getElementById('grid');
                 
                 nombresFiltrados = nombresBase.filter(nombre => {
-                    if (nombre.toLowerCase().includes(v)) {
-                        return true;
-                    }
+                    if (nombre.toLowerCase().includes(v)) return true;
                     
                     const anime = base[nombre];
                     if (anime.nombresAlternativos) {
-                        const textosAlternativos = Object.values(anime.nombresAlternativos);
-                        return textosAlternativos.some(textoAlt => 
+                        return Object.values(anime.nombresAlternativos).some(textoAlt => 
                             textoAlt.toLowerCase().includes(v)
                         );
                     }
-                    
                     return false;
                 });
                 
@@ -553,45 +499,29 @@
 
             const estCont = document.getElementById('det-estado');
             let puntoClase = "punto-rojo", textoClase = "txt-finalizado";
-            if (anime.estado === "En emisión") { 
-                puntoClase = "punto-verde"; 
-                textoClase = "txt-emision"; 
-            } else if (anime.estado === "Pausado" || anime.estado === "Parado") {
-                puntoClase = "punto-amarillo";
-                textoClase = "txt-parado";
-            }
+            if (anime.estado === "En emisión") { puntoClase = "punto-verde"; textoClase = "txt-emision"; } 
+            else if (anime.estado === "Pausado" || anime.estado === "Parado") { puntoClase = "punto-amarillo"; textoClase = "txt-parado"; }
             estCont.innerHTML = `<span>Estado:</span><span class="punto ${puntoClase}"></span><span class="${textoClase}">${anime.estado || "Desconocido"}</span>`;
 
             const gens = document.getElementById('det-generos');
             gens.innerHTML = "";
-            if (anime.generos) {
-                anime.generos.forEach(g => { gens.innerHTML += `<span class="tag">${g}</span>`; });
-            }
+            if (anime.generos) { anime.generos.forEach(g => { gens.innerHTML += `<span class="tag">${g}</span>`; }); }
 
             document.getElementById('vista-catalogo').style.display = 'none';
             document.getElementById('vista-detalles').style.display = 'block';
-            
             window.scrollTo(0, 0);
 
             mostrarT(nombre);
             chequearEstadoVisto(nombre);
 
-            if (typeof tg !== 'undefined') {
-                tg.BackButton.show();
-            }
+            if (typeof tg !== 'undefined') tg.BackButton.show();
         }
 
         function volverAlCatalogo() {
             document.getElementById('vista-detalles').style.display = 'none';
             document.getElementById('vista-catalogo').style.display = 'block';
-            
-            setTimeout(() => {
-                window.scrollTo(0, posicionScrollGuardada);
-            }, 10);
-
-            if (typeof tg !== 'undefined') {
-                tg.BackButton.hide(); 
-            }
+            setTimeout(() => { window.scrollTo(0, posicionScrollGuardada); }, 10);
+            if (typeof tg !== 'undefined') tg.BackButton.hide(); 
         }
 
         function toggleVisto() {
@@ -626,16 +556,13 @@
             const textoVisto = document.getElementById('texto-visto-btn');
             if (!btn) return;
 
-            const urlIconoOjo = urlBaseGitHub + "ojo no visto.png"; 
-            const urlIconoCheck = urlBaseGitHub + "ojo.png";
-
             if (estaVisto) {
                 btn.classList.add('visto-activo');
-                imgIcono.src = urlIconoCheck;
+                imgIcono.src = urlBaseGitHub + "ojo.png";
                 textoVisto.innerText = "Visto";
             } else {
                 btn.classList.remove('visto-activo');
-                imgIcono.src = urlIconoOjo;
+                imgIcono.src = urlBaseGitHub + "ojo no visto.png";
                 textoVisto.innerText = "Marcar como visto";
             }
         }
@@ -644,12 +571,11 @@
             const area = document.getElementById('area-botones');
             area.innerHTML = '<span class="txt-guia">Temporadas</span>';
             
-            const temporadas = Object.keys(base[nombre].enlaces);
-            temporadas.forEach((t, index) => {
+            Object.keys(base[nombre].enlaces).forEach((t, index) => {
                 const btn = document.createElement('button');
                 btn.innerText = t;
                 btn.className = 'btn-accion animar-entrada';
-                btn.style.animationDelay = `${index * 0.1}s`;
+                btn.style.animationDelay = `${index * 0.05}s`;
                 btn.onclick = () => mostrarI(nombre, t);
                 area.appendChild(btn);
             });
@@ -668,20 +594,16 @@
             Object.keys(links).forEach((idioma, index) => {
                 const btn = document.createElement('button');
                 btn.className = 'btn-accion animar-entrada';
-                btn.style.animationDelay = `${index * 0.1}s`; 
+                btn.style.animationDelay = `${index * 0.05}s`; 
                 btn.innerHTML = `▶ ${idioma}`;
                 btn.onclick = () => { 
-                    if (window.Telegram && window.Telegram.WebApp) { 
-                        window.Telegram.WebApp.openTelegramLink(links[idioma]); 
-                    } else { 
-                        window.open(links[idioma], '_blank'); 
-                    } 
+                    if (window.Telegram && window.Telegram.WebApp) { window.Telegram.WebApp.openTelegramLink(links[idioma]); } 
+                    else { window.open(links[idioma], '_blank'); } 
                 };
                 area.appendChild(btn);
             });
             const back = document.createElement('button');
             back.className = 'btn-v animar-entrada';
-            back.style.animationDelay = `${Object.keys(links).length * 0.1}s`;
             back.innerText = "◄ 𝐴𝑇𝑅𝐴𝑆";
             back.onclick = () => mostrarT(nombre);
             area.appendChild(back);
@@ -690,14 +612,12 @@
         async function crearOabrirTopic(nombreAnime, elementoBoton) {
             const tg = window.Telegram.WebApp;
             const urlServidor = 'https://mi-kaergsty-app.onrender.com/crear-topic';
-
             if (elementoBoton.disabled) return;
 
             const textoOriginal = elementoBoton.innerText;
             elementoBoton.innerText = "CARGANDO...";
             elementoBoton.classList.add('btn-loading');
             elementoBoton.disabled = true; 
-            elementoBoton.style.pointerEvents = 'none'; 
 
             try {
                 const respuesta = await fetch(urlServidor, {
@@ -705,23 +625,16 @@
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ nombreAnime: nombreAnime })
                 });
-                
                 const datos = await respuesta.json();
 
-                if (datos.success) {
-                    tg.openTelegramLink(datos.link);
-                } else {
-                    console.error("Error del servidor:", datos.error);
-                    tg.showAlert(datos.error || "Hubo un problema al abrir los comentarios.");
-                }
+                if (datos.success) { tg.openTelegramLink(datos.link); } 
+                else { tg.showAlert(datos.error || "Hubo un problema al abrir los comentarios."); }
             } catch (e) {
-                console.error("Error de red:", e);
                 tg.showAlert("El servidor está despertando, intenta de nuevo en unos segundos.");
             } finally {
                 elementoBoton.innerText = textoOriginal;
                 elementoBoton.classList.remove('btn-loading');
                 elementoBoton.disabled = false;
-                elementoBoton.style.pointerEvents = 'auto';
             }
         }
 
@@ -742,18 +655,10 @@
 
         discLink.onclick = () => {
             discModal.style.display = 'flex';
-            if (tg && tg.HapticFeedback) {
-                tg.HapticFeedback.impactOccurred('light'); 
-            }
+            if (tg && tg.HapticFeedback) tg.HapticFeedback.impactOccurred('light'); 
         };
-
-        discClose.onclick = () => {
-            discModal.style.display = 'none';
-        };
-
-        window.addEventListener('click', (e) => {
-            if (e.target == discModal) discModal.style.display = 'none';
-        });
+        discClose.onclick = () => { discModal.style.display = 'none'; };
+        window.addEventListener('click', (e) => { if (e.target == discModal) discModal.style.display = 'none'; });
 
         cargar();
     </script>
