@@ -119,8 +119,10 @@
             height: 100%;
             border-radius: 50%;
             display: block;
-            /* Animación suave de respiración */
-            animation: breathing-dot 3s ease-in-out infinite;
+            /* Optimización de rendimiento */
+            will-change: opacity, transform;
+            transform: translateZ(0); 
+            animation: breathing-dot 4s ease-in-out infinite; /* Un poco más lenta para estresar menos */
         }
         .status-indicator::after {
             display: none; 
@@ -136,15 +138,12 @@
 
         @keyframes breathing-dot {
             0%, 100% { 
-                opacity: 0.3; 
-                transform: scale(0.9);
-                filter: blur(1px); 
+                opacity: 0.4; 
+                transform: scale(0.9) translateZ(0);
             }
             50% { 
                 opacity: 1; 
-                transform: scale(1);
-                filter: blur(0px);
-                box-shadow: 0 0 6px currentColor; /* Brillo muy ligero */
+                transform: scale(1) translateZ(0);
             }
         }
         /* ------------------------------- */
