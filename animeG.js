@@ -319,7 +319,7 @@ window.base["Goumon Baito-kun no Nichijou"] = {
     }
 };
 
-window.base["Gosutokonsato missing Songs"] = {
+window.base["Gosuto Monsanto missing Songs"] = {
     carpeta: "imgG",
     nombresAlternativos: {
         "Japonés": "ゴーストコンサート: missing Songs",

@@ -954,7 +954,7 @@ window.base["Seihantai na Kimi to Boku"] = {
     }
 };
 
-window.base["Shunkashuto Daikosha"] = {
+window.base["Shunkashuutou Daikousha"] = {
     carpeta: "imgS",
     nombresAlternativos: {
         "Japonés": "春夏秋冬代行者",
@@ -988,7 +988,7 @@ window.base["Sunouboru Asu"] = {
     }
 };
 
-window.base["Saikyo no Shokugyo wa Yusha demo Kenja demo naku Kanteishi (Kari) Rashii Desu yo"] = {
+window.base["Saikyou no Shokugyou wa Yuusha demo Kenja demo naku Kanteishi (Kari) Rashii Desu yo"] = {
     carpeta: "imgS",
     nombresAlternativos: {
         "Japonés": "最強の職業は勇者でも賢者でもなく鑑定士（仮）らしいですよ？",
