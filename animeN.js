@@ -255,8 +255,8 @@ window.base["Niwatori Fighter"] = {
     }
 };
 
-window.base["Needy Girl Overdose1"] = {
-    carpeta: "imgM",
+window.base["Ni de iga ru obadozu"] = {
+    carpeta: "imgN",
     nombresAlternativos: {
         "Japonés": "にーでぃがーるオーバードーズ",
         "Ingles": "NEEDY GIRL OVERDOSE"
