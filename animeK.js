@@ -908,6 +908,7 @@ window.base["Kanpekisugite Kawaige ga Nai to Konyaku Haki sareta"] = {
 };
 
 window.base["Kaguya-sama"] = {
+    id: 1, // Opcional: para el orden de aparición
     carpeta: "imgK",
     nombresAlternativos: {
         "Japonés": "かぐや様は告らせたい",
@@ -916,27 +917,49 @@ window.base["Kaguya-sama"] = {
     sinopsis: "El presidente del consejo estudiantil, Miyuki Shirogane, y la vicepresidenta, Kaguya Shinomiya, están enamorados. Sin embargo, su orgullo les impide confesarlo, dando inicio a una guerra psicológica donde el primero en declararse pierde.",
     estado: "Finalizado",
     generos: ["Comedia", "Romance", "Escolar"],
-    enlaces: {
-        "Temporada 1": {
-            "Japonés": "https://t.me/AnimeKaergsty1/5067",
-            "Latino": "https://t.me/AnimeKaergsty1/5069"
+    
+    // CAMBIO CLAVE: Usamos un array de temporadas en lugar de un objeto de enlaces
+    temporadas: [
+        {
+            nombre: "Temporada 1",
+            imagen: "Kaguya-sama", // Imagen específica T1
+            enlaces: {
+                "Japonés": "https://t.me/AnimeKaergsty1/5067",
+                "Latino": "https://t.me/AnimeKaergsty1/5069"
+            }
         },
-        "Temporada 2":{
-            "Japonés":"https://t.me/AnimeKaergsty1/5071",
-            "Latino":"https://t.me/AnimeKaergsty1/5073"
+        {
+            nombre: "Temporada 2",
+            imagen: "https://a.storyblok.com/f/178900/640x892/6ee6c3a2bf/01c5f7424826bf1b9cb0fee5f3cb60f81571479343_full.png/m/640x892", // Imagen específica T2
+            enlaces: {
+                "Japonés": "https://t.me/AnimeKaergsty1/5071",
+                "Latino": "https://t.me/AnimeKaergsty1/5073"
+            }
         },
-        "Temporada 3":{
-            "Japonés":"https://t.me/AnimeKaergsty1/5075",
-            "Latino":"https://t.me/AnimeKaergsty1/5078"
+        {
+            nombre: "Temporada 3",
+            imagen: "https://tu-url-de-github.com/imgK/kaguya_t3.webp", // Imagen específica T3
+            enlaces: {
+                "Japonés": "https://t.me/AnimeKaergsty1/5075",
+                "Latino": "https://t.me/AnimeKaergsty1/5078"
+            }
         },
-        "Especial":{
-            "Japones":"",
-            "Latino":""
+        {
+            nombre: "Especial",
+            imagen: "https://tu-url-de-github.com/imgK/kaguya_especial.webp",
+            enlaces: {
+                "Japonés": "",
+                "Latino": ""
+            }
         },
-        "Temporada 4":{
-            "Japonés":"https://t.me/AnimeKaergsty1/3828"
+        {
+            nombre: "Temporada 4",
+            imagen: "https://tu-url-de-github.com/imgK/kaguya_t4.webp",
+            enlaces: {
+                "Japonés": "https://t.me/AnimeKaergsty1/3828"
+            }
         }
-    }
+    ]
 };
 
 window.base["Kizoku Tensei Megumareta Umare kara Saikyou no Chikara wo Eru"] = {
