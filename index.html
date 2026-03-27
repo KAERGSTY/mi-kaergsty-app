@@ -174,9 +174,9 @@
             margin-bottom: 10px;
         }
         .punto { display: none; } /* Ocultamos el puntito de color */
-        .txt-emision { color: var(--color-acento); background: var(--bg-tarjeta); padding: 2px 8px; border-radius: 4px; font-size: 12px; font-weight: bold; }
-        .txt-finalizado { color: var(--texto-secundario); background: #3f3f46; padding: 2px 8px; border-radius: 4px; font-size: 12px; font-weight: bold; }
-        .txt-parado { color: #fbbf24; background: var(--bg-tarjeta); padding: 2px 8px; border-radius: 4px; font-size: 12px; font-weight: bold; }
+        .txt-emision { color: #22c55e; background: var(--bg-tarjeta); padding: 2px 8px; border-radius: 4px; font-size: 12px; font-weight: bold; }
+        .txt-finalizado { color: #ef4444; background: #3f3f46; padding: 2px 8px; border-radius: 4px; font-size: 12px; font-weight: bold; }
+        .txt-parado { color: #facc15; background: var(--bg-tarjeta); padding: 2px 8px; border-radius: 4px; font-size: 12px; font-weight: bold; }
         
         /* Géneros (Estilo TSX) */
         .generos { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 15px; }
@@ -288,6 +288,9 @@
             .titulo-anime {
                 font-size: 20px;
             }
+
+        
+
         }
     </style>
 </head>
@@ -673,24 +676,42 @@
 
         function mostrarI(nombre, t, seasonIndex) {
             const area = document.getElementById('area-botones');
-            const links = base[nombre].enlaces[t];
+            const anime = base[nombre];
+            
+            // DETECTOR DE ESTRUCTURA:
+            // Si el anime tiene el nuevo array de 'temporadas', saca los links de ahí usando el índice.
+            // Si no, usa la lógica antigua de 'enlaces[t]'.
+            let links;
+            if (anime.temporadas && seasonIndex !== undefined) {
+                links = anime.temporadas[seasonIndex].enlaces;
+            } else {
+                links = anime.enlaces ? anime.enlaces[t] : null;
+            }
+
+            if (!links) return; // Si no hay links, no hace nada
+
             area.innerHTML = `<span class="txt-guia">Idiomas - ${t}</span>`;
+            
             Object.keys(links).forEach((idioma, index) => {
                 const btn = document.createElement('button');
                 btn.className = 'btn-accion animar-entrada';
                 btn.style.animationDelay = `${index * 0.02}s`; 
                 btn.innerHTML = `▶ ${idioma}`;
                 btn.onclick = () => { 
-                    if (window.Telegram && window.Telegram.WebApp) { window.Telegram.WebApp.openTelegramLink(links[idioma]); } 
-                    else { window.open(links[idioma], '_blank'); } 
+                    if (window.Telegram && window.Telegram.WebApp) { 
+                        window.Telegram.WebApp.openTelegramLink(links[idioma]); 
+                    } else { 
+                        window.open(links[idioma], '_blank'); 
+                    } 
                 };
                 area.appendChild(btn);
             });
+
             const back = document.createElement('button');
             back.className = 'btn-v animar-entrada';
             back.innerText = "Atrás";
             back.onclick = () => {
-                // CORRECCIÓN: Restaurar la portada principal al volver a temporadas
+                // Al volver atrás, restauramos la portada principal
                 actualizarPosterDetalle(urlPortadaPrincipal);
                 mostrarT(nombre);
             };

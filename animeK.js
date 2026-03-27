@@ -938,7 +938,7 @@ window.base["Kaguya-sama"] = {
         },
         {
             nombre: "Temporada 3",
-            imagen: "https://tu-url-de-github.com/imgK/kaguya_t3.webp", // Imagen específica T3
+            imagen: "https://a.storyblok.com/f/178900/1721x2435/70bbb416b0/231d6304225941de4b88378de2602cc21634770687_main.jpg/m/filters:quality(95)format(webp)", // Imagen específica T3
             enlaces: {
                 "Japonés": "https://t.me/AnimeKaergsty1/5075",
                 "Latino": "https://t.me/AnimeKaergsty1/5078"
