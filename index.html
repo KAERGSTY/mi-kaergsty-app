@@ -5,6 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>AnimeKaergsty</title>
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    
     <style>
         /* === VARIABLES Y RESET (Estilo TSX) === */
         :root {
@@ -24,7 +26,7 @@
             min-height: 100vh;
             margin: 0;
             -webkit-font-smoothing: antialiased;
-            overscroll-behavior: none; /* Evita el rebote en móviles */
+            overscroll-behavior: none;
         }
         
         /* === VISTA CATÁLOGO === */
@@ -68,7 +70,6 @@
         #buscador::placeholder { color: #666; }
         #buscador:focus { border-color: var(--color-acento); }
 
-        /* Grid de 3 columnas para móviles (TSX) */
         .grid-animes { 
             display: grid; 
             grid-template-columns: repeat(3, 1fr); 
@@ -104,13 +105,11 @@
             text-overflow: ellipsis;
         }
         
-        .esqueleto {
-            background: #2a2a35;
-        }
+        .esqueleto { background: #2a2a35; }
         .img-oculta { opacity: 0; transition: opacity 0.3s ease; }
         .img-cargada { opacity: 1; }
         
-        /* === VISTA DETALLES (Diseño BottomSheet Optimizado) === */
+        /* === VISTA DETALLES === */
         #vista-detalles { 
             display: none; 
             min-height: 100vh; 
@@ -121,7 +120,7 @@
             background: var(--bg-principal);
         }
         
-        .bg-banner { display: none; } /* Eliminamos el blur pesado */
+        .bg-banner { display: none; }
         
         .layout-detalles {
             display: flex; 
@@ -131,32 +130,27 @@
             width: 100%;
         }
         
-        /* Póster optimizado en Vertical (TSX) para scroll completo */
         .img-lateral {
             width: 100vw; 
-            /* CORRECCIÓN: Aspect ratio flexible para que la imagen se adapte mejor al alto de pantalla */
             aspect-ratio: 2/3; 
-            max-height: 80vh; /* Permite ver la mayor parte de la imagen antes del scroll */
+            max-height: 80vh; 
             border-radius: 0; 
             margin: 0;
             overflow: hidden;
             flex: none;
-            /* Optimización de suavidad al deslizar */
             will-change: transform;
         }
         .img-lateral img { 
             width: 100%; 
             height: 100%; 
             object-fit: cover; 
-            transition: opacity 0.15s ease-in-out; /* Suavidad al cambiar por temporada */
+            transition: opacity 0.15s ease-in-out; 
         }
         
-        /* Panel superpuesto con bordes redondeados arriba - Sin margen negativo para scroll completo */
         .info-derecha { 
             width: 100%;
             background: var(--bg-principal);
             border-radius: 24px 24px 0 0;
-            /* CORRECCIÓN: Eliminado el margen negativo para que la imagen se vea completa antes del texto */
             margin-top: 0px; 
             padding: 20px;
             box-sizing: border-box;
@@ -168,75 +162,33 @@
         .header-info { display: flex; flex-direction: column; align-items: flex-start; gap: 10px; margin-bottom: 10px; }
         .titulo-anime { font-size: 24px; margin: 0; font-weight: bold; color: var(--texto-principal); }
         
-        /* Etiquetas de Estado (Estilo TSX) */
-        .estado-container {
-            display: flex; align-items: center; gap: 8px;
-            margin-bottom: 10px;
-        }
-        .punto { display: none; } /* Ocultamos el puntito de color */
+        .estado-container { display: flex; align-items: center; gap: 8px; margin-bottom: 10px; }
+        .punto { display: none; } 
         .txt-emision { color: #22c55e; background: var(--bg-tarjeta); padding: 2px 8px; border-radius: 4px; font-size: 12px; font-weight: bold; }
         .txt-finalizado { color: #ef4444; background: #3f3f46; padding: 2px 8px; border-radius: 4px; font-size: 12px; font-weight: bold; }
         .txt-parado { color: #facc15; background: var(--bg-tarjeta); padding: 2px 8px; border-radius: 4px; font-size: 12px; font-weight: bold; }
         
-        /* Géneros (Estilo TSX) */
         .generos { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 15px; }
         .tag { background: var(--bg-tarjeta); color: var(--texto-secundario); padding: 4px 10px; border-radius: 15px; font-size: 12px; }
         
-        /* Sinopsis minimalista */
         .contenedor-sinopsis-acciones { background: transparent; border: none; box-shadow: none; margin-bottom: 20px; }
         .caja-sinopsis { padding: 0; line-height: 20px; color: var(--texto-secundario); font-size: 14px; }
         .caja-sinopsis p { margin: 0; }
         
-        /* === BOTONES Y CAJAS DE ACCIÓN === */
         .centro-botones { display: flex; width: 100%; }
-        .caja-botones {
-            background: transparent;  
-            padding: 0; 
-            width: 100%; 
-            display: flex; 
-            flex-wrap: wrap;
-            gap: 10px;
-            box-shadow: none;
-            border: none;
-        }
+        .caja-botones { background: transparent; padding: 0; width: 100%; display: flex; flex-wrap: wrap; gap: 10px; box-shadow: none; border: none; }
         
         .txt-guia { color: var(--texto-principal); font-size: 18px; text-transform: none; text-align: left; margin-bottom: 5px; font-weight: bold; width: 100%; }
         
-        /* Botones principales (Morados tipo "Pill") */
-        .btn-accion {
-            background: var(--color-acento); 
-            color: var(--texto-principal); 
-            border: none; 
-            padding: 8px 16px; 
-            border-radius: 20px; 
-            font-weight: bold; 
-            font-size: 13px; 
-            cursor: pointer; 
-            transition: transform 0.2s;
-            display: inline-flex; 
-            justify-content: center; 
-            align-items: center;
-        }
-        
-        /* Botones secundarios (Grises tipo "Pill") */
+        .btn-accion { background: var(--color-acento); color: var(--texto-principal); border: none; padding: 8px 16px; border-radius: 20px; font-weight: bold; font-size: 13px; cursor: pointer; transition: transform 0.2s; display: inline-flex; justify-content: center; align-items: center; }
         .btn-v { background: var(--bg-tarjeta); color: var(--texto-secundario); border: none; padding: 8px 16px; border-radius: 20px; font-weight: normal; font-size: 13px; cursor: pointer; display: inline-flex; }
         .btn-comentarios { background: var(--bg-tarjeta); color: var(--texto-secundario); border: none; padding: 8px 16px; border-radius: 20px; font-weight: normal; font-size: 13px; cursor: pointer; display: inline-flex; width: 100%; justify-content: center; margin-top: 5px;}
         
-        /* CORRECCIÓN: Botón de Visto - Sin icono, puro texto */
-        .btn-visto-nube {
-            display: flex; align-items: center; justify-content: center;
-            background: var(--bg-tarjeta); border: none;
-            color: var(--texto-secundario); padding: 12px; border-radius: 8px; cursor: pointer; margin-bottom: 20px; width: 100%; font-size: 14px; font-weight: bold;
-            transition: background 0.2s, color 0.2s;
-        }
-        /* CORRECCIÓN: Eliminado estilo de icon-visto */
+        .btn-visto-nube { display: flex; align-items: center; justify-content: center; background: var(--bg-tarjeta); border: none; color: var(--texto-secundario); padding: 12px; border-radius: 8px; cursor: pointer; margin-bottom: 20px; width: 100%; font-size: 14px; font-weight: bold; transition: background 0.2s, color 0.2s; }
         .btn-visto-nube.visto-activo { background: rgba(139, 92, 246, 0.15); color: var(--color-acento); }
 
         .animar-entrada { opacity: 0; animation: entradaMinimalista 0.3s ease-out forwards; }
-        @keyframes entradaMinimalista {
-            0% { opacity: 0; transform: translateY(5px); }
-            100% { opacity: 1; transform: translateY(0); }
-        }
+        @keyframes entradaMinimalista { 0% { opacity: 0; transform: translateY(5px); } 100% { opacity: 1; transform: translateY(0); } }
         
         .nombres-opcionales { display: flex; flex-direction: column; gap: 2px; margin-bottom: 10px; font-size: 13px; color: #666; }
         .tag-idioma { font-style: italic; background: var(--bg-tarjeta); padding: 2px 8px; border-radius: 4px; }
@@ -245,7 +197,6 @@
         .btn-loading { opacity: 0.7; cursor: not-allowed; pointer-events: none; }
         .btn-secreto { position: fixed; bottom: 1px; right: 1px; font-size: 24px; opacity: 0.15; cursor: pointer; z-index: 99999; color: white; padding: 10px; }
 
-        /* Media Queries para pantallas más grandes (Tablets/PC) si lo abren fuera del móvil */
         @media (min-width: 768px) {
             .grid-animes { grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 20px; }
             .layout-detalles { flex-direction: row; padding: 20px; align-items: flex-start; gap: 30px; }
@@ -254,43 +205,13 @@
             .titulo-anime { font-size: 36px; }
         }
 
-        /* CORRECCIÓN: Diseño específico para cuando el teléfono se voltea (orientación landscape) */
         @media screen and (orientation: landscape) and (max-width: 900px) {
-            .layout-detalles {
-                flex-direction: row; /* Imagen a la izquierda, texto a la derecha */
-                align-items: flex-start;
-                gap: 15px;
-                padding: 10px;
-            }
-            .img-lateral {
-                width: 35%; /* Ocupa el 35% del ancho */
-                height: 100vh; /* Ocupa todo el alto de la pantalla */
-                aspect-ratio: auto;
-                border-radius: 0;
-                overflow: hidden;
-            }
-            .img-lateral img {
-                object-fit: cover;
-                height: 100%;
-            }
-            .info-derecha {
-                flex: 1; /* El texto ocupa el resto del espacio */
-                margin-top: 0;
-                padding: 10px;
-                background: transparent;
-                border-radius: 0;
-            }
-            .header-info {
-                flex-direction: row;
-                align-items: center;
-                gap: 15px;
-            }
-            .titulo-anime {
-                font-size: 20px;
-            }
-
-        
-
+            .layout-detalles { flex-direction: row; align-items: flex-start; gap: 15px; padding: 10px; }
+            .img-lateral { width: 35%; height: 100vh; aspect-ratio: auto; border-radius: 0; overflow: hidden; }
+            .img-lateral img { object-fit: cover; height: 100%; }
+            .info-derecha { flex: 1; margin-top: 0; padding: 10px; background: transparent; border-radius: 0; }
+            .header-info { flex-direction: row; align-items: center; gap: 15px; }
+            .titulo-anime { font-size: 20px; }
         }
     </style>
 </head>
@@ -321,9 +242,7 @@
                 </div>
                 
                 <div id="det-nombres-opcionales" class="nombres-opcionales"></div>
-                
                 <div id="det-estado" class="estado-container"></div>
-                
                 <div id="det-generos" class="generos"></div>
                 
                 <button id="btn-visto-nube" class="btn-visto-nube" onclick="toggleVisto()">
@@ -351,7 +270,7 @@
     <div id="disclaimer-modal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(12,12,15,0.95); z-index: 10000; padding: 25px; box-sizing: border-box; align-items: center; justify-content: center;">
         <div style="background: #18181b; border-radius: 12px; padding: 25px; color: #a1a1aa; font-size: 14px; max-width: 450px; line-height: 1.6;">
             <h3 style="color: #fff; margin-top: 0;">Aviso de Responsabilidad</h3>
-            <p>Esta aplicación funciona únicamente como una interfaz de organización y acceso a contenido alojado en servidores de terceros. <strong>AnimeKaergsty</strong> no almacena, sube, ni ola ningún archivo de video en servidores propios.</p>
+            <p>Esta aplicación funciona únicamente como una interfaz de organización y acceso a contenido alojado en servidores de terceros. <strong>AnimeKaergsty</strong> no almacena, sube, ni aloja ningún archivo de video en servidores propios.</p>
             <p style="font-size: 12px; color: #666;">Todo el contenido es propiedad de sus respectivos autores. Si usted es dueño de algún material y desea solicitar su retiro, por favor contáctenos a través de los canales oficiales.</p>
             <button id="close-disclaimer" style="background: #8b5cf6; color: white; border: none; padding: 12px; border-radius: 12px; width: 100%; cursor: pointer; font-weight: bold; margin-top: 10px;">Entendido</button>
         </div>
@@ -385,8 +304,14 @@
     <script src="animeY.js"></script>
     <script src="animeZ.js"></script>
     <script src="animeAA.js"></script>
+    <script src="animeTODO.js"></script>
 
     <script>
+        // CONFIGURACIÓN DE SUPABASE
+        const supabaseUrl = 'https://wecmeiunkgrkqysqshpi.supabase.co';
+        const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6IndlY21laXVua2dya3F5c3FzaHBpIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzQ2NzIyNTIsImV4cCI6MjA5MDI0ODI1Mn0.95lRk7OGA8YKrji8TOxXlbqbyLjhMh9r9QVUsmOLiKE';
+        const _supabase = window.supabase.createClient(supabaseUrl, supabaseKey);
+
         const tg = window.Telegram.WebApp;
         tg.ready();
         tg.expand();
@@ -395,20 +320,74 @@
             volverAlCatalogo();
         });
 
-        // CORRECCIÓN: Variable para restaurar la portada principal al volver
         let urlPortadaPrincipal = ""; 
-
         let itemsMostrados = 0;
         const itemsPorPagina = 24;
         let nombresBase = [];
         let nombresFiltrados = [];
         let timeoutBusqueda;
 
-        function cargar() {
+        // NUEVO: La función cargar ha sido blindada para evitar que se rompa por formatos de base de datos
+        async function cargar() {
             tg.BackButton.hide(); 
             const grid = document.getElementById('grid');
             grid.innerHTML = "";
             
+            // Nos aseguramos de que la base global exista
+            window.base = window.base || {};
+
+            // 1. CARGAMOS DEL ARCHIVO DE RESPALDO (animeTODO.js)
+            if (typeof animesTodo !== 'undefined') {
+                animesTodo.forEach(anime => {
+                    try {
+                        let generosParseados = typeof anime.generos === 'string' ? JSON.parse(anime.generos) : anime.generos;
+                        let temporadasParseadas = typeof anime.temporadas_data === 'string' ? JSON.parse(anime.temporadas_data) : anime.temporadas_data;
+                        
+                        base[anime.nombre] = {
+                            id: anime.id,
+                            sinopsis: anime.sinopsis,
+                            portada: anime.portada,
+                            estado: anime.estado,
+                            carpeta: anime.carpeta,
+                            generos: generosParseados || [],
+                            temporadas: temporadasParseadas || []
+                        };
+                    } catch(e) { console.error("Error al leer archivo de respaldo", e); }
+                });
+            }
+
+            // 2. CARGAMOS DESDE SUPABASE (En tiempo real)
+            try {
+                // Probamos conectar a la tabla animes (o AKnime por seguridad)
+                let { data: animesNuevos, error } = await _supabase.from('animes').select('*');
+                if (error) {
+                    const retry = await _supabase.from('AKnime').select('*');
+                    animesNuevos = retry.data;
+                }
+
+                if (animesNuevos) {
+                    animesNuevos.forEach(anime => {
+                        try {
+                            let generosParseados = typeof anime.generos === 'string' ? JSON.parse(anime.generos) : anime.generos;
+                            let temporadasParseadas = typeof anime.temporadas_data === 'string' ? JSON.parse(anime.temporadas_data) : anime.temporadas_data;
+                            
+                            base[anime.nombre] = {
+                                id: anime.id,
+                                sinopsis: anime.sinopsis,
+                                portada: anime.portada,
+                                estado: anime.estado,
+                                carpeta: anime.carpeta,
+                                generos: generosParseados || [],
+                                temporadas: temporadasParseadas || []
+                            };
+                        } catch(e) { console.error("Error conectando con anime:", anime.nombre); }
+                    });
+                }
+            } catch (e) {
+                console.error("Error cargando animes de Supabase:", e);
+            }
+
+            // Continuamos dibujando en pantalla
             let nombresInvertidos = Object.keys(base).reverse();
             
             nombresBase = nombresInvertidos.sort((a, b) => {
@@ -520,7 +499,6 @@
             let urlDinamica = `https://raw.githubusercontent.com/Kaergsty/mi-kaergsty-app/main/${carpetaDestino}/`;
             let imgUrl = anime.portada ? anime.portada : urlDinamica + encodeURIComponent(nombre) + ".webp";
             
-            // CORRECCIÓN: Guardamos la portada principal
             urlPortadaPrincipal = imgUrl; 
             document.getElementById('det-img').src = imgUrl;
             document.getElementById('det-titulo').innerText = nombre;
@@ -548,7 +526,7 @@
 
             const gens = document.getElementById('det-generos');
             gens.innerHTML = "";
-            if (anime.generos) { anime.generos.forEach(g => { gens.innerHTML += `<span class="tag">${g}</span>`; }); }
+            if (anime.generos && Array.isArray(anime.generos)) { anime.generos.forEach(g => { gens.innerHTML += `<span class="tag">${g}</span>`; }); }
 
             document.getElementById('vista-catalogo').style.display = 'none';
             document.getElementById('vista-detalles').style.display = 'flex';
@@ -595,7 +573,6 @@
 
         function actualizarUIBoton(estaVisto) {
             const btn = document.getElementById('btn-visto-nube');
-            // CORRECCIÓN: Eliminada referencia a imgIcono
             const textoVisto = document.getElementById('texto-visto-btn');
             if (!btn) return;
 
@@ -608,15 +585,12 @@
             }
         }
 
-        // CORRECCIÓN: Nueva función para cambiar el póster de forma suave
         function actualizarPosterDetalle(url) {
             const poster = document.getElementById('det-img');
             if (poster && url) {
-                // Pequeño fundido a negro antes de cambiar
                 poster.style.opacity = '0.3';
                 setTimeout(() => {
                     poster.src = url;
-                    // Restaurar opacidad cuando carga
                     poster.onload = () => { poster.style.opacity = '1'; };
                 }, 100);
             }
@@ -639,9 +613,6 @@
                         btn.onclick = () => {
                             if(tempData.imagen) {
                                 let urlFinal;
-                                // DETECTOR INTELIGENTE:
-                                // Si el texto empieza con "http", usa el link tal cual.
-                                // Si no, lo trata como archivo de GitHub y le pone ".webp"
                                 if(tempData.imagen.startsWith('http')) {
                                     urlFinal = tempData.imagen;
                                 } else {
@@ -655,9 +626,8 @@
                         };
                         area.appendChild(btn);
                     });
-            } else {
-                // Lógica antigua para 'enlaces' directos si no hay estructura de temporadas
-                Object.keys(base[nombre].enlaces).forEach((t, index) => {
+            } else if (anime.enlaces) {
+                Object.keys(anime.enlaces).forEach((t, index) => {
                     const btn = document.createElement('button');
                     btn.innerText = t;
                     btn.className = 'btn-accion animar-entrada';
@@ -678,9 +648,6 @@
             const area = document.getElementById('area-botones');
             const anime = base[nombre];
             
-            // DETECTOR DE ESTRUCTURA:
-            // Si el anime tiene el nuevo array de 'temporadas', saca los links de ahí usando el índice.
-            // Si no, usa la lógica antigua de 'enlaces[t]'.
             let links;
             if (anime.temporadas && seasonIndex !== undefined) {
                 links = anime.temporadas[seasonIndex].enlaces;
@@ -688,7 +655,7 @@
                 links = anime.enlaces ? anime.enlaces[t] : null;
             }
 
-            if (!links) return; // Si no hay links, no hace nada
+            if (!links) return; 
 
             area.innerHTML = `<span class="txt-guia">Idiomas - ${t}</span>`;
             
@@ -711,7 +678,6 @@
             back.className = 'btn-v animar-entrada';
             back.innerText = "Atrás";
             back.onclick = () => {
-                // Al volver atrás, restauramos la portada principal
                 actualizarPosterDetalle(urlPortadaPrincipal);
                 mostrarT(nombre);
             };
