@@ -25,41 +25,65 @@ window.base["Dandadan"] = {
 };
 
 window.base["Dr Stone"] = {
+    id:"1",
     carpeta: "imgD",
     nombresAlternativos: { 
         "Japonés": "ドクターストーン", 
         "Ingles": "Dr. Stone" 
     },
     sinopsis: "Senku usa el poder de la ciencia para reconstruir el mundo tras una petrificación global.",
-    id:"1",
     generos: ["Riichiro Inagaki","Shounen","Ciencia Ficción", "Aventura"],
     estado: "Pausado",
-    enlaces: { 
-        "Temporada 1": { 
-            "Japonés": "LINK_AQUÍ",
-            "Latino":"LINK_AQUÍ"
+    temporadas:[
+        {
+            nombre:"Dr:Stone T1",
+            imagen:"Dr Stone",
+            enlaces:{
+                "Japonés":"https://t.me/AnimeKaergsty1/5626",
+                "Latino":"https://t.me/AnimeKaergsty1/5634"
+            }
         },
-        "Temporada 2": { 
-            "Japonés": "LINK_AQUÍ",
-            "Latino":"LINK_AQUÍ"
+        {
+            nombre:"Dr. Stone: Stone Wars T2",
+            imagen:"https://a.storyblok.com/f/178900/1064x1596/488e0ef189/cfb70e3db383dd7a3e1f225a4c1c973d1605534266_main.jpg/m/filters:quality(95)format(webp)",
+            enlaces:{
+                "Japonés":"https://t.me/AnimeKaergsty1/5628",
+                "Latino":"https://t.me/AnimeKaergsty1/5636"
+            }
         },
-        "Episodio Especial": { 
-            "Japonés": "LINK_AQUÍ",
-            "Latino":"LINK_AQUÍ"
+        {
+            nombre:"Dr. Stone: Ryusui Especial",
+            imagen:"https://static.wikia.nocookie.net/doblaje/images/f/f1/Dr_StoneR_-_Poster.png/revision/latest?cb=20220831230044&path-prefix=es",
+            enlaces:{
+                "Japonés":"https://t.me/AnimeKaergsty1/5632",
+                "Latino":"https://t.me/AnimeKaergsty1/5642"
+            }
         },
-        "Temporada 3": { 
-            "Japonés": "LINK_AQUÍ",
-            "Latino":"LINK_AQUÍ"
+        {
+            nombre:"Dr. Stone: New World T3",
+            imagen:"https://preview.redd.it/dr-stone-new-world-new-key-visual-v0-27k0sx78x7qb1.jpg?auto=webp&s=759a2918899604bfbf70f8b9857212e3aaf602a9",
+            enlaces:{
+                "Japonés":"https://t.me/AnimeKaergsty1/5630",
+                "Latino":"https://t.me/AnimeKaergsty1/5640"
+            }
         },
-        "Temporada 4": { 
-            "Japonés": "https://t.me/AnimeKaergsty1/1933",
-            "Latino":"https://t.me/AnimeKaergsty1/1935"
+        {
+            nombre:"Dr. Stone: Science Future T4",
+            imagen:"https://a.storyblok.com/f/178900/960x1357/d42021c586/dr-stone-science-future-kv.jpeg/m/filters:quality(95)format(webp)",
+            enlaces:{
+                "Japonés":"https://t.me/AnimeKaergsty1/1933",
+                "Latino":"https://t.me/AnimeKaergsty1/1935"
+            }
         },
-        "Temporada 5": { 
-            "Japonés": "https://t.me/AnimeKaergsty1/5390",
-            "Latino":"https://t.me/AnimeKaergsty1/5392"
+        {
+            nombre:"Dr.Stone:Science Future Part 2 T5",
+            imagen:"https://instagram.flim38-1.fna.fbcdn.net/v/t51.82787-15/642553582_18035003900785376_2664579878979632427_n.jpg?stp=dst-jpg_e35_tt6&_nc_cat=105&ig_cache_key=Mzg0NjgzMjE0MzkyMjc2NTk5Mg%3D%3D.3-ccb7-5&ccb=7-5&_nc_sid=58cdad&efg=eyJ2ZW5jb2RlX3RhZyI6InhwaWRzLjEwODB4MTM1MC5zZHIuQzMifQ%3D%3D&_nc_ohc=sPBW1NsknqQQ7kNvwG1eaQd&_nc_oc=AdrlVKLgnjBqKD2j6H0sLWiPMMYjho3tr1gS_YBM7_OJDSmyy4f4ySvFq2Uk8Waa14A&_nc_ad=z-m&_nc_cid=0&_nc_zt=23&_nc_ht=instagram.flim38-1.fna&_nc_gid=6g9Gw6D5wMixCG5B7ErJOA&_nc_ss=7a32e&oh=00_AfzFjPLnFCOgJ4D6Y_pEVUSwc3G_c3KP9GkLdQJN0Tvlsw&oe=69CDFC2E",
+            enlaces:{
+                "Japonés":"https://t.me/AnimeKaergsty1/5390",
+                "Latino":"https://t.me/AnimeKaergsty1/5392"
+            }
         }
-    }
+    ] 
 };
 
 window.base["Dragon Raja"] = {
