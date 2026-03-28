@@ -1,11 +1,11 @@
 const { createClient } = require('@supabase/supabase-js');
 const { Telegraf } = require('telegraf');
 
-// Configuración de llaves (Usa tus variables de entorno en Render)
+// Configuración de llaves
 const supabase = createClient(process.env.SUPABASE_URL, process.env.SUPABASE_KEY);
 const bot = new Telegraf(process.env.BOT_TOKEN);
 
-bot.start((ctx) => ctx.reply('¡Panel Kaergsty Activo!\n\nComandos:\n1. /subir (Crear anime)\n2. /temp (Añadir temporada/links)\n3. /nombres (Añadir nombres alternativos)'));
+bot.start((ctx) => ctx.reply('¡Panel Kaergsty Activo!\n\nComandos:\n1. /subir (Crear anime)\n2. /temp (Añadir temporadas e idiomas)\n3. /editar (Editar portada, estado, etc.)\n4. /nombres (Añadir nombres alternativos)'));
 
 // 1. CREAR ANIME (EL CASCARÓN)
 bot.command('subir', async (ctx) => {
@@ -35,7 +35,7 @@ bot.command('subir', async (ctx) => {
     ctx.reply(`✅ ¡${nombre} creado! Ahora usa /temp para añadir los capítulos.`);
 });
 
-// 2. AÑADIR TEMPORADA E IDIOMAS
+// 2. AÑADIR TEMPORADA E IDIOMAS (CON IMAGEN DE TEMPORADA)
 bot.command('temp', async (ctx) => {
     const texto = ctx.message.text.replace('/temp ', '');
     const partes = texto.split('|').map(p => p.trim());
@@ -46,7 +46,6 @@ bot.command('temp', async (ctx) => {
 
     const [animeBusqueda, nombreTemp, imgTemp, linksStr] = partes;
 
-    // Convertir linksStr (Idioma:Link, Idioma:Link) a objeto JS
     const enlacesObj = {};
     linksStr.split(',').forEach(par => {
         const [idioma, url] = par.split(':').map(i => i.trim());
@@ -79,7 +78,29 @@ bot.command('temp', async (ctx) => {
     ctx.reply(`✅ Temporada "${nombreTemp}" añadida a ${animeBusqueda} con sus idiomas.`);
 });
 
-// 3. AÑADIR NOMBRES ALTERNATIVOS
+// 3. EDITAR ANIME EXISTENTE (EL MAESTRO)
+bot.command('editar', async (ctx) => {
+    const texto = ctx.message.text.replace('/editar ', '');
+    const partes = texto.split('|').map(p => p.trim());
+
+    if (partes.length < 3) {
+        return ctx.reply('❌ Usa: /editar NombreAnime | Campo | NuevoValor\n\nEjemplos:\n/editar Dragon Ball | portada | https://nueva-portada.jpg\n/editar Dragon Ball | estado | Finalizado');
+    }
+
+    const [animeBusqueda, campo, nuevoValor] = partes;
+    const updateObj = {};
+    updateObj[campo] = nuevoValor; // Esto es magia de JS para crear { "portada": "valor" } dinámicamente
+
+    const { error } = await supabase
+        .from('AKnime')
+        .update(updateObj)
+        .eq('nombre', animeBusqueda);
+
+    if (error) return ctx.reply('❌ Error: ' + error.message);
+    ctx.reply(`✅ ¡Campo "${campo}" actualizado para ${animeBusqueda}! Cierra y abre la app en tu celular para ver el cambio.`);
+});
+
+// 4. AÑADIR NOMBRES ALTERNATIVOS
 bot.command('nombres', async (ctx) => {
     const texto = ctx.message.text.replace('/nombres ', '');
     const partes = texto.split('|').map(p => p.trim());
@@ -112,3 +133,4 @@ bot.command('respaldo', async (ctx) => {
 });
 
 bot.launch();
+console.log("Bot Administrador Kaergsty funcionando...");
