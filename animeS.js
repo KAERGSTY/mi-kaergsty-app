@@ -1006,6 +1006,7 @@ window.base["Saikyou no Shokugyou wa Yuusha demo Kenja demo naku Kanteishi (Kari
 };
 
 window.base["Shunkashuutou Daikousha Haru no Mai"] = {
+    id:"1",
     carpeta: "imgS",
     nombresAlternativos: {
         "Japonés": "春夏秋冬代行者 春の舞",
