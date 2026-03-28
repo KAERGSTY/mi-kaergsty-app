@@ -31,7 +31,7 @@ window.base["Dr Stone"] = {
         "Japonés": "ドクターストーン", 
         "Ingles": "Dr. Stone" 
     },
-    sinopsis: "Senku usa el poder de la ciencia para reconstruir el mundo tras una petrificación global.",
+    sinopsis: "Senku es un joven extremadamente inteligente con un gran don para la ciencia y una ácida personalidad, y su mejor amigo es Taiju, que es muy buena persona pero más apto para usar los músculos que para pensar. Cuando tras cierto incidente toda la humanidad acaba convertida en piedra, ellos logran despertarse en un mundo miles de años después, con la civilización humana completamente desaparecida y con toda la humanidad congelada en piedra como ellos estuvieron. Ahora es su obligación rescatar a la gente y crear un nuevo mundo.",
     generos: ["Riichiro Inagaki","Shounen","Ciencia Ficción", "Aventura"],
     estado: "Pausado",
     temporadas:[
