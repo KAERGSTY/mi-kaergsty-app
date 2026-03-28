@@ -1004,3 +1004,25 @@ window.base["Saikyou no Shokugyou wa Yuusha demo Kenja demo naku Kanteishi (Kari
         }
     }
 };
+
+window.base["Shunkashuutou Daikousha Haru no Mai"] = {
+    carpeta: "imgS",
+    nombresAlternativos: {
+        "Japonés": "春夏秋冬代行者 春の舞",
+        "Ingles": "Agents of the Four Seasons: Dance of Spring"
+    },
+    sinopsis: "El invierno fue una vez la única estación en el mundo, pero tal existencia era demasiado solitaria para soportar, así que creó la primavera para amar. No pasó mucho tiempo antes de que la tierra deseara más tiempo para descansar en el ciclo, y así nacieron el verano y el otoño. Aquellos que llevan el ciclo son llamados los Agentes de las Cuatro Estaciones. Hinagiku, la Agente de la Primavera, desapareció de esta tierra hace diez años, llevándose consigo la estación de la primavera. Ahora, después de increíbles dificultades, ha regresado para restaurar el ciclo a su estado adecuado, y, como en el mito que se ha transmitido desde el amanecer de los tiempos, envía su amor al invierno.",
+    id:"1",
+    estado: "En emisión",
+    generos: ["	Kana Akatsuki", "Drama","Fantasía","Romance"],
+    temporadas: [
+            {
+            nombre: "Temporada 1",
+            imagen:"https://ramenparados.com/wp-content/uploads/2026/02/ShunkashuutouDaikousha_kv02-725x1024.jpg",
+            enlaces:{
+                "Japones":"https://t.me/AnimeKaergsty1/5585"
+            }
+            
+        }
+    ]
+};
