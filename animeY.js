@@ -395,9 +395,13 @@ window.base["Yomi no Tsugai"] = {
     id:"1",
     estado: "Pausado",
     generos: ["Hiromu Arakawa","Aventura","Sobrenatural"],
-    enlaces: {
-        "Temporada 1": {
-            "Japonés": "https://t.me/AnimeKaergsty1/5386"
+    temporadas: [
+        {
+            nombre: "Temporada 1",
+            imagen: "https://scontent.flim28-1.fna.fbcdn.net/v/t39.30808-6/515395996_1146387287533691_3062325148361450539_n.jpg?_nc_cat=107&ccb=1-7&_nc_sid=13d280&_nc_eui2=AeHs3Q6KAJBuOwAoWG2NBKW6z63SG36MkbLPrdIbfoyRsgmNLaTHXyQHiVM0WM0rj24L96DJQaBJ15pbxrFbOPpe&_nc_ohc=YQu4lmOw0rcQ7kNvwEWs12g&_nc_oc=AdoagRf2RKJtHTd4jayOzGRLhipAwf7J70fnn4YUdB0Rg_vJ5pd-5DIFIJDDZNNmmVU&_nc_zt=23&_nc_ht=scontent.flim28-1.fna&_nc_gid=SB5EOvpyplDJ3RoxoyUfjw&_nc_ss=7a32e&oh=00_AfzaPCxebRCJnWgWaSNuedqPPt-kIPCfCBBKixWFPm_h5Q&oe=69CCD916",
+            enlaces: {
+                "Japonés":"https://t.me/AnimeKaergsty1/5386"
+            }
         }
-    }
+    ]
 };

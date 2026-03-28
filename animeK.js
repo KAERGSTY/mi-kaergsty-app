@@ -916,7 +916,7 @@ window.base["Kaguya-sama"] = {
     },
     sinopsis: "El presidente del consejo estudiantil, Miyuki Shirogane, y la vicepresidenta, Kaguya Shinomiya, están enamorados. Sin embargo, su orgullo les impide confesarlo, dando inicio a una guerra psicológica donde el primero en declararse pierde.",
     estado: "Finalizado",
-    generos: ["Comedia", "Romance", "Escolar"],
+    generos: ["Comedia","Drama","Escolares","Romance","Seinen"],
     
     // CAMBIO CLAVE: Usamos un array de temporadas en lugar de un objeto de enlaces
     temporadas: [
@@ -945,16 +945,16 @@ window.base["Kaguya-sama"] = {
             }
         },
         {
-            nombre: "Especial",
-            imagen: "https://tu-url-de-github.com/imgK/kaguya_especial.webp",
+            nombre: "Kaguya-sama wa Kokurasetai First Kiss wa Owaranai",
+            imagen: "https://a.storyblok.com/f/178900/1074x1504/5ba6a569e5/kaguya-sama-love-is-war-the-first-kiss-that-never-ends.jpg/m/filters:quality(95)format(webp)",
             enlaces: {
-                "Japonés": "",
-                "Latino": ""
+                "Japonés": "https://t.me/AnimeKaergsty1/5501",
+                "Latino": "https://t.me/AnimeKaergsty1/5503"
             }
         },
         {
-            nombre: "Temporada 4",
-            imagen: "https://tu-url-de-github.com/imgK/kaguya_t4.webp",
+            nombre: "Kaguya-sama wa Kokurasetai Otona e no Kaidan",
+            imagen: "https://m.media-amazon.com/images/M/MV5BMjE3OTAyZTAtNmUxNy00ZjA0LTgzZGEtZjYwMjk3NzNjYTdmXkEyXkFqcGc@._V1_FMjpg_UX1000_.jpg",
             enlaces: {
                 "Japonés": "https://t.me/AnimeKaergsty1/3828"
             }
