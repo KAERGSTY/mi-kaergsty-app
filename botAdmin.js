@@ -1,136 +1,74 @@
 const { createClient } = require('@supabase/supabase-js');
 const { Telegraf } = require('telegraf');
+const express = require('express'); // Añadimos esto para que Render no lo apague
 
-// Configuración de llaves
+// Configuración
 const supabase = createClient(process.env.SUPABASE_URL, process.env.SUPABASE_KEY);
 const bot = new Telegraf(process.env.BOT_TOKEN);
 
-bot.start((ctx) => ctx.reply('¡Panel Kaergsty Activo!\n\nComandos:\n1. /subir (Crear anime)\n2. /temp (Añadir temporadas e idiomas)\n3. /editar (Editar portada, estado, etc.)\n4. /nombres (Añadir nombres alternativos)'));
+// --- SERVIDOR PARA RENDER (Soporte Vital) ---
+const app = express();
+app.get('/', (req, res) => res.send('Bot Kaergsty está Vivo! ✅'));
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => console.log(`Servidor de vida activo en puerto ${PORT}`));
 
-// 1. CREAR ANIME (EL CASCARÓN)
-bot.command('subir', async (ctx) => {
-    const texto = ctx.message.text.replace('/subir ', '');
-    const partes = texto.split('|').map(p => p.trim());
+// --- COMANDOS DEL BOT ---
+bot.start((ctx) => ctx.reply('¡Panel Kaergsty Activo!\n\n1. /subir (Crear)\n2. /temp (Temporadas/Idiomas)\n3. /editar (Corregir)\n4. /nombres (Nombres alternos)'));
 
-    if (partes.length < 6) {
-        return ctx.reply('❌ Usa: /subir Nombre | Sinopsis | Portada | Estado | Carpeta | Géneros');
-    }
-
-    const [nombre, sinopsis, portada, estado, carpeta, generosStr] = partes;
-    const generosArray = generosStr.split(',').map(g => g.trim());
-
-    const { error } = await supabase
-        .from('AKnime')
-        .insert([{ 
-            nombre, 
-            sinopsis, 
-            portada, 
-            estado, 
-            carpeta, 
-            generos: generosArray,
-            temporadas_data: [] 
-        }]);
-
-    if (error) return ctx.reply('❌ Error: ' + error.message);
-    ctx.reply(`✅ ¡${nombre} creado! Ahora usa /temp para añadir los capítulos.`);
-});
-
-// 2. AÑADIR TEMPORADA E IDIOMAS (CON IMAGEN DE TEMPORADA)
-bot.command('temp', async (ctx) => {
-    const texto = ctx.message.text.replace('/temp ', '');
-    const partes = texto.split('|').map(p => p.trim());
-
-    if (partes.length < 4) {
-        return ctx.reply('❌ Usa: /temp NombreAnime | NombreTemporada | URL_Imagen_Temp | Idioma1:Link1, Idioma2:Link2');
-    }
-
-    const [animeBusqueda, nombreTemp, imgTemp, linksStr] = partes;
-
-    const enlacesObj = {};
-    linksStr.split(',').forEach(par => {
-        const [idioma, url] = par.split(':').map(i => i.trim());
-        if(idioma && url) enlacesObj[idioma] = url;
-    });
-
-    // 1. Buscar el anime actual
-    const { data: anime, error: errFetch } = await supabase
-        .from('AKnime')
-        .select('*')
-        .eq('nombre', animeBusqueda)
-        .single();
-
-    if (errFetch || !anime) return ctx.reply('❌ No encontré el anime: ' + animeBusqueda);
-
-    // 2. Actualizar el array de temporadas
-    const nuevasTemporadas = anime.temporadas_data || [];
-    nuevasTemporadas.push({
-        nombre: nombreTemp,
-        imagen: imgTemp,
-        enlaces: enlacesObj
-    });
-
-    const { error: errUpd } = await supabase
-        .from('AKnime')
-        .update({ temporadas_data: nuevasTemporadas })
-        .eq('id', anime.id);
-
-    if (errUpd) return ctx.reply('❌ Error al actualizar: ' + errUpd.message);
-    ctx.reply(`✅ Temporada "${nombreTemp}" añadida a ${animeBusqueda} con sus idiomas.`);
-});
-
-// 3. EDITAR ANIME EXISTENTE (EL MAESTRO)
+// COMANDO EDITAR (Para tu portada)
 bot.command('editar', async (ctx) => {
     const texto = ctx.message.text.replace('/editar ', '');
     const partes = texto.split('|').map(p => p.trim());
+    if (partes.length < 3) return ctx.reply('❌ Usa: /editar Nombre | campo | nuevo_valor');
 
-    if (partes.length < 3) {
-        return ctx.reply('❌ Usa: /editar NombreAnime | Campo | NuevoValor\n\nEjemplos:\n/editar Dragon Ball | portada | https://nueva-portada.jpg\n/editar Dragon Ball | estado | Finalizado');
-    }
-
-    const [animeBusqueda, campo, nuevoValor] = partes;
-    const updateObj = {};
-    updateObj[campo] = nuevoValor; // Esto es magia de JS para crear { "portada": "valor" } dinámicamente
-
-    const { error } = await supabase
-        .from('AKnime')
-        .update(updateObj)
-        .eq('nombre', animeBusqueda);
+    const [nombre, campo, valor] = partes;
+    const { error } = await supabase.from('AKnime').update({ [campo]: valor }).eq('nombre', nombre);
 
     if (error) return ctx.reply('❌ Error: ' + error.message);
-    ctx.reply(`✅ ¡Campo "${campo}" actualizado para ${animeBusqueda}! Cierra y abre la app en tu celular para ver el cambio.`);
+    ctx.reply(`✅ Actualizado: ${campo} de ${nombre}.`);
 });
 
-// 4. AÑADIR NOMBRES ALTERNATIVOS
+// COMANDO NOMBRES
 bot.command('nombres', async (ctx) => {
     const texto = ctx.message.text.replace('/nombres ', '');
     const partes = texto.split('|').map(p => p.trim());
+    if (partes.length < 2) return ctx.reply('❌ Usa: /nombres Nombre | Japones:..., Ingles:... ');
 
-    if (partes.length < 2) {
-        return ctx.reply('❌ Usa: /nombres NombreAnime | Japones:Texto, Ingles:Texto');
-    }
-
-    const [animeBusqueda, nombresStr] = partes;
+    const [nombre, nombresStr] = partes;
     const nombresObj = {};
-    nombresStr.split(',').forEach(par => {
-        const [idioma, valor] = par.split(':').map(i => i.trim());
-        if(idioma && valor) nombresObj[idioma] = valor;
+    nombresStr.split(',').forEach(p => {
+        const [k, v] = p.split(':').map(i => i.trim());
+        if(k && v) nombresObj[k] = v;
     });
 
-    const { error } = await supabase
-        .from('AKnime')
-        .update({ nombresAlternativos: nombresObj })
-        .eq('nombre', animeBusqueda);
-
+    const { error } = await supabase.from('AKnime').update({ nombresAlternativos: nombresObj }).eq('nombre', nombre);
     if (error) return ctx.reply('❌ Error: ' + error.message);
-    ctx.reply(`✅ Nombres alternativos actualizados para ${animeBusqueda}.`);
+    ctx.reply(`✅ Nombres actualizados para ${nombre}.`);
 });
 
-bot.command('respaldo', async (ctx) => {
-    const { data, error } = await supabase.from('AKnime').select('*');
+// COMANDO TEMPORADAS
+bot.command('temp', async (ctx) => {
+    const texto = ctx.message.text.replace('/temp ', '');
+    const partes = texto.split('|').map(p => p.trim());
+    if (partes.length < 4) return ctx.reply('❌ Usa: /temp Nombre | TempX | Imagen | Idioma:Link');
+
+    const [nombre, nTemp, img, links] = partes;
+    const linksObj = {};
+    links.split(',').forEach(p => {
+        const [idi, url] = p.split(':').map(i => i.trim());
+        if(idi && url) linksObj[idi] = url;
+    });
+
+    const { data: anime } = await supabase.from('AKnime').select('*').eq('nombre', nombre).single();
+    if (!anime) return ctx.reply('❌ No existe ese anime.');
+
+    const temps = anime.temporadas_data || [];
+    temps.push({ nombre: nTemp, imagen: img, enlaces: linksObj });
+
+    const { error } = await supabase.from('AKnime').update({ temporadas_data: temps }).eq('id', anime.id);
     if (error) return ctx.reply('❌ Error: ' + error.message);
-    const contenidoJS = `const animesTodo = ${JSON.stringify(data, null, 2)};`;
-    ctx.replyWithDocument({ source: Buffer.from(contenidoJS), filename: 'animeTODO.js' });
+    ctx.reply(`✅ Temporada añadida a ${nombre}.`);
 });
 
 bot.launch();
-console.log("Bot Administrador Kaergsty funcionando...");
+console.log("Bot arrancado...");
