@@ -114,11 +114,24 @@ window.base = {
                 sinopsis: "Nio, un joven que anhela un mundo mejor, se une a los fundadores del Shinsengumi para luchar por la justicia en el violento Kioto de finales de la era Edo.",
                 generos: ["Acción", "Histórico", "Shounen"],
                 estado: "Finalizado",
-                enlaces: {
-                    "Temporada 1": {
-                        "Japonés": "https://t.me/TuCanal/LINK"
+                temporadas :[
+                    {
+                        nombre:"Temporada 1",
+                        imagen:"https://a.storyblok.com/f/178900/960x1279/3fc955fb32/blue-miburo1.jpg/m/filters:quality(95)format(webp)",
+                        enlaces:{
+                            "Japonés":"https://t.me/AnimeKaergsty1/5598"
+                        },
+                    },
+                    {
+                        nombre:"Temporada 2",
+                        imagen:"https://instagram.flim33-1.fna.fbcdn.net/v/t39.30808-6/535966639_1098892145692919_1090236246488203149_n.jpg?stp=dst-jpg_e35_tt6&_nc_cat=111&ig_cache_key=MzcwMjg3OTg3ODM1NDEwMjY0Nw%3D%3D.3-ccb7-5&ccb=7-5&_nc_sid=58cdad&efg=eyJ2ZW5jb2RlX3RhZyI6InhwaWRzLjEyMDB4MTUwMC5zZHIuQzMifQ%3D%3D&_nc_ohc=YTolvnQtt5QQ7kNvwF8whYk&_nc_oc=AdqMdyJ0yUVvaj5j2RLxEtImveeYg8Y8oA_WatIVlRtOeKcvpm-41_WfJCWXHynC6d8&_nc_ad=z-m&_nc_cid=0&_nc_zt=23&_nc_ht=instagram.flim33-1.fna&_nc_gid=4gjzeQcSXEZhXF716UmRGw&_nc_ss=7a32e&oh=00_AfxRfVGJ61rvChUgcnKwbtNXYT_Wph0SxIiSl90YpPTlVw&oe=69CDF83A",
+                        enlaces:{
+                            "Japonés":"hhttps://t.me/AnimeKaergsty1/3742"
+                        }
+            
                     }
-                }
+
+                ]
             },
             "Ame to Kimi to": {
                 nombresAlternativos: {

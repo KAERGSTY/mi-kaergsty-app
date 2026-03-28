@@ -41,7 +41,7 @@ window.base["Fate strange Fake"] = {
     generos: ["Acción", "Fantasía", "Magia"],
     estado: "Finalizado",
     enlaces: {
-        "Especial": {
+        "Especial+13CAP": {
             "Japonés": "https://t.me/Kaergsty/2/34775"
         }
     }
